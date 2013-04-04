@@ -11,6 +11,7 @@ A biblioteca PagSeguro em PHP é um conjunto de classes de domínio que facilitam,
 	- Criar requisições de pagamentos
 	- Consultar transações por código
 	- Consultar transações por intervalo de datas
+	- Consultar transações abandonadas
 	- Receber notificações
 
 

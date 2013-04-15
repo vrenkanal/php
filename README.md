@@ -46,6 +46,12 @@ Para fazer uso real da biblioteca é preciso fazer algumas configurações no ar
 Changelog
 ---------
 ---
+2.1.5
+
+ - Adicionado: Funcionalidade de envio de url de notificação via requisição de checkout.
+ - Adicionado: Novas funcionalidades para tratamento de dados no helper.
+ - Correção: Tratamento de duplo espaço no sender name da requisição de checkout.
+ 
 2.1.4
 
  - Adicionado: Classe para manipulação de moedas permitidas nas transações com o PagSeguro.

@@ -42,6 +42,8 @@ Para fazer uso real da biblioteca é preciso fazer algumas configurações no ar
  - **log**: ativa/desativa a geração de logs.
  - **fileLocation**: local onde se deseja criar o arquivo de log. Ex.: /logs/ps.log.
 
+Mais informações estão disponíveis na [documentação oficial].
+
 
 Changelog
 ---------
@@ -60,7 +62,7 @@ Changelog
 
  - Correção: A requisição era abortada se a geração de log estivesse ativa e o usuário não possuisse arquivo para geração de log nem permissão de escrita e leitura para o arquivo.
 
-2.0.0 - v2.1.2
+2.0.0 - 2.1.2
 
  - Classes de domínios que representam pagamentos, notificações e transações.
  - Criação de checkouts via API.
@@ -92,7 +94,7 @@ Notas
 [Dúvidas?]
 ----------
 ---
-Mande um [e-mail] ou acesse o [fórum] de discussões.
+Em caso de dúvidas mande um e-mail para desenvolvedores@pagseguro.com.br
 
 
 Contribuições
@@ -110,11 +112,10 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
   [transações por código]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-codigo.html
   [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
   [transações abandonadas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-abandonadas.html
-  [e-mail]: <mailto:desenvolvedores@pagseguro.com.br>
-  [fórum]: http://forum.imasters.com.br/forum/244-gateways-e-meios-de-pagamento-online-pagseguro
   [Dúvidas?]: https://pagseguro.uol.com.br/desenvolvedor/comunidade.jhtml
   [PHP]: http://www.php.net/
   [SPL]: http://php.net/manual/en/book.spl.php
   [cURL]: http://php.net/manual/en/book.curl.php
   [DOM]: http://php.net/manual/en/book.dom.php
   [GitHub]: https://github.com/pagseguro/php/
+  [documentação oficial]: https://pagseguro.uol.com.br/v2/guia-de-integracao/tutorial-da-biblioteca-pagseguro-em-php.html

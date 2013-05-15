@@ -94,7 +94,7 @@ class PagSeguroPaymentRequest  {
      * Party that will be sending the Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
      * money
      */
-	public function getSender() {
+    public function getSender() {
         return $this->sender;
     }
 
@@ -232,6 +232,11 @@ class PagSeguroPaymentRequest  {
         }
     }
 
+    public function addSenderDocument($type, $value){
+        if ($this->getSender() instanceof PagSeguroSender){
+            $this->getSender()->addDocument($type, $value);
+        }
+    }
     /**
      * Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
      * Typically this is a confirmation page on your web site.
@@ -457,16 +462,16 @@ class PagSeguroPaymentRequest  {
      * @return The URL to where the user needs to be redirected to in order to complete the payment process
      */
     public function register(PagSeguroCredentials $credentials) {
-		return PagSeguroPaymentService::createCheckoutRequest($credentials, $this);
+        return PagSeguroPaymentService::createCheckoutRequest($credentials, $this);
     }
 	
 	/**
     * @return a string that represents the current object
     */
-	public function toString(){
-		$email = $this->sender ? $this->sender->getEmail() : "null";
-		return "PagSeguroPaymentRequest(Reference=".$this->reference.",     SenderEmail=".$email.")";
-	}
+    public function toString(){
+        $email = $this->sender ? $this->sender->getEmail() : "null";
+        return "PagSeguroPaymentRequest(Reference=".$this->reference.",     SenderEmail=".$email.")";
+    }
 	
 	
 }

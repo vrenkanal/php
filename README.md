@@ -48,6 +48,10 @@ Mais informações estão disponíveis na [documentação oficial].
 Changelog
 ---------
 ---
+2.1.6
+
+ - Adicionado: Classe de domínio para representar documentos do comprador.
+
 2.1.5
 
  - Adicionado: Funcionalidade de envio de url de notificação via requisição de checkout.

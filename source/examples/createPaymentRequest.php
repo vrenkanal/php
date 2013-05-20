@@ -51,7 +51,7 @@ class createPaymentRequest {
         $paymentRequest->setSender('João Comprador', 'comprador@s2it.com.br', '11', '56273440');
 
         // Add a document data for Sender
-        $paymentRequest->addSenderDocument('CPF', '012.345.678-90');
+        $paymentRequest->addSenderDocument('28538632396', 'CPF');
 
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
 

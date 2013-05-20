@@ -58,11 +58,11 @@ class PagSeguroPaymentMethodCode {
         /**
          * PLENOCard
          */
-        'PLENO_CREDIT_CARD' => 108,
+        'PLENOCARD_CREDIT_CARD' => 108,
         /**
          * PersonalCard
          */
-        'PERSONAL_CREDIT_CARD' => 109,
+        'PERSONALCARD_CREDIT_CARD' => 109,
         /**
          * JCB
          */
@@ -74,7 +74,7 @@ class PagSeguroPaymentMethodCode {
         /**
          * BrasilCard
          */
-        'BRASIL_CREDIT_CARD' => 112,
+        'BRASILCARD_CREDIT_CARD' => 112,
         /**
          * FORTBRASIL
          */

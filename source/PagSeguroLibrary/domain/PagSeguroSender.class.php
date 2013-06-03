@@ -37,6 +37,7 @@ class PagSeguroSender {
 
     /** Sender documents */
     private $documents;
+    
     /**
      * Initializes a new instance of the Sender class
      * 
@@ -134,10 +135,10 @@ class PagSeguroSender {
     public function setDocuments(Array $documents){
         if (count($documents)>0){
             foreach ($documents as $document){
-                if ($document instanceof PagSeguroDocument)
+                if ($document instanceof PagSeguroSenderDocument)
                     $this->documents[] = $document;
                 else if (is_array($document))
-                    $this->addDocument ($document['type'], $document['value']);
+                    $this->addDocument($document['type'], $document['value']);
             }
         }
     }
@@ -148,8 +149,12 @@ class PagSeguroSender {
      * @param type $value
      */
     public function addDocument($type, $value){
-        $document = new PagSeguroDocument(array('type' => $type, 'value' => $value));
-        $this->documents[] = $document;
+        if ($type && $value){
+            if (count($this->documents) == 0){
+                $document = new PagSeguroSenderDocument($type,$value);
+                $this->documents[] = $document;
+            }
+        }
     }
 }
 

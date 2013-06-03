@@ -40,7 +40,7 @@ class createPaymentRequest {
         $paymentRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
 
         // Sets a reference code for this payment request, it is useful to identify this payment in future notifications.
-        $paymentRequest->setReference("s2it");
+        $paymentRequest->setReference("REF123");
 
         // Sets shipping information for this payment request
         $CODIGO_SEDEX = PagSeguroShippingType::getCodeByType('SEDEX');
@@ -48,11 +48,9 @@ class createPaymentRequest {
         $paymentRequest->setShippingAddress('01452002', 'Av. Brig. Faria Lima', '1384', 'apto. 114', 'Jardim Paulistano', 'São Paulo', 'SP', 'BRA');
 
         // Sets your customer information.
-        $paymentRequest->setSender('João Comprador', 'comprador@s2it.com.br', '11', '56273440');
-
-        // Add a document data for Sender
-        $paymentRequest->addSenderDocument('28538632396', 'CPF');
-
+        $paymentRequest->setSender('João Comprador', 'comprador@s2it.com.br', '11', '56273440', 'CPF', '123.456.789-01');
+        
+        // Sets the url used by PagSeguro for redirect user after ends checkout process
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
 
         try {
@@ -75,7 +73,7 @@ class createPaymentRequest {
 
     public static function printPaymentUrl($url) {
         if ($url) {
-            echo "<h2>Criando requisi��o de pagamento</h2>";
+            echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento</h2>";
             echo "<p>URL do pagamento: <strong>$url</strong></p>";
             echo "<p><a title=\"URL do pagamento\" href=\"$url\">Ir para URL do pagamento.</a></p>";
         }

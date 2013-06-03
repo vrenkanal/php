@@ -54,10 +54,9 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser {
             if ($payment->getSender()->getDocuments() != null){
                 $documents = $payment->getSender()->getDocuments();
                 if (is_array($documents) && count($documents) == 1){
-                    foreach ($documents as $key => $document) {
+                    foreach ($documents as $document) {
                         if (!is_null($document)){
-                            $data['senderCPF'] = $document->getType();
-                            $data['senderCPFValue'.$count] = $document->getValue();
+                            $data['senderCPF'] = $document->getValue();
                         }
                     }
                 }

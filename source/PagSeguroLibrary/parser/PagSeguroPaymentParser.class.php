@@ -161,6 +161,24 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser {
         if ($payment->getNotificationURL() != null) {
             $data['notificationURL'] = $payment->getNotificationURL();
         }
+        
+         // metadata
+        if(count($payment->getMetaData()->getItems()) > 0){
+            $i = 0;
+            foreach ($payment->getMetaData()->getItems() as $item){
+                if($item instanceof PagSeguroMetaDataItem){
+                    if(!PagSeguroHelper::isEmpty($item->getKey()) && !PagSeguroHelper::isEmpty($item->getValue())){
+                        $i++;
+                        $data['metadataItemKey'.$i] = $item->getKey();
+                        $data['metadataItemValue'.$i] = $item->getValue();
+                        
+                        if(!PagSeguroHelper::isEmpty($item->getGroup())){
+                            $data['metadataItemGroup'.$i] = $item->getGroup();
+                        }
+                    }
+                }
+            }
+        }
 
         return $data;
     }

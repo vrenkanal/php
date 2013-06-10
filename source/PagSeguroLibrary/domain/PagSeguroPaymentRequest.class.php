@@ -1,4 +1,8 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) { die('No direct script access allowed'); }
+<?php
+
+if (!defined('PAGSEGURO_LIBRARY')) {
+    die('No direct script access allowed');
+}
 /*
  * ***********************************************************************
   Copyright [2011] [PagSeguro Internet Ltda.]
@@ -87,6 +91,14 @@ class PagSeguroPaymentRequest {
      * to this url. You can use that for update the related order.
      */
     private $notificationURL;
+
+    /**
+     * Extra parameters that user can add to a PagSeguro checkout request
+     * 
+     * Optional. 
+     * @var type 
+     */
+    private $metadata;
 
     /**
      * @return the sender
@@ -454,6 +466,49 @@ class PagSeguroPaymentRequest {
      */
     public function setNotificationURL($notificationURL) {
         $this->notificationURL = $notificationURL;
+    }
+
+    /**
+     * Sets metadata for PagSeguro checkout requests
+     * 
+     * @param type $metaData
+     */
+    public function setMetaData($metaData) {
+        $this->metadata = $metaData;
+    }
+
+    /**
+     * Gets metadata for PagSeguro checkout requests
+     * 
+     * @return type $metaData
+     */
+    public function getMetaData() {
+
+        if ($this->metadata == null) {
+            $this->metadata = new PagSeguroMetaData();
+        }
+        return $this->metadata;
+    }
+
+    /**
+     * add a parameter for PagSeguro metadata checkout request 
+     * 
+     * @param type $parameterName - PagSeguroMetaDataItem key
+     * @param type $parameterValue - PagSeguroMetaDataItem value
+     */
+    public function addParameter($parameterName, $parameterValue) {
+        $this->getMetaData()->addItem(new PagSeguroMetaDataItem($parameterName, $parameterValue));
+    }
+
+    /**
+     * add a parameter for PagSeguro metadata checkout request
+     * 
+     * @param type $parameterName - PagSeguroMetaDataItem key
+     * @param type $parameterValue - PagSeguroMetaDataItem value
+     * @param type $parameterIndex - PagSeguroMetaDataItem group
+     */
+    public function addIndexedParameter($parameterName, $parameterValue, $parameterIndex) {
+        $this->getMetaData()->addItem(new PagSeguroMetaDataItem($parameterName, $parameterValue, $parameterIndex));
     }
 
     /**

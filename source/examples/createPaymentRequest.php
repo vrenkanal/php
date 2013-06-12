@@ -48,19 +48,22 @@ class createPaymentRequest {
         $paymentRequest->setShippingAddress('01452002', 'Av. Brig. Faria Lima', '1384', 'apto. 114', 'Jardim Paulistano', 'São Paulo', 'SP', 'BRA');
 
         // Sets your customer information.
-        $paymentRequest->setSender('João Comprador', 'comprador@s2it.com.br', '11', '56273440', 'CPF', '123.456.789-01');
+        $paymentRequest->setSender('João Comprador', 'comprador@s2it.com.br', '11', '56273440', 'CPF', '156.009.442-76');
 
-        // Sets meta data information
-        //$paymentRequest->addMetaData('PASSENGER_CPF', '12435675854', '1');
-        
         // Sets the url used by PagSeguro for redirect user after ends checkout process
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
         
-        $paymentRequest->addMetaData(PagSeguroMetaDataItemKeys::getItemKeyByDescription('Cidade de origem'), 'Araraquara');
-        $paymentRequest->addMetaData(PagSeguroMetaDataItemKeys::getItemKeyByDescription('CPF do passageiro'), '123.456.789-09', 1);
-        
-        $paymentRequest->addParameter('senderBirthday', '07/05/1980');
-        $paymentRequest->addIndexedParameter('itemColor', 'verde', 1);
+        // Add checkout metadata information
+        $paymentRequest->addMetadata('PASSENGER_CPF', '15600944276', 1);
+	$paymentRequest->addMetadata('GAME_NAME', 'DOTA');
+	$paymentRequest->addMetadata('PASSENGER_PASSPORT', '23456', 1);
+
+	// Another way to set checkout parameters
+        $paymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br/nas');
+        $paymentRequest->addIndexedParameter('itemId', '0003', 3);
+        $paymentRequest->addIndexedParameter('itemDescription', 'Notebook Preto', 3);
+        $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
+        $paymentRequest->addIndexedParameter('itemAmount', '200.00', 3);
 
         try {
 

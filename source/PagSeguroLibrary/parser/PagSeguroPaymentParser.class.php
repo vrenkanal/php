@@ -179,6 +179,21 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser {
                 }
             }
         }
+        
+        // parameter
+        if(count($payment->getParameter()->getItems()) > 0){
+            foreach ($payment->getParameter()->getItems() as $item){
+                if($item instanceof PagSeguroParameterItem){
+                    if(!PagSeguroHelper::isEmpty($item->getKey()) && !PagSeguroHelper::isEmpty($item->getValue())){
+                        if(!PagSeguroHelper::isEmpty($item->getGroup())){
+                            $data[$item->getKey().''.$item->getGroup()] = $item->getValue();
+                        }else{
+                            $data[$item->getKey()] = $item->getValue();
+                        }
+                    }
+                }
+            }
+        }
 
         return $data;
     }

@@ -22,9 +22,9 @@ if (!defined('PAGSEGURO_LIBRARY')) {
  */
 
 /**
- * Represent a metadata item
+ * Represent a parameter item
  */
-class PagSeguroMetaDataItem {
+class PagSeguroParameterItem {
 
     /**
      * Allow add extra information to order
@@ -41,13 +41,12 @@ class PagSeguroMetaDataItem {
     private $value;
 
     /**
-     * Used for grouping values of metadata items
+     * Used for grouping values of parameter items
      * @var type 
      */
     private $group;
-
+    
     public function __construct($key, $value, $group = NULL) {
-
         if (isset($key) && !PagSeguroHelper::isEmpty($key)) {
             $this->setKey($key);
         }
@@ -58,9 +57,9 @@ class PagSeguroMetaDataItem {
             $this->setGroup($group);
         }
     }
-
+    
     /**
-     * Gets the metadata item key
+     * Gets the parameter item key
      * @return string
      */
     public function getKey() {
@@ -68,7 +67,7 @@ class PagSeguroMetaDataItem {
     }
 
     /**
-     * Sets the metadata item key
+     * Sets the parameter item key
      * 
      * @param string $key
      */
@@ -77,7 +76,7 @@ class PagSeguroMetaDataItem {
     }
 
     /**
-     * Gets metadata item value
+     * Gets parameter item value
      * @return string
      */
     public function getValue() {
@@ -85,16 +84,16 @@ class PagSeguroMetaDataItem {
     }
 
     /**
-     * Sets metadata item value
+     * Sets parameter item value
      * 
      * @param string $value
      */
     public function setValue($value) {
-        $this->value = $this->_normalizeParameter($value);
+        $this->value = $value;
     }
 
     /**
-     * Gets metadata item group
+     * Gets parameter item group
      * 
      * @return int
      */
@@ -103,36 +102,12 @@ class PagSeguroMetaDataItem {
     }
 
     /**
-     * Sets metadata item group
+     * Sets parameter item group
      * 
      * @param int $group
      */
     public function setGroup($group) {
         $this->group = (int) $group;
-    }
-
-    /**
-     * Normalize metadata item value
-     * @param string $parameterValue
-     * @return string
-     */
-    private function _normalizeParameter($parameterValue) {
-
-        $parameterValue = PagSeguroHelper::formatString($parameterValue, 100, '');
-
-        switch ($this->getKey()) {
-            case PagSeguroMetaDataItemKeys::getItemKeyByDescription('CPF do passageiro'):
-                $parameterValue = PagSeguroHelper::getOnlyNumbers($parameterValue);
-                break;
-            case PagSeguroMetaDataItemKeys::getItemKeyByDescription('Tempo no jogo em dias'):
-                $parameterValue = PagSeguroHelper::getOnlyNumbers($parameterValue);
-                break;
-            case PagSeguroMetaDataItemKeys::getItemKeyByDescription('Celular de recarga'):
-                break;
-            default :
-                break;
-        }
-        return $parameterValue;
     }
 
 }

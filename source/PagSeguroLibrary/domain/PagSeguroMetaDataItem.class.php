@@ -46,7 +46,7 @@ class PagSeguroMetaDataItem {
      */
     private $group;
 
-    public function __construct($key, $value, $group = NULL) {
+    public function __construct($key = NULL, $value = NULL, $group = NULL) {
 
         if (isset($key) && !PagSeguroHelper::isEmpty($key)) {
             $this->setKey($key);

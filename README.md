@@ -48,6 +48,10 @@ Mais informações estão disponíveis na [documentação oficial].
 Changelog
 ---------
 ---
+2.1.7
+
+ - Adicionado: Classes para manipulação de metadados e parâmetros genéricos.
+
 2.1.6
 
  - Adicionado: Classe para manipulação de documentos do sender, ex. CPF.

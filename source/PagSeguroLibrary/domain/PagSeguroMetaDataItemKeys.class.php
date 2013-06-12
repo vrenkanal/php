@@ -26,6 +26,7 @@ class PagSeguroMetaDataItemKeys {
             array('PASSENGER_CPF' => 'CPF do passageiro'
                 ,'PASSENGER_PASSPORT' => 'Passaporte do passageiro'
                 ,'ORIGIN_CITY' => 'Cidade de origem'
+                ,'ORIGIN_AIRPORT_CODE' => 'Código do aeroporto de origem'
                 ,'DESTINATION_CITY' => 'Cidade de destino'
                 ,'ORIGIN_AIRPORT_CODE' => 'Código do aeroporto de origem'
                 ,'GAME_NAME' => 'Nome do jogo'

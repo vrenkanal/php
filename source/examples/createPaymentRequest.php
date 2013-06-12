@@ -49,6 +49,9 @@ class createPaymentRequest {
 
         // Sets your customer information.
         $paymentRequest->setSender('João Comprador', 'comprador@s2it.com.br', '11', '56273440', 'CPF', '123.456.789-01');
+
+        // Sets meta data information
+        //$paymentRequest->addMetaData('PASSENGER_CPF', '12435675854', '1');
         
         // Sets the url used by PagSeguro for redirect user after ends checkout process
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");

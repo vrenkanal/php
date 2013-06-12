@@ -22,10 +22,10 @@ if (!defined('PAGSEGURO_LIBRARY')) {
  */
 
 /**
- * Represent a metadata
+ * Represent a parameter
  */
-class PagSeguroMetaData {
-
+class PagSeguroParameter {
+    
     private $items;
 
     public function __construct(Array $items = NULL) {
@@ -34,16 +34,16 @@ class PagSeguroMetaData {
         }
     }
 
-    public function addItem(PagSeguroMetaDataItem $metaDataItem) {
+    public function addItem(PagSeguroParameterItem $parameterItem) {
 
-        if (!PagSeguroHelper::isEmpty($metaDataItem->getKey())) {
-            if (!PagSeguroHelper::isEmpty($metaDataItem->getValue())) {
-                $this->items[] = $metaDataItem;
+        if (!PagSeguroHelper::isEmpty($parameterItem->getKey())) {
+            if (!PagSeguroHelper::isEmpty($parameterItem->getValue())) {
+                $this->items[] = $parameterItem;
             } else {
-                die('requered itemValue.');
+                die('requered parameterValue.');
             }
         } else {
-            die('requered itemKey.');
+            die('requered parameterKey.');
         }
     }
 
@@ -57,7 +57,7 @@ class PagSeguroMetaData {
         }
         return $this->items;
     }
-
+    
 }
 
 ?>

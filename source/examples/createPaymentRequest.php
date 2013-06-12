@@ -55,6 +55,12 @@ class createPaymentRequest {
         
         // Sets the url used by PagSeguro for redirect user after ends checkout process
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
+        
+        $paymentRequest->addMetaData(PagSeguroMetaDataItemKeys::getItemKeyByDescription('Cidade de origem'), 'Araraquara');
+        $paymentRequest->addMetaData(PagSeguroMetaDataItemKeys::getItemKeyByDescription('CPF do passageiro'), '123.456.789-09', 1);
+        
+        $paymentRequest->addParameter('senderBirthday', '07/05/1980');
+        $paymentRequest->addIndexedParameter('itemColor', 'verde', 1);
 
         try {
 

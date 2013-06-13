@@ -102,7 +102,7 @@ class PagSeguroPaymentMethodCode {
         /**
          * GranCard
          */
-        'GRANCARD_CREDIT_CARD' => 119,
+        'GRANDCARD_CREDIT_CARD' => 119,
         /**
          * Bradesco - boleto -  is a form of invoicing in Brazil
          */

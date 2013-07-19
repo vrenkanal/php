@@ -24,34 +24,38 @@
  * This class is not an enum to enable the introduction of new shipping types
  * without breaking this version of the library.
  */
-class PagSeguroTransactionType {
+class PagSeguroTransactionType
+{
 
 	private static $typeList = array(
-		'PAYMENT' => 1,
-		'TRANSFER' => 2,
-		'FUND_ADDITION' => 3,
-		'WITHDRAW' => 4,
-		'CHARGE' => 5,
-		'DONATION' => 6,
-		'BONUS' => 7,
-		'BONUS_REPASS' => 8,
-		'OPERATIONAL' => 9,
+		'PAYMENT'			 => 1,
+		'TRANSFER'			 => 2,
+		'FUND_ADDITION'		 => 3,
+		'WITHDRAW'			 => 4,
+		'CHARGE'			 => 5,
+		'DONATION'			 => 6,
+		'BONUS'				 => 7,
+		'BONUS_REPASS'		 => 8,
+		'OPERATIONAL'		 => 9,
 		'POLITICAL_DONATION' => 10
 	);
 
 	private $value;
 
-	public function __construct($value = null) {
+	public function __construct($value = null)
+	{
 		if ($value) {
 			$this->value = $value;
 		}
 	}
 
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
-	public function setByType($type) {
+	public function setByType($type)
+	{
 		if (isset(self::$typeList[$type])) {
 			$this->value = self::$typeList[$type];
 		} else {
@@ -59,7 +63,8 @@ class PagSeguroTransactionType {
 		}
 	}
 
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -67,7 +72,8 @@ class PagSeguroTransactionType {
 	 * @param value
 	 * @return the transaction type corresponding to the informed type value value
 	 */
-	public function getTypeFromValue($value = null) {
+	public function getTypeFromValue($value = null)
+	{
 		$value = ($value == null ? $this->value : $value);
 		return array_search($this->value, self::$typeList);
 	}

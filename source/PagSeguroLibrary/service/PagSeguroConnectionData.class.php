@@ -19,7 +19,8 @@
  ************************************************************************
  */
 
-class PagSeguroConnectionData {
+class PagSeguroConnectionData
+{
 
 	private $serviceName;
 	private $credentials;
@@ -30,7 +31,8 @@ class PagSeguroConnectionData {
 	private $serviceTimeout;
 	private $charset;
 
-	public function __construct(PagSeguroCredentials $credentials, $serviceName) {
+	public function __construct(PagSeguroCredentials $credentials, $serviceName)
+	{
 
 		$this->credentials = $credentials;
 		$this->serviceName = $serviceName;
@@ -49,57 +51,72 @@ class PagSeguroConnectionData {
 
 	}
 
-	public function getCredentials() {
+	public function getCredentials()
+	{
 		return $this->credentials;
 	}
-	public function setCredentials(PagSeguroCredentials $credentials) {
+	public function setCredentials(PagSeguroCredentials $credentials)
+	{
 		$this->credentials = $credentials;
 	}
 
-	public function getCredentialsUrlQuery() {
+	public function getCredentialsUrlQuery()
+	{
 		return http_build_query($this->credentials->getAttributesMap(), '', '&');
 	}
 
-	public function getEnvironment() {
+	public function getEnvironment()
+	{
 		return $this->environment;
 	}
-	public function setEnvironment($environment) {
+	public function setEnvironment($environment)
+	{
 		$this->environment = $environment;
 	}
 
-	public function getWebserviceUrl() {
+	public function getWebserviceUrl()
+	{
 		return $this->webserviceUrl;
 	}
-	public function setWebserviceUrl($webserviceUrl) {
+	public function setWebserviceUrl($webserviceUrl)
+	{
 		$this->webserviceUrl = $webserviceUrl;
 	}
 
-	public function getServicePath() {
+	public function getServicePath()
+	{
 		return $this->servicePath;
 	}
-	public function setServicePath($servicePath) {
+	public function setServicePath($servicePath)
+	{
 		$this->servicePath = $servicePath;
 	}
 
-	public function getServiceTimeout() {
+	public function getServiceTimeout()
+	{
 		return $this->serviceTimeout;
 	}
-	public function setServiceTimeout($serviceTimeout) {
+	public function setServiceTimeout($serviceTimeout)
+	{
 		$this->serviceTimeout = $serviceTimeout;
 	}
 
-	public function getServiceUrl() {
+	public function getServiceUrl()
+	{
 		return $this->getWebserviceUrl() . $this->getServicePath();
 	}
 
-	public function getResource($resource) {
+	public function getResource($resource)
+	{
 		return $this->resources[$resource];
 	}
 
-	public function getCharset() {
+	public function getCharset()
+	{
 		return $this->charset;
 	}
-	public function setCharset($charset) {
+	public function setCharset($charset)
+	{
 		$this->charset = $charset;
 	}
 

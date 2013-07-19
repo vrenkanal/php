@@ -24,7 +24,8 @@ if (!defined('PAGSEGURO_LIBRARY')) {
 /**
  * Represent a parameter item
  */
-class PagSeguroParameterItem {
+class PagSeguroParameterItem
+{
 
 	/**
 	 * Allow add extra information to order
@@ -46,7 +47,8 @@ class PagSeguroParameterItem {
 	 */
 	private $group;
 
-	public function __construct($key, $value, $group = NULL) {
+	public function __construct($key, $value, $group = NULL)
+	{
 		if (isset($key) && !PagSeguroHelper::isEmpty($key)) {
 			$this->setKey($key);
 		}
@@ -62,7 +64,8 @@ class PagSeguroParameterItem {
 	 * Gets the parameter item key
 	 * @return string
 	 */
-	public function getKey() {
+	public function getKey()
+	{
 		return $this->key;
 	}
 
@@ -71,7 +74,8 @@ class PagSeguroParameterItem {
 	 *
 	 * @param string $key
 	 */
-	public function setKey($key) {
+	public function setKey($key)
+	{
 		$this->key = $key;
 	}
 
@@ -79,7 +83,8 @@ class PagSeguroParameterItem {
 	 * Gets parameter item value
 	 * @return string
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -88,7 +93,8 @@ class PagSeguroParameterItem {
 	 *
 	 * @param string $value
 	 */
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
@@ -97,7 +103,8 @@ class PagSeguroParameterItem {
 	 *
 	 * @return int
 	 */
-	public function getGroup() {
+	public function getGroup()
+	{
 		return $this->group;
 	}
 
@@ -106,7 +113,8 @@ class PagSeguroParameterItem {
 	 *
 	 * @param int $group
 	 */
-	public function setGroup($group) {
+	public function setGroup($group)
+	{
 		$this->group = (int) $group;
 	}
 

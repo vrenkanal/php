@@ -22,7 +22,8 @@
 /**
  * HTTP status that PagSeguro web services can return.
  */
-class PagSeguroHttpStatus {
+class PagSeguroHttpStatus
+{
 
 	private $typeList = array(
 		200 => 'OK',
@@ -36,22 +37,26 @@ class PagSeguroHttpStatus {
 	private $status;
 	private $type;
 
-	public function __construct($status) {
+	public function __construct($status)
+	{
 		if ($status) {
 			$this->status = (int) $status;
 			$this->type = $this->getTypeByStatus($this->status);
 		}
 	}
 
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
-	public function getStatus() {
+	public function getStatus()
+	{
 		return $this->status;
 	}
 
-	private function getTypeByStatus($status) {
+	private function getTypeByStatus($status)
+	{
 		if (isset($this->typeList[(int) $status])) {
 			return $this->typeList[(int) $status];
 		} else {

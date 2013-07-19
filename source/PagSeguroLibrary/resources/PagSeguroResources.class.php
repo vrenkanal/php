@@ -19,13 +19,15 @@
  ************************************************************************
  */
 
-class PagSeguroResources {
+class PagSeguroResources
+{
 
 	private static $resources;
 	private static $data;
 	const varName = 'PagSeguroResources';
 
-	private function __construct() {
+	private function __construct()
+	{
 		define('ALLOW_PAGSEGURO_RESOURCES', TRUE);
 		require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "PagSeguroResources.php";
 		$varName = self::varName;
@@ -37,14 +39,16 @@ class PagSeguroResources {
 		}
 	}
 
-	public static function init() {
+	public static function init()
+	{
 		if (self::$resources == null) {
 			self::$resources = new PagSeguroResources();
 		}
 		return self::$resources;
 	}
 
-	public static function getData($key1, $key2 = null) {
+	public static function getData($key1, $key2 = null)
+	{
 		if ($key2 != null) {
 			if (isset(self::$data[$key1][$key2])) {
 				return self::$data[$key1][$key2];
@@ -60,7 +64,8 @@ class PagSeguroResources {
 		}
 	}
 
-	public static function setData($key1, $key2, $value) {
+	public static function setData($key1, $key2, $value)
+	{
 		if (isset(self::$data[$key1][$key2])) {
 			self::$data[$key1][$key2] = $value;
 		} else {
@@ -68,7 +73,8 @@ class PagSeguroResources {
 		}
 	}
 
-	public static function getWebserviceUrl($environment) {
+	public static function getWebserviceUrl($environment)
+	{
 		if (isset(self::$data['environment']) && isset(self::$data['environment'][$environment]) && isset(self::$data['environment'][$environment]['webserviceUrl'])) {
 			return self::$data['environment'][$environment]['webserviceUrl'];
 		} else {

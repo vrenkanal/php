@@ -19,11 +19,13 @@
  ************************************************************************
  */
 
-class PagSeguroXmlParser {
+class PagSeguroXmlParser
+{
 
 	private $dom;
 
-	public function __construct($xml) {
+	public function __construct($xml)
+	{
 		$parser = xml_parser_create();
 		if (!xml_parse($parser, $xml)) {
 			throw new Exception("PagSeguroLibrary XML parsing error: (" . xml_get_error_code($parser) . ") " . xml_error_string(xml_get_error_code($parser)));
@@ -33,7 +35,8 @@ class PagSeguroXmlParser {
 		}
 	}
 
-	public function getResult($node = null) {
+	public function getResult($node = null)
+	{
 		$result = $this->toArray($this->dom);
 		if ($node) {
 			if (isset($result[$node])) {
@@ -46,7 +49,8 @@ class PagSeguroXmlParser {
 		}
 	}
 
-	private function toArray($node) {
+	private function toArray($node)
+	{
 		$occurance = array();
 		if ($node->hasChildNodes()) {
 			foreach ($node->childNodes as $child) {

@@ -22,25 +22,30 @@
 /**
  * Represent a metadata
  */
-class PagSeguroMetaData {
+class PagSeguroMetaData
+{
 
 	private $items;
 
-	public function __construct(Array $items = NULL) {
+	public function __construct(Array $items = NULL)
+	{
 		if (!is_null($items) && count($items) > 0) {
 			$this->setItems($items);
 		}
 	}
 
-	public function addItem(PagSeguroMetaDataItem $metaDataItem) {
+	public function addItem(PagSeguroMetaDataItem $metaDataItem)
+	{
 		$this->items[] = $metaDataItem;
 	}
 
-	public function setItems(Array $items) {
+	public function setItems(Array $items)
+	{
 		$this->items = $items;
 	}
 
-	public function getItems() {
+	public function getItems()
+	{
 		if ($this->items == null) {
 			$this->items = array();
 		}

@@ -24,12 +24,13 @@
  * this class is not an enum to enable the introduction of new shipping types
  * without breaking this version of the library.
  */
-class PagSeguroShippingType {
+class PagSeguroShippingType
+{
 
 	private static $typeList = array(
-		'PAC' => 1,
-		'SEDEX' => 2,
-		'NOT_SPECIFIED' => 3
+		'PAC'			 => 1,
+		'SEDEX'			 => 2,
+		'NOT_SPECIFIED'	 => 3
 	);
 
 	/**
@@ -38,17 +39,20 @@ class PagSeguroShippingType {
 	 */
 	private $value;
 
-	public function __construct($value = null) {
+	public function __construct($value = null)
+	{
 		if ($value) {
 			$this->value = $value;
 		}
 	}
 
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
-	public function setByType($type) {
+	public function setByType($type)
+	{
 		if (isset(self::$typeList[$type])) {
 			$this->value = self::$typeList[$type];
 		} else {
@@ -59,7 +63,8 @@ class PagSeguroShippingType {
 	/**
 	 * @return the value of the shipping type
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -67,7 +72,8 @@ class PagSeguroShippingType {
 	 * @param value
 	 * @return the PagSeguroShippingType corresponding to the informed value
 	 */
-	public function getTypeFromValue($value = null) {
+	public function getTypeFromValue($value = null)
+	{
 		$value = ($value === null ? $this->value : $value);
 		return array_search($value, self::$typeList);
 	}
@@ -76,7 +82,8 @@ class PagSeguroShippingType {
 	 * @param type
 	 * @return the code corresponding to the informed shipping type
 	 */
-	public static function getCodeByType($type) {
+	public static function getCodeByType($type)
+	{
 		if (isset(self::$typeList[$type])) {
 			return self::$typeList[$type];
 		} else {
@@ -88,7 +95,8 @@ class PagSeguroShippingType {
 	 * @param type
 	 * @return a PagSeguroShippingType object corresponding to the informed type
 	 */
-	public static function createByType($type) {
+	public static function createByType($type)
+	{
 		$ShippingType = new PagSeguroShippingType();
 		$ShippingType->setByType($type);
 		return $ShippingType;

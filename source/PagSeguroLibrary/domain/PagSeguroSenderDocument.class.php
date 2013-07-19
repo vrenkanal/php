@@ -2,7 +2,8 @@
 /**
  * Class that represents a Sender Document
  */
-class PagSeguroSenderDocument {
+class PagSeguroSenderDocument
+{
 
 	/**
 	 * The type of document
@@ -16,7 +17,8 @@ class PagSeguroSenderDocument {
 	 */
 	private $value;
 
-	public function __construct($type, $value) {
+	public function __construct($type, $value)
+	{
 		if ($type && $value) {
 			$this->setType ($type);
 			$this->setValue($value);
@@ -27,7 +29,8 @@ class PagSeguroSenderDocument {
 	 * Get document type
 	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
@@ -35,7 +38,8 @@ class PagSeguroSenderDocument {
 	 * Set document type
 	 * @param string $type
 	 */
-	public function setType($type) {
+	public function setType($type)
+	{
 		$this->type = strtoupper($type);
 	}
 
@@ -43,7 +47,8 @@ class PagSeguroSenderDocument {
 	 * Get document value
 	 * @return string
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -51,7 +56,8 @@ class PagSeguroSenderDocument {
 	 * Set document value
 	 * @param string $value
 	 */
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = PagSeguroHelper::getOnlyNumbers($value);
 	}
 
@@ -59,7 +65,8 @@ class PagSeguroSenderDocument {
 	 * Gets toString class
 	 * @return string
 	 */
-	public function toString() {
+	public function toString()
+	{
 		return "PagSeguroSenderDocument(type=\"{$this->getType()}\", value=\"{$this->getValue()}\")";
 	}
 }

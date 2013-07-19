@@ -24,17 +24,20 @@ if (!defined('PAGSEGURO_LIBRARY')) {
 /**
  * Represent a parameter
  */
-class PagSeguroParameter {
+class PagSeguroParameter
+{
 
 	private $items;
 
-	public function __construct(Array $items = NULL) {
+	public function __construct(Array $items = NULL)
+	{
 		if (!is_null($items) && count($items) > 0) {
 			$this->setItems($items);
 		}
 	}
 
-	public function addItem(PagSeguroParameterItem $parameterItem) {
+	public function addItem(PagSeguroParameterItem $parameterItem)
+	{
 
 		if (!PagSeguroHelper::isEmpty($parameterItem->getKey())) {
 			if (!PagSeguroHelper::isEmpty($parameterItem->getValue())) {
@@ -47,11 +50,13 @@ class PagSeguroParameter {
 		}
 	}
 
-	public function setItems(Array $items) {
+	public function setItems(Array $items)
+	{
 		$this->items = $items;
 	}
 
-	public function getItems() {
+	public function getItems()
+	{
 		if ($this->items == null) {
 			$this->items = array();
 		}

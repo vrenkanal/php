@@ -23,9 +23,11 @@ require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
  */
-class createPaymentRequest {
+class createPaymentRequest
+{
 
-	public static function main() {
+	public static function main()
+	{
 
 		// Instantiate a new payment request
 		$paymentRequest = new PagSeguroPaymentRequest();
@@ -65,7 +67,8 @@ class createPaymentRequest {
 		$paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
 		$paymentRequest->addIndexedParameter('itemAmount', '200.00', 3);
 
-		try {
+		try
+		{
 
 			/*
 			 * #### Crendencials #####
@@ -78,12 +81,15 @@ class createPaymentRequest {
 			$url = $paymentRequest->register($credentials);
 
 			self::printPaymentUrl($url);
-		} catch (PagSeguroServiceException $e) {
+		}
+		catch (PagSeguroServiceException $e)
+		{
 			die($e->getMessage());
 		}
 	}
 
-	public static function printPaymentUrl($url) {
+	public static function printPaymentUrl($url)
+	{
 		if ($url) {
 			echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento</h2>";
 			echo "<p>URL do pagamento: <strong>$url</strong></p>";

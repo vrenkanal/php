@@ -22,7 +22,8 @@
 /**
  * Represents a phone number
  */
-class PagSeguroPhone {
+class PagSeguroPhone
+{
 
 	/**
 	 * Area code
@@ -40,7 +41,8 @@ class PagSeguroPhone {
 	 * @param String $areaCode
 	 * @param String $number
 	 */
-	public function __construct($areaCode = null, $number = null) {
+	public function __construct($areaCode = null, $number = null)
+	{
 		$this->areaCode = ($areaCode == null ? null : $areaCode);
 		$this->number = ($number == null ? null : $number);
 	}
@@ -48,14 +50,16 @@ class PagSeguroPhone {
 	/**
 	 * @return the area code
 	 */
-	public function getAreaCode() {
+	public function getAreaCode()
+	{
 		return $this->areaCode;
 	}
 
 	/**
 	 * @return the number
 	 */
-	public function getNumber() {
+	public function getNumber()
+	{
 		return $this->number;
 	}
 
@@ -63,7 +67,8 @@ class PagSeguroPhone {
 	 * Sets the area code
 	 * @param String $areaCode
 	 */
-	public function setAreaCode($areaCode) {
+	public function setAreaCode($areaCode)
+	{
 		$this->areaCode = $areaCode;
 	}
 
@@ -71,7 +76,8 @@ class PagSeguroPhone {
 	 * Sets the number
 	 * @param String $number
 	 */
-	public function setNumber($number) {
+	public function setNumber($number)
+	{
 		$this->number = $number;
 	}
 

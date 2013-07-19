@@ -21,7 +21,8 @@
  * Class tha represents available currencies on PagSeguro
  */
 
-class PagSeguroCurrencies {
+class PagSeguroCurrencies
+{
 
 	/**
 	 * List of available currencies on PagSeguro Transactions
@@ -37,7 +38,8 @@ class PagSeguroCurrencies {
 	 * @param string $currency_iso_code
 	 * @return boolean
 	 */
-	public static function checkCurrencyAvailabilityByIsoCode($currency_iso_code) {
+	public static function checkCurrencyAvailabilityByIsoCode($currency_iso_code)
+	{
 		$available = false;
 		if (array_search(strtoupper($currency_iso_code), self::$currencies)) {
 			$available = true;
@@ -50,7 +52,8 @@ class PagSeguroCurrencies {
 	 * @param string $name
 	 * @return boolean
 	 */
-	public static function checkCurrencyAvailabilityByName($name) {
+	public static function checkCurrencyAvailabilityByName($name)
+	{
 		$available = false;
 		if (array_key_exists(strtoupper($name), self::$currencies)) {
 			$available = true;
@@ -62,7 +65,8 @@ class PagSeguroCurrencies {
 	 * Return currencies list
 	 * @return Array
 	 */
-	public static function getCurrenciesList() {
+	public static function getCurrenciesList()
+	{
 		return self::$currencies;
 	}
 
@@ -72,7 +76,8 @@ class PagSeguroCurrencies {
 	 * @param string $name - the currency name
 	 * @return string
 	 */
-	public static function getIsoCodeByName($name) {
+	public static function getIsoCodeByName($name)
+	{
 		$name = strtoupper($name);
 		return (isset(self::$currencies[$name])) ? self::$currencies[$name] : self::$currencies['REAL'];
 	}
@@ -82,7 +87,8 @@ class PagSeguroCurrencies {
 	 * @param type $iso_code
 	 * @return type
 	 */
-	public static function getCurrencyNameByIsoCode($iso_code) {
+	public static function getCurrencyNameByIsoCode($iso_code)
+	{
 		return array_search(strtoupper($iso_code), self::getCurrenciesList());
 	}
 }

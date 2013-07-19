@@ -24,17 +24,18 @@
  * This class is not an enum to enable the introduction of new shipping types
  * without breaking this version of the library.
  */
-class PagSeguroTransactionStatus {
+class PagSeguroTransactionStatus
+{
 
 	private static $statusList = array(
-		'INITIATED' => 0,
-		'WAITING_PAYMENT' => 1,
-		'IN_ANALYSIS' => 2,
-		'PAID' => 3,
-		'AVAILABLE' => 4,
-		'IN_DISPUTE' => 5,
-		'REFUNDED' => 6,
-		'CANCELLED' => 7
+		'INITIATED'			 => 0,
+		'WAITING_PAYMENT'	 => 1,
+		'IN_ANALYSIS'		 => 2,
+		'PAID'				 => 3,
+		'AVAILABLE'			 => 4,
+		'IN_DISPUTE'		 => 5,
+		'REFUNDED'			 => 6,
+		'CANCELLED'			 => 7
 	);
 
 	/**
@@ -43,17 +44,20 @@ class PagSeguroTransactionStatus {
 	 */
 	private $value;
 
-	public function __construct($value = null) {
+	public function __construct($value = null)
+	{
 		if ($value) {
 			$this->value = $value;
 		}
 	}
 
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
-	public function setByType($type) {
+	public function setByType($type)
+	{
 		if (isset(self::$statusList[$type])) {
 			$this->value = self::$statusList[$type];
 		} else {
@@ -64,7 +68,8 @@ class PagSeguroTransactionStatus {
 	/**
 	 * @return the status value.
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -72,7 +77,8 @@ class PagSeguroTransactionStatus {
 	 * @param value
 	 * @return the transaction status corresponding to the informed status value
 	 */
-	public function getTypeFromValue($value = null) {
+	public function getTypeFromValue($value = null)
+	{
 		$value = ($value == null ? $this->value : $value);
 		return array_search($this->value, self::$statusList);
 	}
@@ -81,7 +87,8 @@ class PagSeguroTransactionStatus {
 	 * Get status list
 	 * @return array
 	 */
-	public static function getStatusList() {
+	public static function getStatusList()
+	{
 		return self::$statusList;
 	}
 }

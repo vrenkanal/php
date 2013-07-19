@@ -19,13 +19,16 @@
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class SearchTransactionByCode {
+class SearchTransactionByCode
+{
 
-	public static function main() {
+	public static function main()
+	{
 
 		$transaction_code = '59A13D84-52DA-4AB8-B365-1E7D893052B0';
 
-		try {
+		try
+		{
 
 			/*
 			 * #### Crendencials #####
@@ -39,13 +42,16 @@ class SearchTransactionByCode {
 
 			self::printTransaction($transaction);
 
-		} catch (PagSeguroServiceException $e) {
+		}
+		catch (PagSeguroServiceException $e)
+		{
 			die($e->getMessage());
 		}
 
 	}
 
-	public static function printTransaction(PagSeguroTransaction $transaction) {
+	public static function printTransaction(PagSeguroTransaction $transaction)
+	{
 
 		echo "<h2>Transaction search by code result";
 		echo "<h3>Code: " . $transaction->getCode() . '</h3>';

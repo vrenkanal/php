@@ -23,9 +23,11 @@
 /**
  * Helper functions
  */
-class PagSeguroHelper {
+class PagSeguroHelper
+{
 
-	public static function formatDate($date) {
+	public static function formatDate($date)
+	{
 		$format = "Y-m-d\TH:i:sP";
 		if ($date instanceof DateTime) {
 			$d = $date->format($format);
@@ -37,7 +39,8 @@ class PagSeguroHelper {
 		return $d;
 	}
 
-	public static function decimalFormat($numeric) {
+	public static function decimalFormat($numeric)
+	{
 		if (is_float($numeric)) {
 			$numeric = (float) $numeric;
 			$numeric = (string) number_format($numeric, 2, '.', '');
@@ -45,14 +48,16 @@ class PagSeguroHelper {
 		return $numeric;
 	}
 
-	public static function subDays($date, $days) {
+	public static function subDays($date, $days)
+	{
 		$d = self::formatDate($date);
 		$d = date_parse($d);
 		$d = mktime($d['hour'], $d['minute'], $d['second'], $d['month'], $d['day'] - $days, $d['year']);
 		return self::formatDate($d);
 	}
 
-	public static function print_rr($var, $dump = null) {
+	public static function print_rr($var, $dump = null)
+	{
 		if (is_array($var) || is_object($var)) {
 			echo "<pre>";
 			if ($dump) {
@@ -69,7 +74,8 @@ class PagSeguroHelper {
 	 * @param string $string
 	 * @return string
 	 */
-	public static function removeStringExtraSpaces($string) {
+	public static function removeStringExtraSpaces($string)
+	{
 		return trim(preg_replace("/( +)/", " ", $string));
 	}
 
@@ -80,7 +86,8 @@ class PagSeguroHelper {
 	 * @param type $endchars
 	 * @return string
 	 */
-	public static function truncateValue($string, $limit, $endchars = '...') {
+	public static function truncateValue($string, $limit, $endchars = '...')
+	{
 
 		if (!is_array($string) && !is_object($string)) {
 
@@ -102,7 +109,8 @@ class PagSeguroHelper {
 	 * @param type $endchars
 	 * @return type
 	 */
-	public static function formatString($string, $limit, $endchars = '...') {
+	public static function formatString($string, $limit, $endchars = '...')
+	{
 		$string = PagSeguroHelper::removeStringExtraSpaces($string);
 		return PagSeguroHelper::truncateValue($string, $limit, $endchars);
 	}
@@ -112,7 +120,8 @@ class PagSeguroHelper {
 	 * @param string $value
 	 * @return boolean
 	 */
-	public static function isEmpty($value) {
+	public static function isEmpty($value)
+	{
 		return (!isset($value) || trim($value) == "");
 	}
 
@@ -121,7 +130,8 @@ class PagSeguroHelper {
 	 * @param array $notification_data
 	 * @return type
 	 */
-	public static function isNotificationEmpty(Array $notification_data) {
+	public static function isNotificationEmpty(Array $notification_data)
+	{
 		$isEmpty = TRUE;
 
 		if (isset($notification_data['notificationCode']) && isset($notification_data['notificationType'])) {
@@ -136,7 +146,8 @@ class PagSeguroHelper {
 	 * @param string $value
 	 * @return string
 	 */
-	public static function getOnlyNumbers($value) {
+	public static function getOnlyNumbers($value)
+	{
 		return preg_replace('/\D/', '', $value);
 	}
 }

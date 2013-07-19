@@ -22,7 +22,8 @@
 /**
  * Shipping information
  */
-class PagSeguroShipping {
+class PagSeguroShipping
+{
 
 	/**
 	 * Shipping address
@@ -45,7 +46,8 @@ class PagSeguroShipping {
 	 * Initializes a new instance of the PagSeguroShipping class
 	 * @param array $data
 	 */
-	public function __construct(Array $data = null) {
+	public function __construct(Array $data = null)
+	{
 		if ($data) {
 			if (isset($data['address']) && $data['address'] instanceof PagSeguroAddress) {
 				$this->address = $data['address'];
@@ -64,7 +66,8 @@ class PagSeguroShipping {
 	 * @see PagSeguroAddress
 	 * @param PagSeguroAddress $address
 	 */
-	public function setAddress(PagSeguroAddress $address) {
+	public function setAddress(PagSeguroAddress $address)
+	{
 		$this->address = $address;
 	}
 
@@ -72,7 +75,8 @@ class PagSeguroShipping {
 	 * @return the shipping Address
 	 * @see PagSeguroAddress
 	 */
-	public function getAddress() {
+	public function getAddress()
+	{
 		return $this->address;
 	}
 
@@ -81,7 +85,8 @@ class PagSeguroShipping {
 	 * @param PagSeguroShippingType $type
 	 * @see PagSeguroShippingType
 	 */
-	public function setType(PagSeguroShippingType $type) {
+	public function setType(PagSeguroShippingType $type)
+	{
 		$this->type = $type;
 	}
 
@@ -89,18 +94,21 @@ class PagSeguroShipping {
 	 * @return the shipping type
 	 * @see PagSeguroShippingType
 	 */
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
-	public function setCost($cost) {
+	public function setCost($cost)
+	{
 		$this->cost = $cost;
 	}
 
 	/**
 	 * @return the shipping cost
 	 */
-	public function getCost() {
+	public function getCost()
+	{
 		return $this->cost;
 	}
 

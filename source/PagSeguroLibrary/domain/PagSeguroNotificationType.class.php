@@ -24,25 +24,29 @@
  * This class is not an enum to enable the introduction of new shipping types
  * without breaking this version of the library.
  */
-class PagSeguroNotificationType {
+class PagSeguroNotificationType
+{
 
 	private static $typeList = array(
-		'TRANSACTION' => 'transaction'
+		'TRANSACTION'	 => 'transaction'
 	);
 
 	private $value;
 
-	public function __construct($value = null) {
+	public function __construct($value = null)
+	{
 		if ($value) {
 			$this->value = $value;
 		}
 	}
 
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
-	public function setByType($type) {
+	public function setByType($type)
+	{
 		if (isset(self::$typeList[$type])) {
 			$this->value = self::$typeList[$type];
 		} else {
@@ -50,7 +54,8 @@ class PagSeguroNotificationType {
 		}
 	}
 
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -58,7 +63,8 @@ class PagSeguroNotificationType {
 	 * @param value
 	 * @return the PagSeguroNotificationType corresponding to the informed value
 	 */
-	public function getTypeFromValue($value = null) {
+	public function getTypeFromValue($value = null)
+	{
 		$value = ($value == null ? $this->value : $value);
 		return array_search($this->value, self::$typeList);
 	}

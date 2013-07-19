@@ -24,7 +24,8 @@ if (!defined('PAGSEGURO_LIBRARY')) {
 /**
  * Represent a metadata item
  */
-class PagSeguroMetaDataItem {
+class PagSeguroMetaDataItem
+{
 
 	/**
 	 * Allow add extra information to order
@@ -46,7 +47,8 @@ class PagSeguroMetaDataItem {
 	 */
 	private $group;
 
-	public function __construct($key = NULL, $value = NULL, $group = NULL) {
+	public function __construct($key = NULL, $value = NULL, $group = NULL)
+	{
 
 		if (isset($key) && !PagSeguroHelper::isEmpty($key)) {
 			$this->setKey($key);
@@ -63,7 +65,8 @@ class PagSeguroMetaDataItem {
 	 * Gets the metadata item key
 	 * @return string
 	 */
-	public function getKey() {
+	public function getKey()
+	{
 		return $this->key;
 	}
 
@@ -72,7 +75,8 @@ class PagSeguroMetaDataItem {
 	 *
 	 * @param string $key
 	 */
-	public function setKey($key) {
+	public function setKey($key)
+	{
 		$this->key = $key;
 	}
 
@@ -80,7 +84,8 @@ class PagSeguroMetaDataItem {
 	 * Gets metadata item value
 	 * @return string
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -89,7 +94,8 @@ class PagSeguroMetaDataItem {
 	 *
 	 * @param string $value
 	 */
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $this->_normalizeParameter($value);
 	}
 
@@ -98,7 +104,8 @@ class PagSeguroMetaDataItem {
 	 *
 	 * @return int
 	 */
-	public function getGroup() {
+	public function getGroup()
+	{
 		return $this->group;
 	}
 
@@ -107,7 +114,8 @@ class PagSeguroMetaDataItem {
 	 *
 	 * @param int $group
 	 */
-	public function setGroup($group) {
+	public function setGroup($group)
+	{
 		$this->group = (int) $group;
 	}
 
@@ -116,21 +124,22 @@ class PagSeguroMetaDataItem {
 	 * @param string $parameterValue
 	 * @return string
 	 */
-	private function _normalizeParameter($parameterValue) {
+	private function _normalizeParameter($parameterValue)
+	{
 
 		$parameterValue = PagSeguroHelper::formatString($parameterValue, 100, '');
 
 		switch ($this->getKey()) {
-		case PagSeguroMetaDataItemKeys::getItemKeyByDescription('CPF do passageiro'):
-			$parameterValue = PagSeguroHelper::getOnlyNumbers($parameterValue);
-			break;
-		case PagSeguroMetaDataItemKeys::getItemKeyByDescription('Tempo no jogo em dias'):
-			$parameterValue = PagSeguroHelper::getOnlyNumbers($parameterValue);
-			break;
-		case PagSeguroMetaDataItemKeys::getItemKeyByDescription('Celular de recarga'):
-			break;
-		default:
-			break;
+			case PagSeguroMetaDataItemKeys::getItemKeyByDescription('CPF do passageiro'):
+				$parameterValue = PagSeguroHelper::getOnlyNumbers($parameterValue);
+				break;
+			case PagSeguroMetaDataItemKeys::getItemKeyByDescription('Tempo no jogo em dias'):
+				$parameterValue = PagSeguroHelper::getOnlyNumbers($parameterValue);
+				break;
+			case PagSeguroMetaDataItemKeys::getItemKeyByDescription('Celular de recarga'):
+				break;
+			default:
+				break;
 		}
 		return $parameterValue;
 	}

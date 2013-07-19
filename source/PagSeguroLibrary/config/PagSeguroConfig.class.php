@@ -23,13 +23,15 @@
  * Provides a means to retrieve configuration preferences.
  * These preferences can come from the default config file (PagSeguroLibrary/config/PagSeguroConfig.php).
  */
-class PagSeguroConfig {
+class PagSeguroConfig
+{
 
 	private static $config;
 	private static $data;
 	const varName = 'PagSeguroConfig';
 
-	private function __construct() {
+	private function __construct()
+	{
 		define('ALLOW_PAGSEGURO_CONFIG', TRUE);
 		require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
 		$varName = self::varName;
@@ -41,14 +43,16 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function init() {
+	public static function init()
+	{
 		if (self::$config == null) {
 			self::$config = new PagSeguroConfig();
 		}
 		return self::$config;
 	}
 
-	public static function getData($key1, $key2 = null) {
+	public static function getData($key1, $key2 = null)
+	{
 		if ($key2 != null) {
 			if (isset(self::$data[$key1][$key2])) {
 				return self::$data[$key1][$key2];
@@ -64,7 +68,8 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function setData($key1, $key2, $value) {
+	public static function setData($key1, $key2, $value)
+	{
 		if (isset(self::$data[$key1][$key2])) {
 			self::$data[$key1][$key2] = $value;
 		} else {
@@ -72,7 +77,8 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function getAccountCredentials() {
+	public static function getAccountCredentials()
+	{
 		if (isset(self::$data['credentials']) && isset(self::$data['credentials']['email']) && isset(self::$data['credentials']['token'])) {
 			return new PagSeguroAccountCredentials(self::$data['credentials']['email'], self::$data['credentials']['token']);
 		} else {
@@ -80,7 +86,8 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function getEnvironment() {
+	public static function getEnvironment()
+	{
 		if (isset(self::$data['environment']) && isset(self::$data['environment']['environment'])) {
 			return self::$data['environment']['environment'];
 		} else {
@@ -88,7 +95,8 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function getApplicationCharset() {
+	public static function getApplicationCharset()
+	{
 		if (isset(self::$data['application']) && isset(self::$data['application']['charset'])) {
 			return self::$data['application']['charset'];
 		} else {
@@ -96,11 +104,13 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function setApplicationCharset($charset) {
+	public static function setApplicationCharset($charset)
+	{
 		self::setData('application', 'charset', $charset);
 	}
 
-	public static function logIsActive() {
+	public static function logIsActive()
+	{
 		if (isset(self::$data['log']) && isset(self::$data['log']['active'])) {
 			return (bool) self::$data['log']['active'];
 		} else {
@@ -108,13 +118,15 @@ class PagSeguroConfig {
 		}
 	}
 
-	public static function activeLog($fileName = null) {
+	public static function activeLog($fileName = null)
+	{
 		self::setData('log', 'active', true);
 		self::setData('log', 'fileLocation', $fileName ? $fileName : '');
 		LogPagSeguro::reLoad();
 	}
 
-	public static function getLogFileLocation() {
+	public static function getLogFileLocation()
+	{
 		if (isset(self::$data['log']) && isset(self::$data['log']['fileLocation'])) {
 			return self::$data['log']['fileLocation'];
 		} else {

@@ -19,9 +19,11 @@
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class searchTransactionsAbandoned {
+class searchTransactionsAbandoned
+{
 
-	public static function main() {
+	public static function main()
+	{
 
 		$initialDate = '2011-12-10T08:50';
 		$finalDate = '2011-12-29T10:30';
@@ -29,7 +31,8 @@ class searchTransactionsAbandoned {
 		$pageNumber = 1;
 		$maxPageResults = 20;
 
-		try {
+		try
+		{
 
 			/*
 			 * #### Crendencials #####
@@ -43,13 +46,16 @@ class searchTransactionsAbandoned {
 
 			self::printResult($result, $initialDate, $finalDate);
 
-		} catch (PagSeguroServiceException $e) {
+		}
+		catch (PagSeguroServiceException $e)
+		{
 			die($e->getMessage());
 		}
 
 	}
 
-	public static function printResult(PagSeguroTransactionSearchResult $result, $initialDate, $finalDate) {
+	public static function printResult(PagSeguroTransactionSearchResult $result, $initialDate, $finalDate)
+	{
 		$finalDate = $finalDate ? $finalDate : 'now';
 		echo "<h2>Search transactions abandoned</h2>";
 		echo "<h3>$initialDate to $finalDate</h3>";

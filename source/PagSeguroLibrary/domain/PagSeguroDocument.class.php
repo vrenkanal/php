@@ -22,7 +22,8 @@
 /**
  * Represents document
  */
-class PagSeguroDocument {
+class PagSeguroDocument
+{
 
 	private static $availableDocumentList = array(
 		1 => 'CPF');
@@ -39,7 +40,8 @@ class PagSeguroDocument {
 	 */
 	private $value;
 
-	public function __construct(Array $data = NULL) {
+	public function __construct(Array $data = NULL)
+	{
 		if ($data) {
 			if (isset($data['type']) && isset($data['value'])) {
 				$this->setType ($data['type']);
@@ -52,7 +54,8 @@ class PagSeguroDocument {
 	 * Get document type
 	 * @return string
 	 */
-	public function getType() {
+	public function getType()
+	{
 		return $this->type;
 	}
 
@@ -60,7 +63,8 @@ class PagSeguroDocument {
 	 * Set document type
 	 * @param string $type
 	 */
-	public function setType($type) {
+	public function setType($type)
+	{
 		$this->type = strtoupper($type);
 	}
 
@@ -68,7 +72,8 @@ class PagSeguroDocument {
 	 * Get document value
 	 * @return string
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -76,7 +81,8 @@ class PagSeguroDocument {
 	 * Set document value
 	 * @param string $value
 	 */
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
@@ -85,7 +91,8 @@ class PagSeguroDocument {
 	 * @param type $documentType
 	 * @return type
 	 */
-	public static function isDocumentTypeAvailable($documentType) {
+	public static function isDocumentTypeAvailable($documentType)
+	{
 		return (array_search(strtoupper($documentType), self::$availableDocumentList));
 	}
 }

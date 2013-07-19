@@ -19,9 +19,11 @@
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class NotificationListener {
+class NotificationListener
+{
 
-	public static function main() {
+	public static function main()
+	{
 
 		$code = (isset($_POST['notificationCode']) && trim($_POST['notificationCode']) !== "" ? trim($_POST['notificationCode']) : null);
 		$type = (isset($_POST['notificationType']) && trim($_POST['notificationType']) !== "" ? trim($_POST['notificationType']) : null);
@@ -33,12 +35,12 @@ class NotificationListener {
 
 			switch ($strType) {
 
-			case 'TRANSACTION':
-				self::TransactionNotification($code);
-				break;
+				case 'TRANSACTION':
+					self::TransactionNotification($code);
+					break;
 
-			default:
-				LogPagSeguro::error("Unknown notification type [" . $notificationType->getValue() . "]");
+				default:
+					LogPagSeguro::error("Unknown notification type [" . $notificationType->getValue() . "]");
 
 			}
 
@@ -53,7 +55,8 @@ class NotificationListener {
 
 	}
 
-	private static function TransactionNotification($notificationCode) {
+	private static function TransactionNotification($notificationCode)
+	{
 
 		/*
 		 * #### Crendencials #####
@@ -63,15 +66,19 @@ class NotificationListener {
 		 */
 		$credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
 
-		try {
+		try
+		{
 			$transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
-		} catch (PagSeguroServiceException $e) {
+		}
+		catch (PagSeguroServiceException $e)
+		{
 			die($e->getMessage());
 		}
 
 	}
 
-	private static function printLog($strType = null) {
+	private static function printLog($strType = null)
+	{
 		$count = 4;
 		echo "<h2>Receive notifications</h2>";
 		if ($strType) {

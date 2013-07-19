@@ -22,23 +22,24 @@
 /**
  * Defines a list of known payment method types.
  */
-class PagSeguroPaymentMethodType {
+class PagSeguroPaymentMethodType
+{
 
 	private static $typeList = array(
 		/** Credit card */
-		'CREDIT_CARD' => 1,
+		'CREDIT_CARD'		 => 1,
 
 		/** Boleto - is a form of invoicing in Brazil */
-		'BOLETO' => 2,
+		'BOLETO'			 => 2,
 
 		/** Online transfer */
-		'ONLINE_TRANSFER' => 3,
+		'ONLINE_TRANSFER'	 => 3,
 
 		/** PagSeguro account balance */
-		'BALANCE' => 4,
+		'BALANCE'			 => 4,
 
 		/** OiPaggo */
-		'OI_PAGGO' => 5
+		'OI_PAGGO'			 => 5
 	);
 
 	/**
@@ -47,17 +48,20 @@ class PagSeguroPaymentMethodType {
 	 */
 	private $value;
 
-	public function __construct($value = null) {
+	public function __construct($value = null)
+	{
 		if ($value) {
 			$this->value = $value;
 		}
 	}
 
-	public function setValue($value) {
+	public function setValue($value)
+	{
 		$this->value = $value;
 	}
 
-	public function setByType($type) {
+	public function setByType($type)
+	{
 		if (isset(self::$typeList[$type])) {
 			$this->value = self::$typeList[$type];
 		} else {
@@ -69,7 +73,8 @@ class PagSeguroPaymentMethodType {
 	 * @return payment method type value
 	 * Example: 1
 	 */
-	public function getValue() {
+	public function getValue()
+	{
 		return $this->value;
 	}
 
@@ -77,7 +82,8 @@ class PagSeguroPaymentMethodType {
 	 * @param value
 	 * @return the PagSeguroPaymentMethodType corresponding to the informed value
 	 */
-	public function getTypeFromValue($value = null) {
+	public function getTypeFromValue($value = null)
+	{
 		$value = ($value == null ? $this->value : $value);
 		return array_search($this->value, self::$typeList);
 	}

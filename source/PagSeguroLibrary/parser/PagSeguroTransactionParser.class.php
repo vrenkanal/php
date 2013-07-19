@@ -21,9 +21,11 @@ if (!defined('PAGSEGURO_LIBRARY')) {
  * ***********************************************************************
  */
 
-class PagSeguroTransactionParser extends PagSeguroServiceParser {
+class PagSeguroTransactionParser extends PagSeguroServiceParser
+{
 
-	public static function readSearchResult($str_xml) {
+	public static function readSearchResult($str_xml)
+	{
 
 		$parser = new PagSeguroXmlParser($str_xml);
 		$data = $parser->getResult('transactionSearchResult');
@@ -62,7 +64,8 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser {
 		return $searchResutlt;
 	}
 
-	public static function readTransaction($str_xml) {
+	public static function readTransaction($str_xml)
+	{
 
 		// Parser
 		$parser = new PagSeguroXmlParser($str_xml);
@@ -286,7 +289,8 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser {
 		return $transaction;
 	}
 
-	private static function parseTransactionItem($data) {
+	private static function parseTransactionItem($data)
+	{
 
 		// <transaction> <items> <item>
 		$item = new PagSeguroItem();
@@ -319,7 +323,8 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser {
 		return $item;
 	}
 
-	private static function parseTransactionSummary($data) {
+	private static function parseTransactionSummary($data)
+	{
 
 		$transactionSummary = new PagSeguroTransactionSummary();
 

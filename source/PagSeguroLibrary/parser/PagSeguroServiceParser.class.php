@@ -19,9 +19,11 @@
  ************************************************************************
  */
 
-class PagSeguroServiceParser {
+class PagSeguroServiceParser
+{
 
-	public static function readErrors($str_xml) {
+	public static function readErrors($str_xml)
+	{
 		$parser = new PagSeguroXmlParser($str_xml);
 		$data = $parser->getResult('errors');
 		$errors = array();

@@ -22,7 +22,8 @@
 /**
  * Abstract class that represents a PagSeguro credential
  */
-abstract class PagSeguroCredentials {
+abstract class PagSeguroCredentials
+{
 
 	/**
 	 * @return a map of name value pairs that compose this set of credentials

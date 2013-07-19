@@ -21,9 +21,11 @@ if (!defined('PAGSEGURO_LIBRARY')) {
  * ***********************************************************************
  */
 
-class PagSeguroPaymentParser extends PagSeguroServiceParser {
+class PagSeguroPaymentParser extends PagSeguroServiceParser
+{
 
-	public static function getData($payment) {
+	public static function getData($payment)
+	{
 
 		// reference
 		if ($payment->getReference() != null) {
@@ -198,7 +200,8 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser {
 		return $data;
 	}
 
-	public static function readSuccessXml($str_xml) {
+	public static function readSuccessXml($str_xml)
+	{
 		$parser = new PagSeguroXmlParser($str_xml);
 		$data = $parser->getResult('checkout');
 		$PaymentParserData = new PagSeguroPaymentParserData();

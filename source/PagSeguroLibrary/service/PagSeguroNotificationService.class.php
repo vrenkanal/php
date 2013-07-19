@@ -22,11 +22,13 @@
 /**
  * Encapsulates web service calls regarding PagSeguro notifications
  */
-class PagSeguroNotificationService {
+class PagSeguroNotificationService
+{
 
 	const serviceName = 'notificationService';
 
-	private static function buildTransactionNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode) {
+	private static function buildTransactionNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode)
+	{
 		$url = $connectionData->getServiceUrl();
 		return "{$url}/{$notificationCode}/?" . $connectionData->getCredentialsUrlQuery();
 	}
@@ -41,12 +43,14 @@ class PagSeguroNotificationService {
 	 * @return a transaction
 	 * @see PagSeguroTransaction
 	 */
-	public static function checkTransaction(PagSeguroCredentials $credentials, $notificationCode) {
+	public static function checkTransaction(PagSeguroCredentials $credentials, $notificationCode)
+	{
 
 		LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - begin");
 		$connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
 
-		try {
+		try
+		{
 
 			$connection = new PagSeguroHttpConnection();
 			$connection->get(self::buildTransactionNotificationUrl($connectionData, $notificationCode), // URL + par�metros de busca
@@ -58,33 +62,36 @@ class PagSeguroNotificationService {
 
 			switch ($httpStatus->getType()) {
 
-			case 'OK':
-				// parses the transaction
-				$transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-				LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end " . $transaction->toString() . ")");
-				break;
+				case 'OK':
+					// parses the transaction
+					$transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
+					LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end " . $transaction->toString() . ")");
+					break;
 
-			case 'BAD_REQUEST':
-				$errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
-				$e = new PagSeguroServiceException($httpStatus, $errors);
-				LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " . $e->getOneLineMessage());
-				throw $e;
-				break;
+				case 'BAD_REQUEST':
+					$errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
+					$e = new PagSeguroServiceException($httpStatus, $errors);
+					LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " . $e->getOneLineMessage());
+					throw $e;
+					break;
 
-			default:
-				$e = new PagSeguroServiceException($httpStatus);
-				LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " . $e->getOneLineMessage());
-				throw $e;
-				break;
+				default:
+					$e = new PagSeguroServiceException($httpStatus);
+					LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " . $e->getOneLineMessage());
+					throw $e;
+					break;
 
 			}
 
 			return isset($transaction) ? $transaction : null;
 
-		} catch (PagSeguroServiceException $e) {
+		}
+		catch (PagSeguroServiceException $e)
+		{
 			throw $e;
 		}
-		catch (Exception $e) {
+		catch (Exception $e)
+		{
 			LogPagSeguro::error("Exception: " . $e->getMessage());
 			throw $e;
 		}

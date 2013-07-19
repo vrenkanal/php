@@ -23,7 +23,8 @@
  * Represents a PagSeguro web service error
  * @see PagSeguroServiceException
  */
-class PagSeguroError {
+class PagSeguroError
+{
 
 	/**
 	 * Error code
@@ -41,7 +42,8 @@ class PagSeguroError {
 	 * @param String $code
 	 * @param String $message
 	 */
-	public function __construct($code, $message) {
+	public function __construct($code, $message)
+	{
 		$this->code = $code;
 		$this->message = $message;
 	}
@@ -49,7 +51,8 @@ class PagSeguroError {
 	/**
 	 * @return the code
 	 */
-	public function getCode() {
+	public function getCode()
+	{
 		return $this->code;
 	}
 
@@ -57,14 +60,16 @@ class PagSeguroError {
 	 * Sets the code
 	 * @param String $code
 	 */
-	public function setCode($code) {
+	public function setCode($code)
+	{
 		$this->code = $code;
 	}
 
 	/**
 	 * @return the error description
 	 */
-	public function getMessage() {
+	public function getMessage()
+	{
 		return $this->message;
 	}
 
@@ -72,7 +77,8 @@ class PagSeguroError {
 	 * Sets the error description
 	 * @param String $message
 	 */
-	public function setMessage($message) {
+	public function setMessage($message)
+	{
 		$this->message = $message;
 	}
 

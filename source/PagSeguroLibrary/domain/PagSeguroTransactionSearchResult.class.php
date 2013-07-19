@@ -22,7 +22,8 @@
 /**
  * Represents a page of transactions returned by the transaction search service
  */
-class PagSeguroTransactionSearchResult {
+class PagSeguroTransactionSearchResult
+{
 
 	/**
 	 * Date/time when this search was executed
@@ -52,7 +53,8 @@ class PagSeguroTransactionSearchResult {
 	/**
 	 * @return the current page number
 	 */
-	public function getCurrentPage() {
+	public function getCurrentPage()
+	{
 		return $this->currentPage;
 	}
 
@@ -60,14 +62,16 @@ class PagSeguroTransactionSearchResult {
 	 * Sets the current page number
 	 * @param integer $currentPage
 	 */
-	public function setCurrentPage($currentPage) {
+	public function setCurrentPage($currentPage)
+	{
 		$this->currentPage = $currentPage;
 	}
 
 	/**
 	 * @return the date/time when this search was executed
 	 */
-	public function getDate() {
+	public function getDate()
+	{
 		return $this->date;
 	}
 
@@ -75,14 +79,16 @@ class PagSeguroTransactionSearchResult {
 	 * Set the date/time when this search was executed
 	 * @param date
 	 */
-	public function setDate($date) {
+	public function setDate($date)
+	{
 		$this->date = $date;
 	}
 
 	/**
 	 * @return the number of transactions summaries in the current page
 	 */
-	public function getResultsInThisPage() {
+	public function getResultsInThisPage()
+	{
 		return $this->resultsInThisPage;
 	}
 
@@ -91,14 +97,16 @@ class PagSeguroTransactionSearchResult {
 	 *
 	 * @param resultsInThisPage
 	 */
-	public function setResultsInThisPage($resultsInThisPage) {
+	public function setResultsInThisPage($resultsInThisPage)
+	{
 		$this->resultsInThisPage = $resultsInThisPage;
 	}
 
 	/**
 	 * @return the total number of pages
 	 */
-	public function getTotalPages() {
+	public function getTotalPages()
+	{
 		return $this->totalPages;
 	}
 
@@ -107,7 +115,8 @@ class PagSeguroTransactionSearchResult {
 	 *
 	 * @param totalPages
 	 */
-	public function setTotalPages($totalPages) {
+	public function setTotalPages($totalPages)
+	{
 		$this->totalPages = $totalPages;
 	}
 
@@ -115,7 +124,8 @@ class PagSeguroTransactionSearchResult {
 	 * @return the transaction summaries in this page
 	 * @see PagSeguroTransactionSummary
 	 */
-	public function getTransactions() {
+	public function getTransactions()
+	{
 		return $this->transactions;
 	}
 
@@ -124,14 +134,16 @@ class PagSeguroTransactionSearchResult {
 	 *
 	 * @param transactions
 	 */
-	public function setTransactions(Array $transactions) {
+	public function setTransactions(Array $transactions)
+	{
 		$this->transactions = $transactions;
 	}
 
 	/**
 	 * @return a string that represents the current object
 	 */
-	public function toString() {
+	public function toString()
+	{
 		return "PagSeguroTransactionSearchResult(" . "Date=" . $this->date . ", CurrentPage=" . $this->currentPage . ", TotalPages=" . $this->totalPages . ", Transactions in this page=" . $this->resultsInThisPage . ")";
 	}
 

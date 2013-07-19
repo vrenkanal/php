@@ -24,7 +24,8 @@ if (!defined('PAGSEGURO_LIBRARY')) {
 /**
  * Represents a payment request
  */
-class PagSeguroPaymentRequest {
+class PagSeguroPaymentRequest
+{
 
 	/**
 	 * Party that will be sending the money
@@ -113,7 +114,8 @@ class PagSeguroPaymentRequest {
 	 * Party that will be sending the Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
 	 * money
 	 */
-	public function getSender() {
+	public function getSender()
+	{
 		return $this->sender;
 	}
 
@@ -124,7 +126,8 @@ class PagSeguroPaymentRequest {
 	 * @param String $areaCode
 	 * @param String $number
 	 */
-	public function setSender($name, $email = null, $areaCode = null, $number = null, $documentType = null, $documentValue = null) {
+	public function setSender($name, $email = null, $areaCode = null, $number = null, $documentType = null, $documentValue = null)
+	{
 		$param = $name;
 		if (is_array($param)) {
 			$this->sender = new PagSeguroSender($param);
@@ -144,7 +147,8 @@ class PagSeguroPaymentRequest {
 	 * Sets the name of the sender, party that will be sending the money
 	 * @param String $senderName
 	 */
-	public function setSenderName($senderName) {
+	public function setSenderName($senderName)
+	{
 		if ($this->sender == null) {
 			$this->sender = new PagSeguroSender();
 		}
@@ -155,7 +159,8 @@ class PagSeguroPaymentRequest {
 	 * Sets the name of the sender, party that will be sending the money
 	 * @param String $senderEmail
 	 */
-	public function setSenderEmail($senderEmail) {
+	public function setSenderEmail($senderEmail)
+	{
 		if ($this->sender == null) {
 			$this->sender = new PagSeguroSender();
 		}
@@ -168,7 +173,8 @@ class PagSeguroPaymentRequest {
 	 * @param areaCode
 	 * @param number
 	 */
-	public function setSenderPhone($areaCode, $number = null) {
+	public function setSenderPhone($areaCode, $number = null)
+	{
 		$param = $areaCode;
 		if ($this->sender == null) {
 			$this->sender = new PagSeguroSender();
@@ -184,7 +190,8 @@ class PagSeguroPaymentRequest {
 	 * @return the currency
 	 * Example: BRL
 	 */
-	public function getCurrency() {
+	public function getCurrency()
+	{
 		return $this->currency;
 	}
 
@@ -192,14 +199,16 @@ class PagSeguroPaymentRequest {
 	 * Sets the currency
 	 * @param String $currency
 	 */
-	public function setCurrency($currency) {
+	public function setCurrency($currency)
+	{
 		$this->currency = $currency;
 	}
 
 	/**
 	 * @return the items/products list in this payment request
 	 */
-	public function getItems() {
+	public function getItems()
+	{
 		return $this->items;
 	}
 
@@ -207,7 +216,8 @@ class PagSeguroPaymentRequest {
 	 * Sets the items/products list in this payment request
 	 * @param array $items
 	 */
-	public function setItems(Array $items) {
+	public function setItems(Array $items)
+	{
 		if (is_array($items)) {
 			$i = Array();
 			foreach ($items as $key => $item) {
@@ -232,7 +242,8 @@ class PagSeguroPaymentRequest {
 	 * @param String $weight
 	 * @param String $shippingCost
 	 */
-	public function addItem($id, $description = null, $quantity = null, $amount = null, $weight = null, $shippingCost = null) {
+	public function addItem($id, $description = null, $quantity = null, $amount = null, $weight = null, $shippingCost = null)
+	{
 		$param = $id;
 		if ($this->items == null) {
 			$this->items = Array();
@@ -254,7 +265,8 @@ class PagSeguroPaymentRequest {
 			}
 	}
 
-	public function addSenderDocument($type, $value) {
+	public function addSenderDocument($type, $value)
+	{
 		if ($this->getSender() instanceof PagSeguroSender) {
 			$this->getSender()->addDocument($type, $value);
 		}
@@ -266,7 +278,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @return the redirectURL
 	 */
-	public function getRedirectURL() {
+	public function getRedirectURL()
+	{
 		return $this->redirectURL;
 	}
 
@@ -278,7 +291,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param String $redirectURL
 	 */
-	public function setRedirectURL($redirectURL) {
+	public function setRedirectURL($redirectURL)
+	{
 		$this->redirectURL = $redirectURL;
 	}
 
@@ -288,7 +302,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @return the extra amount
 	 */
-	public function getExtraAmount() {
+	public function getExtraAmount()
+	{
 		return $this->extraAmount;
 	}
 
@@ -299,14 +314,16 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param extraAmount
 	 */
-	public function setExtraAmount($extraAmount) {
+	public function setExtraAmount($extraAmount)
+	{
 		$this->extraAmount = $extraAmount;
 	}
 
 	/**
 	 * @return the reference of this payment request
 	 */
-	public function getReference() {
+	public function getReference()
+	{
 		return $this->reference;
 	}
 
@@ -314,7 +331,8 @@ class PagSeguroPaymentRequest {
 	 * Sets the reference of this payment request
 	 * @param reference
 	 */
-	public function setReference($reference) {
+	public function setReference($reference)
+	{
 		$this->reference = $reference;
 	}
 
@@ -322,7 +340,8 @@ class PagSeguroPaymentRequest {
 	 * @return the shipping information for this payment request
 	 * @see PagSeguroShipping
 	 */
-	public function getShipping() {
+	public function getShipping()
+	{
 		return $this->shipping;
 	}
 
@@ -331,7 +350,8 @@ class PagSeguroPaymentRequest {
 	 * @param PagSeguroShipping $address
 	 * @param PagSeguroShippingType $type
 	 */
-	public function setShipping($address, $type = null) {
+	public function setShipping($address, $type = null)
+	{
 		$param = $address;
 		if ($param instanceof PagSeguroShipping) {
 			$this->shipping = $param;
@@ -365,7 +385,8 @@ class PagSeguroPaymentRequest {
 	 * @param String $state
 	 * @param String $country
 	 */
-	public function setShippingAddress($postalCode = null, $street = null, $number = null, $complement = null, $district = null, $city = null, $state = null, $country = null) {
+	public function setShippingAddress($postalCode = null, $street = null, $number = null, $complement = null, $district = null, $city = null, $state = null, $country = null)
+	{
 		$param = $postalCode;
 		if ($this->shipping == null) {
 			$this->shipping = new PagSeguroShipping();
@@ -392,7 +413,8 @@ class PagSeguroPaymentRequest {
 	 * Sets the shipping type for this payment request
 	 * @param PagSeguroShippingType $type
 	 */
-	public function setShippingType($type) {
+	public function setShippingType($type)
+	{
 		$param = $type;
 		if ($this->shipping == null) {
 			$this->shipping = new PagSeguroShipping();
@@ -408,7 +430,8 @@ class PagSeguroPaymentRequest {
 	 * Sets the shipping cost for this payment request
 	 * @param shippinCost
 	 */
-	public function setShippingCost($shippinCost) {
+	public function setShippingCost($shippinCost)
+	{
 		$param = $shippinCost;
 		if ($this->shipping == null) {
 			$this->shipping = new PagSeguroShipping();
@@ -423,7 +446,8 @@ class PagSeguroPaymentRequest {
 	 * After this payment request is submitted, the payment code returned
 	 * will remain valid for the period specified.
 	 */
-	public function getMaxAge() {
+	public function getMaxAge()
+	{
 		return $this->maxAge;
 	}
 
@@ -434,7 +458,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param maxAge
 	 */
-	public function setMaxAge($maxAge) {
+	public function setMaxAge($maxAge)
+	{
 		$this->maxAge = $maxAge;
 	}
 
@@ -444,7 +469,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @return the max uses configured for this payment request
 	 */
-	public function getMaxUses() {
+	public function getMaxUses()
+	{
 		return $this->maxUses;
 	}
 
@@ -456,7 +482,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param maxUses
 	 */
-	public function setMaxUses($maxUses) {
+	public function setMaxUses($maxUses)
+	{
 		$this->maxUses = $maxUses;
 	}
 
@@ -465,7 +492,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @return type
 	 */
-	public function getNotificationURL() {
+	public function getNotificationURL()
+	{
 		return $this->notificationURL;
 	}
 
@@ -474,7 +502,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param type $notificationURL
 	 */
-	public function setNotificationURL($notificationURL) {
+	public function setNotificationURL($notificationURL)
+	{
 		$this->notificationURL = $notificationURL;
 	}
 
@@ -483,7 +512,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param type $metaData
 	 */
-	public function setMetaData($metaData) {
+	public function setMetaData($metaData)
+	{
 		$this->metadata = $metaData;
 	}
 
@@ -492,7 +522,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @return type $metaData
 	 */
-	public function getMetaData() {
+	public function getMetaData()
+	{
 
 		if ($this->metadata == null) {
 			$this->metadata = new PagSeguroMetaData();
@@ -507,7 +538,8 @@ class PagSeguroPaymentRequest {
 	 * @param type $itemValue - PagSeguroMetaDataItem value
 	 * @param type $itemGroup - PagSeguroMetaDataItem group
 	 */
-	public function addMetaData($itemKey, $itemValue, $itemGroup = NULL) {
+	public function addMetaData($itemKey, $itemValue, $itemGroup = NULL)
+	{
 		$this->getMetaData()->addItem(new PagSeguroMetaDataItem($itemKey, $itemValue, $itemGroup));
 	}
 
@@ -516,7 +548,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @param type $parameter
 	 */
-	public function setParameter($parameter) {
+	public function setParameter($parameter)
+	{
 		$this->parameter = $parameter;
 	}
 
@@ -525,7 +558,8 @@ class PagSeguroPaymentRequest {
 	 *
 	 * @return type
 	 */
-	public function getParameter() {
+	public function getParameter()
+	{
 		if ($this->parameter == NULL) {
 			$this->parameter = new PagSeguroParameter();
 		}
@@ -538,7 +572,8 @@ class PagSeguroPaymentRequest {
 	 * @param type $parameterName - PagSeguroParameterItem key
 	 * @param type $parameterValue - PagSeguroParameterItem value
 	 */
-	public function addParameter($parameterName, $parameterValue) {
+	public function addParameter($parameterName, $parameterValue)
+	{
 		$this->getParameter()->addItem(new PagSeguroParameterItem($parameterName, $parameterValue));
 	}
 
@@ -549,7 +584,8 @@ class PagSeguroPaymentRequest {
 	 * @param type $parameterValue - PagSeguroParameterItem value
 	 * @param type $parameterIndex - PagSeguroParameterItem group
 	 */
-	public function addIndexedParameter($parameterName, $parameterValue, $parameterIndex) {
+	public function addIndexedParameter($parameterName, $parameterValue, $parameterIndex)
+	{
 		$this->getParameter()->addItem(new PagSeguroParameterItem($parameterName, $parameterValue, $parameterIndex));
 	}
 
@@ -559,14 +595,16 @@ class PagSeguroPaymentRequest {
 	 * @param Credentials $credentials
 	 * @return The URL to where the user needs to be redirected to in order to complete the payment process
 	 */
-	public function register(PagSeguroCredentials $credentials) {
+	public function register(PagSeguroCredentials $credentials)
+	{
 		return PagSeguroPaymentService::createCheckoutRequest($credentials, $this);
 	}
 
 	/**
 	 * @return a string that represents the current object
 	 */
-	public function toString() {
+	public function toString()
+	{
 		$email = $this->sender ? $this->sender->getEmail() : "null";
 		return "PagSeguroPaymentRequest(Reference=" . $this->reference . ",     SenderEmail=" . $email . ")";
 	}

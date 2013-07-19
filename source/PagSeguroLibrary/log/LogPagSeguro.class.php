@@ -22,24 +22,28 @@
 /**
  * Logging class
  */
-class LogPagSeguro {
+class LogPagSeguro
+{
 
 	private static $log;
 	private static $active;
 	private static $fileLocation;
 
-	private function __construct() {
+	private function __construct()
+	{
 		self::reLoad();
 	}
 
-	public static function init() {
+	public static function init()
+	{
 		if (self::$log == null) {
 			self::$log = new LogPagSeguro();
 		}
 		return self::$log;
 	}
 
-	public static function reLoad() {
+	public static function reLoad()
+	{
 
 		self::$active = PagSeguroConfig::logIsActive();
 		if (self::$active) {
@@ -58,7 +62,8 @@ class LogPagSeguro {
 	 * @throws Exception
 	 * @return boolean
 	 */
-	public static function createFile() {
+	public static function createFile()
+	{
 		if (!self::$active) {
 			return false;
 		}
@@ -66,10 +71,13 @@ class LogPagSeguro {
 		$defaultName = 'PagSeguro.log';
 		self::$fileLocation = $defaultPath . DIRECTORY_SEPARATOR . $defaultName;
 
-		try {
+		try
+		{
 			$f = fopen(self::$fileLocation, "a");
 			fclose($f);
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			echo $e->getMessage() . " - Can't create log file. Permission denied. File location: " . self::$fileLocation;
 		}
 
@@ -79,7 +87,8 @@ class LogPagSeguro {
 	 * Prints a info message in the log file
 	 * @param String $message
 	 */
-	public static function info($message) {
+	public static function info($message)
+	{
 		self::logMessage($message, 'info');
 	}
 
@@ -87,7 +96,8 @@ class LogPagSeguro {
 	 * Prints a warning message in the log file
 	 * @param String $message
 	 */
-	public static function warning($message) {
+	public static function warning($message)
+	{
 		self::logMessage($message, 'warning');
 	}
 
@@ -95,7 +105,8 @@ class LogPagSeguro {
 	 * Prints an error message in the log file
 	 * @param String $message
 	 */
-	public static function error($message) {
+	public static function error($message)
+	{
 		self::logMessage($message, 'error');
 	}
 
@@ -103,7 +114,8 @@ class LogPagSeguro {
 	 * Prints a debug message in the log file
 	 * @param String $message
 	 */
-	public static function debug($message) {
+	public static function debug($message)
+	{
 		self::logMessage($message, 'debug');
 	}
 
@@ -113,36 +125,40 @@ class LogPagSeguro {
 	 * @param String $type
 	 * @throws Exception
 	 */
-	private static function logMessage($message, $type = null) {
+	private static function logMessage($message, $type = null)
+	{
 		if (!self::$active) {
 			return false;
 		}
 
-		try {
+		try
+		{
 
 			$file = fopen(self::$fileLocation, "a");
 			$date_message = "{" . @date("Y/m/d H:i:s", time()) . "}";
 			$type_message = "";
 			switch ($type) {
-			case 'info':
-				$type_message = "[Info]";
-				break;
-			case 'warning':
-				$type_message = "[Warning]";
-				break;
-			case 'error':
-				$type_message = "[Error]";
-				break;
-			case 'debug':
-			default:
-				$type_message = "[Debug]";
-				break;
+				case 'info':
+					$type_message = "[Info]";
+					break;
+				case 'warning':
+					$type_message = "[Warning]";
+					break;
+				case 'error':
+					$type_message = "[Error]";
+					break;
+				case 'debug':
+				default:
+					$type_message = "[Debug]";
+					break;
 			}
 			$str = "$date_message $type_message $message";
 			fwrite($file, "$str \r\n");
 			fclose($file);
 
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			echo $e->getMessage() . " - Can't create log file. Permission denied. File location: " . self::$fileLocation;
 		}
 
@@ -153,7 +169,8 @@ class LogPagSeguro {
 	 * @param integer $negativeOffset
 	 * @param boolean $reverse
 	 */
-	public static function getHtml($negativeOffset = null, $reverse = null) {
+	public static function getHtml($negativeOffset = null, $reverse = null)
+	{
 		if (!self::$active) {
 			return false;
 		}

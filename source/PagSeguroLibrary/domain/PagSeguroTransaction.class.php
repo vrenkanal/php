@@ -1,4 +1,6 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) { die('No direct script access allowed'); }
+<?php if (!defined('PAGSEGURO_LIBRARY')) {
+    die('No direct script access allowed');
+}
 /*
 ************************************************************************
 Copyright [2011] [PagSeguro Internet Ltda.]
@@ -18,13 +20,14 @@ limitations under the License.
 */
 
 /**
-* Represents a PagSeguro transaction
-*/
-class PagSeguroTransaction {
+ * Represents a PagSeguro transaction
+ */
+class PagSeguroTransaction
+{
 
-	/**
-	 * Transaction date
-	 */
+    /**
+     * Transaction date
+     */
     private $date;
 
     /**
@@ -45,10 +48,10 @@ class PagSeguroTransaction {
      */
     private $reference;
 
-	/**
-	 * Transaction type
-	 * @see PagSeguroTransactionType
-	 */
+    /**
+     * Transaction type
+     * @see PagSeguroTransactionType
+     */
     private $type;
 
     /**
@@ -64,7 +67,7 @@ class PagSeguroTransaction {
     private $paymentMethod;
 
     /**
-     * Groos amount of the transaction
+     * Gross amount of the transaction
      */
     private $grossAmount;
 
@@ -113,9 +116,10 @@ class PagSeguroTransaction {
 
     /**
      * Date the last notification about this transaction was sent
-     * @return the last event date
+     * @return DateTime the last event date
      */
-    public function getLastEventDate() {
+    public function getLastEventDate()
+    {
         return $this->lastEventDate;
     }
 
@@ -124,82 +128,93 @@ class PagSeguroTransaction {
      *
      * @param lastEventDate
      */
-    public function setLastEventDate($lastEventDate) {
+    public function setLastEventDate($lastEventDate)
+    {
         $this->lastEventDate = $lastEventDate;
     }
 
     /**
-     * @return the transaction date
+     * @return String the transaction date
      */
-    public function getDate() {
+    public function getDate()
+    {
         return $this->date;
     }
+
 
     /**
      * Sets the transaction date
      *
-     * @param date
+     * @param $date DateTime
      */
-    public function setDate($date) {
+    public function setDate($date)
+    {
         $this->date = $date;
     }
 
     /**
-     * @return the transaction code
+     * @return String the transaction code
      */
-    public function getCode() {
+    public function getCode()
+    {
         return $this->code;
     }
 
     /**
      * Sets the transaction code
      *
-     * @param code
+     * @param $code String
      */
-    public function setCode($code) {
+    public function setCode($code)
+    {
         $this->code = $code;
     }
 
     /**
      * You can use the reference code to store an identifier so you can
-     *  associate the PagSeguro transaction to a transaction in your system.
+     * associate the PagSeguro transaction to a transaction in your system.
      *
-     * @return the reference code
+     * @return String the reference code
      */
-    public function getReference() {
+    public function getReference()
+    {
         return $this->reference;
     }
 
     /**
      * Sets the reference code
      *
-     * @param reference
+     * @param   $reference    String
      */
-    public function setReference($reference) {
+    public function setReference($reference)
+    {
         $this->reference = $reference;
     }
 
     /**
-     * @return the transaction type
+     * @return PagSeguroTransactionType the transaction type
      * @see PagSeguroTransactionType
      */
-     public function getType() {
+    public function getType()
+    {
         return $this->type;
     }
 
     /**
      * Sets the transaction type
-     * @param PagSeguroTransactionType $type
+     * @param $type PagSeguroTransactionType
      */
-    public function setType(PagSeguroTransactionType $type) {
+    public function setType(PagSeguroTransactionType $type)
+    {
         $this->type = $type;
     }
 
     /**
-     * @return the transaction status
-     * @see PagSeguroTransactionStatus
+     * @return  PagSeguroTransactionStatus  the transaction status
+     * @see     PagSeguroTransactionStatus
      */
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
@@ -207,14 +222,16 @@ class PagSeguroTransaction {
      * Sets the transaction status
      * @param PagSeguroTransactionStatus $status
      */
-    public function setStatus(PagSeguroTransactionStatus $status) {
+    public function setStatus(PagSeguroTransactionStatus $status)
+    {
         $this->status = $status;
     }
 
     /**
      * @return the payment method used in this transaction
      */
-    public function getPaymentMethod() {
+    public function getPaymentMethod()
+    {
         return $this->paymentMethod;
     }
 
@@ -222,14 +239,16 @@ class PagSeguroTransaction {
      * Sets the payment method used in this transaction
      * @param PagSeguroPaymentMethod $paymentMethod
      */
-    public function setPaymentMethod(PagSeguroPaymentMethod $paymentMethod) {
+    public function setPaymentMethod(PagSeguroPaymentMethod $paymentMethod)
+    {
         $this->paymentMethod = $paymentMethod;
     }
 
     /**
-     * @return the transaction gross amount
+     * @return float the transaction gross amount
      */
-    public function getGrossAmount() {
+    public function getGrossAmount()
+    {
         return $this->grossAmount;
     }
 
@@ -237,14 +256,16 @@ class PagSeguroTransaction {
      * Sets the transaction gross amount
      * @param float $totalValue
      */
-    public function setGrossAmount($totalValue) {
+    public function setGrossAmount($totalValue)
+    {
         $this->grossAmount = $totalValue;
     }
 
     /**
      * @return the transaction gross amount
      */
-    public function getDiscountAmount() {
+    public function getDiscountAmount()
+    {
         return $this->discountAmount;
     }
 
@@ -252,14 +273,16 @@ class PagSeguroTransaction {
      * Sets the transaction gross amount
      * @param float $discountAmount
      */
-    public function setDiscountAmount($discountAmount) {
+    public function setDiscountAmount($discountAmount)
+    {
         $this->discountAmount = $discountAmount;
     }
 
     /**
      * @return the fee amount
      */
-    public function getFeeAmount() {
+    public function getFeeAmount()
+    {
         return $this->feeAmount;
     }
 
@@ -267,14 +290,16 @@ class PagSeguroTransaction {
      * Sets the transaction fee amount
      * @param float $feeAmount
      */
-    public function setFeeAmount($feeAmount) {
+    public function setFeeAmount($feeAmount)
+    {
         $this->feeAmount = $feeAmount;
     }
 
     /**
      * @return the net amount
      */
-    public function getNetAmount() {
+    public function getNetAmount()
+    {
         return $this->netAmount;
     }
 
@@ -282,14 +307,16 @@ class PagSeguroTransaction {
      * Sets the net amount
      * @param float $netAmount
      */
-    public function setNetAmount($netAmount) {
+    public function setNetAmount($netAmount)
+    {
         $this->netAmount = $netAmount;
     }
 
     /**
      * @return the extra amount
      */
-    public function getExtraAmount() {
+    public function getExtraAmount()
+    {
         return $this->extraAmount;
     }
 
@@ -297,14 +324,16 @@ class PagSeguroTransaction {
      * Sets the extra amount
      * @param float $extraAmount
      */
-    public function setExtraAmount($extraAmount) {
+    public function setExtraAmount($extraAmount)
+    {
         $this->extraAmount = $extraAmount;
     }
 
     /**
      * @return the installment count
      */
-    public function getInstallmentCount() {
+    public function getInstallmentCount()
+    {
         return $this->installmentCount;
     }
 
@@ -312,15 +341,17 @@ class PagSeguroTransaction {
      * Sets the installment count
      * @param integer $installmentCount
      */
-    public function setInstallmentCount($installmentCount) {
+    public function setInstallmentCount($installmentCount)
+    {
         $this->installmentCount = $installmentCount;
     }
 
     /**
-     * @return the items/products list in this transaction
+     * @return PagSeguroItem the items/products list in this transaction
      * @see PagSeguroItem
      */
-    public function getItems() {
+    public function getItems()
+    {
         return $this->items;
     }
 
@@ -329,22 +360,25 @@ class PagSeguroTransaction {
      * @param array $items
      * @see PagSeguroItem
      */
-    public function setItems(Array $items) {
+    public function setItems(Array $items)
+    {
         $this->items = $items;
     }
 
     /**
      * @return the items/products count in this transaction
      */
-    public function getItemCount() {
+    public function getItemCount()
+    {
         return $this->items == null ? null : count($this->items);
-    }    
+    }
 
     /**
      * @return the sender information, who is sending money in this transaction
      * @see PagSeguroSender
      */
-    public function getSender() {
+    public function getSender()
+    {
         return $this->sender;
     }
 
@@ -352,15 +386,17 @@ class PagSeguroTransaction {
      * Sets the sender information, who is sending money in this transaction
      * @param PagSeguroSender $sender
      */
-    public function setSender(PagSeguroSender $sender) {
+    public function setSender(PagSeguroSender $sender)
+    {
         $this->sender = $sender;
     }
 
     /**
-     * @return the shipping information
+     * @return PagSeguroShipping the shipping information
      * @see PagSeguroShipping
      */
-    public function getShipping() {
+    public function getShipping()
+    {
         return $this->shipping;
     }
 
@@ -368,32 +404,31 @@ class PagSeguroTransaction {
      * sets the shipping information for this transaction
      * @param PagSeguroShipping $shipping
      */
-    public function setShipping(PagSeguroShipping $shipping) {
+    public function setShipping(PagSeguroShipping $shipping)
+    {
         $this->shipping = $shipping;
     }
-	
+
     /**
-    * @return a string that represents the current object
-    */    
-    public function toString(){
-    	
-    	$code  		= $this->code;
-    	$email 		= $this->sender ? $this->sender->getEmail() : "null";
-    	$date  		= $this->date;
-    	$reference  = $this->reference;
-    	$status  	= $this->status ? $this->status->getValue() : "null";
-    	$itemsCount = is_array($this->items) ? count($this->items) : "null";
-    	
-    	return	"Transaction("
-			."Code=$code"
-			.", SenderEmail=$email"
-			.", Date=$date"
-			.", Reference=$reference"
-			.", status=$status"
-			.", itemsCount=$itemsCount"
-		.")";
-    }    
-    
+     * @return String a string that represents the current object
+     */
+    public function toString()
+    {
+
+        $transaction = array();
+        $transaction['code'] = $this->code;
+        $transaction['email'] = $this->sender ? $this->sender->getEmail() : "null";
+        $transaction['date'] = $this->date;
+        $transaction['reference'] = $this->reference;
+        $transaction['status'] = $this->status ? $this->status->getValue() : "null";
+        $transaction['itemsCount'] = is_array($this->items) ? count($this->items) : "null";
+
+        $transaction = "Transaction: " . var_export($transaction, TRUE);
+
+        return $transaction;
+
+    }
+
 }
 
 

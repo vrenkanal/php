@@ -1,28 +1,27 @@
 <?php
 /*
-************************************************************************
-Copyright [2011] [PagSeguro Internet Ltda.]
+ ************************************************************************
+ Copyright [2011] [PagSeguro Internet Ltda.]
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-************************************************************************
-*/
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ ************************************************************************
+ */
 
 /*
  * PagSeguro Library Class
- * Version: 2.1.6
- * Date: 31/05/2013
+ * Version: 2.1.7
+ * Date: 17/06/2013
  */
-
 define('PAGSEGURO_LIBRARY', true);
 
 require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
@@ -30,7 +29,7 @@ require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
 class PagSeguroLibrary
 {
 
-    const VERSION = "2.2";
+    const VERSION = "2.1.7";
     public static $resources;
     public static $config;
     public static $log;
@@ -62,23 +61,19 @@ class PagSeguroLibrary
 
         $dependencies = true;
 
-        try {
-            if (!function_exists('spl_autoload_register')) {
-                $dependencies = false;
-                throw new Exception("PagSeguroLibrary: Standard PHP Library (SPL) is required.");
-            }
+        if (!function_exists('spl_autoload_register')) {
+            throw new Exception("PagSeguroLibrary: Standard PHP Library (SPL) is required.");
+            $dependencies = false;
+        }
 
-            if (!function_exists('curl_init')) {
-                $dependencies = false;
-                throw new Exception('PagSeguroLibrary: cURL library is required.');
-            }
+        if (!function_exists('curl_init')) {
+            throw new Exception('PagSeguroLibrary: cURL library is required.');
+            $dependencies = false;
+        }
 
-            if (!class_exists('DOMDocument')) {
-                $dependencies = false;
-                throw new Exception('PagSeguroLibrary: DOM XML extension is required.');
-            }
-        } catch (Exception $e) {
-            return $dependencies;
+        if (!class_exists('DOMDocument')) {
+            throw new Exception('PagSeguroLibrary: DOM XML extension is required.');
+            $dependencies = false;
         }
 
         return $dependencies;
@@ -117,3 +112,4 @@ class PagSeguroLibrary
 }
 
 PagSeguroLibrary::init();
+?>

@@ -24,42 +24,51 @@ if (!defined('PAGSEGURO_LIBRARY')) {
 /**
  * HTTP Connection Class - used in API calls (cURL library is required)
  */
-class PagSeguroHttpConnection {
+class PagSeguroHttpConnection
+{
 
     private $status;
     private $response;
 
-    public function __construct() {
+    public function __construct()
+    {
         if (!function_exists('curl_init')) {
             throw new Exception('PagSeguroLibrary: cURL library is required.');
         }
     }
 
-    public function getStatus() {
+    public function getStatus()
+    {
         return $this->status;
     }
 
-    public function setStatus($status) {
+    public function setStatus($status)
+    {
         $this->status = $status;
     }
 
-    public function getResponse() {
+    public function getResponse()
+    {
         return $this->response;
     }
 
-    public function setResponse($response) {
+    public function setResponse($response)
+    {
         $this->response = $response;
     }
 
-    public function post($url, Array $data, $timeout = 20, $charset = 'ISO-8859-1') {
+    public function post($url, Array $data, $timeout = 20, $charset = 'ISO-8859-1')
+    {
         return $this->curlConnection('POST', $url, $data, $timeout, $charset);
     }
 
-    public function get($url, $timeout = 20, $charset = 'ISO-8859-1') {
+    public function get($url, $timeout = 20, $charset = 'ISO-8859-1')
+    {
         return $this->curlConnection('GET', $url, null, $timeout, $charset);
     }
 
-    private function curlConnection($method = 'GET', $url, Array $data = null, $timeout, $charset) {
+    private function curlConnection($method = 'GET', $url, Array $data = null, $timeout, $charset)
+    {
 
         if (strtoupper($method) === 'POST') {
             $postFields = ($data ? http_build_query($data, '', '&') : "");
@@ -86,7 +95,7 @@ class PagSeguroHttpConnection {
             CURLOPT_HEADER => false,
             CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_CONNECTTIMEOUT => $timeout,
-                //CURLOPT_TIMEOUT => $timeout
+            //CURLOPT_TIMEOUT => $timeout
         );
 
         // adding module version
@@ -108,11 +117,10 @@ class PagSeguroHttpConnection {
         $error = curl_errno($curl);
         $errorMessage = curl_error($curl);
         curl_close($curl);
-        $this->setStatus((int) $info['http_code']);
-        $this->setResponse((String) $resp);
+        $this->setStatus((int)$info['http_code']);
+        $this->setResponse((String)$resp);
         if ($error) {
             throw new Exception("CURL can't connect: $errorMessage");
-            return false;
         } else {
             return true;
         }

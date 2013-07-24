@@ -1,4 +1,6 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) { die('No direct script access allowed'); }
+<?php if (!defined('PAGSEGURO_LIBRARY')) {
+    die('No direct script access allowed');
+}
 /*
 ************************************************************************
 Copyright [2011] [PagSeguro Internet Ltda.]
@@ -18,201 +20,217 @@ limitations under the License.
 */
 
 /**
- * Represents an address location, typically for shipping or charging purposes. 
+ * Represents an address location, typically for shipping or charging purposes.
  * @see PagSeguroShipping
  */
-class PagSeguroAddress {
-	
-	
-	private $postalCode;
+class PagSeguroAddress
+{
 
-	/**
-	 * Street name
-	 */
-	private $street;
 
-	/**
-	 * Number
-	 */
-	private $number;
+    private $postalCode;
 
-	/**
-	 * Apartment, suite number or any other qualifier after the street/number pair.
-	 * Example: Apt 274, building A.
-	 */
-	private $complement;
+    /**
+     * Street name
+     */
+    private $street;
 
-	/**
-	 * District, county or neighborhood, if applicable
-	 */
-	private $district;
+    /**
+     * Number
+     */
+    private $number;
 
-	/**
-	 * City
-	 */
-	private $city;
+    /**
+     * Apartment, suite number or any other qualifier after the street/number pair.
+     * Example: Apt 274, building A.
+     */
+    private $complement;
 
-	/**
-	 * State or province
-	 */
-	private $state;
+    /**
+     * District, county or neighborhood, if applicable
+     */
+    private $district;
 
-	/**
-	 * Country
-	 */
-	private $country;
+    /**
+     * City
+     */
+    private $city;
 
-	/**
-	 * Initializes a new instance of the Address class
-	 * @param array $data
-	 */
-	public function __construct(Array $data = null) {
-		if (isset($data['postalCode'])) {
-			$this->postalCode = $data['postalCode'];
-		}
-		if (isset($data['street'])) {
-			$this->street = $data['street'];
-		}
-		if (isset($data['number'])) {
-			$this->number = $data['number'];
-		}
-		if (isset($data['complement'])) {
-			$this->complement = $data['complement'];
-		}
-		if (isset($data['district'])) {
-			$this->district = $data['district'];
-		}
-		if (isset($data['city'])) {
-			$this->city = $data['city'];
-		}
-		if (isset($data['state'])) {
-			$this->state = $data['state'];
-		}
-		if (isset($data['country'])) {
-			$this->country = $data['country'];
-		}
-	}
+    /**
+     * State or province
+     */
+    private $state;
 
-	/**
-	 * @return the street
-	 */
-	public function getStreet() {
-		return $this->street;
-	}
+    /**
+     * Country
+     */
+    private $country;
 
-	/**
-	 * @return the number
-	 */
-	public function getNumber() {
-		return $this->number;
-	}
-	
-	/**
-	 * @return the complement
-	 */
-	public function getComplement() {
-		return $this->complement;
-	}
+    /**
+     * Initializes a new instance of the Address class
+     * @param array $data
+     */
+    public function __construct(Array $data = null)
+    {
+        if (isset($data['postalCode'])) {
+            $this->postalCode = $data['postalCode'];
+        }
+        if (isset($data['street'])) {
+            $this->street = $data['street'];
+        }
+        if (isset($data['number'])) {
+            $this->number = $data['number'];
+        }
+        if (isset($data['complement'])) {
+            $this->complement = $data['complement'];
+        }
+        if (isset($data['district'])) {
+            $this->district = $data['district'];
+        }
+        if (isset($data['city'])) {
+            $this->city = $data['city'];
+        }
+        if (isset($data['state'])) {
+            $this->state = $data['state'];
+        }
+        if (isset($data['country'])) {
+            $this->country = $data['country'];
+        }
+    }
 
-	/**
-	 * @return the distrcit
-	 */
-	public function getDistrict() {
-		return $this->district;
-	}
-	
-	/**
-	 * @return the city
-	 */
-	public function getCity() {
-		return $this->city;
-	}
+    /**
+     * @return string the street
+     */
+    public function getStreet()
+    {
+        return $this->street;
+    }
 
-	/**
-	 * @return the state
-	 */
-	public function getState() {
-		return $this->state;
-	}
+    /**
+     * @return string the number
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
 
-	/**
-	 * @return the postal code
-	 */
-	public function getPostalCode() {
-		return $this->postalCode;
-	}
+    /**
+     * @return string the complement
+     */
+    public function getComplement()
+    {
+        return $this->complement;
+    }
 
-	/**
-	 * @return the country
-	 */
-	public function getCountry() {
-		return $this->country;
-	}
+    /**
+     * @return string the distrcit
+     */
+    public function getDistrict()
+    {
+        return $this->district;
+    }
 
-	/**
-	 * Sets the country
-	 * @param String $country
-	 */
-	public function setCountry($country) {
-		$this->country = $country;
-	}
+    /**
+     * @return string the city
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
 
-	/**
-	 * Sets the street
-	 * @param String $street
-	 */
-	public function setStreet($street) {
-		$this->street = $street;
-	}
+    /**
+     * @return string the state
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
 
-	/**
-	 * sets the numbetr
-	 * @param String $number
-	 */
-	public function setNumber($number) {
-		$this->number = $number;
-	}
+    /**
+     * @return string the postal code
+     */
+    public function getPostalCode()
+    {
+        return $this->postalCode;
+    }
 
-	/**
-	 * Sets the complement
-	 * @param String $complement
-	 */
-	public function setComplement($complement) {
-		$this->complement = $complement;
-	}
+    /**
+     * @return string the country
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
 
-	/**
-	 * sets the district
-	 * @param String $district
-	 */
-	public function setDistrict($district) {
-		$this->district = $district;
-	}
+    /**
+     * Sets the country
+     * @param String $country
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+    }
 
-	/**
-	 * Sets the city
-	 * @param String $city
-	 */
-	public function setCity($city) {
-		$this->city = $city;
-	}
+    /**
+     * Sets the street
+     * @param String $street
+     */
+    public function setStreet($street)
+    {
+        $this->street = $street;
+    }
 
-	/**
-	 * Sets the state 
-	 * @param String $state
-	 */
-	public function setState($state) {
-		$this->state = $state;
-	}
+    /**
+     * sets the numbetr
+     * @param String $number
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+    }
 
-	/**
-	 * Sets the postal code
-	 * @param String $postalCode
-	 */
-	public function setPostalCode($postalCode) {
-		$this->postalCode = $postalCode;
-	}
-	
+    /**
+     * Sets the complement
+     * @param String $complement
+     */
+    public function setComplement($complement)
+    {
+        $this->complement = $complement;
+    }
+
+    /**
+     * sets the district
+     * @param String $district
+     */
+    public function setDistrict($district)
+    {
+        $this->district = $district;
+    }
+
+    /**
+     * Sets the city
+     * @param String $city
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+    }
+
+    /**
+     * Sets the state
+     * @param String $state
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+    }
+
+    /**
+     * Sets the postal code
+     * @param String $postalCode
+     */
+    public function setPostalCode($postalCode)
+    {
+        $this->postalCode = $postalCode;
+    }
+
 }
-
-?>

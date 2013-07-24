@@ -2,22 +2,22 @@
     die('No direct script access allowed');
 }
 /*
-************************************************************************
-Copyright [2011] [PagSeguro Internet Ltda.]
+ ************************************************************************
+ Copyright [2011] [PagSeguro Internet Ltda.]
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-************************************************************************
-*/
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ ************************************************************************
+ */
 
 /**
  * Represents a PagSeguro transaction
@@ -67,7 +67,7 @@ class PagSeguroTransaction
     private $paymentMethod;
 
     /**
-     * Gross amount of the transaction
+     * Groos amount of the transaction
      */
     private $grossAmount;
 
@@ -116,7 +116,7 @@ class PagSeguroTransaction
 
     /**
      * Date the last notification about this transaction was sent
-     * @return DateTime the last event date
+     * @return the last event date
      */
     public function getLastEventDate()
     {
@@ -134,18 +134,17 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return String the transaction date
+     * @return the transaction date
      */
     public function getDate()
     {
         return $this->date;
     }
 
-
     /**
      * Sets the transaction date
      *
-     * @param $date DateTime
+     * @param date
      */
     public function setDate($date)
     {
@@ -153,7 +152,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return String the transaction code
+     * @return the transaction code
      */
     public function getCode()
     {
@@ -163,7 +162,7 @@ class PagSeguroTransaction
     /**
      * Sets the transaction code
      *
-     * @param $code String
+     * @param code
      */
     public function setCode($code)
     {
@@ -172,9 +171,9 @@ class PagSeguroTransaction
 
     /**
      * You can use the reference code to store an identifier so you can
-     * associate the PagSeguro transaction to a transaction in your system.
+     *  associate the PagSeguro transaction to a transaction in your system.
      *
-     * @return String the reference code
+     * @return the reference code
      */
     public function getReference()
     {
@@ -184,7 +183,7 @@ class PagSeguroTransaction
     /**
      * Sets the reference code
      *
-     * @param   $reference    String
+     * @param reference
      */
     public function setReference($reference)
     {
@@ -192,7 +191,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return PagSeguroTransactionType the transaction type
+     * @return the transaction type
      * @see PagSeguroTransactionType
      */
     public function getType()
@@ -202,7 +201,7 @@ class PagSeguroTransaction
 
     /**
      * Sets the transaction type
-     * @param $type PagSeguroTransactionType
+     * @param PagSeguroTransactionType $type
      */
     public function setType(PagSeguroTransactionType $type)
     {
@@ -210,8 +209,8 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return  PagSeguroTransactionStatus  the transaction status
-     * @see     PagSeguroTransactionStatus
+     * @return the transaction status
+     * @see PagSeguroTransactionStatus
      */
     public function getStatus()
     {
@@ -245,7 +244,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return float the transaction gross amount
+     * @return the transaction gross amount
      */
     public function getGrossAmount()
     {
@@ -347,7 +346,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return PagSeguroItem the items/products list in this transaction
+     * @return the items/products list in this transaction
      * @see PagSeguroItem
      */
     public function getItems()
@@ -392,7 +391,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return PagSeguroShipping the shipping information
+     * @return the shipping information
      * @see PagSeguroShipping
      */
     public function getShipping()
@@ -410,26 +409,21 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return String a string that represents the current object
+     * @return a string that represents the current object
      */
     public function toString()
     {
 
-        $transaction = array();
-        $transaction['code'] = $this->code;
-        $transaction['email'] = $this->sender ? $this->sender->getEmail() : "null";
-        $transaction['date'] = $this->date;
-        $transaction['reference'] = $this->reference;
-        $transaction['status'] = $this->status ? $this->status->getValue() : "null";
-        $transaction['itemsCount'] = is_array($this->items) ? count($this->items) : "null";
+        $code = $this->code;
+        $email = $this->sender ? $this->sender->getEmail() : "null";
+        $date = $this->date;
+        $reference = $this->reference;
+        $status = $this->status ? $this->status->getValue() : "null";
+        $itemsCount = is_array($this->items) ? count($this->items) : "null";
 
-        $transaction = "Transaction: " . var_export($transaction, TRUE);
-
-        return $transaction;
-
+        return "Transaction(" . "Code=$code" . ", SenderEmail=$email" . ", Date=$date" . ", Reference=$reference" . ", status=$status" . ", itemsCount=$itemsCount" . ")";
     }
 
 }
-
 
 ?>

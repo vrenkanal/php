@@ -126,6 +126,8 @@ class PagSeguroPaymentRequest
      * @param String $email
      * @param String $areaCode
      * @param String $number
+     * @param String $documentType
+     * @param String $documentValue
      */
     public function setSender(
         $name,

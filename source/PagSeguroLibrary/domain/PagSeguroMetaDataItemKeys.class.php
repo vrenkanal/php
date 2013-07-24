@@ -20,7 +20,7 @@
  */
 
 /**
- * Represent availables metadata item keys
+ * Represent available metadata item keys
  */
 class PagSeguroMetaDataItemKeys
 {

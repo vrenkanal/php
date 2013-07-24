@@ -5,6 +5,7 @@
 // Production environment
 $PagSeguroResources['environment'] = Array();
 $PagSeguroResources['environment']['production']['webserviceUrl'] = "https://ws.pagseguro.uol.com.br";
+$PagSeguroResources['environment']['development']['webserviceUrl'] = "https://dev.ws.pagseguro.uol.com.br";
 
 // Payment service
 $PagSeguroResources['paymentService'] = Array();

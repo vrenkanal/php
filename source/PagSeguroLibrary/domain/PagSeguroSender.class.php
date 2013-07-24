@@ -77,7 +77,7 @@ class PagSeguroSender
     }
 
     /**
-     * @return the sender name
+     * @return String the sender name
      */
     public function getName()
     {
@@ -94,7 +94,7 @@ class PagSeguroSender
     }
 
     /**
-     * @return the sender e-mail
+     * @return String the sender e-mail
      */
     public function getEmail()
     {
@@ -120,7 +120,7 @@ class PagSeguroSender
     }
 
     /**
-     * @return the sender phone
+     * @return PagSeguroPhone the sender phone
      * @see PagSeguroPhone
      */
     public function getPhone()
@@ -130,7 +130,7 @@ class PagSeguroSender
 
     /**
      * Get Sender documents
-     * @return List of PagSeguroDocument
+     * @return array PagSeguroDocument List of PagSeguroDocument
      * @see PagSeguroDocument
      */
     public function getDocuments()
@@ -160,8 +160,8 @@ class PagSeguroSender
 
     /**
      * Add a document for Sender object
-     * @param type $type
-     * @param type $value
+     * @param String $type
+     * @param String $value
      */
     public function addDocument($type, $value)
     {

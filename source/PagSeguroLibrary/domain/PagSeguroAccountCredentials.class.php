@@ -102,7 +102,10 @@ class PagSeguroAccountCredentials extends PagSeguroCredentials
      */
     public function toString()
     {
-        return $this->email . " - " . $this->token;
+        $credentials = array();
+        $credentials['E-mail'] = $this->email;
+        $credentials['Token'] = $this->token;
+        return implode(' - ', $credentials);
     }
 
 }

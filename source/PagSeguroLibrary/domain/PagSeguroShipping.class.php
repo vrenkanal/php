@@ -72,7 +72,7 @@ class PagSeguroShipping
     }
 
     /**
-     * @return the shipping Address
+     * @return PagSeguroAddress the shipping Address
      * @see PagSeguroAddress
      */
     public function getAddress()
@@ -91,7 +91,7 @@ class PagSeguroShipping
     }
 
     /**
-     * @return the shipping type
+     * @return PagSeguroShippingType the shipping type
      * @see PagSeguroShippingType
      */
     public function getType()
@@ -105,7 +105,7 @@ class PagSeguroShipping
     }
 
     /**
-     * @return the shipping cost
+     * @return float the shipping cost
      */
     public function getCost()
     {

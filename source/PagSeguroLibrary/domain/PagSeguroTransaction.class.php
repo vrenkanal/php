@@ -20,7 +20,11 @@
  */
 
 /**
+ * Class PagSeguroTransaction
  * Represents a PagSeguro transaction
+ *
+ * @property    PagSeguroSender $sender
+ *
  */
 class PagSeguroTransaction
 {
@@ -51,23 +55,26 @@ class PagSeguroTransaction
     /**
      * Transaction type
      * @see PagSeguroTransactionType
+     * @var PagSeguroTransactionType
      */
     private $type;
 
     /**
      * Transaction Status
      * @see PagSeguroTransactionStatus
+     * @var PagSeguroTransactionStatus
      */
     private $status;
 
     /**
      * Payment method
      * @see PagSeguroPaymentMethod
+     * @var PagSeguroPaymentMethod
      */
     private $paymentMethod;
 
     /**
-     * Groos amount of the transaction
+     * Gross amount of the transaction
      */
     private $grossAmount;
 
@@ -105,12 +112,14 @@ class PagSeguroTransaction
     /**
      * Payer information, who is sending money
      * @see PagSeguroSender
+     * @var PagSeguroSender
      */
     private $sender;
 
     /**
      * Shipping information
-     * See PagSeguroShipping
+     * @see PagSeguroShipping
+     * @var PagSeguroShipping
      */
     private $shipping;
 

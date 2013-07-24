@@ -49,7 +49,7 @@ class PagSeguroError
     }
 
     /**
-     * @return the code
+     * @return integer|string the code
      */
     public function getCode()
     {
@@ -66,7 +66,7 @@ class PagSeguroError
     }
 
     /**
-     * @return the error description
+     * @return String the error description
      */
     public function getMessage()
     {

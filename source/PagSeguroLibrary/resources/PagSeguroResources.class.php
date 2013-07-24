@@ -29,8 +29,8 @@ class PagSeguroResources
     private function __construct()
     {
         define('ALLOW_PAGSEGURO_RESOURCES', true);
-        require_once PagSeguroLibrary::getPath(
-            ) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "PagSeguroResources.php";
+        require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR
+            . "PagSeguroResources.php";
         $varName = self::varName;
         if (isset($$varName)) {
             self::$data = $$varName;

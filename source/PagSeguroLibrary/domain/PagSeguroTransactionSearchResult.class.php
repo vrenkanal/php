@@ -121,7 +121,7 @@ class PagSeguroTransactionSearchResult
     }
 
     /**
-     * @return the transaction summaries in this page
+     * @return PagSeguroTransactionSummary the transaction summaries in this page
      * @see PagSeguroTransactionSummary
      */
     public function getTransactions()
@@ -132,7 +132,7 @@ class PagSeguroTransactionSearchResult
     /**
      * Sets the transaction summaries in this page
      *
-     * @param transactions
+     * @param array $transactions
      */
     public function setTransactions(Array $transactions)
     {
@@ -140,11 +140,19 @@ class PagSeguroTransactionSearchResult
     }
 
     /**
-     * @return a string that represents the current object
+     * @return String a string that represents the current object
      */
     public function toString()
     {
-        return "PagSeguroTransactionSearchResult(" . "Date=" . $this->date . ", CurrentPage=" . $this->currentPage . ", TotalPages=" . $this->totalPages . ", Transactions in this page=" . $this->resultsInThisPage . ")";
+        $transaction = array();
+
+        $transaction['Date'] = $this->date;
+        $transaction['CurrentPage'] = $this->currentPage;
+        $transaction['TotalPages'] = $this->totalPages;
+        $transaction['Transactions in this page'] = $this->resultsInThisPage;
+
+        return "PagSeguroTransactionSearchResult: " . var_export($transaction, TRUE);
+
     }
 
 }

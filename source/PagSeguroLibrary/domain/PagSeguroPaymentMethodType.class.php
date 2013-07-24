@@ -41,6 +41,7 @@ class PagSeguroPaymentMethodType
     /**
      * Payment method type value
      * Example: 1
+     * @var integer
      */
     private $value;
 
@@ -66,7 +67,7 @@ class PagSeguroPaymentMethodType
     }
 
     /**
-     * @return payment method type value
+     * @return integer payment method type value
      * Example: 1
      */
     public function getValue()
@@ -76,7 +77,7 @@ class PagSeguroPaymentMethodType
 
     /**
      * @param value
-     * @return the PagSeguroPaymentMethodType corresponding to the informed value
+     * @return PagSeguroPaymentMethodType the corresponding to the informed value
      */
     public function getTypeFromValue($value = null)
     {

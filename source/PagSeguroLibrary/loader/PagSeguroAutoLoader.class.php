@@ -61,8 +61,7 @@ class PagSeguroAutoloader
     private function addClass($class)
     {
         foreach (self::$dirs as $key => $dir) {
-            $file = PagSeguroLibrary::getPath(
-                ) . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $class . '.class.php';
+            $file = PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $class . '.class.php';
             if (file_exists($file) && is_file($file)) {
                 require_once $file;
             }

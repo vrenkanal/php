@@ -40,7 +40,7 @@ class PagSeguroNotificationService
      * @param String $notificationCode
      * @throws PagSeguroServiceException
      * @throws Exception
-     * @return a transaction
+     * @return PagSeguroTransaction
      * @see PagSeguroTransaction
      */
     public static function checkTransaction(PagSeguroCredentials $credentials, $notificationCode)
@@ -66,8 +66,8 @@ class PagSeguroNotificationService
                     // parses the transaction
                     $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
                     LogPagSeguro::info(
-                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end " . $transaction->toString(
-                        ) . ")"
+                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end "
+                        . $transaction->toString() . ")"
                     );
                     break;
 
@@ -75,8 +75,8 @@ class PagSeguroNotificationService
                     $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
                     $e = new PagSeguroServiceException($httpStatus, $errors);
                     LogPagSeguro::info(
-                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " . $e->getOneLineMessage(
-                        )
+                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error "
+                        . $e->getOneLineMessage()
                     );
                     throw $e;
                     break;
@@ -84,8 +84,8 @@ class PagSeguroNotificationService
                 default:
                     $e = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::info(
-                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " . $e->getOneLineMessage(
-                        )
+                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error "
+                        . $e->getOneLineMessage()
                     );
                     throw $e;
                     break;

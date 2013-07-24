@@ -76,8 +76,8 @@ class PagSeguroPaymentService
                     $errors = PagSeguroPaymentParser::readErrors($connection->getResponse());
                     $e = new PagSeguroServiceException($httpStatus, $errors);
                     LogPagSeguro::error(
-                        "PagSeguroPaymentService.Register(" . $paymentRequest->toString(
-                        ) . ") - error " . $e->getOneLineMessage()
+                        "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - error "
+                        . $e->getOneLineMessage()
                     );
                     throw $e;
                     break;
@@ -85,8 +85,8 @@ class PagSeguroPaymentService
                 default:
                     $e = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::error(
-                        "PagSeguroPaymentService.Register(" . $paymentRequest->toString(
-                        ) . ") - error " . $e->getOneLineMessage()
+                        "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - error "
+                        . $e->getOneLineMessage()
                     );
                     throw $e;
                     break;

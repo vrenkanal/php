@@ -178,7 +178,7 @@ class PagSeguroPaymentMethodCode
     }
 
     /**
-     * @return the payment method code value
+     * @return integer the payment method code value
      * Example: 101
      */
     public function getValue()
@@ -188,7 +188,7 @@ class PagSeguroPaymentMethodCode
 
     /**
      * @param value
-     * @return the PagSeguroPaymentMethodCode corresponding to the informed value
+     * @return PagSeguroPaymentMethodCode the corresponding to the informed value
      */
     public function getTypeFromValue($value = null)
     {

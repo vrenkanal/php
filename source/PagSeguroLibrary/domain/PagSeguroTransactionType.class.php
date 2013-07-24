@@ -69,13 +69,13 @@ class PagSeguroTransactionType
     }
 
     /**
-     * @param value
-     * @return the transaction type corresponding to the informed type value value
+     * @param integer|string $value
+     * @return string|integer the transaction type corresponding to the informed type value value
      */
     public function getTypeFromValue($value = null)
     {
         $value = ($value == null ? $this->value : $value);
-        return array_search($this->value, self::$typeList);
+        return array_search($value, self::$typeList);
     }
 
 }

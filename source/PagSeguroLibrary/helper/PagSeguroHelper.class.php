@@ -26,6 +26,10 @@
 class PagSeguroHelper
 {
 
+    /**
+     * @param $date
+     * @return bool|string
+     */
     public static function formatDate($date)
     {
         $format = DateTime::ATOM;
@@ -39,6 +43,10 @@ class PagSeguroHelper
         return $d;
     }
 
+    /**
+     * @param $numeric
+     * @return string
+     */
     public static function decimalFormat($numeric)
     {
         if (is_float($numeric)) {
@@ -48,6 +56,11 @@ class PagSeguroHelper
         return $numeric;
     }
 
+    /**
+     * @param $date
+     * @param $days
+     * @return bool|string
+     */
     public static function subDays($date, $days)
     {
         $d = self::formatDate($date);
@@ -56,6 +69,10 @@ class PagSeguroHelper
         return self::formatDate($d);
     }
 
+    /**
+     * @param $var
+     * @param null $dump
+     */
     public static function print_rr($var, $dump = null)
     {
         if (is_array($var) || is_object($var)) {
@@ -128,16 +145,15 @@ class PagSeguroHelper
     /**
      * Check if notification post is empty
      * @param array $notification_data
-     * @return type
+     * @return boolean
      */
     public static function isNotificationEmpty(Array $notification_data)
     {
         $isEmpty = true;
 
         if (isset($notification_data['notificationCode']) && isset($notification_data['notificationType'])) {
-            $isEmpty = (PagSeguroHelper::isEmpty($notification_data['notificationCode']) || PagSeguroHelper::isEmpty(
-                    $notification_data['notificationType']
-                ));
+            $isEmpty = (PagSeguroHelper::isEmpty($notification_data['notificationCode']) ||
+                PagSeguroHelper::isEmpty($notification_data['notificationType']));
         }
 
         return $isEmpty;

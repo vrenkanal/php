@@ -3,4 +3,9 @@ php:
   - "5.4"
   - "5.3"
   - "5.2"
-script: phpunit -c build.xml
+before_script:
+  - pear install pear/PHP_CodeSniffer
+  - phpenv rehash
+script:
+  - phpunit -c ./build.xml
+  - phpcs --extensions=php --standard=PSR2 ./

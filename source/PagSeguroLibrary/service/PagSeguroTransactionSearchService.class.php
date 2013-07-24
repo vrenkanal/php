@@ -68,7 +68,7 @@ class PagSeguroTransactionSearchService
      *
      * @param PagSeguroCredentials $credentials
      * @param String $transactionCode
-     * @return a transaction object
+     * @return PagSeguroTransaction a transaction object
      * @see PagSeguroTransaction
      * @throws PagSeguroServiceException
      * @throws Exception
@@ -241,7 +241,7 @@ class PagSeguroTransactionSearchService
      * @param String $finalDate
      * @param integer $pageNumber
      * @param integer $maxPageResults
-     * @return a object of PagSeguroTransactionSerachResult class
+     * @return PagSeguroTransactionSearchResult a object of PagSeguroTransactionSearchResult class
      * @see PagSeguroTransactionSearchResult
      * @throws PagSeguroServiceException
      * @throws Exception
@@ -335,4 +335,3 @@ class PagSeguroTransactionSearchService
 
 }
 
-?>

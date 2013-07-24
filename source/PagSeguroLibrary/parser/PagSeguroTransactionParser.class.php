@@ -380,4 +380,3 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
 
 }
 
-?>

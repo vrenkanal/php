@@ -34,9 +34,9 @@ class searchTransactionsAbandoned
         try {
 
             /*
-             * #### Crendencials #####
+             * #### Credentials #####
              * Substitute the parameters below with your credentials (e-mail and token)
-             * You can also get your credentails from a config file. See an example:
+             * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
             $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
@@ -76,4 +76,4 @@ class searchTransactionsAbandoned
 }
 
 searchTransactionsAbandoned::main();
-?>
+

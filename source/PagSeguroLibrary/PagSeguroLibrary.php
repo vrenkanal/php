@@ -61,19 +61,23 @@ class PagSeguroLibrary
 
         $dependencies = true;
 
-        if (!function_exists('spl_autoload_register')) {
-            throw new Exception("PagSeguroLibrary: Standard PHP Library (SPL) is required.");
-            $dependencies = false;
-        }
+        try {
+            if (!function_exists('spl_autoload_register')) {
+                $dependencies = false;
+                throw new Exception("PagSeguroLibrary: Standard PHP Library (SPL) is required.");
+            }
 
-        if (!function_exists('curl_init')) {
-            throw new Exception('PagSeguroLibrary: cURL library is required.');
-            $dependencies = false;
-        }
+            if (!function_exists('curl_init')) {
+                $dependencies = false;
+                throw new Exception('PagSeguroLibrary: cURL library is required.');
+            }
 
-        if (!class_exists('DOMDocument')) {
-            throw new Exception('PagSeguroLibrary: DOM XML extension is required.');
-            $dependencies = false;
+            if (!class_exists('DOMDocument')) {
+                $dependencies = false;
+                throw new Exception('PagSeguroLibrary: DOM XML extension is required.');
+            }
+        } catch (Exception $e) {
+            return $dependencies;
         }
 
         return $dependencies;
@@ -112,4 +116,4 @@ class PagSeguroLibrary
 }
 
 PagSeguroLibrary::init();
-?>
+

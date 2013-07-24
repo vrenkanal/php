@@ -74,9 +74,10 @@ class LogPagSeguro
         try {
             $f = fopen(self::$fileLocation, "a");
             fclose($f);
+            return true;
         } catch (Exception $e) {
-            echo $e->getMessage(
-                ) . " - Can't create log file. Permission denied. File location: " . self::$fileLocation;
+            echo $e->getMessage() . " - Can't create log file. Permission denied. File location: " . self::$fileLocation;
+            return false;
         }
 
     }
@@ -122,6 +123,7 @@ class LogPagSeguro
      * @param String $message
      * @param String $type
      * @throws Exception
+     * @return void|boolean
      */
     private static function logMessage($message, $type = null)
     {
@@ -154,8 +156,7 @@ class LogPagSeguro
             fclose($file);
 
         } catch (Exception $e) {
-            echo $e->getMessage(
-                ) . " - Can't create log file. Permission denied. File location: " . self::$fileLocation;
+            echo $e->getMessage() . " - Can't create log file. Permission denied. File location: " . self::$fileLocation;
         }
 
     }
@@ -163,7 +164,9 @@ class LogPagSeguro
     /**
      * Retrieves the log messages
      * @param integer $negativeOffset
-     * @param boolean $reverse
+     * @param boolean|string $reverse
+     *
+     * @return boolean|string
      */
     public static function getHtml($negativeOffset = null, $reverse = null)
     {
@@ -192,4 +195,3 @@ class LogPagSeguro
 
 }
 
-?>

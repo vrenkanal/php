@@ -51,7 +51,6 @@ class PagSeguroAutoloader
     {
         if (!function_exists('spl_autoload_register')) {
             throw new Exception("PagSeguroLibrary: Standard PHP Library (SPL) is required.");
-            return false;
         }
         if (self::$loader == null) {
             self::$loader = new PagSeguroAutoloader();
@@ -72,4 +71,3 @@ class PagSeguroAutoloader
 
 }
 
-?>

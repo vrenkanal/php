@@ -116,7 +116,7 @@ class PagSeguroTransaction
 
     /**
      * Date the last notification about this transaction was sent
-     * @return the last event date
+     * @return datetime the last event date
      */
     public function getLastEventDate()
     {
@@ -134,7 +134,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the transaction date
+     * @return datetime the transaction date
      */
     public function getDate()
     {
@@ -144,7 +144,7 @@ class PagSeguroTransaction
     /**
      * Sets the transaction date
      *
-     * @param date
+     * @param string date
      */
     public function setDate($date)
     {
@@ -152,7 +152,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the transaction code
+     * @return string the transaction code
      */
     public function getCode()
     {
@@ -173,7 +173,7 @@ class PagSeguroTransaction
      * You can use the reference code to store an identifier so you can
      *  associate the PagSeguro transaction to a transaction in your system.
      *
-     * @return the reference code
+     * @return string the reference code
      */
     public function getReference()
     {
@@ -191,7 +191,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the transaction type
+     * @return PagSeguroTransactionType the transaction type
      * @see PagSeguroTransactionType
      */
     public function getType()
@@ -209,7 +209,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the transaction status
+     * @return PagSeguroTransactionStatus the transaction status
      * @see PagSeguroTransactionStatus
      */
     public function getStatus()
@@ -227,7 +227,8 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the payment method used in this transaction
+     * @return PagSeguroPaymentMethod the payment method used in this transaction
+     * @see PagSeguroPaymentMethod
      */
     public function getPaymentMethod()
     {
@@ -244,7 +245,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the transaction gross amount
+     * @return float the transaction gross amount
      */
     public function getGrossAmount()
     {
@@ -261,7 +262,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the transaction gross amount
+     * @return float the transaction gross amount
      */
     public function getDiscountAmount()
     {
@@ -278,7 +279,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the fee amount
+     * @return float the fee amount
      */
     public function getFeeAmount()
     {
@@ -295,7 +296,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the net amount
+     * @return float the net amount
      */
     public function getNetAmount()
     {
@@ -312,7 +313,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the extra amount
+     * @return float the extra amount
      */
     public function getExtraAmount()
     {
@@ -329,7 +330,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the installment count
+     * @return integer the installment count
      */
     public function getInstallmentCount()
     {
@@ -346,7 +347,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the items/products list in this transaction
+     * @return array PagSeguroItem the items/products list in this transaction
      * @see PagSeguroItem
      */
     public function getItems()
@@ -365,7 +366,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the items/products count in this transaction
+     * @return integer the items/products count in this transaction
      */
     public function getItemCount()
     {
@@ -373,7 +374,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the sender information, who is sending money in this transaction
+     * @return PagSeguroSender the sender information, who is sending money in this transaction
      * @see PagSeguroSender
      */
     public function getSender()
@@ -391,7 +392,7 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return the shipping information
+     * @return PagSeguroShipping the shipping information
      * @see PagSeguroShipping
      */
     public function getShipping()
@@ -409,21 +410,24 @@ class PagSeguroTransaction
     }
 
     /**
-     * @return a string that represents the current object
+     * @return String a string that represents the current object
      */
     public function toString()
     {
 
-        $code = $this->code;
-        $email = $this->sender ? $this->sender->getEmail() : "null";
-        $date = $this->date;
-        $reference = $this->reference;
-        $status = $this->status ? $this->status->getValue() : "null";
-        $itemsCount = is_array($this->items) ? count($this->items) : "null";
+        $transaction = array();
+        $transaction['code'] = $this->code;
+        $transaction['email'] = $this->sender ? $this->sender->getEmail() : "null";
+        $transaction['date'] = $this->date;
+        $transaction['reference'] = $this->reference;
+        $transaction['status'] = $this->status ? $this->status->getValue() : "null";
+        $transaction['itemsCount'] = is_array($this->items) ? count($this->items) : "null";
 
-        return "Transaction(" . "Code=$code" . ", SenderEmail=$email" . ", Date=$date" . ", Reference=$reference" . ", status=$status" . ", itemsCount=$itemsCount" . ")";
+        $transaction = "Transaction: " . var_export($transaction, TRUE);
+
+        return $transaction;
+
     }
 
 }
 
-?>

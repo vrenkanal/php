@@ -113,4 +113,3 @@ class PagSeguroServiceException extends Exception
 
 }
 
-?>

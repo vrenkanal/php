@@ -212,4 +212,3 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
 }
 
-?>

@@ -128,4 +128,3 @@ class PagSeguroHttpConnection
 
 }
 
-?>

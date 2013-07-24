@@ -22,53 +22,56 @@ require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 class searchTransactionsAbandoned
 {
 
-	public static function main()
-	{
+    public static function main()
+    {
 
-		$initialDate = '2011-12-10T08:50';
-		$finalDate = '2011-12-29T10:30';
+        $initialDate = '2011-12-10T08:50';
+        $finalDate = '2011-12-29T10:30';
 
-		$pageNumber = 1;
-		$maxPageResults = 20;
+        $pageNumber = 1;
+        $maxPageResults = 20;
 
-		try
-		{
+        try {
 
-			/*
-			 * #### Crendencials #####
-			 * Substitute the parameters below with your credentials (e-mail and token)
-			 * You can also get your credentails from a config file. See an example:
-			 * $credentials = PagSeguroConfig::getAccountCredentials();
-			 */
-			$credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
+            /*
+             * #### Crendencials #####
+             * Substitute the parameters below with your credentials (e-mail and token)
+             * You can also get your credentails from a config file. See an example:
+             * $credentials = PagSeguroConfig::getAccountCredentials();
+             */
+            $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
 
-			$result = PagSeguroTransactionSearchService::searchAbandoned($credentials, $pageNumber, $maxPageResults, $initialDate, $finalDate);
+            $result = PagSeguroTransactionSearchService::searchAbandoned(
+                $credentials,
+                $pageNumber,
+                $maxPageResults,
+                $initialDate,
+                $finalDate
+            );
 
-			self::printResult($result, $initialDate, $finalDate);
+            self::printResult($result, $initialDate, $finalDate);
 
-		}
-		catch (PagSeguroServiceException $e)
-		{
-			die($e->getMessage());
-		}
+        } catch (PagSeguroServiceException $e) {
+            die($e->getMessage());
+        }
 
-	}
+    }
 
-	public static function printResult(PagSeguroTransactionSearchResult $result, $initialDate, $finalDate)
-	{
-		$finalDate = $finalDate ? $finalDate : 'now';
-		echo "<h2>Search transactions abandoned</h2>";
-		echo "<h3>$initialDate to $finalDate</h3>";
-		$transactions = $result->getTransactions();
-		if (is_array($transactions) && count($transactions) > 0) {
-			foreach ($transactions as $key => $transactionSummary) {
-				echo "Code: " . $transactionSummary->getCode() . "<br>";
-				echo "Reference: " . $transactionSummary->getReference() . "<br>";
-				echo "amount: " . $transactionSummary->getGrossAmount() . "<br>";
-				echo "<hr>";
-			}
-		}
-	}
+    public static function printResult(PagSeguroTransactionSearchResult $result, $initialDate, $finalDate)
+    {
+        $finalDate = $finalDate ? $finalDate : 'now';
+        echo "<h2>Search transactions abandoned</h2>";
+        echo "<h3>$initialDate to $finalDate</h3>";
+        $transactions = $result->getTransactions();
+        if (is_array($transactions) && count($transactions) > 0) {
+            foreach ($transactions as $key => $transactionSummary) {
+                echo "Code: " . $transactionSummary->getCode() . "<br>";
+                echo "Reference: " . $transactionSummary->getReference() . "<br>";
+                echo "amount: " . $transactionSummary->getGrossAmount() . "<br>";
+                echo "<hr>";
+            }
+        }
+    }
 
 }
 

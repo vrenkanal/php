@@ -1,5 +1,5 @@
 <?php if (!defined('PAGSEGURO_LIBRARY')) {
-	die('No direct script access allowed');
+    die('No direct script access allowed');
 }
 /*
  ************************************************************************
@@ -22,65 +22,67 @@
 class PagSeguroResources
 {
 
-	private static $resources;
-	private static $data;
-	const varName = 'PagSeguroResources';
+    private static $resources;
+    private static $data;
+    const varName = 'PagSeguroResources';
 
-	private function __construct()
-	{
-		define('ALLOW_PAGSEGURO_RESOURCES', TRUE);
-		require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "PagSeguroResources.php";
-		$varName = self::varName;
-		if (isset($$varName)) {
-			self::$data = $$varName;
-			unset($$varName);
-		} else {
-			throw new Exception("Resources is undefined.");
-		}
-	}
+    private function __construct()
+    {
+        define('ALLOW_PAGSEGURO_RESOURCES', true);
+        require_once PagSeguroLibrary::getPath(
+            ) . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR . "PagSeguroResources.php";
+        $varName = self::varName;
+        if (isset($$varName)) {
+            self::$data = $$varName;
+            unset($$varName);
+        } else {
+            throw new Exception("Resources is undefined.");
+        }
+    }
 
-	public static function init()
-	{
-		if (self::$resources == null) {
-			self::$resources = new PagSeguroResources();
-		}
-		return self::$resources;
-	}
+    public static function init()
+    {
+        if (self::$resources == null) {
+            self::$resources = new PagSeguroResources();
+        }
+        return self::$resources;
+    }
 
-	public static function getData($key1, $key2 = null)
-	{
-		if ($key2 != null) {
-			if (isset(self::$data[$key1][$key2])) {
-				return self::$data[$key1][$key2];
-			} else {
-				throw new Exception("Resources keys {$key1}, {$key2} not found.");
-			}
-		} else {
-			if (isset(self::$data[$key1])) {
-				return self::$data[$key1];
-			} else {
-				throw new Exception("Resources key {$key1} not found.");
-			}
-		}
-	}
+    public static function getData($key1, $key2 = null)
+    {
+        if ($key2 != null) {
+            if (isset(self::$data[$key1][$key2])) {
+                return self::$data[$key1][$key2];
+            } else {
+                throw new Exception("Resources keys {$key1}, {$key2} not found.");
+            }
+        } else {
+            if (isset(self::$data[$key1])) {
+                return self::$data[$key1];
+            } else {
+                throw new Exception("Resources key {$key1} not found.");
+            }
+        }
+    }
 
-	public static function setData($key1, $key2, $value)
-	{
-		if (isset(self::$data[$key1][$key2])) {
-			self::$data[$key1][$key2] = $value;
-		} else {
-			throw new Exception("Resources keys {$key1}, {$key2} not found.");
-		}
-	}
+    public static function setData($key1, $key2, $value)
+    {
+        if (isset(self::$data[$key1][$key2])) {
+            self::$data[$key1][$key2] = $value;
+        } else {
+            throw new Exception("Resources keys {$key1}, {$key2} not found.");
+        }
+    }
 
-	public static function getWebserviceUrl($environment)
-	{
-		if (isset(self::$data['environment']) && isset(self::$data['environment'][$environment]) && isset(self::$data['environment'][$environment]['webserviceUrl'])) {
-			return self::$data['environment'][$environment]['webserviceUrl'];
-		} else {
-			throw new Exception("WebService URL not set for $environment environment.");
-		}
-	}
+    public static function getWebserviceUrl($environment)
+    {
+        if (isset(self::$data['environment']) && isset(self::$data['environment'][$environment]) && isset(self::$data['environment'][$environment]['webserviceUrl'])) {
+            return self::$data['environment'][$environment]['webserviceUrl'];
+        } else {
+            throw new Exception("WebService URL not set for $environment environment.");
+        }
+    }
 
 }
+
 ?>

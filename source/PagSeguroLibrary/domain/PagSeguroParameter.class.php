@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('PAGSEGURO_LIBRARY')) {
-	die('No direct script access allowed');
+    die('No direct script access allowed');
 }
 /*
  * ***********************************************************************
@@ -27,41 +27,42 @@ if (!defined('PAGSEGURO_LIBRARY')) {
 class PagSeguroParameter
 {
 
-	private $items;
+    private $items;
 
-	public function __construct(Array $items = NULL)
-	{
-		if (!is_null($items) && count($items) > 0) {
-			$this->setItems($items);
-		}
-	}
+    public function __construct(Array $items = null)
+    {
+        if (!is_null($items) && count($items) > 0) {
+            $this->setItems($items);
+        }
+    }
 
-	public function addItem(PagSeguroParameterItem $parameterItem)
-	{
+    public function addItem(PagSeguroParameterItem $parameterItem)
+    {
 
-		if (!PagSeguroHelper::isEmpty($parameterItem->getKey())) {
-			if (!PagSeguroHelper::isEmpty($parameterItem->getValue())) {
-				$this->items[] = $parameterItem;
-			} else {
-				die('requered parameterValue.');
-			}
-		} else {
-			die('requered parameterKey.');
-		}
-	}
+        if (!PagSeguroHelper::isEmpty($parameterItem->getKey())) {
+            if (!PagSeguroHelper::isEmpty($parameterItem->getValue())) {
+                $this->items[] = $parameterItem;
+            } else {
+                die('requered parameterValue.');
+            }
+        } else {
+            die('requered parameterKey.');
+        }
+    }
 
-	public function setItems(Array $items)
-	{
-		$this->items = $items;
-	}
+    public function setItems(Array $items)
+    {
+        $this->items = $items;
+    }
 
-	public function getItems()
-	{
-		if ($this->items == null) {
-			$this->items = array();
-		}
-		return $this->items;
-	}
+    public function getItems()
+    {
+        if ($this->items == null) {
+            $this->items = array();
+        }
+        return $this->items;
+    }
 
 }
+
 ?>

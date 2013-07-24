@@ -1,5 +1,5 @@
 <?php if (!defined('ALLOW_PAGSEGURO_RESOURCES')) {
-	die('No direct script access allowed');
+    die('No direct script access allowed');
 }
 
 // Production environment

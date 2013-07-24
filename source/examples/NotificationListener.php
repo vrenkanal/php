@@ -22,72 +22,74 @@ require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 class NotificationListener
 {
 
-	public static function main()
-	{
+    public static function main()
+    {
 
-		$code = (isset($_POST['notificationCode']) && trim($_POST['notificationCode']) !== "" ? trim($_POST['notificationCode']) : null);
-		$type = (isset($_POST['notificationType']) && trim($_POST['notificationType']) !== "" ? trim($_POST['notificationType']) : null);
+        $code = (isset($_POST['notificationCode']) && trim($_POST['notificationCode']) !== "" ? trim(
+            $_POST['notificationCode']
+        ) : null);
+        $type = (isset($_POST['notificationType']) && trim($_POST['notificationType']) !== "" ? trim(
+            $_POST['notificationType']
+        ) : null);
 
-		if ($code && $type) {
+        if ($code && $type) {
 
-			$notificationType = new PagSeguroNotificationType($type);
-			$strType = $notificationType->getTypeFromValue();
+            $notificationType = new PagSeguroNotificationType($type);
+            $strType = $notificationType->getTypeFromValue();
 
-			switch ($strType) {
+            switch ($strType) {
 
-				case 'TRANSACTION':
-					self::TransactionNotification($code);
-					break;
+                case 'TRANSACTION':
+                    self::TransactionNotification($code);
+                    break;
 
-				default:
-					LogPagSeguro::error("Unknown notification type [" . $notificationType->getValue() . "]");
+                default:
+                    LogPagSeguro::error("Unknown notification type [" . $notificationType->getValue() . "]");
 
-			}
+            }
 
-			self::printLog($strType);
+            self::printLog($strType);
 
-		} else {
+        } else {
 
-			LogPagSeguro::error("Invalid notification parameters.");
-			self::printLog();
+            LogPagSeguro::error("Invalid notification parameters.");
+            self::printLog();
 
-		}
+        }
 
-	}
+    }
 
-	private static function TransactionNotification($notificationCode)
-	{
+    private static function TransactionNotification($notificationCode)
+    {
 
-		/*
-		 * #### Crendencials #####
-		 * Substitute the parameters below with your credentials (e-mail and token)
-		 * You can also get your credentails from a config file. See an example:
-		 * $credentials = PagSeguroConfig::getAccountCredentials();
-		 */
-		$credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
+        /*
+         * #### Crendencials #####
+         * Substitute the parameters below with your credentials (e-mail and token)
+         * You can also get your credentails from a config file. See an example:
+         * $credentials = PagSeguroConfig::getAccountCredentials();
+         */
+        $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
 
-		try
-		{
-			$transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
-		}
-		catch (PagSeguroServiceException $e)
-		{
-			die($e->getMessage());
-		}
+        try {
+            $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
+        } catch (PagSeguroServiceException $e) {
+            die($e->getMessage());
+        }
 
-	}
+    }
 
-	private static function printLog($strType = null)
-	{
-		$count = 4;
-		echo "<h2>Receive notifications</h2>";
-		if ($strType) {
-			echo "<h4>notifcationType: $strType</h4>";
-		}
-		echo "<p>Last <strong>$count</strong> items in <strong>log file:</strong></p><hr>";
-		echo LogPagSeguro::getHtml($count);
-	}
+    private static function printLog($strType = null)
+    {
+        $count = 4;
+        echo "<h2>Receive notifications</h2>";
+        if ($strType) {
+            echo "<h4>notifcationType: $strType</h4>";
+        }
+        echo "<p>Last <strong>$count</strong> items in <strong>log file:</strong></p><hr>";
+        echo LogPagSeguro::getHtml($count);
+    }
 
 }
+
 NotificationListener::main();
 ?>

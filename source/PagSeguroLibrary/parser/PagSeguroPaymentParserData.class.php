@@ -1,5 +1,5 @@
 <?php if (!defined('PAGSEGURO_LIBRARY')) {
-	die('No direct script access allowed');
+    die('No direct script access allowed');
 }
 /*
  ************************************************************************
@@ -22,26 +22,29 @@
 class PagSeguroPaymentParserData
 {
 
-	private $code;
-	private $registrationDate;
+    private $code;
+    private $registrationDate;
 
-	public function getCode()
-	{
-		return $this->code;
-	}
-	public function setCode($code)
-	{
-		$this->code = $code;
-	}
+    public function getCode()
+    {
+        return $this->code;
+    }
 
-	public function getRegistrationDate()
-	{
-		return $this->registrationDate;
-	}
-	public function setRegistrationDate($registrationDate)
-	{
-		$this->registrationDate = $registrationDate;
-	}
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    public function getRegistrationDate()
+    {
+        return $this->registrationDate;
+    }
+
+    public function setRegistrationDate($registrationDate)
+    {
+        $this->registrationDate = $registrationDate;
+    }
 
 }
+
 ?>

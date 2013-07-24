@@ -1,5 +1,5 @@
 <?php if (!defined('PAGSEGURO_LIBRARY')) {
-	die('No direct script access allowed');
+    die('No direct script access allowed');
 }
 /*
  ************************************************************************
@@ -22,103 +22,110 @@
 class PagSeguroConnectionData
 {
 
-	private $serviceName;
-	private $credentials;
-	private $resources;
-	private $environment;
-	private $webserviceUrl;
-	private $servicePath;
-	private $serviceTimeout;
-	private $charset;
+    private $serviceName;
+    private $credentials;
+    private $resources;
+    private $environment;
+    private $webserviceUrl;
+    private $servicePath;
+    private $serviceTimeout;
+    private $charset;
 
-	public function __construct(PagSeguroCredentials $credentials, $serviceName)
-	{
+    public function __construct(PagSeguroCredentials $credentials, $serviceName)
+    {
 
-		$this->credentials = $credentials;
-		$this->serviceName = $serviceName;
+        $this->credentials = $credentials;
+        $this->serviceName = $serviceName;
 
-		$this->setEnvironment(PagSeguroConfig::getEnvironment());
-		$this->setWebserviceUrl(PagSeguroResources::getWebserviceUrl($this->getEnvironment()));
-		$this->setCharset(PagSeguroConfig::getApplicationCharset());
+        $this->setEnvironment(PagSeguroConfig::getEnvironment());
+        $this->setWebserviceUrl(PagSeguroResources::getWebserviceUrl($this->getEnvironment()));
+        $this->setCharset(PagSeguroConfig::getApplicationCharset());
 
-		$this->resources = PagSeguroResources::getData($this->serviceName);
-		if (isset($this->resources['servicePath'])) {
-			$this->setServicePath($this->resources['servicePath']);
-		}
-		if (isset($this->resources['serviceTimeout'])) {
-			$this->setServiceTimeout($this->resources['serviceTimeout']);
-		}
+        $this->resources = PagSeguroResources::getData($this->serviceName);
+        if (isset($this->resources['servicePath'])) {
+            $this->setServicePath($this->resources['servicePath']);
+        }
+        if (isset($this->resources['serviceTimeout'])) {
+            $this->setServiceTimeout($this->resources['serviceTimeout']);
+        }
 
-	}
+    }
 
-	public function getCredentials()
-	{
-		return $this->credentials;
-	}
-	public function setCredentials(PagSeguroCredentials $credentials)
-	{
-		$this->credentials = $credentials;
-	}
+    public function getCredentials()
+    {
+        return $this->credentials;
+    }
 
-	public function getCredentialsUrlQuery()
-	{
-		return http_build_query($this->credentials->getAttributesMap(), '', '&');
-	}
+    public function setCredentials(PagSeguroCredentials $credentials)
+    {
+        $this->credentials = $credentials;
+    }
 
-	public function getEnvironment()
-	{
-		return $this->environment;
-	}
-	public function setEnvironment($environment)
-	{
-		$this->environment = $environment;
-	}
+    public function getCredentialsUrlQuery()
+    {
+        return http_build_query($this->credentials->getAttributesMap(), '', '&');
+    }
 
-	public function getWebserviceUrl()
-	{
-		return $this->webserviceUrl;
-	}
-	public function setWebserviceUrl($webserviceUrl)
-	{
-		$this->webserviceUrl = $webserviceUrl;
-	}
+    public function getEnvironment()
+    {
+        return $this->environment;
+    }
 
-	public function getServicePath()
-	{
-		return $this->servicePath;
-	}
-	public function setServicePath($servicePath)
-	{
-		$this->servicePath = $servicePath;
-	}
+    public function setEnvironment($environment)
+    {
+        $this->environment = $environment;
+    }
 
-	public function getServiceTimeout()
-	{
-		return $this->serviceTimeout;
-	}
-	public function setServiceTimeout($serviceTimeout)
-	{
-		$this->serviceTimeout = $serviceTimeout;
-	}
+    public function getWebserviceUrl()
+    {
+        return $this->webserviceUrl;
+    }
 
-	public function getServiceUrl()
-	{
-		return $this->getWebserviceUrl() . $this->getServicePath();
-	}
+    public function setWebserviceUrl($webserviceUrl)
+    {
+        $this->webserviceUrl = $webserviceUrl;
+    }
 
-	public function getResource($resource)
-	{
-		return $this->resources[$resource];
-	}
+    public function getServicePath()
+    {
+        return $this->servicePath;
+    }
 
-	public function getCharset()
-	{
-		return $this->charset;
-	}
-	public function setCharset($charset)
-	{
-		$this->charset = $charset;
-	}
+    public function setServicePath($servicePath)
+    {
+        $this->servicePath = $servicePath;
+    }
+
+    public function getServiceTimeout()
+    {
+        return $this->serviceTimeout;
+    }
+
+    public function setServiceTimeout($serviceTimeout)
+    {
+        $this->serviceTimeout = $serviceTimeout;
+    }
+
+    public function getServiceUrl()
+    {
+        return $this->getWebserviceUrl() . $this->getServicePath();
+    }
+
+    public function getResource($resource)
+    {
+        return $this->resources[$resource];
+    }
+
+    public function getCharset()
+    {
+        return $this->charset;
+    }
+
+    public function setCharset($charset)
+    {
+        $this->charset = $charset;
+    }
 
 }
+
 ?>

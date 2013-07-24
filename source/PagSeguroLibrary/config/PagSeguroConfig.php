@@ -1,5 +1,5 @@
 <?php if (!defined('ALLOW_PAGSEGURO_CONFIG')) {
-	die('No direct script access allowed');
+    die('No direct script access allowed');
 }
 /*
  ************************************************************************
@@ -20,6 +20,6 @@ $PagSeguroConfig['application'] = Array();
 $PagSeguroConfig['application']['charset'] = "UTF-8"; // UTF-8, ISO-8859-1
 
 $PagSeguroConfig['log'] = Array();
-$PagSeguroConfig['log']['active'] = FALSE;
+$PagSeguroConfig['log']['active'] = false;
 $PagSeguroConfig['log']['fileLocation'] = "";
 ?>

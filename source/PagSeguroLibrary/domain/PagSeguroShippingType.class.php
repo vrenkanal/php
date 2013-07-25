@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -27,6 +26,9 @@
 class PagSeguroShippingType
 {
 
+    /**
+     * @var array
+     */
     private static $typeList = array(
         'PAC' => 1,
         'SEDEX' => 2,
@@ -39,6 +41,9 @@ class PagSeguroShippingType
      */
     private $value;
 
+    /**
+     * @param null $value
+     */
     public function __construct($value = null)
     {
         if ($value) {
@@ -46,11 +51,18 @@ class PagSeguroShippingType
         }
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @param $type
+     * @throws Exception
+     */
     public function setByType($type)
     {
         if (isset(self::$typeList[$type])) {
@@ -101,6 +113,4 @@ class PagSeguroShippingType
         $ShippingType->setByType($type);
         return $ShippingType;
     }
-
 }
-

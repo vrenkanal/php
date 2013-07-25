@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -99,6 +98,9 @@ class PagSeguroShipping
         return $this->type;
     }
 
+    /**
+     * @param $cost float
+     */
     public function setCost($cost)
     {
         $this->cost = $cost;
@@ -111,5 +113,4 @@ class PagSeguroShipping
     {
         return $this->cost;
     }
-
 }

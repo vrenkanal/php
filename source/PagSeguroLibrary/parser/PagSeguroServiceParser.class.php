@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -19,9 +18,16 @@
  ************************************************************************
  */
 
+/**
+ * Class PagSeguroServiceParser
+ */
 class PagSeguroServiceParser
 {
 
+    /**
+     * @param $str_xml
+     * @return array
+     */
     public static function readErrors($str_xml)
     {
         $parser = new PagSeguroXmlParser($str_xml);
@@ -40,6 +46,4 @@ class PagSeguroServiceParser
         }
         return $errors;
     }
-
 }
-

@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -19,31 +18,50 @@
  ************************************************************************
  */
 
+/**
+ * Class PagSeguroPaymentParserData
+ */
 class PagSeguroPaymentParserData
 {
 
+    /**
+     * @var
+     */
     private $code;
+    /**
+     * @var
+     */
     private $registrationDate;
 
+    /**
+     * @return mixed
+     */
     public function getCode()
     {
         return $this->code;
     }
 
+    /**
+     * @param $code
+     */
     public function setCode($code)
     {
         $this->code = $code;
     }
 
+    /**
+     * @return mixed
+     */
     public function getRegistrationDate()
     {
         return $this->registrationDate;
     }
 
+    /**
+     * @param $registrationDate
+     */
     public function setRegistrationDate($registrationDate)
     {
         $this->registrationDate = $registrationDate;
     }
-
 }
-

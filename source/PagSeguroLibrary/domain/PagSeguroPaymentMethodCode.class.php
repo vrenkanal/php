@@ -195,6 +195,4 @@ class PagSeguroPaymentMethodCode
         $value = ($value == null ? $this->value : $value);
         return array_search($value, self::$codeList);
     }
-
 }
-

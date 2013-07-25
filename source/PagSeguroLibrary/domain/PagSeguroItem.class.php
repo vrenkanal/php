@@ -85,7 +85,7 @@ class PagSeguroItem
     }
 
     /**
-     * @return mixed the product identifier
+     * @return integer the product identifier
      */
     public function getId()
     {
@@ -185,5 +185,4 @@ class PagSeguroItem
     {
         $this->shippingCost = $shippingCost;
     }
-
 }

@@ -86,6 +86,4 @@ class PagSeguroPaymentMethodType
         $value = ($value == null ? $this->value : $value);
         return array_search($this->value, self::$typeList);
     }
-
 }
-

@@ -117,6 +117,4 @@ class PagSeguroParameterItem
     {
         $this->group = (int)$group;
     }
-
 }
-

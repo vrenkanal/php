@@ -83,6 +83,4 @@ class PagSeguroError
     {
         $this->message = $message;
     }
-
 }
-

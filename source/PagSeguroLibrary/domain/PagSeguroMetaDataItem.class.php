@@ -143,5 +143,4 @@ class PagSeguroMetaDataItem
         }
         return $parameterValue;
     }
-
 }

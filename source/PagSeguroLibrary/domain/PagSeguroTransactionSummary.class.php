@@ -302,6 +302,4 @@ class PagSeguroTransactionSummary
     {
         return $this->paymentMethod;
     }
-
 }
-

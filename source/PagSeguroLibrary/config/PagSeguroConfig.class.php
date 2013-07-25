@@ -28,14 +28,14 @@ class PagSeguroConfig
 
     private static $config;
     private static $data;
-    const varName = 'PagSeguroConfig';
+    const VARNAME = 'PagSeguroConfig';
 
     private function __construct()
     {
         define('ALLOW_PAGSEGURO_CONFIG', true);
         require_once PagSeguroLibrary::getPath(
             ) . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
-        $varName = self::varName;
+        $varName = self::VARNAME;
         if (isset($$varName)) {
             self::$data = $$varName;
             unset($$varName);
@@ -80,8 +80,13 @@ class PagSeguroConfig
 
     public static function getAccountCredentials()
     {
-        if (isset(self::$data['credentials']) && isset(self::$data['credentials']['email']) && isset(self::$data['credentials']['token'])) {
-            return new PagSeguroAccountCredentials(self::$data['credentials']['email'], self::$data['credentials']['token']);
+        if (isset(self::$data['credentials']) && isset(self::$data['credentials']['email'])
+            && isset(self::$data['credentials']['token'])
+        ) {
+            return new PagSeguroAccountCredentials(
+                self::$data['credentials']['email'],
+                self::$data['credentials']['token']
+            );
         } else {
             throw new Exception("Credentials not set.");
         }
@@ -134,6 +139,4 @@ class PagSeguroConfig
             throw new Exception("Log file location not set.");
         }
     }
-
 }
-

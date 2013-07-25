@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
 /*
  * ***********************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -21,11 +18,20 @@ if (!defined('PAGSEGURO_LIBRARY')) {
  * ***********************************************************************
  */
 
+/**
+ * Class PagSeguroPaymentParser
+ */
 class PagSeguroPaymentParser extends PagSeguroServiceParser
 {
 
+    /**
+     * @param $payment PagSeguroPaymentRequest
+     * @return mixed
+     */
     public static function getData($payment)
     {
+
+        $data = NULL;
 
         // reference
         if ($payment->getReference() != null) {
@@ -200,6 +206,10 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
         return $data;
     }
 
+    /**
+     * @param $str_xml
+     * @return PagSeguroPaymentParserData
+     */
     public static function readSuccessXml($str_xml)
     {
         $parser = new PagSeguroXmlParser($str_xml);
@@ -209,6 +219,4 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
         $PaymentParserData->setRegistrationDate($data['date']);
         return $PaymentParserData;
     }
-
 }
-

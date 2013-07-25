@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
 ************************************************************************
 Copyright [2011] [PagSeguro Internet Ltda.]
@@ -107,5 +106,4 @@ class PagSeguroAccountCredentials extends PagSeguroCredentials
         $credentials['Token'] = $this->token;
         return implode(' - ', $credentials);
     }
-
 }

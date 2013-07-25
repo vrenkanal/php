@@ -37,4 +37,3 @@ abstract class PagSeguroCredentials
     abstract public function toString();
 
 }
-

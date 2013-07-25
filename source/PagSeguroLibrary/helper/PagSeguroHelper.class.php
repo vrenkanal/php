@@ -1,6 +1,4 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
 
 /*
  * ***********************************************************************
@@ -169,4 +167,3 @@ class PagSeguroHelper
         return preg_replace('/\D/', '', $value);
     }
 }
-

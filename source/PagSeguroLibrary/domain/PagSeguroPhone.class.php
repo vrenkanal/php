@@ -107,6 +107,4 @@ class PagSeguroPhone
         return $this;
 
     }
-
 }
-

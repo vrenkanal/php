@@ -95,6 +95,4 @@ class PagSeguroPaymentMethod
             $this->code = new PagSeguroPaymentMethodCode($code);
         }
     }
-
 }
-

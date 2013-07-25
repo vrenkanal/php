@@ -18,6 +18,10 @@ class PagSeguroSenderDocument
      */
     private $value;
 
+    /**
+     * @param $type
+     * @param $value
+     */
     public function __construct($type, $value)
     {
         if ($type && $value) {

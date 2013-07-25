@@ -63,5 +63,4 @@ class PagSeguroHttpStatus
             return false;
         }
     }
-
 }

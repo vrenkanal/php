@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -27,6 +26,9 @@
 class PagSeguroTransactionStatus
 {
 
+    /**
+     * @var array
+     */
     private static $statusList = array(
         'INITIATED' => 0,
         'WAITING_PAYMENT' => 1,
@@ -44,6 +46,9 @@ class PagSeguroTransactionStatus
      */
     private $value;
 
+    /**
+     * @param null $value
+     */
     public function __construct($value = null)
     {
         if ($value) {
@@ -51,11 +56,18 @@ class PagSeguroTransactionStatus
         }
     }
 
+    /**
+     * @param $value
+     */
     public function setValue($value)
     {
         $this->value = $value;
     }
 
+    /**
+     * @param $type
+     * @throws Exception
+     */
     public function setByType($type)
     {
         if (isset(self::$statusList[$type])) {
@@ -66,7 +78,7 @@ class PagSeguroTransactionStatus
     }
 
     /**
-     * @return the status value.
+     * @return integer the status value.
      */
     public function getValue()
     {
@@ -75,7 +87,7 @@ class PagSeguroTransactionStatus
 
     /**
      * @param value
-     * @return the transaction status corresponding to the informed status value
+     * @return String the transaction status corresponding to the informed status value
      */
     public function getTypeFromValue($value = null)
     {

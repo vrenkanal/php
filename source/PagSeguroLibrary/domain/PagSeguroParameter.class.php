@@ -62,6 +62,4 @@ class PagSeguroParameter
         }
         return $this->items;
     }
-
 }
-

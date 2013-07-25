@@ -1,7 +1,5 @@
 <?php
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+
 /*
 ************************************************************************
 Copyright [2011] [PagSeguro Internet Ltda.]
@@ -233,5 +231,4 @@ class PagSeguroAddress
     {
         $this->postalCode = $postalCode;
     }
-
 }

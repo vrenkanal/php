@@ -437,6 +437,4 @@ class PagSeguroTransaction
         return $transaction;
 
     }
-
 }
-

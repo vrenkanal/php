@@ -154,6 +154,4 @@ class PagSeguroTransactionSearchResult
         return "PagSeguroTransactionSearchResult: " . var_export($transaction, TRUE);
 
     }
-
 }
-

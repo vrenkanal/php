@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
 /*
  * ***********************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -21,9 +18,16 @@ if (!defined('PAGSEGURO_LIBRARY')) {
  * ***********************************************************************
  */
 
+/**
+ * Class PagSeguroTransactionParser
+ */
 class PagSeguroTransactionParser extends PagSeguroServiceParser
 {
 
+    /**
+     * @param $str_xml
+     * @return PagSeguroTransactionSearchResult
+     */
     public static function readSearchResult($str_xml)
     {
 
@@ -64,6 +68,10 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
         return $searchResutlt;
     }
 
+    /**
+     * @param $str_xml
+     * @return PagSeguroTransaction
+     */
     public static function readTransaction($str_xml)
     {
 
@@ -289,6 +297,10 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
         return $transaction;
     }
 
+    /**
+     * @param $data
+     * @return PagSeguroItem
+     */
     private static function parseTransactionItem($data)
     {
 
@@ -323,6 +335,10 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
         return $item;
     }
 
+    /**
+     * @param $data
+     * @return PagSeguroTransactionSummary
+     */
     private static function parseTransactionSummary($data)
     {
 
@@ -377,6 +393,4 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
 
         return $transactionSummary;
     }
-
 }
-

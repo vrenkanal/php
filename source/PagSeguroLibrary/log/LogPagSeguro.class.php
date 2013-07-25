@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -135,7 +134,7 @@ class LogPagSeguro
 
             $file = fopen(self::$fileLocation, "a");
             $date_message = "{" . @date("Y/m/d H:i:s", time()) . "}";
-            $type_message = "";
+
             switch ($type) {
                 case 'info':
                     $type_message = "[Info]";
@@ -192,6 +191,4 @@ class LogPagSeguro
         }
         return isset($content) ? $content : false;
     }
-
 }
-

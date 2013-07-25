@@ -642,6 +642,4 @@ class PagSeguroPaymentRequest
 
         return "PagSeguroPaymentRequest: " . var_export($request, TRUE);
     }
-
 }
-

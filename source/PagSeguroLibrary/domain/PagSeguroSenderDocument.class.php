@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class that represents a Sender Document
  */
@@ -67,7 +68,10 @@ class PagSeguroSenderDocument
      */
     public function toString()
     {
-        return "PagSeguroSenderDocument(type=\"{$this->getType()}\", value=\"{$this->getValue()}\")";
+        $document = array();
+        $document['type'] = $this->type;
+        $document['value'] = $this->value;
+
+        return "PagSeguroSenderDocument: " . var_export($document, TRUE);
     }
 }
-

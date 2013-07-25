@@ -187,13 +187,13 @@ class PagSeguroPaymentMethodCode
     }
 
     /**
-     * @param value
+     * @param $value
      * @return PagSeguroPaymentMethodCode the corresponding to the informed value
      */
     public function getTypeFromValue($value = null)
     {
         $value = ($value == null ? $this->value : $value);
-        return array_search($this->value, self::$codeList);
+        return array_search($value, self::$codeList);
     }
 
 }

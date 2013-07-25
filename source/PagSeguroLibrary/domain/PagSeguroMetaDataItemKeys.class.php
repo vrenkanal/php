@@ -84,4 +84,3 @@ class PagSeguroMetaDataItemKeys
         return array_search(strtolower($itemDescription), array_map('strtolower', self::$availableItemKeysList));
     }
 }
-

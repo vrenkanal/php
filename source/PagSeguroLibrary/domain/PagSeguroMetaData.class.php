@@ -67,4 +67,3 @@ class PagSeguroMetaData
         return $this->items;
     }
 }
-

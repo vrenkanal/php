@@ -109,4 +109,3 @@ class PagSeguroAccountCredentials extends PagSeguroCredentials
     }
 
 }
-

@@ -1,4 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
+<?php
+if (!defined('PAGSEGURO_LIBRARY')) {
     die('No direct script access allowed');
 }
 /*
@@ -28,12 +29,12 @@ abstract class PagSeguroCredentials
     /**
      * @return array a map of name value pairs that compose this set of credentials
      */
-    abstract function getAttributesMap();
+    abstract public function getAttributesMap();
 
     /**
      * @return string a string that represents the current object
      */
-    abstract function toString();
+    abstract public function toString();
 
 }
 

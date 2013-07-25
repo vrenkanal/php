@@ -113,4 +113,3 @@ class PagSeguroShipping
     }
 
 }
-

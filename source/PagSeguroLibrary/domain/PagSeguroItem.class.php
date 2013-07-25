@@ -85,7 +85,7 @@ class PagSeguroItem
     }
 
     /**
-     * @return the product identifier
+     * @return mixed the product identifier
      */
     public function getId()
     {
@@ -102,7 +102,7 @@ class PagSeguroItem
     }
 
     /**
-     * @return the product description
+     * @return String the product description
      */
     public function getDescription()
     {
@@ -119,7 +119,7 @@ class PagSeguroItem
     }
 
     /**
-     * @return the quantity
+     * @return integer the quantity
      */
     public function getQuantity()
     {
@@ -153,7 +153,7 @@ class PagSeguroItem
     }
 
     /**
-     * @return the weight
+     * @return float the weight
      */
     public function getWeight()
     {
@@ -170,7 +170,7 @@ class PagSeguroItem
     }
 
     /**
-     * @return the unit shipping cost for this item
+     * @return float the unit shipping cost for this item
      */
     public function getShippingCost()
     {
@@ -187,4 +187,3 @@ class PagSeguroItem
     }
 
 }
-

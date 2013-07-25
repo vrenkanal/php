@@ -61,7 +61,7 @@ class PagSeguroShippingType
     }
 
     /**
-     * @return the value of the shipping type
+     * @return int the value of the shipping type
      */
     public function getValue()
     {
@@ -70,7 +70,7 @@ class PagSeguroShippingType
 
     /**
      * @param value
-     * @return the PagSeguroShippingType corresponding to the informed value
+     * @return PagSeguroShippingType the PagSeguroShippingType corresponding to the informed value
      */
     public function getTypeFromValue($value = null)
     {
@@ -79,8 +79,8 @@ class PagSeguroShippingType
     }
 
     /**
-     * @param type
-     * @return the code corresponding to the informed shipping type
+     * @param string
+     * @return integer the code corresponding to the informed shipping type
      */
     public static function getCodeByType($type)
     {
@@ -92,8 +92,8 @@ class PagSeguroShippingType
     }
 
     /**
-     * @param type
-     * @return a PagSeguroShippingType object corresponding to the informed type
+     * @param string $type
+     * @return PagSeguroShippingType a PagSeguroShippingType object corresponding to the informed type
      */
     public static function createByType($type)
     {

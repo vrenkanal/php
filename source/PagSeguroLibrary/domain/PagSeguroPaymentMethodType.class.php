@@ -1,4 +1,6 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
+<?php
+
+if (!defined('PAGSEGURO_LIBRARY')) {
     die('NOT ALLOWED');
 }
 /*

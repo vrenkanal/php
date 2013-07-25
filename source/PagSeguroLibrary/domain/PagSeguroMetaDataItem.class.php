@@ -37,13 +37,13 @@ class PagSeguroMetaDataItem
     /**
      * Value of corresponding key
      *
-     * @var type
+     * @var mixed
      */
     private $value;
 
     /**
      * Used for grouping values of metadata items
-     * @var type
+     * @var mixed
      */
     private $group;
 
@@ -145,4 +145,3 @@ class PagSeguroMetaDataItem
     }
 
 }
-

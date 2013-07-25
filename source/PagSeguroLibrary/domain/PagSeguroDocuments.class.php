@@ -1,4 +1,6 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
+<?php
+
+if (!defined('PAGSEGURO_LIBRARY')) {
     die('No direct script access allowed');
 }
 /*
@@ -78,5 +80,3 @@ class PagSeguroDocuments
         return array_search(strtolower($documentDescription), array_map('strtolower', self::$availableDocumentList));
     }
 }
-
-

@@ -23,7 +23,7 @@ require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
  */
-class createPaymentRequest
+class CreatePaymentRequest
 {
 
     public static function main()
@@ -112,5 +112,4 @@ class createPaymentRequest
 
 }
 
-createPaymentRequest::main();
-
+CreatePaymentRequest::main();

@@ -41,7 +41,7 @@ class PagSeguroDocument
     private $value;
 
 
-    public function __construct(Array $data = null)
+    public function __construct(array $data = null)
     {
         if ($data) {
             if (isset($data['type']) && isset($data['value'])) {

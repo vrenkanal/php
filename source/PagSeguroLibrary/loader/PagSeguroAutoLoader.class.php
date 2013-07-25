@@ -26,7 +26,7 @@ class PagSeguroAutoloader
 
     public static $loader;
 
-    private static $dirs = Array(
+    private static $dirs = array(
         'config',
         'resources',
         'log',
@@ -43,7 +43,7 @@ class PagSeguroAutoloader
         if (function_exists('__autoload')) {
             spl_autoload_register('__autoload');
         }
-        spl_autoload_register(Array($this, 'addClass'));
+        spl_autoload_register(array($this, 'addClass'));
     }
 
     public static function init()

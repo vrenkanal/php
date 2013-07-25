@@ -163,7 +163,7 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
 
         if (isset($data["items"]['item']) && is_array($data["items"]['item'])) {
 
-            $items = Array();
+            $items = array();
             $i = 0;
 
             if (isset($data["items"]['item'][0])) {

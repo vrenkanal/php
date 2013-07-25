@@ -19,7 +19,7 @@
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class searchTransactionsAbandoned
+class SearchTransactionsAbandoned
 {
 
     public static function main()
@@ -67,7 +67,7 @@ class searchTransactionsAbandoned
             foreach ($transactions as $key => $transactionSummary) {
                 echo "Code: " . $transactionSummary->getCode() . "<br>";
                 echo "Reference: " . $transactionSummary->getReference() . "<br>";
-                echo "amount: " . $transactionSummary->getGrossAmount() . "<br>";
+                echo "Amount: " . $transactionSummary->getGrossAmount() . "<br>";
                 echo "<hr>";
             }
         }
@@ -75,5 +75,4 @@ class searchTransactionsAbandoned
 
 }
 
-searchTransactionsAbandoned::main();
-
+SearchTransactionsAbandoned::main();

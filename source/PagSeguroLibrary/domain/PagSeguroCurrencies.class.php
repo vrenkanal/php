@@ -31,7 +31,7 @@ class PagSeguroCurrencies
      *      key = currency name
      *      value = currency iso code 3
      * </code>
-     * @var Array
+     * @var array
      */
     private static $currencies = array(
         'REAL' => 'BRL'
@@ -67,7 +67,7 @@ class PagSeguroCurrencies
 
     /**
      * Return currencies list
-     * @return Array
+     * @return array
      */
     public static function getCurrenciesList()
     {

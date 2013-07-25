@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
 /*
  * ***********************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -228,10 +225,10 @@ class PagSeguroPaymentRequest
      * Sets the items/products list in this payment request
      * @param array $items
      */
-    public function setItems(Array $items)
+    public function setItems(array $items)
     {
         if (is_array($items)) {
-            $i = Array();
+            $i = array();
             foreach ($items as $key => $item) {
                 if ($item instanceof PagSeguroItem) {
                     $i[$key] = $item;
@@ -265,7 +262,7 @@ class PagSeguroPaymentRequest
     ) {
         $param = $id;
         if ($this->items == null) {
-            $this->items = Array();
+            $this->items = array();
         }
         if (is_array($param)) {
             array_push($this->items, new PagSeguroItem($param));
@@ -640,6 +637,6 @@ class PagSeguroPaymentRequest
         $request['Reference'] = $this->reference;
         $request['SenderEmail'] = $email;
 
-        return "PagSeguroPaymentRequest: " . var_export($request, TRUE);
+        return "PagSeguroPaymentRequest: " . var_export($request, true);
     }
 }

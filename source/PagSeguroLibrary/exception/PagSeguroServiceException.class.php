@@ -38,7 +38,7 @@ class PagSeguroServiceException extends Exception
     /**
      * @var array
      */
-    private $errors = Array();
+    private $errors = array();
 
     /**
      * @param PagSeguroHttpStatus $httpStatus
@@ -64,7 +64,7 @@ class PagSeguroServiceException extends Exception
     /**
      * @param array $errors
      */
-    public function setErrors(Array $errors)
+    public function setErrors(array $errors)
     {
         $this->errors = $errors;
     }

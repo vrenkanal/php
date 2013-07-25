@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('NOT ALLOWED');
-}
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]

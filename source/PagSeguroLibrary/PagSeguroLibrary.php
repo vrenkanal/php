@@ -84,32 +84,32 @@ class PagSeguroLibrary
 
     }
 
-    public final static function getVersion()
+    final public static function getVersion()
     {
         return self::VERSION;
     }
 
-    public final static function getPath()
+    final public static function getPath()
     {
         return self::$path;
     }
 
-    public final static function getModuleVersion()
+    final public static function getModuleVersion()
     {
         return self::$module_version;
     }
 
-    public final static function setModuleVersion($version)
+    final public static function setModuleVersion($version)
     {
         self::$module_version = $version;
     }
 
-    public final static function getCMSVersion()
+    final public static function getCMSVersion()
     {
         return self::$cms_version;
     }
 
-    public final static function setCMSVersion($version)
+    final public static function setCMSVersion($version)
     {
         self::$cms_version = $version;
     }

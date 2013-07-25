@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -19,18 +18,49 @@
  ************************************************************************
  */
 
+/**
+ * Class PagSeguroConnectionData
+ */
 class PagSeguroConnectionData
 {
 
+    /**
+     * @var
+     */
     private $serviceName;
+    /**
+     * @var PagSeguroCredentials
+     */
     private $credentials;
+    /**
+     * @var
+     */
     private $resources;
+    /**
+     * @var
+     */
     private $environment;
+    /**
+     * @var
+     */
     private $webserviceUrl;
+    /**
+     * @var
+     */
     private $servicePath;
+    /**
+     * @var
+     */
     private $serviceTimeout;
+    /**
+     * @var
+     */
     private $charset;
 
+    /**
+     * @param PagSeguroCredentials $credentials
+     * @param $serviceName
+     */
     public function __construct(PagSeguroCredentials $credentials, $serviceName)
     {
 
@@ -51,76 +81,122 @@ class PagSeguroConnectionData
 
     }
 
+    /**
+     * @return PagSeguroCredentials
+     */
     public function getCredentials()
     {
         return $this->credentials;
     }
 
+    /**
+     * @param PagSeguroCredentials $credentials
+     */
     public function setCredentials(PagSeguroCredentials $credentials)
     {
         $this->credentials = $credentials;
     }
 
+    /**
+     * @return string
+     */
     public function getCredentialsUrlQuery()
     {
         return http_build_query($this->credentials->getAttributesMap(), '', '&');
     }
 
+    /**
+     * @return mixed
+     */
     public function getEnvironment()
     {
         return $this->environment;
     }
 
+    /**
+     * @param $environment
+     */
     public function setEnvironment($environment)
     {
         $this->environment = $environment;
     }
 
+    /**
+     * @return mixed
+     */
     public function getWebserviceUrl()
     {
         return $this->webserviceUrl;
     }
 
+    /**
+     * @param $webserviceUrl
+     */
     public function setWebserviceUrl($webserviceUrl)
     {
         $this->webserviceUrl = $webserviceUrl;
     }
 
+    /**
+     * @return mixed
+     */
     public function getServicePath()
     {
         return $this->servicePath;
     }
 
+    /**
+     * @param $servicePath
+     */
     public function setServicePath($servicePath)
     {
         $this->servicePath = $servicePath;
     }
 
+    /**
+     * @return mixed
+     */
     public function getServiceTimeout()
     {
         return $this->serviceTimeout;
     }
 
+    /**
+     * @param $serviceTimeout
+     */
     public function setServiceTimeout($serviceTimeout)
     {
         $this->serviceTimeout = $serviceTimeout;
     }
 
+    /**
+     * @return string
+     */
     public function getServiceUrl()
     {
         return $this->getWebserviceUrl() . $this->getServicePath();
     }
 
+    /**
+     * @param $resource
+     * @return mixed
+     */
     public function getResource($resource)
     {
         return $this->resources[$resource];
     }
 
+    /**
+     * @return mixed
+     */
     public function getCharset()
     {
         return $this->charset;
     }
 
+    /**
+     * @param $charset
+     */
     public function setCharset($charset)
     {
         $this->charset = $charset;

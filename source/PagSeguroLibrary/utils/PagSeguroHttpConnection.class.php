@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
 /*
  * ***********************************************************************
   Copyright [2011] [PagSeguro Internet Ltda.]
@@ -57,7 +54,7 @@ class PagSeguroHttpConnection
         $this->response = $response;
     }
 
-    public function post($url, Array $data, $timeout = 20, $charset = 'ISO-8859-1')
+    public function post($url, array $data, $timeout = 20, $charset = 'ISO-8859-1')
     {
         return $this->curlConnection('POST', $url, $data, $timeout, $charset);
     }
@@ -67,25 +64,25 @@ class PagSeguroHttpConnection
         return $this->curlConnection('GET', $url, null, $timeout, $charset);
     }
 
-    private function curlConnection($method = 'GET', $url, Array $data = null, $timeout, $charset)
+    private function curlConnection($method = 'GET', $url, array $data = null, $timeout, $charset)
     {
 
         if (strtoupper($method) === 'POST') {
             $postFields = ($data ? http_build_query($data, '', '&') : "");
             $contentLength = "Content-length: " . strlen($postFields);
-            $methodOptions = Array(
+            $methodOptions = array(
                 CURLOPT_POST => true,
                 CURLOPT_POSTFIELDS => $postFields,
             );
         } else {
             $contentLength = null;
-            $methodOptions = Array(
+            $methodOptions = array(
                 CURLOPT_HTTPGET => true
             );
         }
 
-        $options = Array(
-            CURLOPT_HTTPHEADER => Array(
+        $options = array(
+            CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/x-www-form-urlencoded; charset=" . $charset,
                 $contentLength,
                 'lib-description: php-v.' . PagSeguroLibrary::getVersion()
@@ -125,6 +122,4 @@ class PagSeguroHttpConnection
             return true;
         }
     }
-
 }
-

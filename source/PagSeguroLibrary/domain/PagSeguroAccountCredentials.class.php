@@ -90,7 +90,7 @@ class PagSeguroAccountCredentials extends PagSeguroCredentials
      */
     public function getAttributesMap()
     {
-        return Array(
+        return array(
             'email' => $this->email,
             'token' => $this->token
         );

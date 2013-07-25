@@ -32,7 +32,7 @@ class PagSeguroMetaData
     /**
      * @param array $items
      */
-    public function __construct(Array $items = null)
+    public function __construct(array $items = null)
     {
         if (!is_null($items) && count($items) > 0) {
             $this->setItems($items);
@@ -50,7 +50,7 @@ class PagSeguroMetaData
     /**
      * @param array $items
      */
-    public function setItems(Array $items)
+    public function setItems(array $items)
     {
         $this->items = $items;
     }

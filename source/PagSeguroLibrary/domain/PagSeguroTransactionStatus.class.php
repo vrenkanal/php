@@ -104,4 +104,3 @@ class PagSeguroTransactionStatus
         return self::$statusList;
     }
 }
-

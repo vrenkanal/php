@@ -71,7 +71,7 @@ class PagSeguroHelper
      * @param $var
      * @param null $dump
      */
-    public static function print_rr($var, $dump = null)
+    public static function printError($var, $dump = null)
     {
         if (is_array($var) || is_object($var)) {
             echo "<pre>";
@@ -145,7 +145,7 @@ class PagSeguroHelper
      * @param array $notification_data
      * @return boolean
      */
-    public static function isNotificationEmpty(Array $notification_data)
+    public static function isNotificationEmpty(array $notification_data)
     {
         $isEmpty = true;
 

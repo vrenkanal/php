@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
 /*
  * ***********************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -44,7 +41,7 @@ class PagSeguroSender
      *
      * @param array $data
      */
-    public function __construct(Array $data = null)
+    public function __construct(array $data = null)
     {
         if ($data) {
             if (isset($data['name'])) {
@@ -143,7 +140,7 @@ class PagSeguroSender
      * @param array $documents
      * @see PagSeguroDocument
      */
-    public function setDocuments(Array $documents)
+    public function setDocuments(array $documents)
     {
         if (count($documents) > 0) {
             foreach ($documents as $document) {

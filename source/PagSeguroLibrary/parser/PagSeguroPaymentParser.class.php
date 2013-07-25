@@ -31,7 +31,7 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
     public static function getData($payment)
     {
 
-        $data = NULL;
+        $data = null;
 
         // reference
         if ($payment->getReference() != null) {
@@ -59,6 +59,7 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
             }
 
             // documents
+            /** @var $document PagSeguroDocument */
             if ($payment->getSender()->getDocuments() != null) {
                 $documents = $payment->getSender()->getDocuments();
                 if (is_array($documents) && count($documents) == 1) {

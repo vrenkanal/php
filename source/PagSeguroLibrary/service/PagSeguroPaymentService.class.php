@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -25,13 +24,25 @@
 class PagSeguroPaymentService
 {
 
+    /**
+     *
+     */
     const serviceName = 'paymentService';
 
+    /**
+     * @param PagSeguroConnectionData $connectionData
+     * @return string
+     */
     private static function buildCheckoutRequestUrl(PagSeguroConnectionData $connectionData)
     {
         return $connectionData->getServiceUrl() . '/?' . $connectionData->getCredentialsUrlQuery();
     }
 
+    /**
+     * @param PagSeguroConnectionData $connectionData
+     * @param $code
+     * @return string
+     */
     private static function buildCheckoutUrl(PagSeguroConnectionData $connectionData, $code)
     {
         return $connectionData->getResource('checkoutUrl') . "?code=$code";
@@ -40,6 +51,13 @@ class PagSeguroPaymentService
     // createCheckoutRequest is the actual implementation of the Register method
     // This separation serves as test hook to validate the Uri
     // against the code returned by the service
+    /**
+     * @param PagSeguroCredentials $credentials
+     * @param PagSeguroPaymentRequest $paymentRequest
+     * @return bool|string
+     * @throws Exception|PagSeguroServiceException
+     * @throws Exception
+     */
     public static function createCheckoutRequest(
         PagSeguroCredentials $credentials,
         PagSeguroPaymentRequest $paymentRequest

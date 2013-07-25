@@ -68,7 +68,7 @@ class PagSeguroAddress
      * Initializes a new instance of the Address class
      * @param array $data
      */
-    public function __construct(Array $data = null)
+    public function __construct(array $data = null)
     {
         if (isset($data['postalCode'])) {
             $this->postalCode = $data['postalCode'];

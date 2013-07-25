@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -28,9 +27,8 @@ class PagSeguroXmlParser
     {
         $parser = xml_parser_create();
         if (!xml_parse($parser, $xml)) {
-            throw new Exception("PagSeguroLibrary XML parsing error: (" . xml_get_error_code(
-                $parser
-            ) . ") " . xml_error_string(xml_get_error_code($parser)));
+            throw new Exception("PagSeguroLibrary XML parsing error: (" . xml_get_error_code($parser)
+            . ") " . xml_error_string(xml_get_error_code($parser)));
         } else {
             $this->dom = new DOMDocument();
             $this->dom->loadXml($xml);
@@ -53,13 +51,15 @@ class PagSeguroXmlParser
 
     private function toArray($node)
     {
-        $occurance = array();
+        $occurrence = array();
+        $result = NULL;
+        /** @var $node DOMNode */
         if ($node->hasChildNodes()) {
             foreach ($node->childNodes as $child) {
-                if (!isset($occurance[$child->nodeName])) {
-                    $occurance[$child->nodeName] = null;
+                if (!isset($occurrence[$child->nodeName])) {
+                    $occurrence[$child->nodeName] = null;
                 }
-                $occurance[$child->nodeName]++;
+                $occurrence[$child->nodeName]++;
             }
         }
         if (isset($child)) {
@@ -75,7 +75,7 @@ class PagSeguroXmlParser
                     for ($i = 0; $i < $children->length; $i++) {
                         $child = $children->item($i);
                         if ($child->nodeName != '#text') {
-                            if ($occurance[$child->nodeName] > 1) {
+                            if ($occurrence[$child->nodeName] > 1) {
                                 $result[$child->nodeName][] = $this->toArray($child);
                             } else {
                                 $result[$child->nodeName] = $this->toArray($child);
@@ -104,6 +104,4 @@ class PagSeguroXmlParser
             return null;
         }
     }
-
 }
-

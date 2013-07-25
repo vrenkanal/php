@@ -1,8 +1,5 @@
 <?php
 
-if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
 /*
  * ***********************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -29,7 +26,7 @@ class PagSeguroParameter
 
     private $items;
 
-    public function __construct(Array $items = null)
+    public function __construct(array $items = null)
     {
         if (!is_null($items) && count($items) > 0) {
             $this->setItems($items);
@@ -50,7 +47,7 @@ class PagSeguroParameter
         }
     }
 
-    public function setItems(Array $items)
+    public function setItems(array $items)
     {
         $this->items = $items;
     }

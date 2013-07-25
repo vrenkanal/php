@@ -40,7 +40,7 @@ class NotificationListener
             switch ($strType) {
 
                 case 'TRANSACTION':
-                    self::TransactionNotification($code);
+                    self::transactionNotification($code);
                     break;
 
                 default:
@@ -59,7 +59,7 @@ class NotificationListener
 
     }
 
-    private static function TransactionNotification($notificationCode)
+    private static function transactionNotification($notificationCode)
     {
 
         /*
@@ -92,4 +92,3 @@ class NotificationListener
 }
 
 NotificationListener::main();
-

@@ -1,6 +1,5 @@
-<?php if (!defined('ALLOW_PAGSEGURO_CONFIG')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -25,8 +24,16 @@
 class PagSeguroNotificationService
 {
 
-    const serviceName = 'notificationService';
+    /**
+     *
+     */
+    const SERVICE_NAME = 'notificationService';
 
+    /**
+     * @param PagSeguroConnectionData $connectionData
+     * @param $notificationCode
+     * @return string
+     */
     private static function buildTransactionNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode)
     {
         $url = $connectionData->getServiceUrl();
@@ -47,13 +54,13 @@ class PagSeguroNotificationService
     {
 
         LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - begin");
-        $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
 
             $connection = new PagSeguroHttpConnection();
             $connection->get(
-                self::buildTransactionNotificationUrl($connectionData, $notificationCode), // URL + par�metros de busca
+                self::buildTransactionNotificationUrl($connectionData, $notificationCode), // URL + parâmetros de busca
                 $connectionData->getServiceTimeout(), // Timeout
                 $connectionData->getCharset() // charset
             );

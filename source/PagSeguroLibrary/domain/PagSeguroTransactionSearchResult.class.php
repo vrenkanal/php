@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -134,7 +133,7 @@ class PagSeguroTransactionSearchResult
      *
      * @param array $transactions
      */
-    public function setTransactions(Array $transactions)
+    public function setTransactions(array $transactions)
     {
         $this->transactions = $transactions;
     }
@@ -151,7 +150,7 @@ class PagSeguroTransactionSearchResult
         $transaction['TotalPages'] = $this->totalPages;
         $transaction['Transactions in this page'] = $this->resultsInThisPage;
 
-        return "PagSeguroTransactionSearchResult: " . var_export($transaction, TRUE);
+        return "PagSeguroTransactionSearchResult: " . var_export($transaction, true);
 
     }
 }

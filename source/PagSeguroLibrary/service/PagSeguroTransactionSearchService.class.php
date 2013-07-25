@@ -33,7 +33,7 @@ class PagSeguroTransactionSearchService
         return "{$url}/{$transactionCode}/?" . $connectionData->getCredentialsUrlQuery();
     }
 
-    private static function buildSearchUrlByDate(PagSeguroConnectionData $connectionData, Array $searchParams)
+    private static function buildSearchUrlByDate(PagSeguroConnectionData $connectionData, array $searchParams)
     {
         $url = $connectionData->getServiceUrl();
         $initialDate = $searchParams['initialDate'] != null ? $searchParams['initialDate'] : "";
@@ -48,7 +48,7 @@ class PagSeguroTransactionSearchService
         . "&initialDate={$initialDate}{$finalDate}{$page}{$maxPageResults}";
     }
 
-    private static function buildSearchUrlAbandoned(PagSeguroConnectionData $connectionData, Array $searchParams)
+    private static function buildSearchUrlAbandoned(PagSeguroConnectionData $connectionData, array $searchParams)
     {
         $url = $connectionData->getServiceUrl();
         $initialDate = $searchParams['initialDate'] != null ? $searchParams['initialDate'] : "";
@@ -161,7 +161,7 @@ class PagSeguroTransactionSearchService
 
         $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
 
-        $searchParams = Array(
+        $searchParams = array(
             'initialDate' => PagSeguroHelper::formatDate($initialDate),
             'pageNumber' => $pageNumber,
             'maxPageResults' => $maxPageResults
@@ -259,7 +259,7 @@ class PagSeguroTransactionSearchService
 
         $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
 
-        $searchParams = Array(
+        $searchParams = array(
             'initialDate' => PagSeguroHelper::formatDate($initialDate),
             'pageNumber' => $pageNumber,
             'maxPageResults' => $maxPageResults

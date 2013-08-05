@@ -25,12 +25,10 @@ class NotificationListener
     public static function main()
     {
 
-        $code = (isset($_POST['notificationCode']) && trim($_POST['notificationCode']) !== "" ? trim(
-            $_POST['notificationCode']
-        ) : null);
-        $type = (isset($_POST['notificationType']) && trim($_POST['notificationType']) !== "" ? trim(
-            $_POST['notificationType']
-        ) : null);
+        $code = (isset($_POST['notificationCode']) && trim($_POST['notificationCode']) !== ""
+            ? trim($_POST['notificationCode']) : null);
+        $type = (isset($_POST['notificationType']) && trim($_POST['notificationType']) !== ""
+            ? trim($_POST['notificationType']) : null);
 
         if ($code && $type) {
 
@@ -72,6 +70,7 @@ class NotificationListener
 
         try {
             $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
+            // Do something with $transaction
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }

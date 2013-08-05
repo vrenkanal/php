@@ -112,8 +112,8 @@ class PagSeguroPaymentRequest
     /**
      * @return PagSeguroSender the sender
      *
-     * Party that will be sending the Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
-     * money
+     * Party that will be sending the Uri to where the PagSeguro payment page should redirect the
+     * user after the payment information is processed.
      */
     public function getSender()
     {

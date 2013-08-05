@@ -25,7 +25,7 @@
 class PagSeguroTransactionSearchService
 {
 
-    const serviceName = 'transactionSearchService';
+    const SERVICE_NAME = 'transactionSearchService';
 
     private static function buildSearchUrlByCode(PagSeguroConnectionData $connectionData, $transactionCode)
     {
@@ -78,7 +78,7 @@ class PagSeguroTransactionSearchService
 
         LogPagSeguro::info("PagSeguroTransactionSearchService.SearchByCode($transactionCode) - begin");
 
-        $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
 
@@ -159,7 +159,7 @@ class PagSeguroTransactionSearchService
             . ", finalDate=" . PagSeguroHelper::formatDate($finalDate) . ") - begin"
         );
 
-        $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         $searchParams = array(
             'initialDate' => PagSeguroHelper::formatDate($initialDate),
@@ -257,7 +257,7 @@ class PagSeguroTransactionSearchService
             ) . ", finalDate=" . PagSeguroHelper::formatDate($finalDate) . ") - begin"
         );
 
-        $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         $searchParams = array(
             'initialDate' => PagSeguroHelper::formatDate($initialDate),

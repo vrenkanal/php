@@ -128,7 +128,7 @@ class LogPagSeguro
     private static function logMessage($message, $type = null)
     {
         if (!self::$active) {
-            return false;
+            return;
         }
 
         try {

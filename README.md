@@ -1,7 +1,7 @@
 Biblioteca de integração PagSeguro para PHP
 ===========================================
 
-Status: [![Build Status](https://travis-ci.org/pagseguro/php.png?branch=master)](https://travis-ci.org/pagseguro/php)
+[![Build Status](https://travis-ci.org/pagseguro/php.png?branch=master)](https://travis-ci.org/pagseguro/php)
 
 Descrição
 ---------
@@ -31,7 +31,7 @@ Instalação
  - Descompacte os arquivos em seu computador;
  - Dentro do diretório *source* existem dois diretórios, o *examples* e o *PagSeguroLibrary*. O diretório *examples* contém exemplos de chamadas utilizando a API e o diretório *PagSeguroLibrary* contém a biblioteca propriamente dita. Caso queira importar somente a biblioteca, faça upload do diretório *PagSeguroLibrary* e inclua a classe *PagSeguroLibrary.php* em seu projeto. Essa classe se encarregará de importar todas as funcionalidades da biblioteca no seu sistema.
 
- Você também pode usar o composer para carregar a biblioteca!
+Alternativamente é possível utilziar o Composer para carregar a biblioteca (pagseguro/php).
 
 
 Configuração

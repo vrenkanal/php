@@ -85,7 +85,7 @@ class PagSeguroHttpConnection
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/x-www-form-urlencoded; charset=" . $charset,
                 $contentLength,
-                'lib-description: php-v.' . PagSeguroLibrary::getVersion()
+                'lib-description: php:' . PagSeguroLibrary::getVersion()
             ),
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,

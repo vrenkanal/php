@@ -31,7 +31,7 @@ Instalação
  - Descompacte os arquivos em seu computador;
  - Dentro do diretório *source* existem dois diretórios, o *examples* e o *PagSeguroLibrary*. O diretório *examples* contém exemplos de chamadas utilizando a API e o diretório *PagSeguroLibrary* contém a biblioteca propriamente dita. Caso queira importar somente a biblioteca, faça upload do diretório *PagSeguroLibrary* e inclua a classe *PagSeguroLibrary.php* em seu projeto. Essa classe se encarregará de importar todas as funcionalidades da biblioteca no seu sistema.
 
-Alternativamente é possível utilziar o Composer para carregar a biblioteca (pagseguro/php).
+Alternativamente é possível utilizar o Composer para carregar a biblioteca (pagseguro/php).
 
 
 Configuração

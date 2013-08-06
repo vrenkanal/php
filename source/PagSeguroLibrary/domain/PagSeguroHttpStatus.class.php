@@ -1,6 +1,5 @@
-<?php if (!defined('PAGSEGURO_LIBRARY')) {
-    die('No direct script access allowed');
-}
+<?php
+
 /*
  ************************************************************************
  Copyright [2011] [PagSeguro Internet Ltda.]
@@ -25,6 +24,9 @@
 class PagSeguroHttpStatus
 {
 
+    /**
+     * @var array
+     */
     private $typeList = array(
         200 => 'OK',
         400 => 'BAD_REQUEST',
@@ -34,9 +36,18 @@ class PagSeguroHttpStatus
         500 => 'INTERNAL_SERVER_ERROR',
         502 => 'BAD_GATEWAY'
     );
+    /**
+     * @var int
+     */
     private $status;
+    /**
+     * @var bool
+     */
     private $type;
 
+    /**
+     * @param $status
+     */
     public function __construct($status)
     {
         if ($status) {
@@ -45,16 +56,26 @@ class PagSeguroHttpStatus
         }
     }
 
+    /**
+     * @return bool
+     */
     public function getType()
     {
         return $this->type;
     }
 
+    /**
+     * @return int
+     */
     public function getStatus()
     {
         return $this->status;
     }
 
+    /**
+     * @param $status
+     * @return bool
+     */
     private function getTypeByStatus($status)
     {
         if (isset($this->typeList[(int)$status])) {

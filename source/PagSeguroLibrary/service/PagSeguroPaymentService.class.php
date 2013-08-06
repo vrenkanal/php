@@ -27,7 +27,7 @@ class PagSeguroPaymentService
     /**
      *
      */
-    const serviceName = 'paymentService';
+    const SERVICE_NAME = 'paymentService';
 
     /**
      * @param PagSeguroConnectionData $connectionData
@@ -65,7 +65,7 @@ class PagSeguroPaymentService
 
         LogPagSeguro::info("PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - begin");
 
-        $connectionData = new PagSeguroConnectionData($credentials, self::serviceName);
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
 

@@ -1,9 +1,11 @@
 Biblioteca de integração PagSeguro para PHP
 ===========================================
----
+
+[![Build Status](https://travis-ci.org/pagseguro/php.png?branch=master)](https://travis-ci.org/pagseguro/php)
+
 Descrição
 ---------
----
+
 A biblioteca PagSeguro em PHP é um conjunto de classes de domínio que facilitam, para o desenvolvedor PHP, a utilização das funcionalidades que o PagSeguro oferece na forma de APIs. Com a biblioteca instalada e configurada, você pode facilmente integrar funcionalidades como:
 
  - Criar [requisições de pagamentos]
@@ -15,7 +17,7 @@ A biblioteca PagSeguro em PHP é um conjunto de classes de domínio que facilita
 
 Requisitos
 ----------
----
+
  - [PHP] 5.1.6+
  - [SPL]
  - [cURL]
@@ -24,15 +26,17 @@ Requisitos
 
 Instalação
 ----------
----
+
  - Baixe o repositório como arquivo zip ou faça um clone;
  - Descompacte os arquivos em seu computador;
  - Dentro do diretório *source* existem dois diretórios, o *examples* e o *PagSeguroLibrary*. O diretório *examples* contém exemplos de chamadas utilizando a API e o diretório *PagSeguroLibrary* contém a biblioteca propriamente dita. Caso queira importar somente a biblioteca, faça upload do diretório *PagSeguroLibrary* e inclua a classe *PagSeguroLibrary.php* em seu projeto. Essa classe se encarregará de importar todas as funcionalidades da biblioteca no seu sistema.
 
+Alternativamente é possível utilziar o Composer para carregar a biblioteca (pagseguro/php).
+
 
 Configuração
 ------------
----
+
 Para fazer uso real da biblioteca é preciso fazer algumas configurações no arquivo 'PagSeguroConfig.php', que encontra-se no diretório 'config'. As opções disponíveis estão descritas abaixo.
 
  - **environment**: no momento aceita apenas o valor *production*.
@@ -47,7 +51,7 @@ Mais informações estão disponíveis na [documentação oficial].
 
 Changelog
 ---------
----
+
 2.1.7
 
  - Adicionado: Classes para manipulação de metadados e parâmetros genéricos.
@@ -80,7 +84,7 @@ Changelog
 
 Licença
 -------
----
+
 Copyright 2013 PagSeguro Internet LTDA.
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
@@ -92,7 +96,7 @@ Unless required by applicable law or agreed to in writing, software distributed 
 
 Notas
 -----
----
+
  - O PagSeguro somente aceita pagamento utilizando a moeda Real brasileiro (BRL).
  - Certifique-se que o email e o token informados estejam relacionados a uma conta que possua o perfil de vendedor ou empresarial.
  - Certifique-se que tenha definido corretamente o charset de acordo com a codificação (ISO-8859-1 ou UTF-8) do seu sistema. Isso irá prevenir que as transações gerem possíveis erros ou quebras ou ainda que caracteres especiais possam ser apresentados de maneira diferente do habitual.
@@ -101,13 +105,13 @@ Notas
 
 [Dúvidas?]
 ----------
----
+
 Em caso de dúvidas mande um e-mail para desenvolvedores@pagseguro.com.br
 
 
 Contribuições
 -------------
----
+
 Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
 * Faça um fork.

@@ -32,8 +32,8 @@ class PagSeguroConfig
     private function __construct()
     {
         define('ALLOW_PAGSEGURO_CONFIG', true);
-        require_once PagSeguroLibrary::getPath(
-            ) . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
+        require_once PagSeguroLibrary::getPath()
+        . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
         $varName = self::VARNAME;
         if (isset($$varName)) {
             self::$data = $$varName;

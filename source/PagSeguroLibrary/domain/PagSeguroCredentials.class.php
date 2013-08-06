@@ -33,5 +33,4 @@ abstract class PagSeguroCredentials
      * @return string a string that represents the current object
      */
     abstract public function toString();
-
 }

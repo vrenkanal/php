@@ -310,7 +310,7 @@ class PagSeguroPaymentRequest
      */
     public function setRedirectURL($redirectURL)
     {
-        $this->redirectURL = $redirectURL;
+        $this->redirectURL = $this->verifyURLTest($redirectURL);
     }
 
     /**
@@ -530,7 +530,7 @@ class PagSeguroPaymentRequest
      */
     public function setNotificationURL($notificationURL)
     {
-        $this->notificationURL = $notificationURL;
+        $this->notificationURL = $this->verifyURLTest($notificationURL);
     }
 
     /**
@@ -638,5 +638,31 @@ class PagSeguroPaymentRequest
         $request['SenderEmail'] = $email;
 
         return "PagSeguroPaymentRequest: " . var_export($request, true);
+    }
+    
+    /**
+     * Verify if the adress of NotificationURL or RedirectURL is for tests and return empty
+     * @param type $url
+     * @return type
+     */
+    public function verifyURLTest($url){
+        $adress = array(
+            'localhost',
+            '127.0.0.1'
+        );
+        
+        $urlReturn;
+        foreach($adress as $item){
+            $find = strpos($url, $item);
+            
+            if ($find) {
+                $urlReturn = '';
+                break;
+            }else{
+                $urlReturn = $url;
+            }
+        }
+
+        return $urlReturn;
     }
 }

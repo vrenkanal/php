@@ -89,7 +89,7 @@ class PagSeguroConfig
             isset(self::$data['credentials']['token'])
         ) {
             return new PagSeguroAccountCredentials(
-                self::$data['credentials']['email'], 
+                self::$data['credentials']['email'],
                 self::$data['credentials']['token']
             );
         } else {

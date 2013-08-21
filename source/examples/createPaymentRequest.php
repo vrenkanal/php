@@ -41,7 +41,7 @@ class CreatePaymentRequest
         // Add another item for this payment request
         $paymentRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
 
-        // Sets a reference code for this payment request, it is useful to identify this payment 
+        // Sets a reference code for this payment request, it is useful to identify this payment
         // in future notifications.
         $paymentRequest->setReference("REF123");
 

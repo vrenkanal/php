@@ -144,7 +144,11 @@ class PagSeguroPaymentMethodCode
         /**
          * OiPaggo
          */
-        'OI_PAGGO' => 501
+        'OI_PAGGO' => 501,
+        /**
+         * Direct deposit
+         */
+        'DIRECT_DEPOSIT' => 701
     );
 
     /**

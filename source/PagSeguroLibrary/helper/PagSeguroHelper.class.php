@@ -2,19 +2,19 @@
 
 /*
  * ***********************************************************************
-  Copyright [2011] [PagSeguro Internet Ltda.]
+ Copyright [2011] [PagSeguro Internet Ltda.]
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
 
-  http://www.apache.org/licenses/LICENSE-2.0
+ http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
  * ***********************************************************************
  */
 
@@ -36,7 +36,7 @@ class PagSeguroHelper
         } elseif (is_numeric($date)) {
             $d = date($format, $date);
         } else {
-            $d = (string)$date;
+            $d = (string) $date;
         }
         return $d;
     }
@@ -48,8 +48,8 @@ class PagSeguroHelper
     public static function decimalFormat($numeric)
     {
         if (is_float($numeric)) {
-            $numeric = (float)$numeric;
-            $numeric = (string)number_format($numeric, 2, '.', '');
+            $numeric = (float) $numeric;
+            $numeric = (string) number_format($numeric, 2, '.', '');
         }
         return $numeric;
     }
@@ -109,8 +109,8 @@ class PagSeguroHelper
             $stringLength = strlen($string);
             $endcharsLength = strlen($endchars);
 
-            if ($stringLength > (int)$limit) {
-                $cut = (int)($limit - $endcharsLength);
+            if ($stringLength > (int) $limit) {
+                $cut = (int) ($limit - $endcharsLength);
                 $string = substr($string, 0, $cut) . $endchars;
             }
         }
@@ -150,8 +150,7 @@ class PagSeguroHelper
         $isEmpty = true;
 
         if (isset($notification_data['notificationCode']) && isset($notification_data['notificationType'])) {
-            $isEmpty = (PagSeguroHelper::isEmpty($notification_data['notificationCode']) ||
-                PagSeguroHelper::isEmpty($notification_data['notificationType']));
+            $isEmpty = (PagSeguroHelper::isEmpty($notification_data['notificationCode']) || PagSeguroHelper::isEmpty($notification_data['notificationType']));
         }
 
         return $isEmpty;

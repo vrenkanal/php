@@ -47,26 +47,22 @@ class CreatePaymentRequest
         // Sets shipping information for this payment request
         $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
         $paymentRequest->setShippingType($sedexCode);
-        $paymentRequest->setShippingAddress(
-            '01452002',
+        $paymentRequest->setShippingAddress('01452002',
             'Av. Brig. Faria Lima',
             '1384',
             'apto. 114',
             'Jardim Paulistano',
             'São Paulo',
             'SP',
-            'BRA'
-        );
+            'BRA');
 
         // Sets your customer information.
-        $paymentRequest->setSender(
-            'João Comprador',
+        $paymentRequest->setSender('João Comprador',
             'comprador@s2it.com.br',
             '11',
             '56273440',
             'CPF',
-            '156.009.442-76'
-        );
+            '156.009.442-76');
 
         // Sets the url used by PagSeguro for redirect user after ends checkout process
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");

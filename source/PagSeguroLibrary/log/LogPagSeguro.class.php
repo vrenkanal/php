@@ -75,8 +75,8 @@ class LogPagSeguro
             fclose($f);
             return true;
         } catch (Exception $e) {
-            echo $e->getMessage() . " - Can't create log file. Permission denied. File location: "
-                . self::$fileLocation;
+            echo $e->getMessage() . " - Can't create log file. Permission denied. File location: " .
+                self::$fileLocation;
             return false;
         }
 
@@ -156,8 +156,8 @@ class LogPagSeguro
             fclose($file);
 
         } catch (Exception $e) {
-            echo $e->getMessage() . " - Can't create log file. Permission denied. File location: "
-                . self::$fileLocation;
+            echo $e->getMessage() . " - Can't create log file. Permission denied. File location: " .
+                self::$fileLocation;
         }
 
     }

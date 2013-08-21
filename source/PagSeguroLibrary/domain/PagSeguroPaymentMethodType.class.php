@@ -34,7 +34,9 @@ class PagSeguroPaymentMethodType
         /** PagSeguro account balance */
         'BALANCE' => 4,
         /** OiPaggo */
-        'OI_PAGGO' => 5
+        'OI_PAGGO' => 5,
+        /** Direct deposit */
+        'DIRECT_DEPOSIT' => 7
     );
 
     /**

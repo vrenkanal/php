@@ -112,6 +112,6 @@ class PagSeguroParameterItem
      */
     public function setGroup($group)
     {
-        $this->group = (int)$group;
+        $this->group = (int) $group;
     }
 }

@@ -51,7 +51,7 @@ class PagSeguroHttpStatus
     public function __construct($status)
     {
         if ($status) {
-            $this->status = (int)$status;
+            $this->status = (int) $status;
             $this->type = $this->getTypeByStatus($this->status);
         }
     }
@@ -78,8 +78,8 @@ class PagSeguroHttpStatus
      */
     private function getTypeByStatus($status)
     {
-        if (isset($this->typeList[(int)$status])) {
-            return $this->typeList[(int)$status];
+        if (isset($this->typeList[(int) $status])) {
+            return $this->typeList[(int) $status];
         } else {
             return false;
         }

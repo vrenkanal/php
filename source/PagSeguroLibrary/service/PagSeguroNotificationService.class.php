@@ -59,10 +59,9 @@ class PagSeguroNotificationService
         try {
 
             $connection = new PagSeguroHttpConnection();
-            $connection->get(
-                self::buildTransactionNotificationUrl($connectionData, $notificationCode), // URL + parâmetros de busca
-                $connectionData->getServiceTimeout(), // Timeout
-                $connectionData->getCharset() // charset
+            $connection->get(self::buildTransactionNotificationUrl($connectionData, $notificationCode), // URL + parâmetros de busca
+            $connectionData->getServiceTimeout(), // Timeout
+            $connectionData->getCharset() // charset
             );
 
             $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
@@ -72,28 +71,22 @@ class PagSeguroNotificationService
                 case 'OK':
                     // parses the transaction
                     $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-                    LogPagSeguro::info(
-                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end "
-                        . $transaction->toString() . ")"
-                    );
+                    LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end " .
+                        $transaction->toString() . ")");
                     break;
 
                 case 'BAD_REQUEST':
                     $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
                     $e = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::info(
-                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error "
-                        . $e->getOneLineMessage()
-                    );
+                    LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " .
+                        $e->getOneLineMessage());
                     throw $e;
                     break;
 
                 default:
                     $e = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::info(
-                        "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error "
-                        . $e->getOneLineMessage()
-                    );
+                    LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " .
+                        $e->getOneLineMessage());
                     throw $e;
                     break;
 

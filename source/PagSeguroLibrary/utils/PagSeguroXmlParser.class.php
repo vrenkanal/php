@@ -27,8 +27,8 @@ class PagSeguroXmlParser
     {
         $parser = xml_parser_create();
         if (!xml_parse($parser, $xml)) {
-            throw new Exception("PagSeguroLibrary XML parsing error: (" . xml_get_error_code($parser)
-            . ") " . xml_error_string(xml_get_error_code($parser)));
+            throw new Exception("PagSeguroLibrary XML parsing error: (" . xml_get_error_code($parser) .
+                ") " . xml_error_string(xml_get_error_code($parser)));
         } else {
             $this->dom = new DOMDocument();
             $this->dom->loadXml($xml);
@@ -64,11 +64,9 @@ class PagSeguroXmlParser
         }
         if (isset($child)) {
             if ($child->nodeName == '#text') {
-                $result = html_entity_decode(
-                    htmlentities($node->nodeValue, ENT_COMPAT, 'UTF-8'),
+                $result = html_entity_decode(htmlentities($node->nodeValue, ENT_COMPAT, 'UTF-8'),
                     ENT_COMPAT,
-                    'ISO-8859-15'
-                );
+                    'ISO-8859-15');
             } else {
                 if ($node->hasChildNodes()) {
                     $children = $node->childNodes;

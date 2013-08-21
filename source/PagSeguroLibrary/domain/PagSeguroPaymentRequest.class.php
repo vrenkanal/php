@@ -645,14 +645,17 @@ class PagSeguroPaymentRequest
      * @param type $url
      * @return type
      */
-    public function verifyURLTest($url){
+    public function verifyURLTest($url)
+	{
         $adress = array(
             'localhost',
-            '127.0.0.1'
+            '127.0.0.1',
+			'::1'
         );
         
         $urlReturn;
-        foreach($adress as $item){
+        foreach($adress as $item)
+		{
             $find = strpos($url, $item);
             
             if ($find) {

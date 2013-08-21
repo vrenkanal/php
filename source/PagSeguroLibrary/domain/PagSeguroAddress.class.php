@@ -22,7 +22,8 @@
  * Represents an address location, typically for shipping or charging purposes.
  * @see PagSeguroShipping
  */
-class PagSeguroAddress {
+class PagSeguroAddress 
+{
 
     private $postalCode;
 
@@ -102,29 +103,38 @@ class PagSeguroAddress {
      * Initializes a new instance of the Address class
      * @param array $data
      */
-    public function __construct(array $data = null) {
-        if (isset($data['postalCode'])) {
+    public function __construct(array $data = null) 
+	{
+        if (isset($data['postalCode'])) 
+		{
             $this->postalCode = $data['postalCode'];
         }
-        if (isset($data['street'])) {
+        if (isset($data['street'])) 
+		{
             $this->street = $data['street'];
         }
-        if (isset($data['number'])) {
+        if (isset($data['number'])) 
+		{
             $this->number = $data['number'];
         }
-        if (isset($data['complement'])) {
+        if (isset($data['complement'])) 
+		{
             $this->complement = $data['complement'];
         }
-        if (isset($data['district'])) {
+        if (isset($data['district'])) 
+		{
             $this->district = $data['district'];
         }
-        if (isset($data['city'])) {
+        if (isset($data['city'])) 
+		{
             $this->city = $data['city'];
         }
-        if (isset($data['state'])) {
+        if (isset($data['state'])) 
+		{
             $this->state = $data['state'];
         }
-        if (isset($data['country'])) {
+        if (isset($data['country'])) 
+		{
             $this->country = $data['country'];
         }
     }
@@ -132,56 +142,64 @@ class PagSeguroAddress {
     /**
      * @return string the street
      */
-    public function getStreet() {
+    public function getStreet() 
+	{
         return $this->street;
     }
 
     /**
      * @return string the number
      */
-    public function getNumber() {
+    public function getNumber() 
+	{
         return $this->number;
     }
 
     /**
      * @return string the complement
      */
-    public function getComplement() {
+    public function getComplement() 
+	{
         return $this->complement;
     }
 
     /**
      * @return string the distrcit
      */
-    public function getDistrict() {
+    public function getDistrict() 
+	{
         return $this->district;
     }
 
     /**
      * @return string the city
      */
-    public function getCity() {
+    public function getCity() 
+	{
         return $this->city;
     }
 
     /**
      * @return string the state
      */
-    public function getState() {
+    public function getState() 
+	{
         return $this->state;
     }
 
     /**
      * @return string the postal code
      */
-    public function getPostalCode() {
+    public function getPostalCode() 
+	{
         return $this->postalCode;
     }
 
     /**
      * @return string the country
      */
-    public function getCountry() {
+    public function getCountry() 
+	{
         return $this->country;
     }
 
@@ -189,7 +207,8 @@ class PagSeguroAddress {
      * Sets the country
      * @param String $country
      */
-    public function setCountry($country) {
+    public function setCountry($country) 
+	{
         $this->country = $country;
     }
 
@@ -197,7 +216,8 @@ class PagSeguroAddress {
      * Sets the street
      * @param String $street
      */
-    public function setStreet($street) {
+    public function setStreet($street) 
+	{
         $this->street = $street;
     }
 
@@ -205,7 +225,8 @@ class PagSeguroAddress {
      * sets the numbetr
      * @param String $number
      */
-    public function setNumber($number) {
+    public function setNumber($number) 
+	{
         $this->number = $number;
     }
 
@@ -213,7 +234,8 @@ class PagSeguroAddress {
      * Sets the complement
      * @param String $complement
      */
-    public function setComplement($complement) {
+    public function setComplement($complement) 
+	{
         $this->complement = $complement;
     }
 
@@ -221,7 +243,8 @@ class PagSeguroAddress {
      * sets the district
      * @param String $district
      */
-    public function setDistrict($district) {
+    public function setDistrict($district) 
+	{
         $this->district = $district;
     }
 
@@ -229,7 +252,8 @@ class PagSeguroAddress {
      * Sets the city
      * @param String $city
      */
-    public function setCity($city) {
+    public function setCity($city) 
+	{
         $this->city = $city;
     }
 
@@ -237,7 +261,8 @@ class PagSeguroAddress {
      * Sets the state
      * @param String $state
      */
-    public function setState($state) {
+    public function setState($state) 
+	{
         $this->state = $this->treatState($state);
     }
 
@@ -245,7 +270,8 @@ class PagSeguroAddress {
      * Sets the postal code
      * @param String $postalCode
      */
-    public function setPostalCode($postalCode) {
+    public function setPostalCode($postalCode) 
+	{
         $this->postalCode = $postalCode;
     }
 
@@ -254,11 +280,15 @@ class PagSeguroAddress {
      * @param type $defaultState
      * @return string
      */
-    private function treatState($defaultState) {
+    private function treatState($defaultState) 
+	{
 
-        if (strlen($defaultState) == 2) {
-            foreach (self::$acronyms as $key => $val) {
-                if ($val == strtoupper($defaultState)) {
+        if (strlen($defaultState) == 2) 
+		{
+            foreach (self::$acronyms as $key => $val) 
+			{
+                if ($val == strtoupper($defaultState)) 
+				{
                     return strtoupper($defaultState);
                 }
             }
@@ -282,9 +312,10 @@ class PagSeguroAddress {
         $ascii['n'] = array(241);
         $ascii['y'] = array(253, 255);
 
-        foreach ($ascii as $key => $item) {
+        foreach ($ascii as $key => $item) 
+		{
             $accents = '';
-            foreach ($item AS $code)
+            foreach ($item as $code)
                 $accents .= chr($code);
             $change[$key] = '/[' . $accents . ']/i';
         }
@@ -293,8 +324,10 @@ class PagSeguroAddress {
 
         $state = preg_replace("/\s/", "", $state);
 
-        foreach (self::$acronyms as $key => $val) {
-            if ($key == $state) {
+        foreach (self::$acronyms as $key => $val) 
+		{
+            if ($key == $state) 
+			{
                 $acronym = $val;
                 return $acronym;
             }

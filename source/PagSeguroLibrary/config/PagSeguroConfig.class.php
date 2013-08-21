@@ -23,19 +23,22 @@
  * These preferences can come from the default config file (PagSeguroLibrary/config/PagSeguroConfig.php).
  */
 
-class PagSeguroConfig {
+class PagSeguroConfig 
+{
 
     private static $config;
     private static $data;
 
     const VARNAME = 'PagSeguroConfig';
 
-    private function __construct() {
+    private function __construct() 
+	{
         define('ALLOW_PAGSEGURO_CONFIG', true);
         require_once PagSeguroLibrary::getPath()
                 . DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
         $varName = self::VARNAME;
-        if (isset($$varName)) {
+        if (isset($$varName)) 
+		{
             self::$data = $$varName;
             unset($$varName);
         } else {
@@ -43,86 +46,112 @@ class PagSeguroConfig {
         }
     }
 
-    public static function init() {
-        if (self::$config == null) {
+    public static function init() 
+	{
+        if (self::$config == null) 
+		{
             self::$config = new PagSeguroConfig();
         }
         return self::$config;
     }
 
-    public static function getData($key1, $key2 = null) {
-        if ($key2 != null) {
-            if (isset(self::$data[$key1][$key2])) {
+    public static function getData($key1, $key2 = null) 
+	{
+        if ($key2 != null)
+		{
+            if (isset(self::$data[$key1][$key2])) 
+			{
                 return self::$data[$key1][$key2];
-            } else {
+            } else 
+			{
                 throw new Exception("Config keys {$key1}, {$key2} not found.");
             }
-        } else {
-            if (isset(self::$data[$key1])) {
+        } else 
+		{
+            if (isset(self::$data[$key1])) 
+			{
                 return self::$data[$key1];
-            } else {
+            } else 
+			{
                 throw new Exception("Config key {$key1} not found.");
             }
         }
     }
 
-    public static function setData($key1, $key2, $value) {
-        if (isset(self::$data[$key1][$key2])) {
+    public static function setData($key1, $key2, $value) 
+	{
+        if (isset(self::$data[$key1][$key2])) 
+		{
             self::$data[$key1][$key2] = $value;
-        } else {
+        } else 
+		{
             throw new Exception("Config keys {$key1}, {$key2} not found.");
         }
     }
 
-    public static function getAccountCredentials() {
+    public static function getAccountCredentials() 
+	{
         if (isset(self::$data['credentials']) && isset(self::$data['credentials']['email']) && isset(self::$data['credentials']['token'])
         ) {
             return new PagSeguroAccountCredentials(
                     self::$data['credentials']['email'], self::$data['credentials']['token']
             );
-        } else {
+        } else 
+		{
             throw new Exception("Credentials not set.");
         }
     }
 
     public static function getEnvironment() {
-        if (isset(self::$data['environment']) && isset(self::$data['environment']['environment'])) {
+        if (isset(self::$data['environment']) && isset(self::$data['environment']['environment'])) 
+		{
             return self::$data['environment']['environment'];
-        } else {
+        } else 
+		{
             throw new Exception("Environment not set.");
         }
     }
 
     public static function getApplicationCharset() {
-        if (isset(self::$data['application']) && isset(self::$data['application']['charset'])) {
+        if (isset(self::$data['application']) && isset(self::$data['application']['charset'])) 
+		{
             return self::$data['application']['charset'];
-        } else {
+        } else 
+		{
             throw new Exception("Application charset not set.");
         }
     }
 
-    public static function setApplicationCharset($charset) {
+    public static function setApplicationCharset($charset) 
+	{
         self::setData('application', 'charset', $charset);
     }
 
-    public static function logIsActive() {
-        if (isset(self::$data['log']) && isset(self::$data['log']['active'])) {
+    public static function logIsActive() 
+	{
+        if (isset(self::$data['log']) && isset(self::$data['log']['active'])) 
+		{
             return (bool) self::$data['log']['active'];
-        } else {
+        } else 
+		{
             throw new Exception("Log activation flag not set.");
         }
     }
 
-    public static function activeLog($fileName = null) {
+    public static function activeLog($fileName = null) 
+	{
         self::setData('log', 'active', true);
         self::setData('log', 'fileLocation', $fileName ? $fileName : '');
         LogPagSeguro::reLoad();
     }
 
-    public static function getLogFileLocation() {
-        if (isset(self::$data['log']) && isset(self::$data['log']['fileLocation'])) {
+    public static function getLogFileLocation() 
+	{
+        if (isset(self::$data['log']) && isset(self::$data['log']['fileLocation'])) 
+		{
             return self::$data['log']['fileLocation'];
-        } else {
+        } else 
+		{
             throw new Exception("Log file location not set.");
         }
     }
@@ -131,9 +160,11 @@ class PagSeguroConfig {
      * Validate if the requirements are enable for use correct of the PagSeguro
      * @return array
      */
-    public static function validateRequirements() {
+    public static function validateRequirements() 
+	{
 
-        $requirements = array(
+        $requirements = array
+		(
             'version' => '',
             'spl'     => '',
             'curl'    => '',
@@ -141,19 +172,23 @@ class PagSeguroConfig {
         );
         
         $version = str_replace('.', '', phpversion());
-        if ($version < 516) {
+        if ($version < 516) 
+		{
             $requirements['version'] = 'PagSeguroLibrary: PHP version 5.1.6 or greater is required.';
         }
 
-        if (!function_exists('spl_autoload_register')) {
+        if (!function_exists('spl_autoload_register')) 
+		{
             $requirements['spl'] = 'PagSeguroLibrary: Standard PHP Library (SPL) is required.';
         }
 
-        if (!function_exists('curl_init')) {
+        if (!function_exists('curl_init')) 
+		{
             $requirements['curl'] = 'PagSeguroLibrary: cURL library is required.';
         }
 
-        if (!class_exists('DOMDocument')) {
+        if (!class_exists('DOMDocument')) 
+		{
             $requirements['dom'] = 'PagSeguroLibrary: DOM XML extension is required.';
         }
 

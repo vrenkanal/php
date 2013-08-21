@@ -20,8 +20,8 @@
 
 /*
  * PagSeguro Library Class
- * Version: 2.1.7
- * Date: 17/06/2013
+ * Version: 2.1.8
+ * Date: 21/08/2013
  */
 define('PAGSEGURO_LIBRARY', true);
 
@@ -30,7 +30,7 @@ require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
 class PagSeguroLibrary
 {
 
-    const VERSION = "2.1.7";
+    const VERSION = "2.1.8";
     public static $resources;
     public static $config;
     public static $log;

@@ -7,5 +7,4 @@ class BasicTest extends PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf('PagSeguroLibrary', PagSeguroLibrary::init());
     }
-
 }

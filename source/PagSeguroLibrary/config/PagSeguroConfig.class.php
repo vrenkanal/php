@@ -84,8 +84,14 @@ class PagSeguroConfig
 
     public static function getAccountCredentials()
     {
-        if (isset(self::$data['credentials']) && isset(self::$data['credentials']['email']) && isset(self::$data['credentials']['token'])) {
-            return new PagSeguroAccountCredentials(self::$data['credentials']['email'], self::$data['credentials']['token']);
+        if (isset(self::$data['credentials']) &&
+            isset(self::$data['credentials']['email']) &&
+            isset(self::$data['credentials']['token'])
+        ) {
+            return new PagSeguroAccountCredentials(
+                           self::$data['credentials']['email'], 
+                           self::$data['credentials']['token']
+                       );
         } else {
             throw new Exception("Credentials not set.");
         }
@@ -173,5 +179,4 @@ class PagSeguroConfig
 
         return $requirements;
     }
-
 }

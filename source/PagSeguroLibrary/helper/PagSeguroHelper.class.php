@@ -150,7 +150,9 @@ class PagSeguroHelper
         $isEmpty = true;
 
         if (isset($notification_data['notificationCode']) && isset($notification_data['notificationType'])) {
-            $isEmpty = (PagSeguroHelper::isEmpty($notification_data['notificationCode']) || PagSeguroHelper::isEmpty($notification_data['notificationType']));
+            $isEmpty = (PagSeguroHelper::isEmpty($notification_data['notificationCode']) ||
+                            PagSeguroHelper::isEmpty($notification_data['notificationType'])
+                       );
         }
 
         return $isEmpty;

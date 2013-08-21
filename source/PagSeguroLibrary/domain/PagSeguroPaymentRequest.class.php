@@ -129,13 +129,14 @@ class PagSeguroPaymentRequest
      * @param String $documentType
      * @param String $documentValue
      */
-    public function setSender($name,
+    public function setSender(
+        $name,
         $email = null,
         $areaCode = null,
         $number = null,
         $documentType = null,
-        $documentValue = null)
-    {
+        $documentValue = null
+    ) {
         $param = $name;
         if (is_array($param)) {
             $this->sender = new PagSeguroSender($param);
@@ -251,13 +252,14 @@ class PagSeguroPaymentRequest
      * @param String $weight
      * @param String $shippingCost
      */
-    public function addItem($id,
+    public function addItem(
+        $id,
         $description = null,
         $quantity = null,
         $amount = null,
         $weight = null,
-        $shippingCost = null)
-    {
+        $shippingCost = null
+    ) {
         $param = $id;
         if ($this->items == null) {
             $this->items = array();
@@ -401,15 +403,16 @@ class PagSeguroPaymentRequest
      * @param String $state
      * @param String $country
      */
-    public function setShippingAddress($postalCode = null,
+    public function setShippingAddress(
+        $postalCode = null,
         $street = null,
         $number = null,
         $complement = null,
         $district = null,
         $city = null,
         $state = null,
-        $country = null)
-    {
+        $country = null
+    ) {
         $param = $postalCode;
         if ($this->shipping == null) {
             $this->shipping = new PagSeguroShipping();

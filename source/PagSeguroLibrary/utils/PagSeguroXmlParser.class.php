@@ -66,9 +66,11 @@ class PagSeguroXmlParser
         }
         if (isset($child)) {
             if ($child->nodeName == '#text') {
-                $result = html_entity_decode(htmlentities($node->nodeValue, ENT_COMPAT, 'UTF-8'),
+                $result = html_entity_decode(
+                    htmlentities($node->nodeValue, ENT_COMPAT, 'UTF-8'),
                     ENT_COMPAT,
-                    'ISO-8859-15');
+                    'ISO-8859-15'
+                );
             } else {
                 if ($node->hasChildNodes()) {
                     $children = $node->childNodes;

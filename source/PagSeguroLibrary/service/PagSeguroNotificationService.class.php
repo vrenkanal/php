@@ -59,7 +59,8 @@ class PagSeguroNotificationService
         try {
 
             $connection = new PagSeguroHttpConnection();
-            $connection->get(self::buildTransactionNotificationUrl($connectionData, $notificationCode),
+            $connection->get(
+                self::buildTransactionNotificationUrl($connectionData, $notificationCode),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
             );
@@ -73,7 +74,7 @@ class PagSeguroNotificationService
                     $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
                     LogPagSeguro::info(
                         "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - end " .
-                            $transaction->toString() . ")"
+                        $transaction->toString() . ")"
                     );
                     break;
 
@@ -82,7 +83,7 @@ class PagSeguroNotificationService
                     $e = new PagSeguroServiceException($httpStatus, $errors);
                     LogPagSeguro::info(
                         "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " .
-                            $e->getOneLineMessage()
+                        $e->getOneLineMessage()
                     );
                     throw $e;
                     break;
@@ -91,7 +92,7 @@ class PagSeguroNotificationService
                     $e = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::info(
                         "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - error " .
-                            $e->getOneLineMessage()
+                        $e->getOneLineMessage()
                     );
                     throw $e;
                     break;

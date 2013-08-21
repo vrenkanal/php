@@ -89,9 +89,9 @@ class PagSeguroConfig
             isset(self::$data['credentials']['token'])
         ) {
             return new PagSeguroAccountCredentials(
-                           self::$data['credentials']['email'], 
-                           self::$data['credentials']['token']
-                       );
+                self::$data['credentials']['email'], 
+                self::$data['credentials']['token']
+            );
         } else {
             throw new Exception("Credentials not set.");
         }

@@ -96,7 +96,6 @@ class SearchTransactionByCode
         }
 
     }
-
 }
 
 SearchTransactionByCode::main();

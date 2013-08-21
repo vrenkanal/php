@@ -41,11 +41,13 @@ class SearchTransactionsByDateInterval
              */
             $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
 
-            $result = PagSeguroTransactionSearchService::searchByDate($credentials,
+            $result = PagSeguroTransactionSearchService::searchByDate(
+                $credentials,
                 $pageNumber,
                 $maxPageResults,
                 $initialDate,
-                $finalDate);
+                $finalDate
+            );
 
             self::printResult($result, $initialDate, $finalDate);
 
@@ -70,7 +72,6 @@ class SearchTransactionsByDateInterval
             }
         }
     }
-
 }
 
 SearchTransactionsByDateInterval::main();

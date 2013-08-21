@@ -303,8 +303,9 @@ class PagSeguroAddress
 
         foreach ($ascii as $key => $item) {
             $accents = '';
-            foreach ($item as $code)
+            foreach ($item as $code) {
                 $accents .= chr($code);
+            }
             $change[$key] = '/[' . $accents . ']/i';
         }
 
@@ -321,5 +322,4 @@ class PagSeguroAddress
 
         return '';
     }
-
 }

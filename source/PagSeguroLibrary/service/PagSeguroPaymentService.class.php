@@ -85,7 +85,7 @@ class PagSeguroPaymentService
                     $PaymentParserData = PagSeguroPaymentParser::readSuccessXml($connection->getResponse());
                     $paymentUrl = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());
                     LogPagSeguro::info(
-                        "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - end {1}" . 
+                        "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - end {1}" .
                         $PaymentParserData->getCode()
                     );
                     break;
@@ -95,7 +95,7 @@ class PagSeguroPaymentService
                     $e = new PagSeguroServiceException($httpStatus, $errors);
                     LogPagSeguro::error(
                         "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - error " .
-                            $e->getOneLineMessage()
+                        $e->getOneLineMessage()
                     );
                     throw $e;
                     break;
@@ -104,7 +104,7 @@ class PagSeguroPaymentService
                     $e = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::error(
                         "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - error " .
-                            $e->getOneLineMessage()
+                        $e->getOneLineMessage()
                     );
                     throw $e;
                     break;

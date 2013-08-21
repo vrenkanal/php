@@ -41,28 +41,33 @@ class CreatePaymentRequest
         // Add another item for this payment request
         $paymentRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
 
-        // Sets a reference code for this payment request, it is useful to identify this payment in future notifications.
+        // Sets a reference code for this payment request, it is useful to identify this payment 
+        // in future notifications.
         $paymentRequest->setReference("REF123");
 
         // Sets shipping information for this payment request
         $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
         $paymentRequest->setShippingType($sedexCode);
-        $paymentRequest->setShippingAddress('01452002',
+        $paymentRequest->setShippingAddress(
+            '01452002',
             'Av. Brig. Faria Lima',
             '1384',
             'apto. 114',
             'Jardim Paulistano',
             'São Paulo',
             'SP',
-            'BRA');
+            'BRA'
+        );
 
         // Sets your customer information.
-        $paymentRequest->setSender('João Comprador',
+        $paymentRequest->setSender(
+            'João Comprador',
             'comprador@s2it.com.br',
             '11',
             '56273440',
             'CPF',
-            '156.009.442-76');
+            '156.009.442-76'
+        );
 
         // Sets the url used by PagSeguro for redirect user after ends checkout process
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
@@ -105,7 +110,6 @@ class CreatePaymentRequest
             echo "<p><a title=\"URL do pagamento\" href=\"$url\">Ir para URL do pagamento.</a></p>";
         }
     }
-
 }
 
 CreatePaymentRequest::main();

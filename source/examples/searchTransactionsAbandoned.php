@@ -41,11 +41,13 @@ class SearchTransactionsAbandoned
              */
             $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
 
-            $result = PagSeguroTransactionSearchService::searchAbandoned($credentials,
+            $result = PagSeguroTransactionSearchService::searchAbandoned(
+                $credentials,
                 $pageNumber,
                 $maxPageResults,
                 $initialDate,
-                $finalDate);
+                $finalDate
+            );
 
             self::printResult($result, $initialDate, $finalDate);
 
@@ -70,7 +72,6 @@ class SearchTransactionsAbandoned
             }
         }
     }
-
 }
 
 SearchTransactionsAbandoned::main();

@@ -146,7 +146,7 @@ class PagSeguroPaymentMethodCode
          */
         'OI_PAGGO' => 501,
         /**
-         * Direct deposit
+         * Banco do Brasil direct deposit
          */
         'DIRECT_DEPOSIT' => 701
     );

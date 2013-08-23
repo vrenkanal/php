@@ -148,7 +148,7 @@ class PagSeguroPaymentMethodCode
         /**
          * Banco do Brasil direct deposit
          */
-        'DIRECT_DEPOSIT' => 701
+        'BANCO_BRASIL_DIRECT_DEPOSIT' => 701
     );
 
     /**

@@ -51,6 +51,9 @@ Mais informações estão disponíveis na [documentação oficial].
 
 Changelog
 ---------
+2.1.8
+
+ - Atualização dos códigos de meios de pagamento.
 
 2.1.7
 

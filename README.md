@@ -54,7 +54,7 @@ Changelog
 2.1.8
 
  - Atualização dos códigos de meios de pagamento.
- - Melhoria na identificação dos requisitos mínimos para funcionameto.
+ - Melhoria na identificação dos requisitos mínimos para funcionamento.
  - Melhoria no tratamento de dados relacionados a endereço.
 
 2.1.7

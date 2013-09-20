@@ -38,6 +38,7 @@ class PagSeguroLibrary
     private static $library;
     private static $module_version;
     private static $cms_version;
+    private static $php_version;
 
     private function __construct()
     {
@@ -103,6 +104,16 @@ class PagSeguroLibrary
     final public static function setModuleVersion($version)
     {
         self::$module_version = $version;
+    }
+
+    final public static function getPHPVersion()
+    {
+        return self::$php_version = phpversion();
+    }
+    
+    final public static function setPHPVersion($version)
+    {
+        self::$php_version = $version;
     }
 
     final public static function getCMSVersion()

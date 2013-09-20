@@ -64,7 +64,7 @@ class PagSeguroHttpConnection
         return $this->curlConnection('GET', $url, null, $timeout, $charset);
     }
 
-    private function curlConnection($method, $url, array $data, $timeout, $charset)
+    private function curlConnection($method, $url, array $data = null, $timeout, $charset)
     {
 
         if (strtoupper($method) === 'POST') {
@@ -103,6 +103,11 @@ class PagSeguroHttpConnection
         // adding CMS version
         if (!is_null(PagSeguroLibrary::getCMSVersion())) {
             array_push($options[CURLOPT_HTTPHEADER], 'cms-description: ' . PagSeguroLibrary::getCMSVersion());
+        }
+        
+        // adding PHP version
+        if (!is_null(PagSeguroLibrary::getPHPVersion())) {
+            array_push($options[CURLOPT_HTTPHEADER], 'language-engine-description: ' . PagSeguroLibrary::getPHPVersion());
         }
 
         $options = ($options + $methodOptions);

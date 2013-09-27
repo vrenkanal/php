@@ -56,15 +56,15 @@ class PagSeguroHttpConnection
 
     public function post($url, array $data, $timeout = 20, $charset = 'ISO-8859-1')
     {
-        return $this->curlConnection('POST', $url, $data, $timeout, $charset);
+        return $this->curlConnection('POST', $url, $timeout, $charset, $data);
     }
 
     public function get($url, $timeout = 20, $charset = 'ISO-8859-1')
     {
-        return $this->curlConnection($method = 'GET', $url, array $data = null, $timeout, $charset);
+        return $this->curlConnection('GET', $url, $timeout, $charset, null);
     }
 
-    private function curlConnection($method, $url, $timeout, $charset, array $data = null)
+    private function curlConnection($method = 'GET', $url, $timeout, $charset, array $data = null)
     {
 
         if (strtoupper($method) === 'POST') {

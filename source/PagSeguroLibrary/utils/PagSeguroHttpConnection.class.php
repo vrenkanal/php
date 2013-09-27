@@ -61,7 +61,7 @@ class PagSeguroHttpConnection
 
     public function get($url, $timeout = 20, $charset = 'ISO-8859-1')
     {
-        return $this->curlConnection('GET', $url, null, $timeout, $charset);
+        return $this->curlConnection($method = 'GET', $url, array $data = null, $timeout, $charset);
     }
 
     private function curlConnection($method, $url, $timeout, $charset, array $data = null)

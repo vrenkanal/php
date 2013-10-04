@@ -21,6 +21,9 @@
 /**
  * Encapsulates web service calls regarding PagSeguro payment requests
  */
+
+use PagSeguroLibrary\log\LogPagSeguro;
+
 class PagSeguroPaymentService
 {
 

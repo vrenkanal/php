@@ -17,10 +17,11 @@
  limitations under the License.
  * ***********************************************************************
  */
-
+use PagSeguroLibrary\PagSeguroLibrary;
 /**
  * HTTP Connection Class - used in API calls (cURL library is required)
  */
+
 class PagSeguroHttpConnection
 {
 

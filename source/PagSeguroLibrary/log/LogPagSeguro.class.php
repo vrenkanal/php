@@ -21,6 +21,10 @@
 /**
  * Logging class
  */
+namespace PagSeguroLibrary\log;
+
+use PagSeguroLibrary\config\PagSeguroConfig;
+
 class LogPagSeguro
 {
 

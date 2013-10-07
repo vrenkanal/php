@@ -108,7 +108,7 @@ class PagSeguroHttpConnection
         // adding PHP version
         if (!is_null(PagSeguroLibrary::getPHPVersion())) {
             array_push($options[CURLOPT_HTTPHEADER],
-			        'language-engine-description: ' . PagSeguroLibrary::getPHPVersion());
+                'language-engine-description: ' . PagSeguroLibrary::getPHPVersion());
         }
 
         $options = ($options + $methodOptions);

@@ -21,8 +21,6 @@
 /*
  * Library autoloader - spl_autoload_register
  */
-namespace PagSeguroLibrary\loader;
-
 class PagSeguroAutoloader
 {
 
@@ -62,7 +60,7 @@ class PagSeguroAutoloader
     private function addClass($class)
     {
         foreach (self::$dirs as $key => $dir) {
-            $file = \PagSeguroLibrary\PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR .
+            $file = PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR .
                 $dir . DIRECTORY_SEPARATOR . $class . '.class.php';
             if (file_exists($file) && is_file($file)) {
                 require_once $file;

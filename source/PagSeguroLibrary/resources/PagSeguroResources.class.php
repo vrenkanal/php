@@ -17,7 +17,6 @@
  limitations under the License.
  ************************************************************************
  */
-namespace PagSeguroLibrary\resources;
 
 class PagSeguroResources
 {
@@ -29,7 +28,7 @@ class PagSeguroResources
     private function __construct()
     {
         define('ALLOW_PAGSEGURO_RESOURCES', true);
-        require_once \PagSeguroLibrary\PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR .
+        require_once PagSeguroLibrary::getPath() . DIRECTORY_SEPARATOR . "resources" . DIRECTORY_SEPARATOR .
             "PagSeguroResources.php";
         $varName = self::VAR_NAME;
         if (isset($$varName)) {

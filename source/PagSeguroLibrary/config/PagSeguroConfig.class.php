@@ -22,9 +22,6 @@
  * Provides a means to retrieve configuration preferences.
  * These preferences can come from the default config file (PagSeguroLibrary/config/PagSeguroConfig.php).
  */
-namespace PagSeguroLibrary\config;
-
-use PagSeguroLibrary\PagSeguroLibrary;
 
 class PagSeguroConfig
 {

@@ -23,20 +23,9 @@
  * Version: 2.1.8
  * Date: 21/08/2013
  */
-namespace PagSeguroLibrary;
-
 define('PAGSEGURO_LIBRARY', true);
 
 require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
-
-include "resources" . DIRECTORY_SEPARATOR . "PagSeguroResources.class.php";
-include "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.class.php";
-include "log" . DIRECTORY_SEPARATOR . "LogPagSeguro.class.php";
-
-use PagSeguroLibrary\loader\PagSeguroAutoloader;
-use PagSeguroLibrary\resources\PagSeguroResources;
-use PagSeguroLibrary\config\PagSeguroConfig;
-use PagSeguroLibrary\log\LogPagSeguro;
 
 class PagSeguroLibrary
 {

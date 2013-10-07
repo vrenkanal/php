@@ -17,11 +17,10 @@
  limitations under the License.
  * ***********************************************************************
  */
-use PagSeguroLibrary\PagSeguroLibrary;
+
 /**
  * HTTP Connection Class - used in API calls (cURL library is required)
  */
-
 class PagSeguroHttpConnection
 {
 
@@ -62,7 +61,7 @@ class PagSeguroHttpConnection
 
     public function get($url, $timeout = 20, $charset = 'ISO-8859-1')
     {
-        return $this->curlConnection('GET', $url, $timeout, $charset, null);
+        return $this->curlConnection('GET', $url, null, $timeout, $charset);
     }
 
     private function curlConnection($method, $url, $timeout, $charset, array $data = null)
@@ -108,7 +107,8 @@ class PagSeguroHttpConnection
         
         // adding PHP version
         if (!is_null(PagSeguroLibrary::getPHPVersion())) {
-            array_push($options[CURLOPT_HTTPHEADER], 'language-engine-description: php:' . PagSeguroLibrary::getPHPVersion());
+            array_push($options[CURLOPT_HTTPHEADER], 'language-engine-description: '
+                    . PagSeguroLibrary::getPHPVersion());
         }
 
         $options = ($options + $methodOptions);

@@ -18,8 +18,6 @@
  ************************************************************************
  */
 
-use PagSeguroLibrary\config\PagSeguroConfig;
-use PagSeguroLibrary\resources\PagSeguroResources;
 /**
  * Class PagSeguroConnectionData
  */

@@ -23,8 +23,6 @@
  * Version: 2.1.8
  * Date: 21/08/2013
  */
-define('PAGSEGURO_LIBRARY', true);
-
 require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
 
 class PagSeguroLibrary

@@ -66,7 +66,7 @@ class NotificationListener
          * You can also get your credentials from a config file. See an example:
          * $credentials = PagSeguroConfig::getAccountCredentials();
          */
-//        $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
+        //        $credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
         require_once('Credentials.php');
         $credentials = Credentials::getCredentials();
         try {

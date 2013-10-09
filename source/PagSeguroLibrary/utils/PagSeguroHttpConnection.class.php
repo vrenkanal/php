@@ -27,7 +27,7 @@ class PagSeguroHttpConnection
     private $status;
     private $response;
     
-    CONST LANG_DESC = 'language-engine-description: ';
+    const LANG_DESC = 'language-engine-description: ';
 
     public function __construct()
     {

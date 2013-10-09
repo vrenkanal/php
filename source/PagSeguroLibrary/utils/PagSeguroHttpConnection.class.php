@@ -26,6 +26,8 @@ class PagSeguroHttpConnection
 
     private $status;
     private $response;
+    
+    CONST LANG_DESC = 'language-engine-description: ';
 
     public function __construct()
     {
@@ -107,7 +109,7 @@ class PagSeguroHttpConnection
         
         // adding PHP version
         if (!is_null(PagSeguroLibrary::getPHPVersion())) {
-            array_push($options[CURLOPT_HTTPHEADER], 'language-engine-description: ' . PagSeguroLibrary::getPHPVersion());
+            array_push($options[CURLOPT_HTTPHEADER], self::LANG_DESC . PagSeguroLibrary::getPHPVersion());
         }
 
         $options = ($options + $methodOptions);

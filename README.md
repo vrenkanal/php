@@ -51,6 +51,10 @@ Mais informações estão disponíveis na [documentação oficial].
 
 Changelog
 ---------
+
+2.1.9
+ - Melhorias "estéticas" no código, como identação/formatação.
+
 2.1.8
 
  - Atualização dos códigos de meios de pagamento.

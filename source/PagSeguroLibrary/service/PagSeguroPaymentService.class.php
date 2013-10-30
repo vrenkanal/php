@@ -85,10 +85,10 @@ class PagSeguroPaymentService
                     $PaymentParserData = PagSeguroPaymentParser::readSuccessXml($connection->getResponse());
                     
                     if ($lightbox) {
-                        return $PaymentParserData->getCode();
-                    }
-                    
-                    $paymentUrl = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());
+                        $paymentReturn = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());
+                    } else {
+                        $paymentReturn = $PaymentParserData->getCode();
+                    }    
                     LogPagSeguro::info(
                         "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - end {1}" .
                         $PaymentParserData->getCode()
@@ -115,7 +115,7 @@ class PagSeguroPaymentService
                     break;
 
             }
-            return (isset($paymentUrl) ? $paymentUrl : false);
+            return (isset($paymentReturn) ? $paymentReturn : false);
 
         } catch (PagSeguroServiceException $e) {
             throw $e;

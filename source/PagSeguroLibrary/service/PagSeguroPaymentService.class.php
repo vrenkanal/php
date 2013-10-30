@@ -60,7 +60,8 @@ class PagSeguroPaymentService
      */
     public static function createCheckoutRequest(
         PagSeguroCredentials $credentials,
-        PagSeguroPaymentRequest $paymentRequest
+        PagSeguroPaymentRequest $paymentRequest,
+        $lightbox
     ) {
 
         LogPagSeguro::info("PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - begin");
@@ -78,11 +79,15 @@ class PagSeguroPaymentService
             );
 
             $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
             switch ($httpStatus->getType()) {
 
                 case 'OK':
                     $PaymentParserData = PagSeguroPaymentParser::readSuccessXml($connection->getResponse());
+                    
+                    if ($lightbox) {
+                        return $PaymentParserData->getCode();
+                    }
+                    
                     $paymentUrl = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());
                     LogPagSeguro::info(
                         "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - end {1}" .
@@ -110,7 +115,6 @@ class PagSeguroPaymentService
                     break;
 
             }
-
             return (isset($paymentUrl) ? $paymentUrl : false);
 
         } catch (PagSeguroServiceException $e) {

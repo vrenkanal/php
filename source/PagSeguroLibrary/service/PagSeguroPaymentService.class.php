@@ -83,11 +83,11 @@ class PagSeguroPaymentService
 
                 case 'OK':
                     $PaymentParserData = PagSeguroPaymentParser::readSuccessXml($connection->getResponse());
-                    
+
                     if ($lightbox) {
-                        $paymentReturn = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());
-                    } else {
                         $paymentReturn = $PaymentParserData->getCode();
+                    } else {
+                        $paymentReturn = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());
                     }    
                     LogPagSeguro::info(
                         "PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - end {1}" .

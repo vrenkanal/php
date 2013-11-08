@@ -83,6 +83,7 @@ class CreatePaymentRequestLightbox
 
         // Another way to set checkout parameters
         $paymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br/nas');
+        $paymentRequest->addParameter('senderBornDate', '07/05/1981');
         $paymentRequest->addIndexedParameter('itemId', '0003', 3);
         $paymentRequest->addIndexedParameter('itemDescription', 'Notebook Preto', 3);
         $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
@@ -98,25 +99,24 @@ class CreatePaymentRequestLightbox
              */
             //$credentials = new PagSeguroAccountCredentials("vendedor@s2it.com.br",
             // "E231B2C9BCC8474DA2E260B6C8CF60D3");
-            require_once('Credentials.php');
-            $credentials = Credentials::getCredentials();
-            // Register this payment request in PagSeguro, to obtain the payment URL for redirect your customer.
-            $lightbox = true;
-            $token = $paymentRequest->register($credentials, $lightbox);
+            $credentials = PagSeguroConfig::getAccountCredentials();
+            // Register this payment request in PagSeguro, to obtain the checkout code
+            $onlyCheckoutCode = true;
+            $code = $paymentRequest->register($credentials, $onlyCheckoutCode);
 
-            self::printPaymentUrl($token);
+            self::printPaymentUrl($code);
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
     }
 
-    public static function printPaymentUrl($token)
+    public static function printPaymentUrl($code)
     {
-        if ($token) {
+        if ($code) {
             echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento</h2>";
-            echo "<p>Code: <strong>$token</strong></p>";
+            echo "<p>Code: <strong>$code</strong></p>";
             echo "<script>
-			PagSeguroLightbox('".$token."');			
+			PagSeguroLightbox('".$code."');			
                   </script>";
 	
         }

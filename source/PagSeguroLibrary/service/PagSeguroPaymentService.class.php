@@ -61,7 +61,7 @@ class PagSeguroPaymentService
     public static function createCheckoutRequest(
         PagSeguroCredentials $credentials,
         PagSeguroPaymentRequest $paymentRequest,
-        $lightbox
+        $onlyCheckoutCode
     ) {
 
         LogPagSeguro::info("PagSeguroPaymentService.Register(" . $paymentRequest->toString() . ") - begin");
@@ -84,7 +84,7 @@ class PagSeguroPaymentService
                 case 'OK':
                     $PaymentParserData = PagSeguroPaymentParser::readSuccessXml($connection->getResponse());
 
-                    if ($lightbox) {
+                    if ($onlyCheckoutCode) {
                         $paymentReturn = $PaymentParserData->getCode();
                     } else {
                         $paymentReturn = self::buildCheckoutUrl($connectionData, $PaymentParserData->getCode());

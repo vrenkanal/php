@@ -78,6 +78,7 @@ class CreatePaymentRequest
 
         // Another way to set checkout parameters
         $paymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br/nas');
+        $paymentRequest->addParameter('senderBornDate', '07/05/1981');
         $paymentRequest->addIndexedParameter('itemId', '0003', 3);
         $paymentRequest->addIndexedParameter('itemDescription', 'Notebook Preto', 3);
         $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
@@ -93,8 +94,7 @@ class CreatePaymentRequest
              */
             //$credentials = new PagSeguroAccountCredentials("vendedor@s2it.com.br",
             // "E231B2C9BCC8474DA2E260B6C8CF60D3");
-            require_once('Credentials.php');
-            $credentials = Credentials::getCredentials();
+            $credentials = PagSeguroConfig::getAccountCredentials();
             // Register this payment request in PagSeguro, to obtain the payment URL for redirect your customer.
             $url = $paymentRequest->register($credentials);
 

@@ -622,9 +622,9 @@ class PagSeguroPaymentRequest
      * @return String The URL to where the user needs to be redirected to in order to complete the payment process or
      * the CODE when use lightbox
      */
-    public function register(PagSeguroCredentials $credentials, $lightbox = false)
+    public function register(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
     {
-        return PagSeguroPaymentService::createCheckoutRequest($credentials, $this, $lightbox);
+        return PagSeguroPaymentService::createCheckoutRequest($credentials, $this, $onlyCheckoutCode);
     }
 
     /**

@@ -26,8 +26,6 @@ class PagSeguroHttpConnection
 
     private $status;
     private $response;
-    
-    const LANG_DESC = 'language-engine-description: ';
 
     public function __construct()
     {
@@ -86,8 +84,7 @@ class PagSeguroHttpConnection
         $options = array(
             CURLOPT_HTTPHEADER => array(
                 "Content-Type: application/x-www-form-urlencoded; charset=" . $charset,
-                $contentLength,
-                'lib-description: php:' . PagSeguroLibrary::getVersion()
+                $contentLength
             ),
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -96,6 +93,11 @@ class PagSeguroHttpConnection
             CURLOPT_CONNECTTIMEOUT => $timeout,
             //CURLOPT_TIMEOUT => $timeout
             );
+
+        // adding lib version
+        if (!is_null(PagSeguroLibrary::getVersion())) {
+            array_push($options[CURLOPT_HTTPHEADER], 'lib-description: php:' . PagSeguroLibrary::getVersion());
+        }
 
         // adding module version
         if (!is_null(PagSeguroLibrary::getModuleVersion())) {
@@ -109,7 +111,7 @@ class PagSeguroHttpConnection
         
         // adding PHP version
         if (!is_null(PagSeguroLibrary::getPHPVersion())) {
-            array_push($options[CURLOPT_HTTPHEADER], self::LANG_DESC . PagSeguroLibrary::getPHPVersion());
+            array_push($options[CURLOPT_HTTPHEADER], 'language-engine-description: php:' . PagSeguroLibrary::getPHPVersion());
         }
 
         $options = ($options + $methodOptions);

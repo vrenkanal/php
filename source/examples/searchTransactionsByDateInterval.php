@@ -26,8 +26,8 @@ class SearchTransactionsByDateInterval
     public static function main()
     {
 
-        $initialDate = '2011-12-10T08:50';
-        $finalDate = '2011-12-29T10:30';
+        $initialDate = '2013-10-10T08:50';
+        $finalDate = '2013-10-29T10:30';
 
         $pageNumber = 1;
         $maxPageResults = 20;
@@ -40,9 +40,8 @@ class SearchTransactionsByDateInterval
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-            //$credentials = new PagSeguroAccountCredentials("your@email.com", "your_token_here");
-            require_once('Credentials.php');
-            $credentials = Credentials::getCredentials();
+            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+               "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             $result = PagSeguroTransactionSearchService::searchByDate(
                 $credentials,

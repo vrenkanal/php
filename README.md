@@ -53,7 +53,7 @@ Changelog
 ---------
 
 2.2.0
- - Ao registrar a transação é possível obter apenas o código do checkout para utilização em um checkout lightbox (ver exemplo createPaymentRequestLightbox.php). Obs.: Para utilizar o checkout lightbox, sua conta PagSeguro precisa de uma permissão especial. Em caso de dúvidas mande um e-mail para <desenvolvedores@pagseguro.com.br>.
+ - Ao registrar a transação é possível obter apenas o código do checkout para utilização em um checkout lightbox (ver exemplo createPaymentRequestLightbox.php). Obs.: Esta funcionalidade ainda não está disponível comercialmente para todos os vendedores.
 
 2.1.9
  - Melhorias "estéticas" no código, como identação/formatação.

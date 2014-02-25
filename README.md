@@ -52,6 +52,9 @@ Mais informações estão disponíveis na [documentação oficial].
 Changelog
 ---------
 
+2.2.1
+ - Ajuste no tratamento do XML retornado em requisições feitas ao PagSeguro
+
 2.2.0
  - Ao registrar a transação é possível obter apenas o código do checkout para utilização em um checkout lightbox (ver exemplo createPaymentRequestLightbox.php). Obs.: Esta funcionalidade ainda não está disponível comercialmente para todos os vendedores.
 

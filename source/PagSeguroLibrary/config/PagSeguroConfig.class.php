@@ -86,11 +86,12 @@ class PagSeguroConfig
     {
         if (isset(self::$data['credentials']) &&
             isset(self::$data['credentials']['email']) &&
-            isset(self::$data['credentials']['token'])
+            isset(self::$data['credentials']['token'][self::$data['environment']])
         ) {
+            
             return new PagSeguroAccountCredentials(
                 self::$data['credentials']['email'],
-                self::$data['credentials']['token']
+                self::$data['credentials']['token'][self::$data['environment']]
             );
         } else {
             throw new Exception("Credentials not set.");
@@ -99,8 +100,8 @@ class PagSeguroConfig
 
     public static function getEnvironment()
     {
-        if (isset(self::$data['environment']) && isset(self::$data['environment']['environment'])) {
-            return self::$data['environment']['environment'];
+        if (isset(self::$data['environment'])) {
+            return self::$data['environment'];
         } else {
             throw new Exception("Environment not set.");
         }

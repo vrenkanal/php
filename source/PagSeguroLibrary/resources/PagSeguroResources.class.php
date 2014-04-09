@@ -83,4 +83,15 @@ class PagSeguroResources
             throw new Exception("WebService URL not set for $environment environment.");
         }
     }
+
+    public static function getPaymentUrl($environment)
+    {
+        if (isset(self::$data['paymentService']) && isset(self::$data['paymentService']['webserviceUrl']) &&
+            isset(self::$data['paymentService']['webserviceUrl'][$environment])
+        ) {
+            return self::$data['paymentService']['webserviceUrl'][$environment];
+        } else {
+            throw new Exception("Payment URL not set for $environment environment.");
+        }
+    }
 }

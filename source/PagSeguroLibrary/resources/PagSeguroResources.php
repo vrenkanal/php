@@ -3,12 +3,14 @@
 // Production environment
 $PagSeguroResources['environment'] = array();
 $PagSeguroResources['environment']['production']['webserviceUrl'] = "https://ws.pagseguro.uol.com.br";
-$PagSeguroResources['environment']['development']['webserviceUrl'] = "https://dev.ws.pagseguro.uol.com.br";
+$PagSeguroResources['environment']['sandbox']['webserviceUrl'] = "https://ws.sandbox.pagseguro.uol.com.br";
 
 // Payment service
 $PagSeguroResources['paymentService'] = array();
 $PagSeguroResources['paymentService']['servicePath'] = "/v2/checkout";
-$PagSeguroResources['paymentService']['checkoutUrl'] = "https://pagseguro.uol.com.br/v2/checkout/payment.html";
+$PagSeguroResources['paymentService']['checkoutUrl'] = "/v2/checkout/payment.html";
+$PagSeguroResources['paymentService']['webserviceUrl']['production'] = "https://pagseguro.uol.com.br";
+$PagSeguroResources['paymentService']['webserviceUrl']['sandbox'] = "https://sandbox.pagseguro.uol.com.br";
 $PagSeguroResources['paymentService']['serviceTimeout'] = 20;
 
 // Notification service

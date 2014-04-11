@@ -98,6 +98,10 @@ class PagSeguroConfig
         }
     }
 
+    public static function getStaticUrl() {
+        return PagSeguroResources::getStaticUrl(self::$data['environment']);
+    }
+
     public static function getEnvironment()
     {
         if (isset(self::$data['environment'])) {

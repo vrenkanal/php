@@ -75,10 +75,10 @@ class PagSeguroResources
 
     public static function getWebserviceUrl($environment)
     {
-        if (isset(self::$data['environment']) && isset(self::$data['environment'][$environment]) &&
-            isset(self::$data['environment'][$environment]['webserviceUrl'])
+        if (isset(self::$data['webserviceUrl']) && 
+            isset(self::$data['webserviceUrl'][$environment])
         ) {
-            return self::$data['environment'][$environment]['webserviceUrl'];
+            return self::$data['webserviceUrl'][$environment];
         } else {
             throw new Exception("WebService URL not set for $environment environment.");
         }
@@ -86,12 +86,23 @@ class PagSeguroResources
 
     public static function getPaymentUrl($environment)
     {
-        if (isset(self::$data['paymentService']) && isset(self::$data['paymentService']['webserviceUrl']) &&
-            isset(self::$data['paymentService']['webserviceUrl'][$environment])
+        if (isset(self::$data['paymentService']) && isset(self::$data['paymentService']['baseUrl']) &&
+            isset(self::$data['paymentService']['baseUrl'][$environment])
         ) {
-            return self::$data['paymentService']['webserviceUrl'][$environment];
+            return self::$data['paymentService']['baseUrl'][$environment];
         } else {
             throw new Exception("Payment URL not set for $environment environment.");
+        }
+    }
+
+    public static function getStaticUrl($environment)
+    {
+        if (isset(self::$data['staticUrl']) &&
+            isset(self::$data['staticUrl'][$environment])
+        ) {
+            return self::$data['staticUrl'][$environment];
+        } else {
+            throw new Exception("Static URL not set for $environment environment.");
         }
     }
 }

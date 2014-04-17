@@ -45,7 +45,7 @@ class PagSeguroPaymentService
      */
     private static function buildCheckoutUrl(PagSeguroConnectionData $connectionData, $code)
     {
-        return $connectionData->getResource('checkoutUrl') . "?code=$code";
+        return $connectionData->getPaymentUrl() . $connectionData->getResource('checkoutUrl') . "?code=$code";
     }
 
     // createCheckoutRequest is the actual implementation of the Register method

@@ -52,6 +52,9 @@ Mais informações estão disponíveis na [documentação oficial].
 Changelog
 ---------
 
+2.2.2
+ - Adicionando environment Sandbox
+
 2.2.1
  - Ajuste no tratamento do XML retornado em requisições feitas ao PagSeguro
 

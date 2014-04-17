@@ -94,6 +94,7 @@ class CreatePaymentRequest
              */
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
+
             // Register this payment request in PagSeguro, to obtain the payment URL for redirect your customer.
             $url = $paymentRequest->register($credentials);
 

@@ -18,7 +18,6 @@
  */
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
-require_once "Credentials.php";
 
 class SearchTransactionsByDateInterval
 {
@@ -26,8 +25,8 @@ class SearchTransactionsByDateInterval
     public static function main()
     {
 
-        $initialDate = '2013-10-10T08:50';
-        $finalDate = '2013-10-29T10:30';
+        $initialDate = '2014-03-10T08:50';
+        $finalDate = '2014-03-29T10:30';
 
         $pageNumber = 1;
         $maxPageResults = 20;

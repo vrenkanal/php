@@ -25,8 +25,8 @@ class SearchTransactionsAbandoned
     public static function main()
     {
 
-        $initialDate = '2013-09-10T08:50';
-        $finalDate = '2013-09-29T10:30';
+        $initialDate = '2014-03-10T08:50';
+        $finalDate = '2014-03-29T10:30';
 
         $pageNumber = 1;
         $maxPageResults = 20;

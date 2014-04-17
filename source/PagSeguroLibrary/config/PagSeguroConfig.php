@@ -9,7 +9,7 @@
 $PagSeguroConfig = array();
 
 //$PagSeguroConfig['environment'] = array();
-$PagSeguroConfig['environment'] = "sandbox"; // production, sandbox
+$PagSeguroConfig['environment'] = "production"; // production, sandbox
 
 $PagSeguroConfig['credentials'] = array();
 $PagSeguroConfig['credentials']['email'] = "your_pagseguro_email";

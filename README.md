@@ -39,7 +39,7 @@ Configuração
 
 Para fazer uso real da biblioteca é preciso fazer algumas configurações no arquivo 'PagSeguroConfig.php', que encontra-se no diretório 'config'. As opções disponíveis estão descritas abaixo.
 
- - **environment**: no momento aceita apenas o valor *production*.
+ - **environment**: aceitas os valores *production* e *sandbox*. Para utilizar o *sandbox* é preciso criar uma conta em https://www.sandbox.pagseguro.uol.com.br
  - **email**: e-mail cadastrado no PagSeguro.
  - **token**: token gerado no PagSeguro.
  - **charset**: codificação do seu sistema (ISO-8859-1 ou UTF-8).
@@ -53,7 +53,7 @@ Changelog
 ---------
 
 2.2.2
- - Adicionando environment Sandbox
+ - Adicionando environment *sandbox*
 
 2.2.1
  - Ajuste no tratamento do XML retornado em requisições feitas ao PagSeguro

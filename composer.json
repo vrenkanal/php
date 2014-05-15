@@ -1,5 +1,5 @@
 {
-  "name": "dindigital/php",
+  "name": "dindigital/pagseguro",
   "description": "Fork da Biblioteca de integração com o PagSeguro PHP",
   "license": "Apache License 2.0",
   "autoload": {

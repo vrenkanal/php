@@ -1,15 +1,15 @@
 {
-  "name": "dindigital/pagseguro",
-  "description": "Fork da Biblioteca de integração com o PagSeguro PHP",
-  "license": "Apache License 2.0",
-  "autoload": {
-    "classmap": ["source/PagSeguroLibrary"]
-  },
-  "require": {
-    "php": ">=5.3.3",
-    "ext-curl": "*",
-    "lib-curl": "*",
-    "lib-openssl": "*",
-    "lib-libxml": "*"
-  }
+    "name": "pagseguro/php",
+    "description": "Biblioteca de integração com o PagSeguro",
+    "license": "Apache License 2.0",
+    "autoload": {
+        "classmap": ["source/PagSeguroLibrary"]
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "ext-curl": "*",
+        "lib-curl": "*",
+        "lib-openssl": "*",
+        "lib-libxml": "*"
+    }
 }

@@ -82,6 +82,11 @@ class PagSeguroConfig
         }
     }
 
+    public static function setEnvironment($value)
+    {
+        self::$data['environment'] = $value;
+    }
+
     public static function getAccountCredentials()
     {
         if (isset(self::$data['credentials']) &&

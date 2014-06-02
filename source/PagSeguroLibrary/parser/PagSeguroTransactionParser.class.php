@@ -391,6 +391,10 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             $transactionSummary->setPaymentMethod($paymentMethod);
         }
 
+        if (isset($data["recoveryCode"])) {
+            $transactionSummary->setRecoveryCode($data["recoveryCode"]);
+        }
+        
         return $transactionSummary;
     }
 }

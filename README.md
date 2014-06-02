@@ -51,7 +51,9 @@ Mais informações estão disponíveis na [documentação oficial].
 
 Changelog
 ---------
-
+2.2.3
+ - Ajustes no código
+ 
 2.2.2
  - Adicionando environment *sandbox*
 

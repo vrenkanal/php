@@ -49,8 +49,18 @@ Para fazer uso real da biblioteca, é preciso fazer algumas configurações no a
 Mais informações estão disponíveis na [documentação oficial].
 
 
+Dúvidas?
+----------
+---
+Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
+
+
 Changelog
 ---------
+2.2.4
+ - Adicionado método setEnvironment na classe PagSeguroConfig
+ - Melhorias na documentação/comentários do código
+
 2.2.3
  - Ajustes no código
  
@@ -144,7 +154,7 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
   [transações por código]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-codigo.html
   [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
   [transações abandonadas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-abandonadas.html
-  [Dúvidas?]: https://pagseguro.uol.com.br/desenvolvedor/comunidade.jhtml
+  [fórum]: http://forum.pagseguro.uol.com.br/
   [PHP]: http://www.php.net/
   [SPL]: http://php.net/manual/en/book.spl.php
   [cURL]: http://php.net/manual/en/book.curl.php

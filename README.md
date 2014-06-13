@@ -29,17 +29,17 @@ Instalação
 
  - Baixe o repositório como arquivo zip ou faça um clone;
  - Descompacte os arquivos em seu computador;
- - Dentro do diretório *source* existem dois diretórios, o *examples* e o *PagSeguroLibrary*. O diretório *examples* contém exemplos de chamadas utilizando a API e o diretório *PagSeguroLibrary* contém a biblioteca propriamente dita. Caso queira importar somente a biblioteca, faça upload do diretório *PagSeguroLibrary* e inclua a classe *PagSeguroLibrary.php* em seu projeto. Essa classe se encarregará de importar todas as funcionalidades da biblioteca no seu sistema.
+ - Dentro do diretório *source* existem dois diretórios: o *examples* e o *PagSeguroLibrary*. O diretório *examples* contém exemplos de chamadas utilizando a API e o diretório *PagSeguroLibrary* contém a biblioteca propriamente dita. Caso queira importar somente a biblioteca, faça upload do diretório *PagSeguroLibrary* e inclua a classe *PagSeguroLibrary.php* em seu projeto. Essa classe se encarregará de importar todas as funcionalidades da biblioteca no seu sistema.
 
-Alternativamente é possível utilizar o Composer para carregar a biblioteca (pagseguro/php).
+Alternativamente, é possível utilizar o Composer para carregar a biblioteca (pagseguro/php).
 
 
 Configuração
 ------------
 
-Para fazer uso real da biblioteca é preciso fazer algumas configurações no arquivo 'PagSeguroConfig.php', que encontra-se no diretório 'config'. As opções disponíveis estão descritas abaixo.
+Para fazer uso real da biblioteca, é preciso fazer algumas configurações no arquivo 'PagSeguroConfig.php', que encontra-se no diretório 'config'. As opções disponíveis estão descritas abaixo.
 
- - **environment**: aceitas os valores *production* e *sandbox*. Para utilizar o *sandbox* é preciso criar uma conta em https://sandbox.pagseguro.uol.com.br
+ - **environment**: aceita os valores *production* e *sandbox*. Para utilizar o *sandbox*, é preciso criar uma conta em https://sandbox.pagseguro.uol.com.br.
  - **email**: e-mail cadastrado no PagSeguro.
  - **token**: token gerado no PagSeguro.
  - **charset**: codificação do seu sistema (ISO-8859-1 ou UTF-8).

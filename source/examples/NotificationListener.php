@@ -62,7 +62,7 @@ class NotificationListener
 
         /*
          * #### Credentials #####
-         * Substitute the parameters below with your credentials (e-mail and token)
+         * Replace the parameters below with your credentials (e-mail and token)
          * You can also get your credentials from a config file. See an example:
          * $credentials = PagSeguroConfig::getAccountCredentials();
          */

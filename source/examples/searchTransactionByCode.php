@@ -31,7 +31,7 @@ class SearchTransactionByCode
 
             /*
              * #### Credentials #####
-             * Substitute the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials (e-mail and token)
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
@@ -70,11 +70,11 @@ class SearchTransactionByCode
             echo "<h4>Items:</h4>";
             if (is_array($transaction->getItems())) {
                 foreach ($transaction->getItems() as $key => $item) {
-                    echo "Id: " . $item->getId() . '<br>'; // prints the item id, p.e. I39
+                    echo "Id: " . $item->getId() . '<br>'; // prints the item id, e.g. I39
                     echo "Description: " . $item->getDescription() .
-                        '<br>'; // prints the item description, p.e. Notebook prata
-                    echo "Quantidade: " . $item->getQuantity() . '<br>'; // prints the item quantity, p.e. 1
-                    echo "Amount: " . $item->getAmount() . '<br>'; // prints the item unit value, p.e. 3050.68
+                        '<br>'; // prints the item description, e.g. Notebook prata
+                    echo "Quantidade: " . $item->getQuantity() . '<br>'; // prints the item quantity, e.g. 1
+                    echo "Amount: " . $item->getAmount() . '<br>'; // prints the item unit value, e.g. 3050.68
                     echo "<hr>";
                 }
             }

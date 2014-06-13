@@ -31,7 +31,7 @@ class CreatePaymentRequest
         // Instantiate a new payment request
         $paymentRequest = new PagSeguroPaymentRequest();
 
-        // Sets the currency
+        // Set the currency
         $paymentRequest->setCurrency("BRL");
 
         // Add an item for this payment request
@@ -40,11 +40,11 @@ class CreatePaymentRequest
         // Add another item for this payment request
         $paymentRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
 
-        // Sets a reference code for this payment request, it is useful to identify this payment
+        // Set a reference code for this payment request. It is useful to identify this payment
         // in future notifications.
         $paymentRequest->setReference("REF123");
 
-        // Sets shipping information for this payment request
+        // Set shipping information for this payment request
         $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
         $paymentRequest->setShippingType($sedexCode);
         $paymentRequest->setShippingAddress(
@@ -58,7 +58,7 @@ class CreatePaymentRequest
             'BRA'
         );
 
-        // Sets your customer information.
+        // Set your customer information.
         $paymentRequest->setSender(
             'João Comprador',
             'comprador@s2it.com.br',
@@ -68,7 +68,7 @@ class CreatePaymentRequest
             '156.009.442-76'
         );
 
-        // Sets the url used by PagSeguro for redirect user after ends checkout process
+        // Set the url used by PagSeguro to redirect user after checkout process ends
         $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
 
         // Add checkout metadata information
@@ -88,14 +88,14 @@ class CreatePaymentRequest
 
             /*
              * #### Credentials #####
-             * Substitute the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials (e-mail and token)
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            // Register this payment request in PagSeguro, to obtain the payment URL for redirect your customer.
+            // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $url = $paymentRequest->register($credentials);
 
             self::printPaymentUrl($url);

@@ -113,6 +113,11 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             $transaction->setStatus(new PagSeguroTransactionStatus($data["status"]));
         }
 
+        // <transaction> <cancellationSource>
+        if(isset($data["cancellationSource"])) {
+            $transaction->setCancellationSource(new PagSeguroTransactionCancellationSource($data["cancellationSource"]));
+        }
+
         if (isset($data["paymentMethod"]) && is_array($data["paymentMethod"])) {
 
             // <transaction> <paymentMethod>

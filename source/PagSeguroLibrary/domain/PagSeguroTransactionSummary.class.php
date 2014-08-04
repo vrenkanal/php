@@ -85,6 +85,12 @@ class PagSeguroTransactionSummary
     private $extraAmount;
 
     /**
+     * Cancellation Source
+     * @see PagSeguroTransactionCancellationSource
+     */
+    private $cancellationSource;
+
+    /**
      * Payment method
      * @see PagSeguroPaymentMethod
      */
@@ -290,6 +296,24 @@ class PagSeguroTransactionSummary
     }
 
     /**
+     * Sets the cancellation source
+     * @param PagSeguroTransactionCancellationSource $cancellationSource
+     */
+    public function setCancellationSource(PagSeguroTransactionCancellationSource $cancellationSource)
+    {
+        $this->cancellationSource = $cancellationSource;
+    }
+
+    /**
+     * @return the cancellation source
+     * @see PagSeguroTransactionCancellationSource
+     */
+    public function getCancellationSource()
+    {
+        return $this->cancellationSource;
+    }
+
+    /**
      * Sets the payment method
      * @param PagSeguroPaymentMethod $paymentMethod
      */
@@ -306,7 +330,7 @@ class PagSeguroTransactionSummary
     {
         return $this->paymentMethod;
     }
-    
+
     /**
      * @return the recovery code
      */

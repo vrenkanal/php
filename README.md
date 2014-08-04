@@ -57,6 +57,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+2.2.5
+ - Ajustes diversos
+
 2.2.4
  - Adicionado método setEnvironment na classe PagSeguroConfig
  - Melhorias na documentação/comentários do código

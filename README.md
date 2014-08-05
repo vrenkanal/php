@@ -1,6 +1,8 @@
 Biblioteca de integração PagSeguro para PHP
 ===========================================
 
+[![Build Status](https://travis-ci.org/pagseguro/php.png?branch=master)](https://travis-ci.org/pagseguro/php)
+
 Descrição
 ---------
 

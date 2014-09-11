@@ -61,7 +61,7 @@ class CreatePaymentRequest
         // Set your customer information.
         $paymentRequest->setSender(
             'João Comprador',
-            'comprador@s2it.com.br',
+            'email@comprador.com.br',
             '11',
             '56273440',
             'CPF',

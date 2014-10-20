@@ -108,4 +108,15 @@ class PagSeguroResources
             throw new Exception("Static URL not set for $environment environment.");
         }
     }
+
+    public static function getDataFortressUrl()
+    {   
+        if (isset(self::$data['dataFortress']) && 
+            isset(self::$data['dataFortress']['url'])
+        ) {
+            return self::$data['dataFortress']['url'];
+        } else {
+            throw new Exception("Data fortress base URL not found");
+        }
+    }
 }

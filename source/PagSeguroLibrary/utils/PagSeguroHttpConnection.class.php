@@ -117,8 +117,10 @@ class PagSeguroHttpConnection
         $error = curl_errno($curl);
         $errorMessage = curl_error($curl);
         curl_close($curl);
+
         $this->setStatus((int) $info['http_code']);
         $this->setResponse((String) $resp);
+
         if ($error) {
             throw new Exception("CURL can't connect: $errorMessage");
         } else {

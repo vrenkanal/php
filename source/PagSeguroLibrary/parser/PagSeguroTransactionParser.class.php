@@ -57,13 +57,13 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
 
         if (isset($data['transactions']) && is_array($data['transactions'])) {
             $transactions = array();
-            if (isset($data["transactions"]['transaction'][0])) {
+            if (isset($data['transactions']['transaction'][0])) {
                 $i = 0;
-                foreach ($data["transactions"]['transaction'] as $key => $value) {
+                foreach ($data['transactions']['transaction'] as $key => $value) {
                     $transactions[$i++] = self::parseTransactionSummary($value);
                 }
             } else {
-                $transactions[0] = self::parseTransactionSummary($data["transactions"]['transaction']);
+                $transactions[0] = self::parseTransactionSummary($data['transactions']['transaction']);
             }
             $searchResutlt->setTransactions($transactions);
         }
@@ -118,9 +118,7 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
 
         // <transaction> <cancellationSource>
         if (isset($data["cancellationSource"])) {
-            $transaction->setCancellationSource(
-                new PagSeguroTransactionCancellationSource($data["cancellationSource"])
-            );  
+            $transaction->setCancellationSource(new PagSeguroTransactionCancellationSource($data["cancellationSource"]));
         }
 
         if (isset($data["paymentMethod"]) && is_array($data["paymentMethod"])) {
@@ -139,11 +137,6 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             }
 
             $transaction->setPaymentMethod($paymentMethod);
-        }
-
-        // <transaction> <paymentLink>
-        if (isset($data["paymentLink"])) {
-            $transaction->setPaymentLink($data["paymentLink"]);
         }
 
         // <transaction> <grossAmount>
@@ -229,9 +222,9 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             }
 
             // <transaction><sender><documents>
-            if (isset($data["sender"]['documents']) && is_array($data["sender"]['documents'])) {
+            if (isset($data['sender']['documents']) && is_array($data['sender']['documents'])) {
 
-                $documents = $data["sender"]['documents'];
+                $documents = $data['sender']['documents'];
                 if (count($documents) > 0) {
                     foreach ($documents as $document) {
                         $sender->addDocument($document['type'], $document['value']);
@@ -381,9 +374,7 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             $transactionSummary->setStatus(new PagSeguroTransactionStatus($data['status']));
         }
         if (isset($data["cancellationSource"])) {
-            $transactionSummary->setCancellationSource(
-                new PagSeguroTransactionCancellationSource($data["cancellationSource"])
-            );
+            $transactionSummary->setCancellationSource(new PagSeguroTransactionCancellationSource($data["cancellationSource"]));
         }
         if (isset($data['netAmount'])) {
             $transactionSummary->setNetAmount($data['netAmount']);

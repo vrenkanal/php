@@ -28,11 +28,11 @@ class PagSeguroPaymentParserData
 {
 
     /***
-     * @var $code
+     * @var
      */
     private $code;
     /***
-     * @var $registrationDate
+     * @var
      */
     private $registrationDate;
 

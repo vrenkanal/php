@@ -83,11 +83,6 @@ class PagSeguroTransaction
     private $paymentMethod;
 
     /***
-     *  Payment Link
-     */
-    private $paymentLink;
-
-    /***
      * Gross amount of the transaction
      */
     private $grossAmount;
@@ -116,11 +111,6 @@ class PagSeguroTransaction
      * Installment count
      */
     private $installmentCount;
-
-    /***
-     * Item count 
-     */
-    private $itemCount;
 
     /***
      * item/product list in this transaction
@@ -279,23 +269,6 @@ class PagSeguroTransaction
     public function getPaymentMethod()
     {
         return $this->paymentMethod;
-    }
-
-    /***
-     * Sets the payment link used in this transaction
-     * @param url $paymentLink
-     */
-    public function setPaymentLink($paymentLink)
-    {
-        $this->paymentLink = $paymentLink;
-    }
-
-    /***
-     * @return the payment link method used in this transaction
-     */
-    public function getPaymentLink()
-    {
-        return $this->paymentLink;
     }
 
     /***

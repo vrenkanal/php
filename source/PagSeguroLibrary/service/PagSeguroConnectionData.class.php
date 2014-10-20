@@ -42,10 +42,6 @@ class PagSeguroConnectionData
     /***
      * @var
      */
-    private $dataFortress;
-    /***
-     * @var
-     */
     private $environment;
     /***
      * @var
@@ -78,23 +74,19 @@ class PagSeguroConnectionData
         $this->credentials = $credentials;
         $this->serviceName = $serviceName;
 
-        try {
-            $this->setEnvironment(PagSeguroConfig::getEnvironment());
-            $this->setWebserviceUrl(PagSeguroResources::getWebserviceUrl($this->getEnvironment()));
-            $this->setPaymentUrl(PagSeguroResources::getPaymentUrl($this->getEnvironment()));
-            $this->setCharset(PagSeguroConfig::getApplicationCharset());
-            $this->setDataFortressUrl(PagSeguroResources::getDataFortressUrl());
+        $this->setEnvironment(PagSeguroConfig::getEnvironment());
+        $this->setWebserviceUrl(PagSeguroResources::getWebserviceUrl($this->getEnvironment()));
+        $this->setPaymentUrl(PagSeguroResources::getPaymentUrl($this->getEnvironment()));
+        $this->setCharset(PagSeguroConfig::getApplicationCharset());
 
-            $this->resources = PagSeguroResources::getData($this->serviceName);
-            if (isset($this->resources['servicePath'])) {
-                $this->setServicePath($this->resources['servicePath']);
-            }
-            if (isset($this->resources['serviceTimeout'])) {
-                $this->setServiceTimeout($this->resources['serviceTimeout']);
-            }
-        } catch (Exception $e) {
-            throw $e;
+        $this->resources = PagSeguroResources::getData($this->serviceName);
+        if (isset($this->resources['servicePath'])) {
+            $this->setServicePath($this->resources['servicePath']);
         }
+        if (isset($this->resources['serviceTimeout'])) {
+            $this->setServiceTimeout($this->resources['serviceTimeout']);
+        }
+
     }
 
     /***
@@ -233,21 +225,4 @@ class PagSeguroConnectionData
     {
         $this->charset = $charset;
     }
-
-    /***
-     * @return mixed
-     */
-    public function getDataFortressUrl()
-    {
-        return $this->dataFortress;
-    }
-
-    /***
-     * @param $url
-     */
-    public function setDataFortressUrl($url)
-    {
-        $this->dataFortress = $url;
-    }
-
 }

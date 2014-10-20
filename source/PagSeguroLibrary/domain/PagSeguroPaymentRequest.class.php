@@ -73,21 +73,6 @@ class PagSeguroPaymentRequest
     private $shipping;
 
     /***
-     * Payment mode for this payment request
-     */
-    private $paymentMode;
-
-    /***
-     * Payment method for this payment request
-     */
-    private $paymentMethod;
-
-    /***
-     * Credit Card Holder information associated with this payment request
-     */
-    private $creditCard;
-
-    /***
      * How long this payment request will remain valid, in seconds.
      *
      * Optional. After this payment request is submitted, the payment code returned
@@ -136,14 +121,6 @@ class PagSeguroPaymentRequest
     public function getSender()
     {
         return $this->sender;
-    }   
-
-    /***
-     * @return PagSeguroPaymentRequest
-     */
-    public function getThis()
-    {
-        return $this;
     }
 
     /***
@@ -161,9 +138,7 @@ class PagSeguroPaymentRequest
         $areaCode = null,
         $number = null,
         $documentType = null,
-        $documentValue = null,
-        $ip = false
-        
+        $documentValue = null
     ) {
         $param = $name;
         if (is_array($param)) {
@@ -176,9 +151,6 @@ class PagSeguroPaymentRequest
             $sender->setEmail($email);
             $sender->setPhone(new PagSeguroPhone($areaCode, $number));
             $sender->addDocument($documentType, $documentValue);
-            if ($ip === true){
-                $sender->getIP();
-            }
             $this->sender = $sender;
         }
     }
@@ -274,29 +246,6 @@ class PagSeguroPaymentRequest
     }
 
     /***
-     * @return float sun of total items amount
-     */
-    public function getItemsTotalAmount($items, $shipping = false)
-    {
-
-        foreach ($items as $item)
-        {   
-            if (isset($amount)) {
-                $amount = $amount + ($item->getAmount() * $item->getQuantity());
-                if ($shipping) {
-                  $amount = $amount + $item->getShippingCost();
-                }
-            } else {
-                $amount = $item->getAmount() * $item->getQuantity(); 
-                if ($shipping) { 
-                    $amount = $amount + $item->getShippingCost();
-                }
-            }
-        }
-        return PagSeguroHelper::decimalFormat($amount);
-    }
-
-    /***
      * Adds a new product/item in this payment request
      *
      * @param String $id
@@ -336,11 +285,6 @@ class PagSeguroPaymentRequest
         }
     }
 
-    /***
-     * Add sender document
-     * @param string $type
-     * @param string $value
-     */
     public function addSenderDocument($type, $value)
     {
         if ($this->getSender() instanceof PagSeguroSender) {
@@ -526,87 +470,6 @@ class PagSeguroPaymentRequest
     }
 
     /***
-     * @return String payment mode for this payment request
-     */
-    public function getPaymentMode()
-    {
-        return $this->paymentMode;
-    }
-
-    /***
-     * Sets payment mode for this payment request
-     * @param mode
-     */
-    public function setPaymentMode($mode)
-    {
-        $this->paymentMode = $mode;
-    }
-
-     /***
-     * @return PagSeguroPaymentMethod payment method for this payment request
-     */
-    public function getPaymentMethod()
-    {
-        return $this->paymentMethod;
-    }
-
-    /***
-     * Sets payment method for this payment request
-     * @param PagSeguroPaymentMethod method
-     */
-    public function setPaymentMethod($method)
-    {
-        $this->paymentMethod = $method;
-    }
-
-     /***
-     * Sets the info for credit card for this payment request
-     * @param Array $params
-     */
-    public function setCreditCard(array $params = null) 
-    {
-
-        if ($params instanceof PagSeguroCreditCard) {
-            $this->creditCard = $params;
-        } else if (isset($params) && is_array($params)) {
-            $this->creditCard = new PagSeguroCreditCard();
-            if (isset($params['number'])) {
-                $this->creditCard->setNumber($params['number']);
-            }
-            if (isset($params['cvv'])) {
-                $this->creditCard->setCvv($params['cvv']);
-            }
-            if (isset($params['expirationMonth'])) {
-                $this->creditCard->setExpirationMonth($params['expirationMonth']);
-            }
-            if (isset($params['expirationYear'])) {
-                $this->creditCard->setExpirationYear($params['expirationYear']);
-            }
-            if (isset($params['token'])) {
-                $this->creditCard->setToken($params['token']);
-            }
-            if (isset($params['installment']) && $params['installment'] instanceof PagSeguroInstallment) {
-                $this->creditCard->setInstallment($params['installment']);
-            } 
-            if (isset($params['holder']) && $params['holder'] instanceof PagSeguroCreditCardHolder) {
-                $this->creditCard->setHolder($params['holder']);
-            } 
-            if (isset($params['billing']) && $params['billing'] instanceof PagSeguroBilling) {
-                $this->creditCard->setBilling($params['billing']);
-            }
-        } 
-    }
-
-    /***
-     * @return PagSeguroCreditCard the credit card info
-     * @see PagSeguroCreditCard
-     */
-    public function getCreditCard()
-    {
-        return $this->creditCard;
-    }
-
-    /***
      * @return integer the max age of this payment request
      *
      * After this payment request is submitted, the payment code returned
@@ -762,13 +625,9 @@ class PagSeguroPaymentRequest
      * @return String The URL to where the user needs to be redirected to in order to complete the payment process or
      * the CODE when use lightbox
      */
-    public function register(PagSeguroCredentials $credentials, $service = null, $onlyCheckoutCode = false)
+    public function register(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
     {
-        if ($service == "DIRECT_PAYMENT") {
-            return PagSeguroDirectPaymentService::createCheckoutRequest($credentials, $this, $onlyCheckoutCode);
-        } else {
-            return PagSeguroPaymentService::createCheckoutRequest($credentials, $this, $onlyCheckoutCode);
-        }
+        return PagSeguroPaymentService::createCheckoutRequest($credentials, $this, $onlyCheckoutCode);
     }
 
     /***

@@ -1,7 +1,7 @@
 <?php
 /*
  ************************************************************************
- Copyright [2014] [PagSeguro Internet Ltda.]
+ Copyright [2011] [PagSeguro Internet Ltda.]
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ class SearchTransactionByCode
     public static function main()
     {
 
-        $transaction_code = 'FC138A0E-C734-44A8-A9B7-6A79E1E33292';
+        $transaction_code = '59A13D84-52DA-4AB8-B365-1E7D893052B0';
 
         try {
 
@@ -36,7 +36,7 @@ class SearchTransactionByCode
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+               "E231B2C9BCC8474DA2E260B6C8CF60D3");
             
             $transaction = PagSeguroTransactionSearchService::searchByCode($credentials, $transaction_code);
 

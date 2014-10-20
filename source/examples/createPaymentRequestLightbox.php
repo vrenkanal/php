@@ -1,8 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+	</head>
+</html>
 <?php
 
 /*
  * ***********************************************************************
- Copyright [2014] [PagSeguro Internet Ltda.]
+ Copyright [2011] [PagSeguro Internet Ltda.]
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -19,18 +25,7 @@
  */
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
-?>
-<!DOCTYPE html>
-<html>
-	<head>
-        <?php  if (PagSeguroConfig::getEnvironment() != "sandbox"): ?>
-		<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
-	    <?php else: ?>
-        <script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
-        <?php endif; ?> 
-    </head>
-</html>
-<?php
+
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
  */
@@ -105,10 +100,9 @@ class CreatePaymentRequestLightbox
              */
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                "E231B2C9BCC8474DA2E260B6C8CF60D3");
-
             // Register this payment request in PagSeguro to obtain the checkout code
             $onlyCheckoutCode = true;
-            $code = $paymentRequest->register($credentials, "DEFAULT" , $onlyCheckoutCode);
+            $code = $paymentRequest->register($credentials, $onlyCheckoutCode);
 
             self::printPaymentUrl($code);
         } catch (PagSeguroServiceException $e) {

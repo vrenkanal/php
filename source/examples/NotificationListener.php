@@ -1,7 +1,7 @@
 <?php
 /*
  ************************************************************************
- Copyright [2014] [PagSeguro Internet Ltda.]
+ Copyright [2011] [PagSeguro Internet Ltda.]
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.

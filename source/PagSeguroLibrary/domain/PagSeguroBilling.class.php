@@ -22,49 +22,46 @@
  */
 
 /***
- * Class PagSeguroPaymentParserData
+ * Shipping information
  */
-class PagSeguroPaymentParserData
+class PagSeguroBilling
 {
+    /***
+     * Billing address
+     * @see PagSeguroAddress
+     */
+    private $address;
 
     /***
-     * @var $code
+     * Initializes a new instance of the PagSeguroShipping class
+     * @param array $data
      */
-    private $code;
-    /***
-     * @var $registrationDate
-     */
-    private $registrationDate;
-
-    /***
-     * @return mixed
-     */
-    public function getCode()
+    public function __construct(array $data = null)
     {
-        return $this->code;
+        if ($data) {
+            if (isset($data['address']) && $data['address'] instanceof PagSeguroAddress) {
+                $this->address = $data['address'];
+            }
+        }
     }
 
     /***
-     * @param $code
+     * Sets the billing address
+     * @see PagSeguroAddress
+     * @param PagSeguroAddress $address
      */
-    public function setCode($code)
+    public function setAddress(PagSeguroAddress $address)
     {
-        $this->code = $code;
+        $this->address = $address;
     }
 
     /***
-     * @return mixed
+     * @return PagSeguroAddress the billing Address
+     * @see PagSeguroAddress
      */
-    public function getRegistrationDate()
+    public function getAddress()
     {
-        return $this->registrationDate;
+        return $this->address;
     }
 
-    /***
-     * @param $registrationDate
-     */
-    public function setRegistrationDate($registrationDate)
-    {
-        $this->registrationDate = $registrationDate;
-    }
 }

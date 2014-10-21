@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>
+	<!--Para integração em ambiente de testes no Sandbox use este link-->
+		<!--<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+	<!--Para integração em ambiente de produção use este link-->
+		<!--<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+
 	</head>
 </html>
 <?php

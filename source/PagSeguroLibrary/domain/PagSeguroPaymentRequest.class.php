@@ -73,6 +73,11 @@ class PagSeguroPaymentRequest
     private $shipping;
 
     /***
+     * Billing information associated with this credit card
+     */
+    private $billing;
+
+    /***
      * Payment mode for this payment request
      */
     private $paymentMode;
@@ -557,6 +562,59 @@ class PagSeguroPaymentRequest
     public function setPaymentMethod($method)
     {
         $this->paymentMethod = $method;
+    }
+
+    /***
+     * Sets the billing address for this payment request
+     * @param String $postalCode
+     * @param String $street
+     * @param String $number
+     * @param String $complement
+     * @param String $district
+     * @param String $city
+     * @param String $state
+     * @param String $country
+     */
+    public function setBillingAdress(
+        $postalCode, 
+        $street = null, 
+        $number = null,
+        $complement = null,
+        $district = null,
+        $city = null,
+        $state = null,
+        $country = null
+    ) {
+
+        $param = $postalCode;
+        $this->billing = new PagSeguroBilling();
+        if (isset($param) and is_array($param)){
+            $this->billing->setAddress(new PagSeguroAddress($param));
+        } elseif ($param instanceof PagSeguroAddress) {
+            $this->billing->setAddress($param);
+        } else {
+            $billindAdress = array(
+            'postalCode' => '01452002',
+            'street' => 'Av. Brig. Faria Lima',
+            'number' => '1384',
+            'complement' => 'apto. 114',
+            'district' => 'Jardim Paulistano',
+            'city' => 'São Paulo',
+            'state' => 'SP',
+            'country' => 'BRA'
+            );
+            
+            $this->billing->setAddress($billindAdress);
+        }
+    }
+
+    /***
+     * @return PagSeguroBilling the billing information for this payment request
+     * @see PagSeguroBilling
+     */
+    public function getBillingAdress()
+    {
+        return $this->billing;
     }
 
      /***

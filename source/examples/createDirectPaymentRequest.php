@@ -104,8 +104,8 @@ class CreatePaymentRequest
             'BRA'
         );
 
-        //Set billing adress for this payment
-        $billindAdress = new PagSeguroAddress(
+        //Set billing information for credit card
+        $paymentRequest->setBillingAdress(
             array(
                 'postalCode' => '01452002',
                 'street' => 'Av. Brig. Faria Lima',
@@ -116,9 +116,7 @@ class CreatePaymentRequest
                 'state' => 'SP',
                 'country' => 'BRA'
             )
-        );
-        $billing = new PagSeguroBilling();
-        $billing->setAddress($billindAdress);
+        );        
 
         /**
          *@todo Replace the parameters below with your credit card information (number, cvv, expirationMounth and expiration year)
@@ -186,10 +184,10 @@ class CreatePaymentRequest
                         'number' => 56273440
                     )
                 ),
-                'billing' => $billing
+                'billing' => $paymentRequest->getBillingAdress()
                 )
             );
-   
+
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $return = $paymentRequest->register($credentials, "DIRECT_PAYMENT");
 

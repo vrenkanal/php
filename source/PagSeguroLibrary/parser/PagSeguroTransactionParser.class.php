@@ -166,6 +166,11 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             $transaction->setNetAmount($data["netAmount"]);
         }
 
+        //<transaction><escrowEndDate>
+        if (isset($data["escrowEndDate"])) {
+            $transaction->setEscrowEndDate($data["escrowEndDate"]);
+        }
+
         // <transaction> <extraAmount>
         if (isset($data["extraAmount"])) {
             $transaction->setExtraAmount($data["extraAmount"]);
@@ -176,6 +181,32 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             $transaction->setInstallmentCount($data["installmentCount"]);
         }
 
+        // <transaction> <creditorFees>
+        if (isset($data["creditorFees"])) {
+            $transaction->setCreditorFees($data["creditorFees"]);
+        }
+
+        //<transaction><operationalFeeAmount>
+        if (isset($data["operationalFeeAmount"])) {
+            $transaction->setOperationalFeeAmount($data["operationalFeeAmount"]);
+        }
+
+        //<transaction><installmentFeeAmount>
+        if (isset($data["installmentFeeAmount"])) {
+            $transaction->setInstallmentFeeAmount($data["installmentFeeAmount"]);
+        }
+
+        //<transaction><intermediationRateAmount>
+        if (isset($data["intermediationRateAmount"])) {
+            $transaction->setIntermediationRateAmount($data["intermediationRateAmount"]);
+        }
+
+        //<transaction><intermediationFeeAmount>
+        if (isset($data["intermediationFeeAmount"])) {
+            $transaction->setIntermediationFeeAmount($data["intermediationFeeAmount"]);
+        }
+
+        //<transaction><items>
         if (isset($data["items"]['item']) && is_array($data["items"]['item'])) {
 
             $items = array();

@@ -108,6 +108,11 @@ class PagSeguroTransaction
     private $netAmount;
 
     /***
+     * Escrow End Date
+     */
+    private $escrowEndDate;
+
+    /***
      * Extra amount
      */
     private $extraAmount;
@@ -116,6 +121,31 @@ class PagSeguroTransaction
      * Installment count
      */
     private $installmentCount;
+
+    /***
+     * creditorFees amount
+     */
+    private $creditorFees;
+
+    /***
+     * Operational Fee Amount amount
+     */
+    private $operationalFeeAmount;
+
+    /***
+     * Installment Fee Amount amount
+     */
+    private $installmentFeeAmount;
+
+    /***
+     * intermediation Rate Amount
+     */
+    private $intermediationRateAmount;
+
+     /***
+     * intermediation Fee Amount
+     */
+    private $intermediationFeeAmount;
 
     /***
      * Item count 
@@ -376,6 +406,23 @@ class PagSeguroTransaction
     }
 
     /***
+     * @return date the escrow end date
+     */
+    public function getEscrowEndDate()
+    {
+        return $this->escrowEndDate;
+    }
+
+    /***
+     * Sets the escrow end date
+     * @param date $escrowEndDate
+     */
+    public function setEscrowEndDate($escrowEndDate)
+    {
+        $this->escrowEndDate = $escrowEndDate;
+    }
+
+    /***
      * @return float the extra amount
      */
     public function getExtraAmount()
@@ -407,6 +454,91 @@ class PagSeguroTransaction
     public function setInstallmentCount($installmentCount)
     {
         $this->installmentCount = $installmentCount;
+    }
+
+    /***
+     * Sets the transaction creditorFees
+     * @param float $creditorFees
+     */
+    public function setCreditorFees($creditorFees)
+    {
+        $this->creditorFees = $creditorFees;
+    }
+
+    /***
+     * @return object the transaction creditor fees
+     */
+    public function getCreditorFees()
+    {
+        return $this->creditorFees;
+    }
+
+    /***
+     * Sets the transaction Operational Fee Amount
+     * @param float $operationalFeeAmount
+     */
+    public function setOperationalFeeAmount($operationalFeeAmount)
+    {
+        $this->operationalFeeAmount = $operationalFeeAmount;
+    }
+
+    /***
+     * @return float the transaction operational fee amount
+     */
+    public function getOperationalFeeAmount()
+    {
+        return $this->operationalFeeAmount;
+    }
+
+    /***
+     * Sets the transaction Installment Fee Amount
+     * @param float $installmentFeeAmount
+     */
+    public function setInstallmentFeeAmount($installmentFeeAmount)
+    {
+        $this->installmentFeeAmount = $installmentFeeAmount;
+    }
+
+    /***
+     * @return float the transaction installment fee amount
+     */
+    public function getInstallmentFeeAmount()
+    {
+        return $this->installmentFeeAmount;
+    }
+
+    /***
+     * Sets the transaction intermediation Rate Amount
+     * @param float $intermediationRateAmount
+     */
+    public function setIntermediationRateAmount($intermediationRateAmount)
+    {
+        $this->intermediationRateAmount = $intermediationRateAmount;
+    }
+
+    /***
+     * @return float the transaction intermediation Rate Amount
+     */
+    public function getIntermediationRateAmount()
+    {
+        return $this->intermediationRateAmount;
+    }
+
+    /***
+     * Sets the transaction intermediation Fee Amount
+     * @param float $intermediationFeeAmount
+     */
+    public function setIntermediationFeeAmount($intermediationFeeAmount)
+    {
+        $this->intermediationFeeAmount = $intermediationFeeAmount;
+    }
+
+    /***
+     * @return float the transaction intermediation Fee Amount
+     */
+    public function getIntermediationFeeAmount()
+    {
+        return $this->intermediationFeeAmount;
     }
 
     /***

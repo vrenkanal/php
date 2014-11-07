@@ -55,6 +55,11 @@ class PagSeguroTransaction
     private $reference;
 
     /***
+     * Recovery code
+     */
+    private $recoveryCode;
+
+    /***
      * Transaction type
      * @see PagSeguroTransactionType
      * @var PagSeguroTransactionType
@@ -246,6 +251,24 @@ class PagSeguroTransaction
     public function setReference($reference)
     {
         $this->reference = $reference;
+    }
+
+     /***
+     * @return string the recovery code
+     */
+    public function getRecoveryCode()
+    {
+        return $this->recoveryCode;
+    }
+
+    /***
+     * Sets the recovery code
+     *
+     * @param code
+     */
+    public function setRecoveryCode($recoveryCode)
+    {
+        $this->recoveryCode = $recoveryCode;
     }
 
     /***

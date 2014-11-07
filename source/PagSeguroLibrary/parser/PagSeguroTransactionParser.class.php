@@ -106,6 +106,11 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
             $transaction->setReference($data["reference"]);
         }
 
+        // <transaction> <recoveryCode>
+        if (isset($data["recoveryCode"])) {
+            $transaction->setRecoveryCode($data["recoveryCode"]);
+        }
+
         // <transaction> <type>
         if (isset($data["type"])) {
             $transaction->setType(new PagSeguroTransactionType($data["type"]));

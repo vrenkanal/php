@@ -20,7 +20,6 @@
  *  @copyright 2007-2014 PagSeguro Internet Ltda.
  *  @license   http://www.apache.org/licenses/LICENSE-2.0
  */
-
 /***
  * Installments information
  */
@@ -30,12 +29,10 @@ class PagSeguroInstallment
      * installments quantity
      */
     private $quantity;
-
     /***
      * installments value
      */
     private $value;
-
     /***
      * Initializes a new instance of the PagSeguroInstallments class
      * @param array $data
@@ -51,7 +48,6 @@ class PagSeguroInstallment
             }
         }    
     }
-
     /***
      * Set installment quantity
      * @param $quantity int
@@ -60,7 +56,6 @@ class PagSeguroInstallment
     {
         $this->quantity = $quantity;
     }
-
     /***
      * @return int installment quantity
      */
@@ -68,7 +63,6 @@ class PagSeguroInstallment
     {
         return $this->quantity;
     }
-
     /***
      * Set installment value
      * @param $value int
@@ -77,7 +71,6 @@ class PagSeguroInstallment
     {
         $this->value = $value;
     }
-
     /***
      * @return int installment value
      */
@@ -85,7 +78,6 @@ class PagSeguroInstallment
     {
         return $this->value;
     }
-
     /***
      * Set installment value and quantity
      * @param $quantity int

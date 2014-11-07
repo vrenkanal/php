@@ -42,10 +42,6 @@ class PagSeguroConnectionData
     /***
      * @var
      */
-    private $dataFortress;
-    /***
-     * @var
-     */
     private $environment;
     /***
      * @var
@@ -55,6 +51,18 @@ class PagSeguroConnectionData
      * @var
      */
     private $paymentUrl;
+    /***
+     * @var
+     */
+    private $baseUrl;
+    /***
+     * @var
+     */
+    private $installmentUrl;
+    /***
+     * @var
+     */
+    private $sessionUrl;
     /***
      * @var
      */
@@ -82,8 +90,10 @@ class PagSeguroConnectionData
             $this->setEnvironment(PagSeguroConfig::getEnvironment());
             $this->setWebserviceUrl(PagSeguroResources::getWebserviceUrl($this->getEnvironment()));
             $this->setPaymentUrl(PagSeguroResources::getPaymentUrl($this->getEnvironment()));
+            $this->setBaseUrl(PagSeguroResources::getBaseUrl($this->getEnvironment()));
+            $this->setInstallmentUrl(PagSeguroResources::getInstallmentUrl());
+            $this->setSessionUrl(PagSeguroResources::getSessionUrl());
             $this->setCharset(PagSeguroConfig::getApplicationCharset());
-            $this->setDataFortressUrl(PagSeguroResources::getDataFortressUrl());
 
             $this->resources = PagSeguroResources::getData($this->serviceName);
             if (isset($this->resources['servicePath'])) {
@@ -162,11 +172,59 @@ class PagSeguroConnectionData
     }
 
     /***
-     * @param $environment
+     * @param $paymentUrl
      */
     public function setPaymentUrl($paymentUrl)
     {
         $this->paymentUrl = $paymentUrl;
+    }
+
+    /***
+     * @return mixed
+     */
+    public function getBaseUrl()
+    {
+        return $this->baseUrl;
+    }
+
+    /***
+     * @param $baseUrl
+     */
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+    }
+
+    /***
+     * @return mixed
+     */
+    public function getInstallmentUrl()
+    {
+        return $this->installmentUrl;
+    }
+
+    /***
+     * @param $installmentUrl
+     */
+    public function setInstallmentUrl($installmentUrl)
+    {
+        $this->installmentUrl = $installmentUrl;
+    }
+
+    /***
+     * @return mixed
+     */
+    public function getSessionUrl()
+    {
+        return $this->sessionUrl;
+    }
+
+    /***
+     * @param $installmentUrl
+     */
+    public function setSessionUrl($sessionUrl)
+    {
+        $this->sessionUrl = $sessionUrl;
     }
 
     /***
@@ -234,20 +292,5 @@ class PagSeguroConnectionData
         $this->charset = $charset;
     }
 
-    /***
-     * @return mixed
-     */
-    public function getDataFortressUrl()
-    {
-        return $this->dataFortress;
-    }
-
-    /***
-     * @param $url
-     */
-    public function setDataFortressUrl($url)
-    {
-        $this->dataFortress = $url;
-    }
 
 }

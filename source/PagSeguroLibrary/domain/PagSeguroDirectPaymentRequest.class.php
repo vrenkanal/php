@@ -24,7 +24,7 @@
 /***
  * Represents a payment request
  */
-class PagSeguroPaymentRequest
+class PagSeguroDirectPaymentRequest
 {
 
     /***
@@ -32,6 +32,11 @@ class PagSeguroPaymentRequest
      * @var PagSeguroSender
      */
     private $sender;
+
+    /***
+     * @var receiverEmail
+     */
+    private $receiverEmail;
 
     /***
      * Payment currency
@@ -71,6 +76,31 @@ class PagSeguroPaymentRequest
      * Shipping information associated with this payment request
      */
     private $shipping;
+
+    /***
+     * Billing information associated with this credit card
+     */
+    private $billing;
+
+    /***
+     * Payment mode for this payment request
+     */
+    private $paymentMode;
+
+    /***
+     * Payment method for this payment request
+     */
+    private $paymentMethod;
+
+    /***
+     * Credit Card Holder information associated with this payment request
+     */
+    private $creditCard;
+
+    /***
+     * Bank name information associated with this payment request
+     */
+    private $onlineDebit;
 
     /***
      * How long this payment request will remain valid, in seconds.
@@ -121,6 +151,14 @@ class PagSeguroPaymentRequest
     public function getSender()
     {
         return $this->sender;
+    }   
+
+    /***
+     * @return PagSeguroPaymentRequest
+     */
+    public function getThis()
+    {
+        return $this;
     }
 
     /***
@@ -138,7 +176,9 @@ class PagSeguroPaymentRequest
         $areaCode = null,
         $number = null,
         $documentType = null,
-        $documentValue = null
+        $documentValue = null,
+        $ip = false
+        
     ) {
         $param = $name;
         if (is_array($param)) {
@@ -151,6 +191,9 @@ class PagSeguroPaymentRequest
             $sender->setEmail($email);
             $sender->setPhone(new PagSeguroPhone($areaCode, $number));
             $sender->addDocument($documentType, $documentValue);
+            if ($ip === true){
+                $sender->getIP();
+            }
             $this->sender = $sender;
         }
     }
@@ -196,6 +239,23 @@ class PagSeguroPaymentRequest
         } else {
             $this->sender->setPhone(new PagSeguroPhone($param, $number));
         }
+    }
+
+    /***
+     * @return String the receiverEmail
+     */
+    public function getReceiverEmail()
+    {
+        return $this->receiverEmail;
+    }
+
+    /***
+     * Sets the receiverEmail
+     * @param String $receiverEmail
+     */
+    public function setReceiverEmail($receiverEmail)
+    {
+        $this->receiverEmail = $receiverEmail;
     }
 
     /***
@@ -246,6 +306,29 @@ class PagSeguroPaymentRequest
     }
 
     /***
+     * @return float sun of total items amount
+     */
+    public function getItemsTotalAmount($items, $shipping = false)
+    {
+
+        foreach ($items as $item)
+        {   
+            if (isset($amount)) {
+                $amount = $amount + ($item->getAmount() * $item->getQuantity());
+                if ($shipping) {
+                  $amount = $amount + $item->getShippingCost();
+                }
+            } else {
+                $amount = $item->getAmount() * $item->getQuantity(); 
+                if ($shipping) { 
+                    $amount = $amount + $item->getShippingCost();
+                }
+            }
+        }
+        return PagSeguroHelper::decimalFormat($amount);
+    }
+
+    /***
      * Adds a new product/item in this payment request
      *
      * @param String $id
@@ -285,6 +368,11 @@ class PagSeguroPaymentRequest
         }
     }
 
+    /***
+     * Add sender document
+     * @param string $type
+     * @param string $value
+     */
     public function addSenderDocument($type, $value)
     {
         if ($this->getSender() instanceof PagSeguroSender) {
@@ -470,6 +558,184 @@ class PagSeguroPaymentRequest
     }
 
     /***
+     * @return String payment mode for this payment request
+     */
+    public function getPaymentMode()
+    {
+        return $this->paymentMode;
+    }
+
+    /***
+     * Sets payment mode for this payment request
+     * @param mode
+     */
+    public function setPaymentMode($mode)
+    {
+        try {
+            if ($mode instanceof PagSeguroPaymentMode) {
+                $this->paymentMode = $mode;
+            } else {
+                $this->paymentMethod = new PagSeguroPaymentMode($mode);
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+     /***
+     * @return PagSeguroPaymentMethod payment method for this payment request
+     */
+    public function getPaymentMethod()
+    {
+        return $this->paymentMethod;
+    }
+
+    /***
+     * Sets payment method for this payment request
+     * @param PagSeguroPaymentMethod method
+     */
+    public function setPaymentMethod($method)
+    {
+        try {
+            if ($method instanceof PagSeguroDirectPaymentMethods) {
+                $this->paymentMethod = $method;
+            } else {
+                $this->paymentMethod = new PagSeguroDirectPaymentMethods($method);
+            }
+        } catch (Exception $e) {
+            die($e->getMessage());
+        }
+    }
+
+    /***
+     * Sets the billing address for this payment request
+     * @param String $postalCode
+     * @param String $street
+     * @param String $number
+     * @param String $complement
+     * @param String $district
+     * @param String $city
+     * @param String $state
+     * @param String $country
+     */
+    public function setBillingAdress(
+        $postalCode, 
+        $street = null, 
+        $number = null,
+        $complement = null,
+        $district = null,
+        $city = null,
+        $state = null,
+        $country = null
+    ) {
+
+        $param = $postalCode;
+        $this->billing = new PagSeguroBilling();
+        if (isset($param) and is_array($param)){
+            $this->billing->setAddress(new PagSeguroAddress($param));
+        } elseif ($param instanceof PagSeguroAddress) {
+            $this->billing->setAddress($param);
+        } else {
+            $billindAdress = array(
+            'postalCode' => '01452002',
+            'street' => 'Av. Brig. Faria Lima',
+            'number' => '1384',
+            'complement' => 'apto. 114',
+            'district' => 'Jardim Paulistano',
+            'city' => 'São Paulo',
+            'state' => 'SP',
+            'country' => 'BRA'
+            );
+            
+            $this->billing->setAddress($billindAdress);
+        }
+    }
+
+    /***
+     * @return PagSeguroBilling the billing information for this payment request
+     * @see PagSeguroBilling
+     */
+    public function getBillingAdress()
+    {
+        return $this->billing;
+    }
+
+     /***
+     * Sets the info for credit card for this payment request
+     * @param Array $params
+     */
+    public function setCreditCard($params = null) 
+    {
+
+        if ($params instanceof PagSeguroCreditCardCheckout) {
+            $this->creditCard = $params;
+        } else if (isset($params) && is_array($params)) {
+            $this->creditCard = new PagSeguroCreditCardCheckout();
+            if (isset($params['number'])) {
+                $this->creditCard->setNumber($params['number']);
+            }
+            if (isset($params['cvv'])) {
+                $this->creditCard->setCvv($params['cvv']);
+            }
+            if (isset($params['expirationMonth'])) {
+                $this->creditCard->setExpirationMonth($params['expirationMonth']);
+            }
+            if (isset($params['expirationYear'])) {
+                $this->creditCard->setExpirationYear($params['expirationYear']);
+            }
+            if (isset($params['token'])) {
+                $this->creditCard->setToken($params['token']);
+            }
+            if (isset($params['installment']) && $params['installment'] instanceof PagSeguroInstallment) {
+                $this->creditCard->setInstallment($params['installment']);
+            } 
+            if (isset($params['holder']) && $params['holder'] instanceof PagSeguroCreditCardHolder) {
+                $this->creditCard->setHolder($params['holder']);
+            } 
+            if (isset($params['billing']) && $params['billing'] instanceof PagSeguroBilling) {
+                $this->creditCard->setBilling($params['billing']);
+            }
+        } 
+    }
+
+    /***
+     * @return PagSeguroCreditCard the credit card info
+     * @see PagSeguroCreditCard
+     */
+    public function getCreditCard()
+    {
+        return $this->creditCard;
+    }
+
+    /***
+     * @return string the bank name of this payment request
+     */
+    public function getOnlineDebit()
+    {
+        return $this->onlineDebit;
+    }
+
+    /***
+     * Sets the bank name of this payment request
+     * @param bankName
+     */
+    public function setOnlineDebit($bankName)
+    {
+        
+        if ($bankName instanceof PagSeguroOnlineDebitCheckout) {
+            $this->onlineDebit = $bankName;
+        } else if (is_array($bankName)) {
+             $this->onlineDebit = new PagSeguroOnlineDebitCheckout($bankName);
+        }else {
+            $this->onlineDebit = new PagSeguroOnlineDebitCheckout(
+                array(
+                   "bankName" => $bankName
+                )
+            );
+        }
+    }
+
+    /***
      * @return integer the max age of this payment request
      *
      * After this payment request is submitted, the payment code returned
@@ -625,9 +891,9 @@ class PagSeguroPaymentRequest
      * @return String The URL to where the user needs to be redirected to in order to complete the payment process or
      * the CODE when use lightbox
      */
-    public function register(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
+    public function register(PagSeguroCredentials $credentials)
     {
-        return PagSeguroPaymentService::createCheckoutRequest($credentials, $this, $onlyCheckoutCode);
+        return PagSeguroDirectPaymentService::createCheckoutRequest($credentials, $this);
     }
 
     /***

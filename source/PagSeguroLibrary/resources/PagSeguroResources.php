@@ -21,6 +21,11 @@
  *  @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 
+// Base URLs
+$PagSeguroResources['baseUrl'] = array();
+$PagSeguroResources['baseUrl']['production'] = "https://pagseguro.uol.com.br";
+$PagSeguroResources['baseUrl']['sandbox'] = "https://sandbox.pagseguro.uol.com.br";
+
 // Static URLs
 $PagSeguroResources['staticUrl'] = array();
 $PagSeguroResources['staticUrl']['production'] = "https://stc.pagseguro.uol.com.br";
@@ -31,10 +36,6 @@ $PagSeguroResources['webserviceUrl'] = array();
 $PagSeguroResources['webserviceUrl']['production'] = "https://ws.pagseguro.uol.com.br";
 $PagSeguroResources['webserviceUrl']['sandbox'] = "https://ws.sandbox.pagseguro.uol.com.br";
 
-// Data Fortress service
-$PagSeguroResources['dataFortress'] = array();
-$PagSeguroResources['dataFortress']['url'] = "https://df.uol.com.br";
-
 // Payment service
 $PagSeguroResources['paymentService'] = array();
 $PagSeguroResources['paymentService']['servicePath'] = "/v2/checkout";
@@ -43,17 +44,19 @@ $PagSeguroResources['paymentService']['baseUrl']['production'] = "https://pagseg
 $PagSeguroResources['paymentService']['baseUrl']['sandbox'] = "https://sandbox.pagseguro.uol.com.br";
 $PagSeguroResources['paymentService']['serviceTimeout'] = 20;
 
-// Payment Direct service
-$PagSeguroResources['paymentDirect'] = array();
-$PagSeguroResources['paymentDirect']['servicePath'] = "/v2/transactions";
-$PagSeguroResources['paymentDirect']['checkoutUrl'] = "/v2/transactions";
-$PagSeguroResources['paymentDirect']['sessionUrl'] = "/v2/sessions";
-$PagSeguroResources['paymentDirect']['ccBrandUrl'] = "/df-fe/mvc/creditcard/v1/getBin";
-$PagSeguroResources['paymentDirect']['ccTokenUrl'] = "/v2/cards";
-$PagSeguroResources['paymentDirect']['installmentsUrl'] = "/checkout/v2/installments.json";
-$PagSeguroResources['paymentDirect']['baseUrl']['production'] = "https://pagseguro.uol.com.br";
-$PagSeguroResources['paymentDirect']['baseUrl']['sandbox'] = "https://sandbox.pagseguro.uol.com.br";
-$PagSeguroResources['paymentDirect']['serviceTimeout'] = 20;
+// Session service
+$PagSeguroResources['sessionService'] = array();
+$PagSeguroResources['sessionService']['url'] = "/v2/sessions";
+
+//Installment service
+$PagSeguroResources['installmentService'] = array();
+$PagSeguroResources['installmentService']['url'] = "/checkout/v2/installments.json";
+
+// Direct payment service
+$PagSeguroResources['directPaymentService'] = array();
+$PagSeguroResources['directPaymentService']['servicePath'] = "/v2/transactions";
+$PagSeguroResources['directPaymentService']['checkoutUrl'] = "/v2/transactions";
+$PagSeguroResources['directPaymentService']['serviceTimeout'] = 20;
 
 // Notification service
 $PagSeguroResources['notificationService'] = array();

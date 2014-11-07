@@ -48,31 +48,6 @@ class PagSeguroCreditCard
     private $expirationYear;
 
     /***
-     * Card brand
-     */
-    private $brand;
-
-    /***
-     * Card Token
-     */
-    private $token;
-
-    /***
-     * PagSeguroCreditCardHolder
-     */
-    private $holder;
-
-    /***
-     * PagSeguroInstallment
-     */
-    private $installment;
-
-    /***
-     * PagSeguroBilling
-     */
-    private $billing;
-
-    /***
      * Initializes a new instance of the PagSeguroCreditCard class
      * @param array $data
      */
@@ -91,18 +66,6 @@ class PagSeguroCreditCard
             }
             if (isset($data['expirationYear'])) {
                 $this->expirationYear = $data['expirationYear'];
-            }
-            if (isset($data['token'])) {
-                $this->token = $data['token'];
-            }
-            if (isset($data['holder'])) {
-                $this->holder = $data['holder'];
-            }
-            if (isset($data['installment'])) {
-                $this->installment = $data['installment'];
-            }
-            if (isset($data['billing'])) {
-                $this->billing = $data['billing'];
             }
         }
         
@@ -174,93 +137,5 @@ class PagSeguroCreditCard
     public function getExpirationYear()
     {
         return $this->expirationYear;
-    }
-
-    /***
-     * Sets the card brand
-     * @param String $brand
-     */
-    public function setBrand($brand)
-    {
-        $this->brand = $brand;
-    }
-
-    /***
-     * @return Int the card number
-     */
-    public function getBrand()
-    {
-        return $this->brand;
-    }
-
-    /***
-     * Sets the card token
-     * @param Int $token
-     */
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-
-    /***
-     * @return Int the card token
-     */
-    public function getToken()
-    {
-        return $this->token;
-    }
-
-    /***
-     * Sets the PagSeguroCreditCardHolder
-     * @param intanceof PagSeguroCreditCardHolder $holder
-     */
-    public function setHolder($holder)
-    {
-        $this->holder = $holder;
-    }
-
-    /***
-     * @return object PagSeguroCreditCardHolder
-     * @see PagSeguroCreditCardHolder
-     */
-    public function getHolder()
-    {
-        return $this->holder;
-    }
-
-    /***
-     * Sets the PagSeguroInstallment
-     * @param intanceof PagSeguroInstallment $installment
-     */
-    public function setInstallment($installment)
-    {
-        $this->installment = $installment;
-    }
-
-    /***
-     * @return object PagSeguroInstallment
-     * @see PagSeguroInstallment
-     */
-    public function getInstallment()
-    {
-        return $this->installment;
-    }
-
-    /***
-     * Sets the PagSeguroBilling
-     * @param intanceof PagSeguroBilling $billing
-     */
-    public function setBilling($billing)
-    {
-        $this->billing = $billing;
-    }
-
-    /***
-     * @return object PagSeguroBilling
-     * @see PagSeguroBilling
-     */
-    public function getBilling()
-    {
-        return $this->billing;
     }
 }

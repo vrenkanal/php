@@ -22,46 +22,44 @@
  */
 
 /***
- * Billing information
+ * CreditCard Checkout information
  */
-class PagSeguroBilling
+class PagSeguroOnlineDebitCheckout
 {
     /***
-     * Billing address
-     * @see PagSeguroAddress
+     * @var bankName
      */
-    private $address;
+    private $bankName;
 
     /***
-     * Initializes a new instance of the PagSeguroBilling class
-     * @param $data
+     * Initializes a new instance of the PagSeguroOnlineDebitCheckout class
+     * @param array $data
      */
-    public function __construct($data = null)
+    public function __construct(array $data = null)
     {
-        if (isset($data) and is_array($data)){
-            $this->setAddress(new PagSeguroAddress($data));
-        } elseif ($data instanceof PagSeguroAddress) {
-            $this->setAddress($data);
+
+        if ($data) {
+            if (isset($data['bankName'])) {
+                $this->setBankName($data['bankName']);
+            }
         }
+        
     }
 
     /***
-     * Sets the billing address
-     * @see PagSeguroAddress
-     * @param PagSeguroAddress $address
+     * Sets the bank name
+     * @param String $bankName
      */
-    public function setAddress(PagSeguroAddress $address)
+    public function setBankName($bankName)
     {
-        $this->address = $address;
+        $this->bankName = $bankName;
     }
 
     /***
-     * @return PagSeguroAddress the billing Address
-     * @see PagSeguroAddress
+     * @return string bank name
      */
-    public function getAddress()
+    public function getBankName()
     {
-        return $this->address;
+        return $this->bankName;
     }
-
 }

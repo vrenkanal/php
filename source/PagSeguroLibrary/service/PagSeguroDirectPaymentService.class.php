@@ -28,22 +28,6 @@ class PagSeguroDirectPaymentService
 {
 
     /**
-    * @var $session
-    */
-    private static $session;
-    /**
-    * @var $creditCard
-    */
-    private static $creditCard;
-    /**
-    * @var $token
-    */
-    private static $token;
-    /**
-    * @var $installments
-    */
-    private static $installments;
-    /**
     * @var $connectionData
     */
     private static $connectionData;
@@ -51,178 +35,7 @@ class PagSeguroDirectPaymentService
     /***
      *
      */
-    const SERVICE_NAME = 'paymentDirect';
-
-    /***
-     * Get from webservice session id for direct payment.
-     */
-    private static function getSessionId()
-    {
-        $url = self::$connectionData->getWebserviceUrl() . 
-               self::$connectionData->getResource('sessionUrl') . "?" . 
-               self::$connectionData->getCredentialsUrlQuery();
-
-        $connection = new PagSeguroHttpConnection();
-        $connection->post(
-            $url,
-            array(),
-            self::$connectionData->getServiceTimeout(),
-            self::$connectionData->getCharset()
-        );
-
-        try {
-
-            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
-            switch ($httpStatus->getType()) {
-
-                case 'OK':
-                    
-                    $session = json_decode(json_encode(simplexml_load_string($connection->getResponse())), TRUE);
-                    self::$session = $session;
-                    
-                    break;
-
-                case 'BAD_REQUEST':
-                    $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
-                    $e = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::error(
-                        "PagSeguroDirectPaymentService.getSession(" . $e->getOneLineMessage() . ") - error "
-                    );
-                    throw $e;
-                    break;
-
-                default:
-                    $e = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::error(
-                        "PagSeguroDirectPaymentService.getSession(" . $e->getOneLineMessage() . ") - error "
-                    );
-                    throw $e;
-                    break;
-
-            }
-
-        } catch (PagSeguroServiceException $e) {
-            LogPagSeguro::error("Exception: " . $e->getMessage());
-            throw $e;
-        }
-    }
-
-    /***
-     * Get from webservice credit card brand for direct payment.
-     */
-    private static function getBrand()
-    {
-        $url = self::$connectionData->getDataFortressUrl() . 
-               self::$connectionData->getResource('ccBrandUrl') . 
-               "?tk=" . self::$session['id'] . 
-               "&creditCard=" . substr(preg_replace("[^0-9]", "", self::$creditCard->getNumber()), 0, 6);
-
-        $connection = new PagSeguroHttpConnection();
-        $connection->get(
-            $url,
-            self::$connectionData->getServiceTimeout(),
-            self::$connectionData->getCharset()
-        );
-
-        $brand = json_decode($connection->getResponse(), TRUE);
-        self::$creditCard->setBrand($brand['bin']['brand']['name']);
-    }
-
-    /***
-     * Get from webservice the credit card token for direct payment.
-     */
-    private static function createCardToken()
-    {
-        $url = self::$connectionData->getDataFortressUrl() . 
-               self::$connectionData->getResource('ccTokenUrl');
-
-        $data = array(
-            "sessionId" => self::$session['id'],
-            "cardNumber" => self::$creditCard->getNumber(),
-            "cardBrand" => self::$creditCard->getBrand(),
-            "cardCvv" => self::$creditCard->getCvv(),
-            "cardExpirationMonth" => self::$creditCard->getExpirationMonth(),
-            "cardExpirationYear" => self::$creditCard->getExpirationYear()
-            );
-
-        $connection = new PagSeguroHttpConnection();
-        $connection->post(
-            $url,
-            $data,
-            self::$connectionData->getServiceTimeout(),
-            self::$connectionData->getCharset()
-        );
-
-        $creditCardToken = json_decode(json_encode(simplexml_load_string($connection->getResponse())), TRUE);
-        self::$token = $creditCardToken['token'];
-    }
-
-    /***
-     * @return String credit card token
-     */
-    public static function getCardToken()
-    {
-        return self::$token;
-    }
-
-    /***
-     * Get from webservice installments for direct payment.
-     * @param int $amount
-     */
-    private static function getInstallments($amount)
-    {
-        $url = self::$connectionData->getResource('baseUrl')[self::$connectionData->getEnvironment()] . 
-               self::$connectionData->getResource('installmentsUrl') .
-               "?sessionId=" .self::$session['id'] .
-               "&amount=". $amount .
-               "&creditCardBrand=" . self::$creditCard->getBrand();
-
-        $connection = new PagSeguroHttpConnection();
-        $connection->get(
-            $url,
-            self::$connectionData->getServiceTimeout(),
-            self::$connectionData->getCharset()
-        );
-
-        self::$installments = json_decode($connection->getResponse(), TRUE);
-    }
-
-    /***
-     * @return array of installments $installments
-     */
-    public static function getInstallment($installment = null)
-    {
-        $brand = self::$creditCard->getBrand();
-        if ($installment) {
-            return self::$installments['installments'][$brand][$installment - 1];
-        } else {
-            return self::$installments['installments'][$brand];
-        }
-    }
-
-    /***
-     * Consume Webservice's services for direct payment.
-     * @param PagSeguroCredentials $credentials
-     * @param PagSeguroCreditCard $creditCard
-     * @param int $amount
-     */
-    public static function buildCreditCard($credentials, $creditCard, $amount)
-    {
-
-        try {
-            self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
-            self::$creditCard = $creditCard;
-            self::getSessionId();
-            self::getBrand();
-            self::createCardToken();
-            self::getInstallments(
-                PagSeguroHelper::decimalFormat($amount)
-                );
-        } catch (Exception $e) {
-            throw $e; 
-        }
-    }
+    const SERVICE_NAME = 'directPaymentService';
 
     /***
      * @param PagSeguroConnectionData $connectionData
@@ -248,18 +61,17 @@ class PagSeguroDirectPaymentService
     // against the code returned by the service
     /***
      * @param PagSeguroCredentials $credentials
-     * @param PagSeguroPaymentRequest $paymentRequest
+     * @param PagSeguroDirectrequest $request
      * @return bool|string
      * @throws Exception|PagSeguroServiceException
      * @throws Exception
      */
     public static function createCheckoutRequest(
         PagSeguroCredentials $credentials,
-        PagSeguroPaymentRequest $paymentRequest,
-        $onlyCheckoutCode
+        PagSeguroDirectPaymentRequest $request
     ) {
 
-        LogPagSeguro::info("PagSeguroDirectPaymentService.Register(" . $paymentRequest->toString() . ") - begin");
+        LogPagSeguro::info("PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - begin");
 
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
@@ -268,7 +80,7 @@ class PagSeguroDirectPaymentService
             $connection = new PagSeguroHttpConnection();
             $connection->post(
                 self::buildCheckoutRequestUrl($connectionData),
-                PagSeguroPaymentParser::getData($paymentRequest),
+                PagSeguroDirectPaymentParser::getData($request),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
             );
@@ -278,16 +90,11 @@ class PagSeguroDirectPaymentService
             switch ($httpStatus->getType()) {
 
                 case 'OK':
-                    $PaymentParserData = PagSeguroTransactionParser::readTransaction($connection->getResponse());
+                    $paymentReturn = PagSeguroTransactionParser::readTransaction($connection->getResponse());
 
-                    if ($onlyCheckoutCode) {
-                        $paymentReturn = $PaymentParserData->getCode();
-                    } else {
-                        $paymentReturn = $PaymentParserData;
-                    }
                     LogPagSeguro::info(
-                        "PagSeguroDirectPaymentService.Register(" . $paymentRequest->toString() . ") - end {1}" .
-                        $PaymentParserData->getCode()
+                        "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - end {1}" .
+                        $paymentReturn->getCode()
                     );
                     break;
 
@@ -295,7 +102,7 @@ class PagSeguroDirectPaymentService
                     $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
                     $e = new PagSeguroServiceException($httpStatus, $errors);
                     LogPagSeguro::error(
-                        "PagSeguroDirectPaymentService.Register(" . $paymentRequest->toString() . ") - error " .
+                        "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - error " .
                         $e->getOneLineMessage()
                     );
                     throw $e;
@@ -304,7 +111,7 @@ class PagSeguroDirectPaymentService
                 default:
                     $e = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::error(
-                        "PagSeguroDirectPaymentService.Register(" . $paymentRequest->toString() . ") - error " .
+                        "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - error " .
                         $e->getOneLineMessage()
                     );
                     throw $e;

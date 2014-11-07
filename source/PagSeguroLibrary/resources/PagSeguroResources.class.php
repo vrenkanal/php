@@ -98,6 +98,17 @@ class PagSeguroResources
         }
     }
 
+     public static function getBaseUrl($environment)
+    {
+        if (isset(self::$data['baseUrl']) &&
+            isset(self::$data['baseUrl'][$environment])
+        ) {
+            return self::$data['baseUrl'][$environment];
+        } else {
+            throw new Exception("Base URL not set for $environment environment.");
+        }
+    }
+
     public static function getStaticUrl($environment)
     {
         if (isset(self::$data['staticUrl']) &&
@@ -109,14 +120,25 @@ class PagSeguroResources
         }
     }
 
-    public static function getDataFortressUrl()
+    public static function getInstallmentUrl()
     {   
-        if (isset(self::$data['dataFortress']) && 
-            isset(self::$data['dataFortress']['url'])
+        if (isset(self::$data['installmentService']) && 
+            isset(self::$data['installmentService']['url'])
         ) {
-            return self::$data['dataFortress']['url'];
+            return self::$data['installmentService']['url'];
         } else {
-            throw new Exception("Data fortress base URL not found");
+            throw new Exception("Installment base URL not found");
+        }
+    }
+
+    public static function getSessionUrl()
+    {   
+        if (isset(self::$data['sessionService']) && 
+            isset(self::$data['sessionService']['url'])
+        ) {
+            return self::$data['sessionService']['url'];
+        } else {
+            throw new Exception("Session base URL not found");
         }
     }
 }

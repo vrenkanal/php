@@ -22,46 +22,47 @@
  */
 
 /***
- * Billing information
+ * Class PagSeguroSession
+ * Represents a PagSeguro Direct Payment Get Session
+ *
+ *
  */
-class PagSeguroBilling
+class PagSeguroSession
 {
-    /***
-     * Billing address
-     * @see PagSeguroAddress
-     */
-    private $address;
 
     /***
-     * Initializes a new instance of the PagSeguroBilling class
-     * @param $data
+     * Session id
      */
-    public function __construct($data = null)
+    private $id;
+
+    /***
+     * @return session id
+     */
+    public function getId()
     {
-        if (isset($data) and is_array($data)){
-            $this->setAddress(new PagSeguroAddress($data));
-        } elseif ($data instanceof PagSeguroAddress) {
-            $this->setAddress($data);
-        }
+        return $this->id;
     }
 
     /***
-     * Sets the billing address
-     * @see PagSeguroAddress
-     * @param PagSeguroAddress $address
+     * Sets the session id
+     *
+     * @param string id
      */
-    public function setAddress(PagSeguroAddress $address)
+    public function setId($id)
     {
-        $this->address = $address;
+        $this->id = $id;
     }
 
     /***
-     * @return PagSeguroAddress the billing Address
-     * @see PagSeguroAddress
+     * @return String a string that represents the current object
      */
-    public function getAddress()
+    public function toString()
     {
-        return $this->address;
-    }
+        $session = array();
+        $session['id'] = $this->id;
 
+        $session = "Session: " . var_export($session, true);
+
+        return $session;
+    }
 }

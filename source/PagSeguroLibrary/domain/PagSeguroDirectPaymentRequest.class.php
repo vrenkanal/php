@@ -672,18 +672,6 @@ class PagSeguroDirectPaymentRequest
             $this->creditCard = $params;
         } else if (isset($params) && is_array($params)) {
             $this->creditCard = new PagSeguroCreditCardCheckout();
-            if (isset($params['number'])) {
-                $this->creditCard->setNumber($params['number']);
-            }
-            if (isset($params['cvv'])) {
-                $this->creditCard->setCvv($params['cvv']);
-            }
-            if (isset($params['expirationMonth'])) {
-                $this->creditCard->setExpirationMonth($params['expirationMonth']);
-            }
-            if (isset($params['expirationYear'])) {
-                $this->creditCard->setExpirationYear($params['expirationYear']);
-            }
             if (isset($params['token'])) {
                 $this->creditCard->setToken($params['token']);
             }

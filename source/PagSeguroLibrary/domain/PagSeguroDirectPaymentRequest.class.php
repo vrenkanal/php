@@ -557,7 +557,7 @@ class PagSeguroDirectPaymentRequest
         $this->shipping->setCost($param);
     }
 
-    /***
+   /***
      * @return String payment mode for this payment request
      */
     public function getPaymentMode()
@@ -571,11 +571,12 @@ class PagSeguroDirectPaymentRequest
      */
     public function setPaymentMode($mode)
     {
+
         try {
             if ($mode instanceof PagSeguroPaymentMode) {
                 $this->paymentMode = $mode;
             } else {
-                $this->paymentMethod = new PagSeguroPaymentMode($mode);
+                $this->paymentMode = new PagSeguroPaymentMode($mode);
             }
         } catch (Exception $e) {
             die($e->getMessage());

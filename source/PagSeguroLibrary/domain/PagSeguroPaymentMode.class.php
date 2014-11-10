@@ -59,7 +59,7 @@ class PagSeguroPaymentMode {
      * @return string payment mode value
      * Example: default
      */
-    public static function getValue() {
+    public function getValue() {
         return $this->value;
     }
 

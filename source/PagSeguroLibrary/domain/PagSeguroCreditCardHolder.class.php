@@ -56,7 +56,7 @@ class PagSeguroCreditCardHolder
 
         if ($data) {
             if (isset($data['name'])) {
-                $this->name = $data['name'];
+                $this->setName($data['name']);
             }
             if (isset($data['documents']) && is_array($data['documents'])) {
                 $this->setDocuments($data['documents']);
@@ -64,14 +64,13 @@ class PagSeguroCreditCardHolder
                 $this->documents = $data['documents'];
             }
             if (isset($data['birthDate'])) {
-                $this->birthDate = $data['birthDate'];
+                $this->setBirthDate($data['birthDate']);
             }
             if (isset($data['phone']) && $data['phone'] instanceof PagSeguroPhone) {
-                $this->phone = $data['phone'];
+                $this->setPhone($data['phone']);
             } else {
                 if (isset($data['areaCode']) && isset($data['number'])) {
-                    $phone = new PagSeguroPhone($data['areaCode'], $data['number']);
-                    $this->phone = $phone;
+                    $this->setPhone($data['areaCode'], $data['number']);
                 }
             }
         }    
@@ -167,9 +166,7 @@ class PagSeguroCreditCardHolder
         if ($param instanceof PagSeguroPhone) {
             $this->phone = $param;
         } elseif ($number) {
-            $phone = new PagSeguroPhone();
-            $phone->setAreaCode($areaCode);
-            $phone->setNumber($number);
+            $phone = new PagSeguroPhone($areaCode, $number);
             $this->phone = $phone;
         }
     }

@@ -38,7 +38,7 @@ class PagSeguroDirectPaymentParser extends PagSeguroServiceParser
 
         // paymentMode
         if ($payment->getPaymentMode() != null) {
-            $data["paymentMode"] = $payment->getPaymentMode();
+            $data["paymentMode"] = $payment->getPaymentMode()->getValue();
         }
 
         // paymentMethod

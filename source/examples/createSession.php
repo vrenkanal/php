@@ -21,7 +21,7 @@
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
+ * Class with a main method to illustrate the usage of the service PagSeguroSessionService
  */
 class CreateSession
 {
@@ -37,7 +37,7 @@ class CreateSession
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             $session = PagSeguroSessionService::getSession($credentials);

@@ -21,7 +21,7 @@
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
+ * Class with a main method to illustrate the usage of the service PagSeguroInstallmentService
  */
 class GetInstallments
 {

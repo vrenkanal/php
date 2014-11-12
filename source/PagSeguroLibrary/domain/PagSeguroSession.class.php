@@ -24,8 +24,6 @@
 /***
  * Class PagSeguroSession
  * Represents a PagSeguro Direct Payment Get Session
- *
- *
  */
 class PagSeguroSession
 {

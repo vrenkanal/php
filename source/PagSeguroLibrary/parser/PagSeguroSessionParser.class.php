@@ -22,7 +22,7 @@
  */
 
 /***
- * Class PagSeguroTransactionParser
+ * Class PagSeguroSessionnParser
  */
 class PagSeguroSessionParser extends PagSeguroServiceParser
 {

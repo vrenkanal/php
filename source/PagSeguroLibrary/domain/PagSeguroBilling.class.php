@@ -26,8 +26,9 @@
  */
 class PagSeguroBilling
 {
+	
     /***
-     * Billing address
+     * Billing Address
      * @see PagSeguroAddress
      */
     private $address;
@@ -56,12 +57,11 @@ class PagSeguroBilling
     }
 
     /***
-     * @return PagSeguroAddress the billing Address
+     * @return PagSeguroAddress the billing address
      * @see PagSeguroAddress
      */
     public function getAddress()
     {
         return $this->address;
     }
-
 }

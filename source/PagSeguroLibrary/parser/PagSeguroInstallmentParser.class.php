@@ -71,7 +71,7 @@ class PagSeguroInstallmentParser extends PagSeguroServiceParser
 
     /***
      * @param $installments Installments
-     * @return object()
+     * @return object installments
      */
     private static function decode($installments)
     {	

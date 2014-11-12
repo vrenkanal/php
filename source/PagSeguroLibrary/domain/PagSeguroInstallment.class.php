@@ -21,20 +21,21 @@
  *  @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 /***
- * Installments information
+ * Installment information
  */
 class PagSeguroInstallment
 {
     /***
-     * installments quantity
+     * Installment quantity
      */
     private $quantity;
     /***
-     * installments value
+     * Installment value
      */
     private $value;
+
     /***
-     * Initializes a new instance of the PagSeguroInstallments class
+     * Initializes a new instance of the PagSeguroInstallment class
      * @param array $data
      */
     public function __construct(array $data = null)
@@ -48,6 +49,7 @@ class PagSeguroInstallment
             }
         }    
     }
+
     /***
      * Set installment quantity
      * @param $quantity int
@@ -56,6 +58,7 @@ class PagSeguroInstallment
     {
         $this->quantity = $quantity;
     }
+
     /***
      * @return int installment quantity
      */
@@ -63,25 +66,28 @@ class PagSeguroInstallment
     {
         return $this->quantity;
     }
+
     /***
      * Set installment value
-     * @param $value int
+     * @param $value float
      */
     public function setValue($value)
     {
         $this->value = $value;
     }
+
     /***
-     * @return int installment value
+     * @return float installment value
      */
     public function getValue()
     {
         return $this->value;
     }
+
     /***
-     * Set installment value and quantity
+     * Sets the installment value and quantity
      * @param $quantity int
-     * @param $value int
+     * @param $value float
      */
     public function setInstallment($quantity, $value = null)
     {

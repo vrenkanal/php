@@ -22,13 +22,13 @@
  */
 
 /***
- * Class PagSeguroPaymentParser
+ * Class PagSeguroDirectPaymentParser
  */
 class PagSeguroDirectPaymentParser extends PagSeguroServiceParser
 {
 
     /***
-     * @param $payment PagSeguroPaymentRequest
+     * @param $payment PagSeguroDirectPaymentRequest
      * @return mixed
      */
     public static function getData($payment)
@@ -88,7 +88,7 @@ class PagSeguroDirectPaymentParser extends PagSeguroServiceParser
                     }
                 }
             }
-
+            // ip
              if ($payment->getSender()->getIP() != null) {
                 $data['ip'] = $payment->getSender()->getIP();
             }
@@ -174,7 +174,7 @@ class PagSeguroDirectPaymentParser extends PagSeguroServiceParser
             }
         }
 
-        // bank name
+        // Bank name
         if ($payment->getOnlineDebit() != null) {
             $data["bankName"] = $payment->getOnlineDebit()->getBankName();
         }
@@ -309,7 +309,7 @@ class PagSeguroDirectPaymentParser extends PagSeguroServiceParser
 
     /***
      * @param $str_xml
-     * @return PagSeguroPaymentParserData Success
+     * @return PagSeguroDirectPaymentData Success
      */
     public static function readSuccessXml($str_xml)
     {

@@ -27,25 +27,38 @@
 class PagSeguroInstallments
 {
 
-    /** Credit card brand */
+    /** 
+    * Credit card brand 
+    */
     private $cardBrand;
 
-    /** Quantity of installments */
+    /** 
+     * Installment quantity 
+     */
     private $quantity;
 
-    /** Value of each installment */
+    /** 
+     * Installment amount  
+     */
     private $installmentAmount;
 
-    /** Total value of installments */
+    /** 
+     * Installment total amount  
+     */
     private $totalAmount;
 
-    /** Indicates if is an interest free transaction */
+    /** 
+     * Installment interest free 
+     */
     private $interestFree;
-
 
     /***
      * Initializes a new instance of the PagSeguroInstallments class
-     * @param array $data
+     * @param array|string $cardBrand...
+     * @param int    $quantity
+     * @param float  $amount
+     * @param float  $totalAmount
+     * @param float  $interestFree
      */
     public function __construct($cardBrand, 
         $quantity = null, 
@@ -55,42 +68,14 @@ class PagSeguroInstallments
     {   
         $param = $cardBrand;
         if (isset($param) && is_array($param) || is_object($param)) {
-            if (isset($param->cardBrand)) {
-                $this->cardBrand = $param->cardBrand;
-            }
-             if (isset($param->quantity)) {
-                $this->quantity = $param->quantity;
-            }
-            if (isset($param->installmentAmount)) {
-                $this->installmentAmount = $param->installmentAmount;
-            }
-            if (isset($param->totalAmount)) {
-                $this->totalAmount = $param->totalAmount;
-            }
-            if (isset($param->interestFree)) {
-                $this->interestFree = $param->interestFree;
-            }
+           $this->setInstallment($param);
         } else {
-            if (isset($cardBrand)) {
-                $this->cardBrand = $cardBrand;
-            }
-            if (isset($quantity)) {
-                $this->quantity = $quantity;
-            }
-            if (isset($installmentAmount)) {
-                $this->installmentAmount = $installmentAmount;
-            }
-            if (isset($totalAmount)) {
-                $this->totalAmount = $totalAmount;
-            }
-            if (isset($interestFree)) {
-                $this->interestFree = $interestFree;
-            }
-        }  
+           $this->setInstallment($cardBrand, $quantity, $amount, $totalAmount, $interestFree);
+        }    
     }
 
     /***
-     * Set installment card brand
+     * Set brand of credit card
      * @param $cardBrand string
      */
     public function setCardBrand($cardBrand)
@@ -99,7 +84,7 @@ class PagSeguroInstallments
     }
 
     /***
-     * @return string installment cardBrand
+     * @return string the credit card brand
      */
     public function getCardBrand()
     {
@@ -107,7 +92,7 @@ class PagSeguroInstallments
     }
 
     /***
-     * Set installment quantity
+     * Set the installments quantity
      * @param $quantity int
      */
     public function setQuantity($quantity)
@@ -116,7 +101,7 @@ class PagSeguroInstallments
     }
 
     /***
-     * @return int installment quantity
+     * @return int of installments quantity
      */
     public function getQuantity()
     {
@@ -124,8 +109,8 @@ class PagSeguroInstallments
     }
 
     /***
-     * Set installment amount
-     * @param $installmentAmount int
+     * Set the installments amount
+     * @param $installmentAmount float
      */
     public function setInstallmentAmount($installmentAmount)
     {
@@ -133,7 +118,7 @@ class PagSeguroInstallments
     }
 
     /***
-     * @return int installment amount
+     * @return float of installments amount
      */
     public function getInstallmentAmount()
     {
@@ -141,8 +126,8 @@ class PagSeguroInstallments
     }
 
     /***
-     * Set installment total amount
-     * @param $totalAmount int
+     * Set the installments total amount
+     * @param $totalAmount float
      */
     public function setTotalAmount($totalAmount)
     {
@@ -150,7 +135,7 @@ class PagSeguroInstallments
     }
 
     /***
-     * @return int installment total amount
+     * @return float of installments total amount
      */
     public function getTotalAmount()
     {
@@ -158,8 +143,8 @@ class PagSeguroInstallments
     }
 
     /***
-     * Set installment interest free
-     * @param $interestFree string
+     * Set the installments interest free
+     * @param $interestFree float
      */
     public function setInterestFree($interestFree)
     {
@@ -167,7 +152,7 @@ class PagSeguroInstallments
     }
 
     /***
-     * @return string installment interest free
+     * @return float of installments interest free
      */
     public function getInterestFree()
     {
@@ -175,9 +160,12 @@ class PagSeguroInstallments
     }
 
     /***
-     * Set installment value and quantity
-     * @param $quantity int
-     * @param $value int
+     * Set the installments
+     * @param array|string $cardBrand...
+     * @param int    $quantity
+     * @param float  $amount
+     * @param float  $totalAmount
+     * @param float  $interestFree
      */
     public function setInstallment($cardBrand, 
         $quantity = null, 

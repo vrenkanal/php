@@ -22,13 +22,15 @@
  */
 
 /***
- * Encapsulates web service calls regarding PagSeguro payment requests
+ * Encapsulates web service calls regarding PagSeguro installment requests
  */
 class PagSeguroInstallmentService
 {
 
     /***
-     * @return array of installments $installments
+     * Build URL for get installments.
+     * @param PagSeguroConnectionData $connectionData
+     * @return string of url for connection with webservice.
      */
     private static function buildInstallmentURL($connectionData)
     {
@@ -38,9 +40,12 @@ class PagSeguroInstallmentService
     /***
      * Get from webservice installments for direct payment.
      * @param PagSeguroAccountCredentials $credentials
-     * @param string $session ID
-     * @param int $amount
+     * @param mixed $session ID
+     * @param float $amount
      * @param string $cardBrand
+     * @return bool|string
+     * @throws Exception|PagSeguroServiceException
+     * @throws Exception
      */
     public static function getInstallments(
         $credentials, 
@@ -124,5 +129,4 @@ class PagSeguroInstallmentService
             throw $e;
         }
     }
-
 }

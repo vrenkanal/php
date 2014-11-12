@@ -26,6 +26,7 @@
  */
 class PagSeguroOnlineDebitCheckout
 {
+	
     /***
      * @var bankName
      */

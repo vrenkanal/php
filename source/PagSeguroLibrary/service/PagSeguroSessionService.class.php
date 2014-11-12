@@ -22,13 +22,15 @@
  */
 
 /***
- * Encapsulates web service calls regarding PagSeguro Session requests
+ * Encapsulates web service calls regarding PagSeguro session requests
  */
 class PagSeguroSessionService
 {
 
     /***
-     * @return Session URL
+     * Build URL for get session.
+     * @param PagSeguroConnectionData $connectionData 
+     * @return string session URL
      */
     private static function buildSessionURL($connectionData)
     {
@@ -36,7 +38,11 @@ class PagSeguroSessionService
     }
 
     /***
-     * Get from webservice session for Direct payment.
+     * Get session for direct payment from webservice 
+     * @param $credentials PagSeguroAccountCredentials 
+     * @return bool|string
+     * @throws Exception|PagSeguroServiceException
+     * @throws Exception
      */
     public static function getSession(PagSeguroAccountCredentials $credentials)
     {
@@ -92,8 +98,7 @@ class PagSeguroSessionService
             }
         } catch (PagSeguroServiceException $e) {
             throw $e;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             LogPagSeguro::error("Exception: " . $e->getMessage());
             throw $e;
         }

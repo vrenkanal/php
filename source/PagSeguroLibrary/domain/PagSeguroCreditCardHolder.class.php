@@ -28,22 +28,22 @@ class PagSeguroCreditCardHolder
 {
 
     /***
-     * holder name
+     * Credit card holder name
      */
     private $name;
 
     /***
-     * holder cpf
+     * Credit card holder cpf
      */
     private $documents;
 
     /***
-     * holder birth date
+     * Credit card holder birth date
      */
     private $birthDate;
 
     /***
-     * holder phone
+     * Credit card holder phone
      */
     private $phone;
 
@@ -77,7 +77,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * Set card holder name
+     * Set the credit card holder name
      * @param $name string
      */
     public function setName($name)
@@ -86,7 +86,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * @return string the card holder name
+     * @return string the credit card holder name
      */
     public function getName()
     {
@@ -110,7 +110,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * Add a document for Sender object
+     * Add a document for Holder object
      * @param String $type
      * @param String $value
      */
@@ -129,7 +129,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * Get Sender documents
+     * Get Holder documents
      * @return array PagSeguroDocument List of PagSeguroDocument
      * @see PagSeguroDocument
      */
@@ -139,7 +139,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * Set card holder birth date
+     * Set the credit card holder birth date
      * @param $birthDate date
      */
     public function setBirthDate($birthDate)
@@ -148,7 +148,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * @return date the card holder birth date
+     * @return date the credit card holder birth date
      */
     public function getBirthDate()
     {
@@ -156,7 +156,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * Sets the sender phone
+     * Sets the holder phone
      * @param String $areaCode
      * @param String $number
      */
@@ -172,7 +172,7 @@ class PagSeguroCreditCardHolder
     }
 
     /***
-     * @return PagSeguroPhone the sender phone
+     * @return PagSeguroPhone the holder phone
      * @see PagSeguroPhone
      */
     public function getPhone()

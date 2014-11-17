@@ -58,8 +58,7 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 Changelog
 ---------
 2.3.0
- - Adicionado classes e métodos para utilização do [Checkout Transparente].
- - As consultas por código de notificação e por código da transação passam a utilizar a nova versão das APIs.
+ - Adicionado classes e métodos para utilização do [Checkout Transparente]
 
 2.2.4
  - Adicionado método setEnvironment na classe PagSeguroConfig
@@ -155,9 +154,9 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
 
   [requisições de pagamentos]: https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-pagamentos.html
-  [notificações]: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
+  [notificações]: https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-notificacoes.html
   [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent
-  [transações por código]: https://pagseguro.uol.com.br/v3/guia-de-integracao/consulta-de-transacoes-por-codigo.html
+  [transações por código]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-codigo.html
   [transações por intervalo de datas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-intervalo-de-datas.html
   [transações abandonadas]: https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-abandonadas.html
   [fórum]: http://forum.pagseguro.uol.com.br/

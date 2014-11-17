@@ -22,7 +22,7 @@
  */
 
 /***
- * Represents a payment request
+ * Represents a direct payment request
  */
 class PagSeguroDirectPaymentRequest
 {
@@ -34,7 +34,7 @@ class PagSeguroDirectPaymentRequest
     private $sender;
 
     /***
-     * @var receiverEmail
+     * Receiver e-mail
      */
     private $receiverEmail;
 
@@ -93,12 +93,12 @@ class PagSeguroDirectPaymentRequest
     private $paymentMethod;
 
     /***
-     * Credit Card Holder information associated with this payment request
+     * Credit Card information associated with this payment request
      */
     private $creditCard;
 
     /***
-     * Bank name information associated with this payment request
+     * Bank name information associated with this payment request for online debit
      */
     private $onlineDebit;
 
@@ -163,12 +163,13 @@ class PagSeguroDirectPaymentRequest
 
     /***
      * Sets the Sender, party that will be sending the money
-     * @param String $name
-     * @param String $email
-     * @param String $areaCode
-     * @param String $number
-     * @param String $documentType
-     * @param String $documentValue
+     * @param string $name
+     * @param string $email
+     * @param int $areaCode
+     * @param int $number
+     * @param PagSeguroDocument $documentType
+     * @param PagSeguroDocument $documentValue
+     * @param mixed $ip
      */
     public function setSender(
         $name,
@@ -178,7 +179,6 @@ class PagSeguroDirectPaymentRequest
         $documentType = null,
         $documentValue = null,
         $ip = false
-        
     ) {
         $param = $name;
         if (is_array($param)) {
@@ -242,7 +242,7 @@ class PagSeguroDirectPaymentRequest
     }
 
     /***
-     * @return String the receiverEmail
+     * @return string the receiverEmail
      */
     public function getReceiverEmail()
     {
@@ -250,8 +250,8 @@ class PagSeguroDirectPaymentRequest
     }
 
     /***
-     * Sets the receiverEmail
-     * @param String $receiverEmail
+     * Sets the receiver email
+     * @param string $receiverEmail
      */
     public function setReceiverEmail($receiverEmail)
     {
@@ -306,6 +306,8 @@ class PagSeguroDirectPaymentRequest
     }
 
     /***
+     * @param array|object $items
+     * @param array|object|bool $shipping
      * @return float sun of total items amount
      */
     public function getItemsTotalAmount($items, $shipping = false)
@@ -567,7 +569,7 @@ class PagSeguroDirectPaymentRequest
 
     /***
      * Sets payment mode for this payment request
-     * @param mode
+     * @param string|object $mode
      */
     public function setPaymentMode($mode)
     {
@@ -593,7 +595,7 @@ class PagSeguroDirectPaymentRequest
 
     /***
      * Sets payment method for this payment request
-     * @param PagSeguroPaymentMethod method
+     * @param string|object $method
      */
     public function setPaymentMethod($method)
     {
@@ -663,7 +665,7 @@ class PagSeguroDirectPaymentRequest
 
      /***
      * Sets the info for credit card for this payment request
-     * @param Array $params
+     * @param array|object $params...
      */
     public function setCreditCard($params = null) 
     {
@@ -672,18 +674,6 @@ class PagSeguroDirectPaymentRequest
             $this->creditCard = $params;
         } else if (isset($params) && is_array($params)) {
             $this->creditCard = new PagSeguroCreditCardCheckout();
-            if (isset($params['number'])) {
-                $this->creditCard->setNumber($params['number']);
-            }
-            if (isset($params['cvv'])) {
-                $this->creditCard->setCvv($params['cvv']);
-            }
-            if (isset($params['expirationMonth'])) {
-                $this->creditCard->setExpirationMonth($params['expirationMonth']);
-            }
-            if (isset($params['expirationYear'])) {
-                $this->creditCard->setExpirationYear($params['expirationYear']);
-            }
             if (isset($params['token'])) {
                 $this->creditCard->setToken($params['token']);
             }
@@ -709,7 +699,7 @@ class PagSeguroDirectPaymentRequest
     }
 
     /***
-     * @return string the bank name of this payment request
+     * @return string the bank name of this payment request for online debit
      */
     public function getOnlineDebit()
     {
@@ -717,8 +707,8 @@ class PagSeguroDirectPaymentRequest
     }
 
     /***
-     * Sets the bank name of this payment request
-     * @param bankName
+     * Sets the bank name of this payment request for online debit
+     * @param string|object $bankName
      */
     public function setOnlineDebit($bankName)
     {
@@ -934,7 +924,6 @@ class PagSeguroDirectPaymentRequest
                 $urlReturn = $url;
             }
         }
-
         return $urlReturn;
     }
 }

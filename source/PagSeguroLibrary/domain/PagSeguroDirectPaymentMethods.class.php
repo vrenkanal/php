@@ -22,7 +22,7 @@
  */
 
 /***
- * Payment method
+ * Direct payment method information
  *
  */
 class PagSeguroDirectPaymentMethods
@@ -42,12 +42,9 @@ class PagSeguroDirectPaymentMethods
      */
     private $paymentMethod;
 
-
     /***
      * Initializes a new instance of the PaymentMethods class
-     *
      * @param  $paymentMethod
-
      */
     public function __construct($paymentMethod = null)
     {

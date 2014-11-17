@@ -26,33 +26,37 @@
  */
 class PagSeguroCreditCardCheckout
 {
+	
     /***
-     * Card brand
+     * Credit Card Brand
      */
     private $brand;
 
     /***
-     * Card Token
+     * Credit Card Token
      */
     private $token;
 
     /***
-     * PagSeguroCreditCardHolder
+     * Credit Card Holder
+     * @see PagSeguroCreditCardHolder
      */
     private $holder;
 
     /***
-     * PagSeguroInstallment
+     * Credit Card Installment
+     * @see PagSeguroInstallment
      */
     private $installment;
 
     /***
-     * PagSeguroBilling
+     * Credit Card Billing Adress
+     * @see PagSeguroBilling
      */
     private $billing;
 
     /***
-     * Initializes a new instance of the PagSeguroCreditCard class
+     * Initializes a new instance of the PagSeguroCreditCardCheckout class
      * @param array $data
      */
     public function __construct(array $data = null)
@@ -76,8 +80,8 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * Sets the card brand
-     * @param String $brand
+     * Sets the credit card brand
+     * @param string $brand
      */
     public function setBrand($brand)
     {
@@ -85,7 +89,7 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * @return Int the card number
+     * @return string the credit card brand
      */
     public function getBrand()
     {
@@ -93,8 +97,8 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * Sets the card token
-     * @param Int $token
+     * Sets the credit card token
+     * @param mixed $token
      */
     public function setToken($token)
     {
@@ -102,7 +106,7 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * @return Int the card token
+     * @return mixed the credit card token
      */
     public function getToken()
     {
@@ -119,7 +123,7 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * @return object PagSeguroCreditCardHolder
+     * @return PagSeguroCreditCardHolder object 
      * @see PagSeguroCreditCardHolder
      */
     public function getHolder()
@@ -137,7 +141,7 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * @return object PagSeguroInstallment
+     * @return PagSeguroInstallment object
      * @see PagSeguroInstallment
      */
     public function getInstallment()
@@ -155,7 +159,7 @@ class PagSeguroCreditCardCheckout
     }
 
     /***
-     * @return object PagSeguroBilling
+     * @return PagSeguroBilling object
      * @see PagSeguroBilling
      */
     public function getBilling()

@@ -22,7 +22,7 @@
  */
 
 /***
- * CreditCard Holder information
+ * CreditCard information
  */
 class PagSeguroCreditCard
 {
@@ -67,13 +67,12 @@ class PagSeguroCreditCard
             if (isset($data['expirationYear'])) {
                 $this->expirationYear = $data['expirationYear'];
             }
-        }
-        
+        }    
     }
 
     /***
      * Sets the card number
-     * @param Int $number
+     * @param int $number
      */
     public function setNumber($number)
     {
@@ -81,7 +80,7 @@ class PagSeguroCreditCard
     }
 
     /***
-     * @return Int the card number
+     * @return int the card number
      */
     public function getNumber()
     {
@@ -90,7 +89,7 @@ class PagSeguroCreditCard
 
     /***
      * Sets the card cvv
-     * @param Int $cvv
+     * @param int $cvv
      */
     public function setCvv($cvv)
     {
@@ -98,7 +97,7 @@ class PagSeguroCreditCard
     }
 
     /***
-     * @return Int the card cvv
+     * @return int the card cvv
      */
     public function getCvv()
     {
@@ -107,7 +106,7 @@ class PagSeguroCreditCard
 
     /***
      * Sets the card expirationMonth
-     * @param Int $expirationMonth
+     * @param int $expirationMonth
      */
     public function setExpirationMonth($expirationMonth)
     {
@@ -115,7 +114,7 @@ class PagSeguroCreditCard
     }
 
     /***
-     * @return Int the card expirationMonth
+     * @return int expirationMonth from credit card
      */
     public function getExpirationMonth()
     {
@@ -124,7 +123,7 @@ class PagSeguroCreditCard
 
     /***
      * Sets the card expirationYear
-     * @param Int $expirationYear
+     * @param int $expirationYear
      */
     public function setExpirationYear($expirationYear)
     {
@@ -132,7 +131,7 @@ class PagSeguroCreditCard
     }
 
     /***
-     * @return Int the card expirationYear
+     * @return int expirationYear from credit card
      */
     public function getExpirationYear()
     {

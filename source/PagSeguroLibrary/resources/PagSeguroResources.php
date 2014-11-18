@@ -65,5 +65,5 @@ $PagSeguroResources['notificationService']['serviceTimeout'] = 20;
 
 // Transaction search service
 $PagSeguroResources['transactionSearchService'] = array();
-$PagSeguroResources['transactionSearchService']['servicePath'] = "/v2/transactions";
+$PagSeguroResources['transactionSearchService']['servicePath'] = "/v3/transactions";
 $PagSeguroResources['transactionSearchService']['serviceTimeout'] = 20;

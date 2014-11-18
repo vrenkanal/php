@@ -188,7 +188,7 @@ class PagSeguroTransactionParser extends PagSeguroServiceParser
 
         // <transaction> <creditorFees>
         if (isset($data["creditorFees"])) {
-            $transaction->setCreditorFees($data["creditorFees"]);
+            $transaction->setCreditorFees(new PagSeguroTransactionCreditorFees($data["creditorFees"]));
         }
 
         //<transaction><operationalFeeAmount>

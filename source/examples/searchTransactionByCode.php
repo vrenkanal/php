@@ -56,14 +56,14 @@ class SearchTransactionByCode
         echo "<h3>Status: " . $transaction->getStatus()->getTypeFromValue() . '</h3>';
         echo "<h4>Reference: " . $transaction->getReference() . "</h4>";
 
-        if ($transaction->getSender()) {
-            echo "<h4>Sender data:</h4>";
-            echo "Name: " . $transaction->getSender()->getName() . '<br>';
-            echo "Email: " . $transaction->getSender()->getEmail() . '<br>';
-            if ($transaction->getSender()->getPhone()) {
-                echo "Phone: " . $transaction->getSender()->getPhone()->getAreaCode() . " - " .
-                    $transaction->getSender()->getPhone()->getNumber();
-            }
+        echo "grossAmount: " . $transaction->getGrossAmount() . '<br>';
+        echo "discountAmount: " . $transaction->getDiscountAmount() . '<br>';
+        echo "installmentCount: " . $transaction->getInstallmentCount() . '<br>';
+        
+        if ($transaction->getCreditorFees()) {
+            echo "<h4>CreditorFees:</h4>";
+            echo "intermediationRateAmount: " . $transaction->getCreditorFees()->getIntermediationRateAmount() . '<br>';
+            echo "intermediationFeeAmount: " . $transaction->getCreditorFees()->getIntermediationFeeAmount() . '<br>';
         }
 
         if ($transaction->getItems()) {
@@ -77,6 +77,16 @@ class SearchTransactionByCode
                     echo "Amount: " . $item->getAmount() . '<br>'; // prints the item unit value, e.g. 3050.68
                     echo "<hr>";
                 }
+            }
+        }
+
+        if ($transaction->getSender()) {
+            echo "<h4>Sender data:</h4>";
+            echo "Name: " . $transaction->getSender()->getName() . '<br>';
+            echo "Email: " . $transaction->getSender()->getEmail() . '<br>';
+            if ($transaction->getSender()->getPhone()) {
+                echo "Phone: " . $transaction->getSender()->getPhone()->getAreaCode() . " - " .
+                    $transaction->getSender()->getPhone()->getNumber();
             }
         }
 

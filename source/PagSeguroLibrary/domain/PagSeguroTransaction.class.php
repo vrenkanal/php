@@ -143,16 +143,6 @@ class PagSeguroTransaction
     private $installmentFeeAmount;
 
     /***
-     * intermediation Rate Amount
-     */
-    private $intermediationRateAmount;
-
-     /***
-     * intermediation Fee Amount
-     */
-    private $intermediationFeeAmount;
-
-    /***
      * Item count 
      */
     private $itemCount;
@@ -528,40 +518,6 @@ class PagSeguroTransaction
     public function getInstallmentFeeAmount()
     {
         return $this->installmentFeeAmount;
-    }
-
-    /***
-     * Sets the transaction intermediation Rate Amount
-     * @param float $intermediationRateAmount
-     */
-    public function setIntermediationRateAmount($intermediationRateAmount)
-    {
-        $this->intermediationRateAmount = $intermediationRateAmount;
-    }
-
-    /***
-     * @return float the transaction intermediation Rate Amount
-     */
-    public function getIntermediationRateAmount()
-    {
-        return $this->intermediationRateAmount;
-    }
-
-    /***
-     * Sets the transaction intermediation Fee Amount
-     * @param float $intermediationFeeAmount
-     */
-    public function setIntermediationFeeAmount($intermediationFeeAmount)
-    {
-        $this->intermediationFeeAmount = $intermediationFeeAmount;
-    }
-
-    /***
-     * @return float the transaction intermediation Fee Amount
-     */
-    public function getIntermediationFeeAmount()
-    {
-        return $this->intermediationFeeAmount;
     }
 
     /***

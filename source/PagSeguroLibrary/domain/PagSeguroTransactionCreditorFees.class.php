@@ -39,8 +39,8 @@ class PagSeguroTransactionCreditorFees
     public function __construct(array $value = null)
     {
         if ($value) {
-            $this->setIntermediationRateAmount($value[intermediationRateAmount]);
-            $this->setIntermediationFeeAmount($value[intermediationFeeAmount]);
+            $this->setIntermediationRateAmount($value['intermediationRateAmount']);
+            $this->setIntermediationFeeAmount($value['intermediationFeeAmount']);
         }
     }
 

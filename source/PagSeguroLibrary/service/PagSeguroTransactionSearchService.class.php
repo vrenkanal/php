@@ -31,13 +31,13 @@ class PagSeguroTransactionSearchService
 
     private static function buildSearchUrlByCode(PagSeguroConnectionData $connectionData, $transactionCode)
     {
-        $url = $connectionData->getServiceUrl();
+        $url = $connectionData->getServiceUrl('v3');
         return "{$url}/{$transactionCode}/?" . $connectionData->getCredentialsUrlQuery();
     }
 
     private static function buildSearchUrlByDate(PagSeguroConnectionData $connectionData, array $searchParams)
     {
-        $url = $connectionData->getServiceUrl();
+        $url = $connectionData->getServiceUrl('v2');
         $initialDate = $searchParams['initialDate'] != null ? $searchParams['initialDate'] : "";
         $finalDate = $searchParams['finalDate'] != null ? ("&finalDate=" . $searchParams['finalDate']) : "";
         if ($searchParams['pageNumber'] != null) {
@@ -52,7 +52,8 @@ class PagSeguroTransactionSearchService
 
     private static function buildSearchUrlAbandoned(PagSeguroConnectionData $connectionData, array $searchParams)
     {
-        $url = $connectionData->getServiceUrl();
+        $url = $connectionData->getServiceUrl('v2');
+
         $initialDate = $searchParams['initialDate'] != null ? $searchParams['initialDate'] : "";
         $finalDate = $searchParams['finalDate'] != null ? ("&finalDate=" . $searchParams['finalDate']) : "";
         if ($searchParams['pageNumber'] != null) {

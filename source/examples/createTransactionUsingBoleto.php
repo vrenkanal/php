@@ -68,7 +68,7 @@ class CreateTransactionUsingCreditCard
         // If you using SANDBOX you must use an email @sandbox.pagseguro.com.br
         $directPaymentRequest->setSender(
             'João Comprador',
-            'comprador@sandbox.pagseguro.com.br',
+            'comprador@email.com.br',
             '11',
             '56273440',
             'CPF',

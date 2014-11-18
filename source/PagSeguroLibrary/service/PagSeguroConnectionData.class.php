@@ -228,11 +228,16 @@ class PagSeguroConnectionData
     }
 
     /***
+     * @param mixed $version
      * @return mixed
      */
-    public function getServicePath()
+    public function getServicePath($version = null)
     {
-        return $this->servicePath;
+        if ($version) {
+            return $this->servicePath[$version];
+        } else {
+            return $this->servicePath;
+        }
     }
 
     /***
@@ -260,11 +265,16 @@ class PagSeguroConnectionData
     }
 
     /***
+     * @param mixed $version
      * @return string
      */
-    public function getServiceUrl()
+    public function getServiceUrl($version = null)
     {
-        return $this->getWebserviceUrl() . $this->getServicePath();
+        if ($version) {
+            return $this->getWebserviceUrl() . $this->getServicePath($version);
+        } else {
+            return $this->getWebserviceUrl() . $this->getServicePath();
+        }
     }
 
     /***

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
-    <head>
-    <!--Para integração em ambiente de testes no Sandbox use este link-->
-        <!--<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
-    <!--Para integração em ambiente de produção use este link-->
-        <!--<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+	<head>
+	<!--Para integração em ambiente de testes no Sandbox use este link-->
+		<!--<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+	<!--Para integração em ambiente de produção use este link-->
+		<!--<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
 
-    </head>
+	</head>
 </html>
 <?php
 
@@ -120,9 +120,9 @@ class CreatePaymentRequestLightbox
             echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento</h2>";
             echo "<p>Code: <strong>$code</strong></p>";
             echo "<script>
-            PagSeguroLightbox('".$code."');
+			PagSeguroLightbox('".$code."');			
                   </script>";
-
+	
         }
     }
 }

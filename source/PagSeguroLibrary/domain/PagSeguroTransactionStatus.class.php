@@ -41,8 +41,8 @@ class PagSeguroTransactionStatus
         'IN_DISPUTE' => 5,
         'REFUNDED' => 6,
         'CANCELLED' => 7,
-        'CHARGEBACK_DEBITED' => 8,
-        'IN_DEFENSE' => 9
+        'SELLER_CHARGEBACK' => 8,
+        'CONTESTATION' => 9
     );
 
     /***

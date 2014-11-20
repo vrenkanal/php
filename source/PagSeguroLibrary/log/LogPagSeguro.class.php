@@ -51,8 +51,8 @@ class LogPagSeguro
         if (self::$active) {
             $fileLocation = PagSeguroConfig::getLogFileLocation();
 
-            if (file_exists($fileLocation) && is_file($fileLocation)) {
-                self::$fileLocation = $fileLocation;
+            if (!empty($logFile)) {
+                self::createFile($logFile);
             } else {
                 self::createFile();
             }
@@ -64,14 +64,16 @@ class LogPagSeguro
      * @throws Exception
      * @return boolean
      */
-    public static function createFile()
+    public static function createFile($logFile = false)
     {
         if (!self::$active) {
             return false;
         }
         $defaultPath = PagSeguroLibrary::getPath();
         $defaultName = 'PagSeguro.log';
-        self::$fileLocation = $defaultPath . DIRECTORY_SEPARATOR . $defaultName;
+        self::$fileLocation = $logFile
+            ? $logFile
+            : $defaultPath . DIRECTORY_SEPARATOR . $defaultName;
 
         try {
             $f = fopen(self::$fileLocation, "a");

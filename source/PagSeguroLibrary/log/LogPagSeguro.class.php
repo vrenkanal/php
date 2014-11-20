@@ -49,7 +49,7 @@ class LogPagSeguro
 
         self::$active = PagSeguroConfig::logIsActive();
         if (self::$active) {
-            $fileLocation = PagSeguroConfig::getLogFileLocation();
+            $logFile = PagSeguroConfig::getLogFileLocation();
 
             if (!empty($logFile)) {
                 self::createFile($logFile);
@@ -77,11 +77,11 @@ class LogPagSeguro
 
         try {
             $f = fopen(self::$fileLocation, "a");
-            
+
             if (!$f) {
                 throw new Exception('Unable to open the input file');
             }
-            
+
             fclose($f);
             return true;
         } catch (Exception $e) {
@@ -144,11 +144,11 @@ class LogPagSeguro
         try {
 
             $file = fopen(self::$fileLocation, "a");
-            
+
             if (!$file) {
                 throw new Exception('Unable to open the input file');
             }
-            
+
             $date_message = "{" . @date("Y/m/d H:i:s", time()) . "}";
 
             switch ($type) {

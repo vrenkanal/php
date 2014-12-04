@@ -61,6 +61,7 @@ $PagSeguroResources['directPaymentService']['serviceTimeout'] = 20;
 // Notification service
 $PagSeguroResources['notificationService'] = array();
 $PagSeguroResources['notificationService']['servicePath'] = "/v3/transactions/notifications";
+$PagSeguroResources['notificationService']['applicationPath'] = "v2/authorizations/notifications";
 $PagSeguroResources['notificationService']['serviceTimeout'] = 20;
 
 // Transaction search service
@@ -68,3 +69,10 @@ $PagSeguroResources['transactionSearchService'] = array();
 $PagSeguroResources['transactionSearchService']['servicePath']['v2'] = "/v2/transactions";
 $PagSeguroResources['transactionSearchService']['servicePath']['v3'] = "/v3/transactions";
 $PagSeguroResources['transactionSearchService']['serviceTimeout'] = 20;
+
+// Authorizations service
+$PagSeguroResources['authorizationService'] = array();
+$PagSeguroResources['authorizationService']['servicePath'] = "/v2/authorizations";
+$PagSeguroResources['authorizationService']['approvalUrl'] = "/v2/authorization/request.jhtml";
+$PagSeguroResources['authorizationService']['requestUrl'] = "/request";
+$PagSeguroResources['authorizationService']['serviceTimeout'] = 20;

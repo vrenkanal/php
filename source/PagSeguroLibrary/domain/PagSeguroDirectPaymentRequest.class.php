@@ -151,7 +151,7 @@ class PagSeguroDirectPaymentRequest
     public function getSender()
     {
         return $this->sender;
-    }   
+    }
 
     /***
      * @return PagSeguroPaymentRequest

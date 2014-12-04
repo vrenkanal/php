@@ -131,6 +131,17 @@ class PagSeguroResources
         }
     }
 
+    public static function getAuthorizationUrl()
+    {
+        if (isset(self::$data['authorizationService']) &&
+            isset(self::$data['authorizationService']['servicePath'])
+        ) {
+            return self::$data['authorizationService']['servicePath'];
+        } else {
+            throw new Exception("Authorization service path URL not found");
+        }
+    }
+
     public static function getSessionUrl()
     {   
         if (isset(self::$data['sessionService']) && 

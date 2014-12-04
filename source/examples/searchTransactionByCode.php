@@ -105,7 +105,6 @@ class SearchTransactionByCode
             echo "Shipping type: " . $transaction->getShipping()->getType()->getTypeFromValue() . '<br>';
             echo "Shipping cost: " . $transaction->getShipping()->getCost() . '<br>';
         }
-
     }
 }
 

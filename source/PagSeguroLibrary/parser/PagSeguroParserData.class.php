@@ -22,9 +22,9 @@
  */
 
 /***
- * Class PagSeguroPaymentParserData
+ * Class PagSeguroParserData
  */
-class PagSeguroPaymentParserData
+class PagSeguroParserData
 {
 
     /***

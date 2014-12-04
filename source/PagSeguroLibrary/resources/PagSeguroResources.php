@@ -61,6 +61,7 @@ $PagSeguroResources['directPaymentService']['serviceTimeout'] = 20;
 // Notification service
 $PagSeguroResources['notificationService'] = array();
 $PagSeguroResources['notificationService']['servicePath'] = "/v3/transactions/notifications";
+$PagSeguroResources['notificationService']['applicationPath'] = "v2/authorizations/notifications";
 $PagSeguroResources['notificationService']['serviceTimeout'] = 20;
 
 // Transaction search service

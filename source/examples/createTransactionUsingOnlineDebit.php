@@ -23,7 +23,7 @@ require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroDirectPaymentRequest
  */
-class CreateTransactionUsingOnlineDebit
+class CreateTransactionUsingCreditCard
 {
 
     public static function main()
@@ -69,7 +69,7 @@ class CreateTransactionUsingOnlineDebit
         // If you using SANDBOX you must use an email @sandbox.pagseguro.com.br
         $directPaymentRequest->setSender(
             'João Comprador',
-            'email@comprador.com.br',
+            'comprador@email.com.br',
             '11',
             '56273440',
             'CPF',
@@ -172,4 +172,4 @@ class CreateTransactionUsingOnlineDebit
     }
 }
 
-CreateTransactionUsingOnlineDebit::main();
+CreateTransactionUsingCreditCard::main();

@@ -71,7 +71,7 @@ class CreateTransactionUsingCreditCard
         // If you using SANDBOX you must use an email @sandbox.pagseguro.com.br
         $directPaymentRequest->setSender(
             'João Comprador',
-            'email@comprador.com.br',
+            'comprador@email.com.br',
             '11',
             '56273440',
             'CPF',
@@ -108,7 +108,7 @@ class CreateTransactionUsingCreditCard
             )
         );
 
-        $token = "5b97542cd1524b67a9e89b3d90c1f262";
+        $token = "1a45e0f9029344898d1b1fe00d90a66b";
 
         $installment = new PagSeguroInstallment(
             array("quantity" => 1, 

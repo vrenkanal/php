@@ -29,8 +29,6 @@ class PagSeguroTransactionSearchService
 
     const SERVICE_NAME = 'transactionSearchService';
 
-    private static $logService;
-
     private static function buildSearchUrlByCode(PagSeguroConnectionData $connectionData, $transactionCode)
     {
         $url = $connectionData->getServiceUrl('v3');
@@ -93,15 +91,47 @@ class PagSeguroTransactionSearchService
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
             );
+            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 
-            return self::searchByCodeResult($connection, $transactionCode);
+            switch ($httpStatus->getType()) {
 
-        } catch (PagSeguroServiceException $err) {
-            throw $err;
+                case 'OK':
+                    $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
+                    LogPagSeguro::info(
+                        "PagSeguroTransactionSearchService.SearchByCode(transactionCode=$transactionCode) - end " .
+                        $transaction->toString()
+                    );
+                    break;
+
+                case 'BAD_REQUEST':
+                    $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
+                    $e = new PagSeguroServiceException($httpStatus, $errors);
+                    LogPagSeguro::error(
+                        "PagSeguroTransactionSearchService.SearchByCode(transactionCode=$transactionCode) - error " .
+                        $e->getOneLineMessage()
+                    );
+                    throw $e;
+                    break;
+
+                default:
+                    $e = new PagSeguroServiceException($httpStatus);
+                    LogPagSeguro::error(
+                        "PagSeguroTransactionSearchService.SearchByCode(transactionCode=$transactionCode) - error " .
+                        $e->getOneLineMessage()
+                    );
+                    throw $e;
+                    break;
+
+            }
+
+            return isset($transaction) ? $transaction : false;
+
+        } catch (PagSeguroServiceException $e) {
+            throw $e;
         }
-        catch (Exception $err) {
-            LogPagSeguro::error("Exception: " . $err->getMessage());
-            throw $err;
+        catch (Exception $e) {
+            LogPagSeguro::error("Exception: " . $e->getMessage());
+            throw $e;
         }
 
     }
@@ -134,7 +164,13 @@ class PagSeguroTransactionSearchService
 
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
-        $searchParams = self::buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate);
+        $searchParams = array(
+            'initialDate' => PagSeguroHelper::formatDate($initialDate),
+            'pageNumber' => $pageNumber,
+            'maxPageResults' => $maxPageResults
+        );
+
+        $searchParams['finalDate'] = $finalDate ? PagSeguroHelper::formatDate($finalDate) : null;
 
         try {
 
@@ -145,14 +181,53 @@ class PagSeguroTransactionSearchService
                 $connectionData->getCharset()
             );
 
-            self::$logService = "SearchByDate";
-            return self::searchResult($connection, $initialDate, $finalDate);
+            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 
-        } catch (PagSeguroServiceException $err) {
-            throw $err;
-        } catch (Exception $err) {
-            LogPagSeguro::error("Exception: " . $err->getMessage());
-            throw $err;
+            switch ($httpStatus->getType()) {
+
+                case 'OK':
+                    $searchResult = PagSeguroTransactionParser::readSearchResult($connection->getResponse());
+                    LogPagSeguro::info(
+                        "PagSeguroTransactionSearchService.SearchByDate(initialDate=" .
+                        PagSeguroHelper::formatDate($initialDate) .
+                        ", finalDate=" . PagSeguroHelper::formatDate($finalDate) .
+                        ") - end " . $searchResult->toString()
+                    );
+                    break;
+
+                case 'BAD_REQUEST':
+                    $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
+                    $e = new PagSeguroServiceException($httpStatus, $errors);
+                    LogPagSeguro::error(
+                        "PagSeguroTransactionSearchService.SearchByDate(initialDate=" .
+                        PagSeguroHelper::formatDate($initialDate) .
+                        ", finalDate=" . PagSeguroHelper::formatDate($finalDate) .
+                        ") - end " . $e->getOneLineMessage()
+                    );
+                    throw $e;
+                    break;
+
+                default:
+                    $e = new PagSeguroServiceException($httpStatus);
+                    LogPagSeguro::error(
+                        "PagSeguroTransactionSearchService.SearchByDate(initialDate=" .
+                        PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
+                        PagSeguroHelper::formatDate($finalDate) . ") - end " .
+                        $e->getOneLineMessage()
+                    );
+                    throw $e;
+                    break;
+
+            }
+
+            return isset($searchResult) ? $searchResult : false;
+
+        } catch (PagSeguroServiceException $e) {
+            throw $e;
+        }
+        catch (Exception $e) {
+            LogPagSeguro::error("Exception: " . $e->getMessage());
+            throw $e;
         }
 
     }
@@ -186,7 +261,13 @@ class PagSeguroTransactionSearchService
 
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
-        $searchParams = self::buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate);
+        $searchParams = array(
+            'initialDate' => PagSeguroHelper::formatDate($initialDate),
+            'pageNumber' => $pageNumber,
+            'maxPageResults' => $maxPageResults
+        );
+
+        $searchParams['finalDate'] = $finalDate ? PagSeguroHelper::formatDate($finalDate) : null;
 
         try {
 
@@ -197,109 +278,51 @@ class PagSeguroTransactionSearchService
                 $connectionData->getCharset()
             );
 
-            self::$logService = "searchAbandoned";
-            return self::searchResult($connection, $initialDate, $finalDate);
+            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 
-        } catch (PagSeguroServiceException $err) {
-            throw $err;
+            switch ($httpStatus->getType()) {
+
+                case 'OK':
+                    $searchResult = PagSeguroTransactionParser::readSearchResult($connection->getResponse());
+                    LogPagSeguro::info(
+                        "PagSeguroTransactionSearchService.searchAbandoned(initialDate=" .
+                        PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
+                        PagSeguroHelper::formatDate($finalDate) . ") - end " . $searchResult->toString()
+                    );
+                    break;
+
+                case 'BAD_REQUEST':
+                    $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
+                    $e = new PagSeguroServiceException($httpStatus, $errors);
+                    LogPagSeguro::error(
+                        "PagSeguroTransactionSearchService.searchAbandoned(initialDate=" .
+                        PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
+                        PagSeguroHelper::formatDate($finalDate) . ") - end " . $e->getOneLineMessage()
+                    );
+                    throw $e;
+                    break;
+
+                default:
+                    $e = new PagSeguroServiceException($httpStatus);
+                    LogPagSeguro::error(
+                        "PagSeguroTransactionSearchService.searchAbandoned(initialDate=" .
+                        PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
+                        PagSeguroHelper::formatDate($finalDate) . ") - end " . $e->getOneLineMessage()
+                    );
+                    throw $e;
+                    break;
+
+            }
+
+            return isset($searchResult) ? $searchResult : false;
+
+        } catch (PagSeguroServiceException $e) {
+            throw $e;
         }
-        catch (Exception $err) {
-            LogPagSeguro::error("Exception: " . $err->getMessage());
-            throw $err;
-        }
-
-    }
-
-    private function buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate = null)
-    {
-        $searchParams = array(
-            'initialDate' => PagSeguroHelper::formatDate($initialDate),
-            'pageNumber' => $pageNumber,
-            'maxPageResults' => $maxPageResults
-        );
-
-        $searchParams['finalDate'] = $finalDate ? PagSeguroHelper::formatDate($finalDate) : null;
-
-        return $searchParams;
-    }
-
-    private function searchByCodeResult($connection, $code)
-    {
-        $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
-        switch ($httpStatus->getType()) {
-
-            case 'OK':
-                $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-                LogPagSeguro::info(
-                    "PagSeguroTransactionSearchService.SearchByCode(transactionCode=$code) - end " .
-                    $transaction->toString()
-                );
-                break;
-
-            case 'BAD_REQUEST':
-                $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
-                $err = new PagSeguroServiceException($httpStatus, $errors);
-                LogPagSeguro::error(
-                    "PagSeguroTransactionSearchService.SearchByCode(transactionCode=$code) - error " .
-                    $err->getOneLineMessage()
-                );
-                throw $err;
-                break;
-
-            default:
-                $err = new PagSeguroServiceException($httpStatus);
-                LogPagSeguro::error(
-                    "PagSeguroTransactionSearchService.SearchByCode(transactionCode=$code) - error " .
-                    $err->getOneLineMessage()
-                );
-                throw $err;
-                break;
-        }
-        return isset($transaction) ? $transaction : false;
-    }
-
-    private function searchResult($connection, $initialDate = null, $finalDate = null)
-    {
-
-        $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
-        switch ($httpStatus->getType()) {
-
-            case 'OK':
-
-                $searchResult = PagSeguroTransactionParser::readSearchResult($connection->getResponse());
-
-                LogPagSeguro::info(
-                    sprintf("PagSeguroTransactionSearchService.%s(initialDate=" .
-                    PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
-                    PagSeguroHelper::formatDate($finalDate) . ") - end ", self::$logService) . $searchResult->toString()
-                );
-                break;
-
-            case 'BAD_REQUEST':
-                $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
-                $err = new PagSeguroServiceException($httpStatus, $errors);
-                LogPagSeguro::error(
-                    sprintf("PagSeguroTransactionSearchService.%s(initialDate=" .
-                    PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
-                    PagSeguroHelper::formatDate($finalDate) . ") - end ", self::$logService) . $err->getOneLineMessage()
-                );
-                throw $err;
-                break;
-
-            default:
-                $err = new PagSeguroServiceException($httpStatus);
-                LogPagSeguro::error(
-                    sprintf("PagSeguroTransactionSearchService.%s(initialDate=" .
-                    PagSeguroHelper::formatDate($initialDate) . ", finalDate=" .
-                    PagSeguroHelper::formatDate($finalDate) . ") - end ",  self::$logService) . $err->getOneLineMessage()
-                );
-                throw $err;
-                break;
-
+        catch (Exception $e) {
+            LogPagSeguro::error("Exception: " . $e->getMessage());
+            throw $e;
         }
 
-        return isset($searchResult) ? $searchResult : false;
     }
 }

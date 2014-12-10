@@ -69,10 +69,3 @@ $PagSeguroResources['transactionSearchService'] = array();
 $PagSeguroResources['transactionSearchService']['servicePath']['v2'] = "/v2/transactions";
 $PagSeguroResources['transactionSearchService']['servicePath']['v3'] = "/v3/transactions";
 $PagSeguroResources['transactionSearchService']['serviceTimeout'] = 20;
-
-// Authorizations service
-$PagSeguroResources['authorizationService'] = array();
-$PagSeguroResources['authorizationService']['servicePath'] = "/v2/authorizations";
-$PagSeguroResources['authorizationService']['approvalUrl'] = "/v2/authorization/request.jhtml";
-$PagSeguroResources['authorizationService']['requestUrl'] = "/request";
-$PagSeguroResources['authorizationService']['serviceTimeout'] = 20;

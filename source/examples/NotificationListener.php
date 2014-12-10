@@ -41,10 +41,6 @@ class NotificationListener
                     self::transactionNotification($code);
                     break;
 
-                case 'APPLICATION_AUTHORIZATION':
-                    self::authorizationNotification($code);
-                    break;
-
                 default:
                     LogPagSeguro::error("Unknown notification type [" . $notificationType->getValue() . "]");
 
@@ -63,6 +59,7 @@ class NotificationListener
 
     private static function transactionNotification($notificationCode)
     {
+
         /*
          * #### Credentials #####
          * Replace the parameters below with your credentials (e-mail and token)
@@ -70,29 +67,14 @@ class NotificationListener
          * $credentials = PagSeguroConfig::getAccountCredentials();
          */
         $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-            "E231B2C9BCC8474DA2E260B6C8CF60D3");
-
+               "E231B2C9BCC8474DA2E260B6C8CF60D3");
         try {
             $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
             // Do something with $transaction
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    }
 
-    private static function authorizationNotification($notificationCode)
-    {
-        $credentials = new PagSeguroAuthorizationCredentials("app8882656225","82EBFA59F1F1469FF47B3FBB8D2526BC");
-
-        try {
-            $authorization = PagSeguroNotificationService::checkAuthorization($credentials, $notificationCode);
-
-            print_r($authorization);
-
-            // Do something with $authorization
-        } catch (PagSeguroServiceException $e) {
-            die($e->getMessage());
-        }
     }
 
     private static function printLog($strType = null)

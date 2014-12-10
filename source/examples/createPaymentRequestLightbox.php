@@ -5,6 +5,7 @@
 		<!--<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
 	<!--Para integração em ambiente de produção use este link-->
 		<!--<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+
 	</head>
 </html>
 <?php
@@ -102,8 +103,7 @@ class CreatePaymentRequestLightbox
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
-				
+               "E231B2C9BCC8474DA2E260B6C8CF60D3");
             // Register this payment request in PagSeguro to obtain the checkout code
             $onlyCheckoutCode = true;
             $code = $paymentRequest->register($credentials, $onlyCheckoutCode);

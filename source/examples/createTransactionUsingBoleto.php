@@ -23,7 +23,7 @@ require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroDirectPaymentRequest
  */
-class CreateTransactionUsingBoleto
+class CreateTransactionUsingCreditCard
 {
 
     public static function main()
@@ -36,7 +36,6 @@ class CreateTransactionUsingBoleto
 
         // Set the Payment Method for this payment request
         $directPaymentRequest->setPaymentMethod('BOLETO');
-
         /**
         * @todo Change the receiver Email
         */
@@ -69,7 +68,7 @@ class CreateTransactionUsingBoleto
         // If you using SANDBOX you must use an email @sandbox.pagseguro.com.br
         $directPaymentRequest->setSender(
             'João Comprador',
-            'email@comprador.com.br',
+            'comprador@email.com.br',
             '11',
             '56273440',
             'CPF',
@@ -165,4 +164,4 @@ class CreateTransactionUsingBoleto
     }
 }
 
-CreateTransactionUsingBoleto::main();
+CreateTransactionUsingCreditCard::main();

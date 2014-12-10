@@ -46,6 +46,17 @@ class PagSeguroNotificationService
     }
 
     /***
+     * @param PagSeguroConnectionData $connectionData
+     * @param $notificationCode
+     * @return string
+     */
+    private static function buildAuthorizationNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode)
+    {
+        $url = $connectionData->getWebserviceUrl() . '/' . $connectionData->getResource('applicationPath');
+        return "{$url}/{$notificationCode}/?" . $connectionData->getCredentialsUrlQuery();
+    }
+
+    /***
      * Returns a transaction from a notification code
      *
      * @param PagSeguroCredentials $credentials
@@ -71,13 +82,54 @@ class PagSeguroNotificationService
             );
 
             $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
--                    
+            
             self::$logService = "CheckTransaction";
             return self::searchReturn($connection, $transaction, $notificationCode);
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
         } catch (Exception $err) {
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            throw $err;
+        }
+    }
+
+    /***
+     * Returns a authorization from a notification code
+     *
+     * @param PagSeguroCredentials $credentials
+     * @param String $notificationCode
+     * @throws PagSeguroServiceException
+     * @throws Exception
+     * @return PagSeguroAuthorization
+     * @see PagSeguroAuthorization
+     */
+    public static function checkAuthorization(PagSeguroCredentials $credentials, $notificationCode)
+    {
+
+        LogPagSeguro::info(
+            "PagSeguroNotificationService.CheckAuthorization(notificationCode=$notificationCode) - begin"
+        );
+
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        try {
+
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildAuthorizationNotificationUrl($connectionData, $notificationCode),
+                $connectionData->getServiceTimeout(),
+                $connectionData->getCharset()
+            );
+
+            $authorization = PagSeguroAuthorizationParser::readAuthorization($connection->getResponse());
+            self::$logService = "CheckAuthorization";
+            return self::searchReturn($connection, $authorization, $notificationCode);
+
+        } catch (PagSeguroServiceException $err) {
+            throw $err;
+        }
+        catch (Exception $err) {
             LogPagSeguro::error("Exception: " . $err->getMessage());
             throw $err;
         }

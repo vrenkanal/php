@@ -96,6 +96,7 @@ class PagSeguroConnectionData
             $this->setPaymentUrl(PagSeguroResources::getPaymentUrl($this->getEnvironment()));
             $this->setBaseUrl(PagSeguroResources::getBaseUrl($this->getEnvironment()));
             $this->setInstallmentUrl(PagSeguroResources::getInstallmentUrl());
+            $this->setAuthorizationUrl(PagSeguroResources::getAuthorizationUrl());
             $this->setSessionUrl(PagSeguroResources::getSessionUrl());
             $this->setCharset(PagSeguroConfig::getApplicationCharset());
 
@@ -213,6 +214,22 @@ class PagSeguroConnectionData
     public function setInstallmentUrl($installmentUrl)
     {
         $this->installmentUrl = $installmentUrl;
+    }
+
+    /***
+     * @return mixed
+     */
+    public function getAuthorizationUrl()
+    {
+        return $this->authorizationUrl;
+    }
+
+    /***
+     * @param $installmentUrl
+     */
+    public function setAuthorizationUrl($authorizationUrl)
+    {
+        $this->authorizationUrl = $authorizationUrl;
     }
 
     /***

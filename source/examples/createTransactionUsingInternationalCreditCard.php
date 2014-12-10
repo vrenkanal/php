@@ -77,7 +77,7 @@ class CreateTransactionUsingInternationalCreditCard
 
         $directPaymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br');
 
-        $token = "b1d5d67c6fe34d489edae95b3bbb87b9";
+        $token = "5b97542cd1524b67a9e89b3d90c1f262";
 
         $installment = new PagSeguroInstallment(
             array("quantity" => 1, 

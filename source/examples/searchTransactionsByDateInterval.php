@@ -25,8 +25,8 @@ class SearchTransactionsByDateInterval
     public static function main()
     {
 
-        $initialDate = '2014-03-10T08:50';
-        $finalDate = '2014-03-29T10:30';
+        $initialDate = '2014-11-01T14:55';
+        $finalDate = '2014-11-30T09:55';
 
         $pageNumber = 1;
         $maxPageResults = 20;
@@ -40,7 +40,7 @@ class SearchTransactionsByDateInterval
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-               "E231B2C9BCC8474DA2E260B6C8CF60D3");
+                "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             $result = PagSeguroTransactionSearchService::searchByDate(
                 $credentials,

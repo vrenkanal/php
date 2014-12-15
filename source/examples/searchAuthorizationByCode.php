@@ -25,19 +25,20 @@ class SearchAuthorizationByCode
     public static function main()
     {
 
-        $authorizationCode = "C7A067F4AEDC4B538242EBBE3B7FB7A@";
+        $authorizationCode = "C7A067F4AEDC4B538242EBBE3B7FB755";
 
         try {
 
-            /*
+            /**
+             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials (appId and appKey)
              * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
+             * $credentials = PagSeguroConfig::getApplicationCredentials();
              */
-            $credentials = new PagSeguroAuthorizationCredentials("appID",
+            $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
-            
+
             $authorization = PagSeguroAuthorizationSearchService::searchByCode($credentials, $authorizationCode);
 
             self::printAuthorization($authorization);

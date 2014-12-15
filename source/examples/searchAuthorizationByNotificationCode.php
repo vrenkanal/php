@@ -29,13 +29,14 @@ class SearchAuthorizationByNotificationCode
 
         try {
 
-            /*
+            /**
+             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials (appId and appKey)
              * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
+             * $credentials = PagSeguroConfig::getApplicationCredentials();
              */
-            $credentials = new PagSeguroAuthorizationCredentials("appID",
+            $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
 				
             $authorization = PagSeguroAuthorizationSearchService::searchByNotificationCode($credentials, $notificationCode);

@@ -25,7 +25,7 @@
  * Identifies a PagSeguro authorization credentials
  * /
  */
-class PagSeguroAuthorizationCredentials extends PagSeguroCredentials
+class PagSeguroApplicationCredentials extends PagSeguroCredentials
 {
 
     /***

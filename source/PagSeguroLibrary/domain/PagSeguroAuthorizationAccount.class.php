@@ -40,7 +40,7 @@ class PagSeguroAuthorizationAccount
     public function __construct($account = null)
     {
         if (isset($account)) {
-            $this->setPrivateKey('privateKey', $account);
+            $this->setPrivateKey($account);
         } else {
             throw new Exception("Wasn't possible construct the account");
         }

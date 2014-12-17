@@ -82,12 +82,10 @@ class NotificationListener
 
     private static function authorizationNotification($notificationCode)
     {
-        $credentials = new PagSeguroAuthorizationCredentials("app8882656225","82EBFA59F1F1469FF47B3FBB8D2526BC");
+        $credentials = new PagSeguroAuthorizationCredentials("appId","appKey");
 
         try {
             $authorization = PagSeguroNotificationService::checkAuthorization($credentials, $notificationCode);
-
-            print_r($authorization);
 
             // Do something with $authorization
         } catch (PagSeguroServiceException $e) {

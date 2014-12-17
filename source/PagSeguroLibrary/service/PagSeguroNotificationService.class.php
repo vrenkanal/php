@@ -82,7 +82,7 @@ class PagSeguroNotificationService
             );
 
             $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-            
+
             self::$logService = "CheckTransaction";
             return self::searchReturn($connection, $transaction, $notificationCode);
 

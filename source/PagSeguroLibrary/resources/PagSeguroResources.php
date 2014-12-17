@@ -76,3 +76,8 @@ $PagSeguroResources['authorizationService']['servicePath'] = "/v2/authorizations
 $PagSeguroResources['authorizationService']['approvalUrl'] = "/v2/authorization/request.jhtml";
 $PagSeguroResources['authorizationService']['requestUrl'] = "/request";
 $PagSeguroResources['authorizationService']['serviceTimeout'] = 20;
+
+// Refund service
+$PagSeguroResources['refundService'] = array();
+$PagSeguroResources['refundService']['servicePath'] = "/v2/transactions/refunds";
+$PagSeguroResources['refundService']['serviceTimeout'] = 200;

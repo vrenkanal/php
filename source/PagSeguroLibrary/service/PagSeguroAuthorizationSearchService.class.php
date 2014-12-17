@@ -68,6 +68,18 @@ class PagSeguroAuthorizationSearchService
         }
         return $connectionData->getServiceUrl() . "/?" . $connectionData->getCredentialsUrlQuery();
     }
+
+    /**
+     * @param PagSeguroConnectionData $connectionData
+     * @param $reference
+     * @return string
+     */
+    private static function buildSearchUrlByReference(PagSeguroConnectionData $connectionData, $reference)
+    {
+        $url = $connectionData->getServiceUrl();
+        return "{$url}?" . $connectionData->getCredentialsUrlQuery() . '&reference='.$reference;
+    }
+
     /***
      * Finds a authorization with a matching authorization code
      *
@@ -164,6 +176,41 @@ class PagSeguroAuthorizationSearchService
         }
     }
 
+    /***
+     * Finds a authorization with a matching authorization code
+     *
+     * @param PagSeguroCredentials $credentials
+     * @param String $authorizationCode
+     * @return PagSeguroAuthorization a authorization object
+     * @see PagSeguroAuthorization
+     * @throws PagSeguroServiceException
+     * @throws Exception
+     */
+    public static function searchByReference(PagSeguroCredentials $credentials, $reference)
+    {
+        LogPagSeguro::info("PagSeguroAuthorizationSearchService.SearchByReference($reference) - begin");
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        try {
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildSearchUrlByReference($connectionData, $reference),
+                $connectionData->getServiceTimeout(),
+                $connectionData->getCharset()
+            );
+
+            self::$logService = "SearchByReference";
+            return self::searchAuthorizationsReturn($connection, $reference);
+
+        } catch (PagSeguroServiceException $err) {
+            throw $err;
+        }
+        catch (Exception $err) {
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            throw $err;
+        }
+    }
+
     /**
      * @param PagSeguroHttpConnection $connection
      * @param string $authorizationCode
@@ -213,9 +260,9 @@ class PagSeguroAuthorizationSearchService
         switch ($httpStatus->getType()) {
             case 'OK':
                 $authorization = PagSeguroAuthorizationParser::readSearchResult($connection->getResponse());
+
                 LogPagSeguro::info(
-                    "PagSeguroAuthorizationSearchService.searchAuthorizations(
-                        {$authorization->getAuthorizations()->getCode()}) - end " .
+                    "PagSeguroAuthorizationSearchService.searchAuthorizations() - end " .
                     $authorization->toString()
                 );
                 break;

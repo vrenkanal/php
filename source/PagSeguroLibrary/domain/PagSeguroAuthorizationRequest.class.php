@@ -54,6 +54,14 @@ class PagSeguroAuthorizationRequest
     private $permissions;
 
     /***
+     * Extra parameters that user can add to a PagSeguro authorization request
+     *
+     * Optional
+     * @var PagSeguroParameter
+     */
+    private $parameter;
+
+    /***
      * Sets reference for PagSeguro authorization requests
      * @param string $reference
      */
@@ -117,6 +125,52 @@ class PagSeguroAuthorizationRequest
     public function setPermissions(array $permissions)
     {
         $this->permissions = new PagSeguroAuthorizationPermissions($permissions);
+    }
+
+    /***
+     * Sets parameter for PagSeguro authorization requests
+     *
+     * @param PagSeguroParameter $parameter
+     */
+    public function setParameter($parameter)
+    {
+        $this->parameter = $parameter;
+    }
+
+    /***
+     * Gets parameter for PagSeguro authorization requests
+     *
+     * @return PagSeguroParameter
+     */
+    public function getParameter()
+    {
+        if ($this->parameter == null) {
+            $this->parameter = new PagSeguroParameter();
+        }
+        return $this->parameter;
+    }
+
+    /***
+     * add a parameter for PagSeguro authorization request
+     *
+     * @param PagSeguroParameterItem $parameterName key
+     * @param PagSeguroParameterItem $parameterValue value
+     */
+    public function addParameter($parameterName, $parameterValue)
+    {
+        $this->getParameter()->addItem(new PagSeguroParameterItem($parameterName, $parameterValue));
+    }
+
+    /***
+     * add a parameter for PagSeguro authorization request
+     *
+     * @param PagSeguroParameterItem $parameterName key
+     * @param PagSeguroParameterItem $parameterValue value
+     * @param PagSeguroParameterItem $parameterIndex group
+     */
+    public function addIndexedParameter($parameterName, $parameterValue, $parameterIndex)
+    {
+        $this->getParameter()->addItem(new PagSeguroParameterItem($parameterName, $parameterValue, $parameterIndex));
     }
 
     /***

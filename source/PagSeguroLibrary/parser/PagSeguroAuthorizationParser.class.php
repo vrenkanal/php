@@ -62,6 +62,21 @@ class PagSeguroAuthorizationParser extends PagSeguroServiceParser
             $data['permissions'] = implode(',',$authorization->getPermissions()->getPermissions());
         }
 
+        // parameter
+        if (count($authorization->getParameter()->getItems()) > 0) {
+            foreach ($authorization->getParameter()->getItems() as $item) {
+                if ($item instanceof PagSeguroParameterItem) {
+                    if (!PagSeguroHelper::isEmpty($item->getKey()) && !PagSeguroHelper::isEmpty($item->getValue())) {
+                        if (!PagSeguroHelper::isEmpty($item->getGroup())) {
+                            $data[$item->getKey() . '' . $item->getGroup()] = $item->getValue();
+                        } else {
+                            $data[$item->getKey()] = $item->getValue();
+                        }
+                    }
+                }
+            }
+        }
+        
         return $data;
     }
 

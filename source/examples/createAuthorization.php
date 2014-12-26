@@ -88,12 +88,12 @@ class CreateAuthorization
     {
 
         if ($authorization) {
-            echo utf8_decode("<h2>Retorno da requisição de Autorização</h2>");
+            echo "<h2>Retorno da requisição de Autorização</h2>";
 
             if(filter_var($authorization, FILTER_VALIDATE_URL)) {
 
                 echo "<p><strong>URL: </strong>" . $authorization . "</p> ";
-                echo "<p><a title=\"URL do pagamento\" href=\"$authorization\">".utf8_decode("Ir para URL de autorização")."</a></p>";
+                echo "<p><a title=\"URL do pagamento\" href=\"$authorization\">" . "Ir para URL de autorização" . "</a></p>";
             } else {
 
                 echo "<p><strong>Code: </strong>" . $authorization . "</p> ";

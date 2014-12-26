@@ -35,20 +35,6 @@ class NotificationListener
             $notificationType = new PagSeguroNotificationType($type);
             $strType = $notificationType->getTypeFromValue();
 
-            /*
-             * #### Credentials #####
-             * Replace the parameters below with your credentials
-             * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
-             */
-
-            // seller authentication
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
-
-            // application authentication
-            //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             switch ($strType) {
 
                 case 'TRANSACTION':
@@ -78,6 +64,8 @@ class NotificationListener
     private static function transactionNotification($credentials, $notificationCode)
     {
 
+        $credentials = PagSeguroConfig::getAccountCredentials();
+
         try {
             $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
             // Do something with $transaction
@@ -88,6 +76,8 @@ class NotificationListener
 
     private static function authorizationNotification($credentials, $notificationCode)
     {
+
+        $credentials = PagSeguroConfig::getApplicationCredentials();
 
         try {
             $authorization = PagSeguroNotificationService::checkAuthorization($credentials, $notificationCode);

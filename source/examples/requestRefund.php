@@ -31,6 +31,8 @@ class CreateRefund
 
         $transactionCode = "E505C18007B9440D904604D3AE41999A";
 
+        $refundValue = "1000.00"; //optional
+
         try {
 
             /**
@@ -50,7 +52,9 @@ class CreateRefund
 
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode);
+            $refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode, $refundValue);
+
+            //$refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode);
 
             self::printRefund($refund);
 
@@ -63,7 +67,7 @@ class CreateRefund
     {
 
         if ($refund) {
-            echo utf8_decode("<h2>Refund Status:</h2>");
+            echo "<h2>Refund Status:</h2>";
             echo "<p>".$refund ."</p> ";
         }
 

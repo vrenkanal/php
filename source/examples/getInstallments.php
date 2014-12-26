@@ -70,7 +70,7 @@ class GetInstallments
     {
 
         if ($installments) {
-            echo utf8_decode("<h2>Installments</h2>");
+            echo "<h2>Installments</h2>";
 
             foreach ($installments as $installment) {
                 echo "<p> <strong> brand: </strong> ". $installment->getCardBrand()."<br> ";

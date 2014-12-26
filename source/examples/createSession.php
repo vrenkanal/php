@@ -60,7 +60,7 @@ class CreateSession
     {
 
         if ($sessionID) {
-            echo utf8_decode("<h2>Session</h2>");
+            echo "<h2>Session</h2>";
             echo "<p><strong>ID: </strong> ".$sessionID ."</p> ";
         }
 

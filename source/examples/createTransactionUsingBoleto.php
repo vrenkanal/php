@@ -122,7 +122,7 @@ class CreateTransactionUsingBoleto
     {
 
         if ($transaction) {
-            echo utf8_decode("<h2>Retorno da transação com Boleto</h2>");
+            echo "<h2>Retorno da transação com Boleto</h2>";
             echo "<p><strong>Date: </strong> ".$transaction->getDate() ."</p> ";
             echo "<p><strong>lastEventDate: </strong> ".$transaction->getLastEventDate()."</p> ";
             echo "<p><strong>code: </strong> ".$transaction->getCode() ."</p> ";

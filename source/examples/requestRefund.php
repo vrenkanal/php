@@ -32,16 +32,23 @@ class CreateRefund
         $transactionCode = "E505C18007B9440D904604D3AE41999A";
 
         try {
-                
+
             /**
              * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
+
+            // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             $refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode);
 
@@ -50,7 +57,7 @@ class CreateRefund
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printRefund($refund)
     {

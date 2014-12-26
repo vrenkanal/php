@@ -29,16 +29,23 @@ class CreateSession
     public static function main()
     {
         try {
-                
+
             /**
              * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
+
+            // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             $session = PagSeguroSessionService::getSession($credentials);
 
@@ -47,7 +54,7 @@ class CreateSession
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printSession($sessionID)
     {

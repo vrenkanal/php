@@ -30,9 +30,8 @@ class SearchAuthorizationByCode
         try {
 
             /**
-             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (appId and appKey)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getApplicationCredentials();
              */
@@ -65,7 +64,7 @@ class SearchAuthorizationByCode
             echo "<strong>Status: </strong>" . $permission->getStatus() . "</br>";
             echo "<strong>Last Update: </strong>" . $permission->getLastUpdate() . "</p>";
         }
-		
+
 		echo "<pre>";
     }
 }

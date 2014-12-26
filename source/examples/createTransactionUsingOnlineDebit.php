@@ -47,17 +47,17 @@ class CreateTransactionUsingOnlineDebit
 
         // Add an item for this payment request
         $directPaymentRequest->addItem(
-            '0001', 
-            'Descricao do item a ser vendido', 
-            2, 
+            '0001',
+            'Descricao do item a ser vendido',
+            2,
             10.00
         );
 
         // Add an item for this payment request
         $directPaymentRequest->addItem(
-            '0002', 
-            'Descricao do item a ser vendido', 
-            2, 
+            '0002',
+            'Descricao do item a ser vendido',
+            2,
             5.00
         );
 
@@ -100,15 +100,21 @@ class CreateTransactionUsingOnlineDebit
 
         try {
             /**
-             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+
+            // seller authentication
+            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
-            
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
+
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $return = $directPaymentRequest->register($credentials);
 
@@ -117,7 +123,7 @@ class CreateTransactionUsingOnlineDebit
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printTransactionReturn($transaction)
     {
@@ -131,7 +137,7 @@ class CreateTransactionUsingOnlineDebit
             echo "<p><strong>recovery code: </strong> ".$transaction->getRecoveryCode() ."</p> ";
             echo "<p><strong>type: </strong> ".$transaction->getType()->getValue() ."</p> ";
             echo "<p><strong>status: </strong> ".$transaction->getStatus()->getValue() ."</p> ";
-            
+
             echo "<p><strong>paymentMethodType: </strong> ".$transaction->getPaymentMethod()->getType()->getValue() ."</p> ";
             echo "<p><strong>paymentModeCode: </strong> ".$transaction->getPaymentMethod()->getCode()->getValue() ."</p> ";
 
@@ -145,17 +151,17 @@ class CreateTransactionUsingOnlineDebit
             echo "<p><strong>itemCount: </strong> ".$transaction->getItemCount() ."</p> ";
 
             echo "<p><strong>Items: </strong></p>";
-            foreach ($transaction->getItems() as $item) 
+            foreach ($transaction->getItems() as $item)
             {
                 echo "<p><strong>id: </strong> ". $item->getId() ."</br> ";
                 echo "<strong>description: </strong> ". $item->getDescription() ."</br> ";
                 echo "<strong>quantity: </strong> ". $item->getQuantity() ."</br> ";
-                echo "<strong>amount: </strong> ". $item->getAmount() ."</p> ";  
+                echo "<strong>amount: </strong> ". $item->getAmount() ."</p> ";
             }
 
             echo "<p><strong>senderName: </strong> ".$transaction->getSender()->getName() ."</p> ";
             echo "<p><strong>senderEmail: </strong> ".$transaction->getSender()->getEmail() ."</p> ";
-            echo "<p><strong>senderPhone: </strong> ".$transaction->getSender()->getPhone()->getAreaCode() . " - " . 
+            echo "<p><strong>senderPhone: </strong> ".$transaction->getSender()->getPhone()->getAreaCode() . " - " .
                  $transaction->getSender()->getPhone()->getNumber() . "</p> ";
             echo "<p><strong>Shipping: </strong></p>";
             echo "<p><strong>street: </strong> ".$transaction->getShipping()->getAddress()->getStreet() ."</p> ";

@@ -35,14 +35,28 @@ class NotificationListener
             $notificationType = new PagSeguroNotificationType($type);
             $strType = $notificationType->getTypeFromValue();
 
+            /*
+             * #### Credentials #####
+             * Replace the parameters below with your credentials
+             * You can also get your credentials from a config file. See an example:
+             * $credentials = PagSeguroConfig::getAccountCredentials();
+             */
+
+            // seller authentication
+            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
             switch ($strType) {
 
                 case 'TRANSACTION':
-                    self::transactionNotification($code);
+                    self::transactionNotification($credentials, $code);
                     break;
 
                 case 'APPLICATION_AUTHORIZATION':
-                    self::authorizationNotification($code);
+                    self::authorizationNotification($credentials, $code);
                     break;
 
                 default:
@@ -61,16 +75,8 @@ class NotificationListener
 
     }
 
-    private static function transactionNotification($notificationCode)
+    private static function transactionNotification($credentials, $notificationCode)
     {
-        /*
-         * #### Credentials #####
-         * Replace the parameters below with your credentials (e-mail and token)
-         * You can also get your credentials from a config file. See an example:
-         * $credentials = PagSeguroConfig::getAccountCredentials();
-         */
-        $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-            "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
         try {
             $transaction = PagSeguroNotificationService::checkTransaction($credentials, $notificationCode);
@@ -80,9 +86,8 @@ class NotificationListener
         }
     }
 
-    private static function authorizationNotification($notificationCode)
+    private static function authorizationNotification($credentials, $notificationCode)
     {
-        $credentials = new PagSeguroAuthorizationCredentials("appId","appKey");
 
         try {
             $authorization = PagSeguroNotificationService::checkAuthorization($credentials, $notificationCode);

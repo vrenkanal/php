@@ -47,7 +47,10 @@ class CreateAuthorization
          * @enum "RECEIVE_TRANSACTION_NOTIFICATIONS",
          * @enum "SEARCH_TRANSACTIONS",
          * @enum "MANAGE_PAYMENT_PRE_APPROVALS",
-         * @enum "DIRECT_PAYMENT"
+         * @enum "DIRECT_PAYMENT",
+         * @enum "REFUND_TRANSACTIONS",
+         * @enum "CANCEL_TRANSACTIONS"
+
          */
         $authorizationRequest->setPermissions(
             array(
@@ -55,15 +58,16 @@ class CreateAuthorization
                 "RECEIVE_TRANSACTION_NOTIFICATIONS",
                 "SEARCH_TRANSACTIONS",
                 "MANAGE_PAYMENT_PRE_APPROVALS",
-                "DIRECT_PAYMENT"
+                "DIRECT_PAYMENT",
+                "REFUND_TRANSACTIONS",
+                "CANCEL_TRANSACTIONS"
             )
         );
 
         try {
             /**
-             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (appId and appKey)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getApplicationCredentials();
              */
@@ -78,7 +82,7 @@ class CreateAuthorization
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printAuthorizationReturn($authorization)
     {

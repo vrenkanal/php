@@ -28,7 +28,7 @@ class CreateTransactionUsingCreditCard
 
     public static function main()
     {
-	
+
         // Instantiate a new payment request
         $directPaymentRequest = new PagSeguroDirectPaymentRequest();
 
@@ -49,17 +49,17 @@ class CreateTransactionUsingCreditCard
         // Add an item for this payment request
        	// Add an item for this payment request
         $directPaymentRequest->addItem(
-            '0001', 
-            'Descricao do item a ser vendido', 
-            2, 
+            '0001',
+            'Descricao do item a ser vendido',
+            2,
             10.00
         );
 
         // Add an item for this payment request
         $directPaymentRequest->addItem(
-            '0002', 
-            'Descricao do item a ser vendido', 
-            2, 
+            '0002',
+            'Descricao do item a ser vendido',
+            2,
             5.00
         );
 
@@ -111,10 +111,10 @@ class CreateTransactionUsingCreditCard
         $token = "5b97542cd1524b67a9e89b3d90c1f262";
 
         $installment = new PagSeguroInstallment(
-            array("quantity" => 1, 
+            array("quantity" => 1,
                   "value" => "30.00")
-            );      
-	
+            );
+
         $cardCheckout = new PagSeguroCreditCardCheckout(
             array(
                 'token' => $token,
@@ -126,8 +126,8 @@ class CreateTransactionUsingCreditCard
                             'type' => 'CPF',
                             'value' => '156.009.442-76'
                         ),
-                        'birthDate' => date('01/10/1979'), 
-                        'areaCode' => 11, 
+                        'birthDate' => date('01/10/1979'),
+                        'areaCode' => 11,
                         'number' => 56273440
                     )
                 ),
@@ -137,17 +137,23 @@ class CreateTransactionUsingCreditCard
 
         //Set credit card for payment
         $directPaymentRequest->setCreditCard($cardCheckout);
-	
+
         try {
             /**
-             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+
+            // seller authentication
+            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $return = $directPaymentRequest->register($credentials);
@@ -157,7 +163,7 @@ class CreateTransactionUsingCreditCard
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printTransactionReturn($transaction)
     {
@@ -170,7 +176,7 @@ class CreateTransactionUsingCreditCard
             echo "<p><strong>reference: </strong> ".$transaction->getReference() ."</p> ";
             echo "<p><strong>type: </strong> ".$transaction->getType()->getValue() ."</p> ";
             echo "<p><strong>status: </strong> ".$transaction->getStatus()->getValue() ."</p> ";
-            
+
             echo "<p><strong>paymentMethodType: </strong> ".$transaction->getPaymentMethod()->getType()->getValue() ."</p> ";
             echo "<p><strong>paymentModeCode: </strong> ".$transaction->getPaymentMethod()->getCode()->getValue() ."</p> ";
 
@@ -184,17 +190,17 @@ class CreateTransactionUsingCreditCard
             echo "<p><strong>itemCount: </strong> ".$transaction->getItemCount() ."</p> ";
 
             echo "<p><strong>Items: </strong></p>";
-            foreach ($transaction->getItems() as $item) 
+            foreach ($transaction->getItems() as $item)
             {
                 echo "<p><strong>id: </strong> ". $item->getId() ."</br> ";
                 echo "<strong>description: </strong> ". $item->getDescription() ."</br> ";
                 echo "<strong>quantity: </strong> ". $item->getQuantity() ."</br> ";
-                echo "<strong>amount: </strong> ". $item->getAmount() ."</p> ";  
+                echo "<strong>amount: </strong> ". $item->getAmount() ."</p> ";
             }
 
             echo "<p><strong>senderName: </strong> ".$transaction->getSender()->getName() ."</p> ";
             echo "<p><strong>senderEmail: </strong> ".$transaction->getSender()->getEmail() ."</p> ";
-            echo "<p><strong>senderPhone: </strong> ".$transaction->getSender()->getPhone()->getAreaCode() . " - " . 
+            echo "<p><strong>senderPhone: </strong> ".$transaction->getSender()->getPhone()->getAreaCode() . " - " .
                  $transaction->getSender()->getPhone()->getNumber() . "</p> ";
             echo "<p><strong>Shipping: </strong></p>";
             echo "<p><strong>street: </strong> ".$transaction->getShipping()->getAddress()->getStreet() ."</p> ";

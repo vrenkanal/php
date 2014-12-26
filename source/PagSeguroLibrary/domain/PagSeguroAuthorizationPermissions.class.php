@@ -35,7 +35,9 @@ class PagSeguroAuthorizationPermissions
             "RECEIVE_TRANSACTION_NOTIFICATIONS",
             "SEARCH_TRANSACTIONS",
             "MANAGE_PAYMENT_PRE_APPROVALS",
-            "DIRECT_PAYMENT"
+            "DIRECT_PAYMENT",
+            "REFUND_TRANSACTIONS",
+            "CANCEL_TRANSACTIONS"
         );
 
     /*

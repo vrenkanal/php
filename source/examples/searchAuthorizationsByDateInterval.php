@@ -36,13 +36,15 @@ class SearchAuthorizations
 
             /*
              * #### Credentials #####
-             * Replace the parameters below with your credentials (appId and appKey)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getApplicationCredentials()
              */
             $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
-            
+
+            $credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
+
             $authorization = PagSeguroAuthorizationSearchService::searchAuthorizations($credentials, $options);
 
             self::printAuthorization($authorization);
@@ -72,7 +74,7 @@ class SearchAuthorizations
                 echo "<strong>Last Update: </strong>" . $permission->getLastUpdate() . "</p>";
             }
         }
-		
+
 		echo "<pre>";
     }
 }

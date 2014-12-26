@@ -31,13 +31,19 @@ class SearchTransactionByCode
 
             /*
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
+            // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
-            
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
+
             $transaction = PagSeguroTransactionSearchService::searchByCode($credentials, $transaction_code);
 
             self::printTransaction($transaction);
@@ -59,7 +65,7 @@ class SearchTransactionByCode
         echo "grossAmount: " . $transaction->getGrossAmount() . '<br>';
         echo "discountAmount: " . $transaction->getDiscountAmount() . '<br>';
         echo "installmentCount: " . $transaction->getInstallmentCount() . '<br>';
-        
+
         if ($transaction->getCreditorFees()) {
             echo "<h4>CreditorFees:</h4>";
             echo "intermediationRateAmount: " . $transaction->getCreditorFees()->getIntermediationRateAmount() . '<br>';

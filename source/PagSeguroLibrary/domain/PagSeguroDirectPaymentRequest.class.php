@@ -34,6 +34,11 @@ class PagSeguroDirectPaymentRequest
     private $sender;
 
     /***
+     * Sender hash
+     */
+    private $senderHash;
+
+    /***
      * Receiver e-mail
      */
     private $receiverEmail;
@@ -239,6 +244,23 @@ class PagSeguroDirectPaymentRequest
         } else {
             $this->sender->setPhone(new PagSeguroPhone($param, $number));
         }
+    }
+
+    /***
+     * @return string the senderHash
+     */
+    public function getSenderHash()
+    {
+        return $this->senderHash;
+    }
+
+    /***
+     * Sets the sender hash
+     * @param string $receiverHash
+     */
+    public function setSenderHash($senderHash)
+    {
+        $this->senderHash = $senderHash;
     }
 
     /***

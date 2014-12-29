@@ -38,11 +38,11 @@ class NotificationListener
             switch ($strType) {
 
                 case 'TRANSACTION':
-                    self::transactionNotification($credentials, $code);
+                    self::transactionNotification($code);
                     break;
 
                 case 'APPLICATION_AUTHORIZATION':
-                    self::authorizationNotification($credentials, $code);
+                    self::authorizationNotification($code);
                     break;
 
                 default:
@@ -61,7 +61,7 @@ class NotificationListener
 
     }
 
-    private static function transactionNotification($credentials, $notificationCode)
+    private static function transactionNotification($notificationCode)
     {
 
         $credentials = PagSeguroConfig::getAccountCredentials();
@@ -74,7 +74,7 @@ class NotificationListener
         }
     }
 
-    private static function authorizationNotification($credentials, $notificationCode)
+    private static function authorizationNotification($notificationCode)
     {
 
         $credentials = PagSeguroConfig::getApplicationCredentials();

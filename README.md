@@ -57,6 +57,13 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+2.4.0
+ - Integração com serviço de consulta de transações/autorizações por código de referência.
+ - Integração com serviço de modelo de aplicações.
+ - Integração com serviço de solicitação de estorno.
+ - Ajustes em geral.
+ - Obs.: As funcionalidades descritas acima ainda não estão disponíveis comercialmente para todos os vendedores. Em caso de dúvidas acesse nosso [fórum].
+
 2.3.0
  - Adicionado classes e métodos para utilização do [Checkout Transparente].
  - As consultas por código de notificação e por código da transação passam a utilizar a nova versão das APIs.

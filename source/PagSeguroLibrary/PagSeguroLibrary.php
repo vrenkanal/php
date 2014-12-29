@@ -24,7 +24,7 @@
 class PagSeguroLibrary
 {
 
-    const VERSION = "2.3.0";
+    const VERSION = "2.4.0";
     public static $resources;
     public static $config;
     public static $log;

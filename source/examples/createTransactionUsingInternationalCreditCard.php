@@ -73,7 +73,6 @@ class CreateTransactionUsingInternationalCreditCard
             'João Comprador',
             'comprador@email.com'
         );
-        $directPaymentRequest->addParameter('senderHash', 'c42bb7b409b97e829e6c7fef878852beb7e81933439467f4debaff16661615d9');
 
         $directPaymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br');
 
@@ -98,17 +97,16 @@ class CreateTransactionUsingInternationalCreditCard
             /**
              * #### Credentials #####
              * Replace the parameters below with your credentials
-             * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
+             * You can also get your credentials like this:
+             * $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+             *   "E231B2C9BCC8474DA2E260B6C8CF60D3");
              */
 
             // seller authentication
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getAccountCredentials();
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.

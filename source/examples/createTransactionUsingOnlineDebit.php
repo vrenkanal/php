@@ -77,6 +77,8 @@ class CreateTransactionUsingOnlineDebit
             true
         );
 
+        $directPaymentRequest->setSenderHash("d94d002b6998ca9cd69092746518e50aded5a54aef64c4877ccea02573694986");
+
         // Set shipping information for this payment request
         $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
         $directPaymentRequest->setShippingType($sedexCode);
@@ -112,7 +114,6 @@ class CreateTransactionUsingOnlineDebit
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.

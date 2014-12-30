@@ -31,7 +31,7 @@ class CreateRefund
 
         $transactionCode = "E505C18007B9440D904604D3AE41999A";
 
-        $refundValue = "1000.00"; //optional
+        $refundAmount = "1000.00"; //optional
 
         try {
 
@@ -49,12 +49,9 @@ class CreateRefund
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode, $refundValue);
-
-            //$refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode);
+            $refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode, $refundAmount);
 
             self::printRefund($refund);
 

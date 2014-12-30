@@ -43,8 +43,6 @@ class SearchAuthorizations
             $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
 
-            $credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
-
             $authorization = PagSeguroAuthorizationSearchService::searchAuthorizations($credentials, $options);
 
             self::printAuthorization($authorization);

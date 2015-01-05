@@ -49,28 +49,47 @@ class SearchAuthorizationByReference
 
     }
 
-    public static function printAuthorization(PagSeguroAuthorizationSearchResult $authorization)
+    public static function printAuthorization($authorization)
     {
-
+        
         echo "<h2>Authorization search by Reference</h2>";
         echo "<p><strong>" . $authorization->getDate() . "</strong></p>";
+        
         if ($authorization->getAuthorizations()) {
-            $authorization = $authorization->getAuthorizations();
-            echo "<p><strong>Code: </strong>" . $authorization->getCode() . "</p>";
-            echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
-            echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
-            echo "<p><strong>PrivateKey: </strong>" .
-                $authorization->getAccount()->getPrivateKey() . "</p>";
+            if (is_array($authorization->getAuthorizations())) {
+                $i = 0;
+                foreach ($authorization->getAuthorizations() as $authorization) {
+                    echo "<h2> Authorization: " . ++$i . "</h2>";
+                    echo "<p><strong>Code: </strong>" . $authorization->getCode() . "</p>";
+                    echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
+                    echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
+                    echo "<p><strong>PrivateKey: </strong>" .
+                        $authorization->getAccount()->getPrivateKey() . "</p>";
 
-            echo "<h3>Permissions:</h3>";
-            foreach ($authorization->getPermissions()->getPermissions() as $permission) {
-                echo "<p><strong>Code: </strong>" . $permission->getCode() . "</br>";
-                echo "<strong>Status: </strong>" . $permission->getStatus() . "</br>";
-                echo "<strong>Last Update: </strong>" . $permission->getLastUpdate() . "</p>";
+                    echo "<h3>Permissions:</h3>";
+                    foreach ($authorization->getPermissions()->getPermissions() as $permission) {
+                        echo "<p><strong>Code: </strong>" . $permission->getCode() . "</br>";
+                        echo "<strong>Status: </strong>" . $permission->getStatus() . "</br>";
+                        echo "<strong>Last Update: </strong>" . $permission->getLastUpdate() . "</p>";
+                    }
+                }
+            } else {
+                $authorization = $authorization->getAuthorizations();
+                echo "<p><strong>Code: </strong>" . $authorization->getCode() . "</p>";
+                echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
+                echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
+                echo "<p><strong>PrivateKey: </strong>" .
+                    $authorization->getAccount()->getPrivateKey() . "</p>";
+
+                echo "<h3>Permissions:</h3>";
+                foreach ($authorization->getPermissions()->getPermissions() as $permission) {
+                    echo "<p><strong>Code: </strong>" . $permission->getCode() . "</br>";
+                    echo "<strong>Status: </strong>" . $permission->getStatus() . "</br>";
+                    echo "<strong>Last Update: </strong>" . $permission->getLastUpdate() . "</p>";
+                }
             }
-
-        }
-		echo "<pre>";
+        } 
+        echo "<pre>";
     }
 }
 

@@ -111,13 +111,30 @@ class PagSeguroAuthorizationParser extends PagSeguroServiceParser
         if (isset($data["date"])) {
             $authorization->setDate($data['date']);
         }
+
         //<authorizationSearchResult><authorizations><authorization>
-        if (isset($data['authorizations']['authorization'])) {
-            $newAuthorization = new PagSeguroAuthorization();
-            $authorization->setAuthorizations(
-                self::buildAuthorization($newAuthorization,
-                    $data['authorizations']['authorization']));
+        if (isset($data['authorizations']) && is_array($data['authorizations'])) {
+
+            if (isset($data['authorizations']['authorization'])
+                && $data["resultsInThisPage"] > 1) {
+
+                $i = 0;
+                foreach ($data['authorizations']['authorization'] as $key => $value) {
+                    $newAuthorization = new PagSeguroAuthorization();
+                    $nAuthorization[$i++] = self::buildAuthorization($newAuthorization,$value);
+                }
+                $authorization->setAuthorizations($nAuthorization);
+
+            } else {
+
+                $newAuthorization = new PagSeguroAuthorization();
+                $authorization->setAuthorizations(
+                    self::buildAuthorization($newAuthorization,
+                        $data['authorizations']['authorization']));
+            }
+
         }
+
         // <authorizationSearchResult><resultsInThisPage>
         if (isset($data["resultsInThisPage"])) {
             $authorization->setResultsInThisPage($data['resultsInThisPage']);

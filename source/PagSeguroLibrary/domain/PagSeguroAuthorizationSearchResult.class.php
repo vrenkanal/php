@@ -135,7 +135,7 @@ class PagSeguroAuthorizationSearchResult
      * Sets the authorizations summaries in this page
      * @param PagSeguroAuthorization $authorizations
      */
-    public function setAuthorizations(PagSeguroAuthorization $authorizations)
+    public function setAuthorizations($authorizations)
     {
         $this->authorizations = $authorizations;
     }

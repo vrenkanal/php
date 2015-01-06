@@ -81,3 +81,8 @@ $PagSeguroResources['authorizationService']['serviceTimeout'] = 20;
 $PagSeguroResources['refundService'] = array();
 $PagSeguroResources['refundService']['servicePath'] = "/v2/transactions/refunds";
 $PagSeguroResources['refundService']['serviceTimeout'] = 200;
+
+// Cancels service
+$PagSeguroResources['cancelService'] = array();
+$PagSeguroResources['cancelService']['servicePath'] = "/v2/transactions/cancels";
+$PagSeguroResources['cancelService']['serviceTimeout'] = 200;

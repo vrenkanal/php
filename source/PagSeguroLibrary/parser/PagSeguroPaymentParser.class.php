@@ -215,13 +215,26 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
     /***
      * @param $str_xml
-     * @return PagSeguroParserData Success
+     * @return PagSeguroPaymentParserData Success
      */
     public static function readSuccessXml($str_xml)
     {
         $parser = new PagSeguroXmlParser($str_xml);
         $data = $parser->getResult('checkout');
-        $PaymentParserData = new PagSeguroParserData();
+        $PaymentParserData = new PagSeguroPaymentParserData();
+        $PaymentParserData->setCode($data['code']);
+        $PaymentParserData->setRegistrationDate($data['date']);
+        return $PaymentParserData;
+    }
+
+    /***
+     * @param $str_xml
+     * @return parsed credit card brand
+     */
+     public static function readCCBRandXml($str_xml)
+    {
+        $parser = new PagSeguroXmlParser($str_xml);
+        $PaymentParserData = new PagSeguroPaymentParserData();
         $PaymentParserData->setCode($data['code']);
         $PaymentParserData->setRegistrationDate($data['date']);
         return $PaymentParserData;
@@ -235,7 +248,7 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
     {
         $parser = new PagSeguroXmlParser($str_xml);
         $data = $parser->getResult('transaction');
-        $PaymentParserData = new PagSeguroParserData();
+        $PaymentParserData = new PagSeguroPaymentParserData();
         $PaymentParserData->setCode($data['code']);
         $PaymentParserData->setRegistrationDate($data['date']);
         return $PaymentParserData;

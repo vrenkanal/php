@@ -21,9 +21,9 @@
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the service PagSeguroCancelsService
+ * Class with a main method to illustrate the usage of the service PagSeguroCancelService
  */
-class RequestCancels
+class RequestCancellation
 {
 
     public static function main()
@@ -32,7 +32,7 @@ class RequestCancels
         $transactionCode = "33373E4564B94A58A0E764F07B49715C";
 
         try {
-                
+
             /**
              * @todo
              * #### Credentials #####
@@ -43,25 +43,25 @@ class RequestCancels
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $cancels = PagSeguroCancelsService::createRequest($credentials, $transactionCode);
+            $response = PagSeguroCancelService::createRequest($credentials, $transactionCode);
 
-            self::printCancels($cancels);
+            self::printResponse($response);
 
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
-    public static function printCancels($cancels)
+    public static function printResponse($response)
     {
 
-        if ($cancels) {
-            echo utf8_decode("<h2>Cancels Status:</h2>");
-            echo "<p>".$cancels ."</p> ";
+        if ($response) {
+            echo utf8_decode("<h2>Response:</h2>");
+            echo "<p>".$response ."</p> ";
         }
 
       echo "<pre>";
     }
 }
 
-RequestCancels::main();
+RequestCancellation::main();

@@ -24,7 +24,7 @@
 /***
  * Encapsulates web service calls regarding PagSeguro cancel requests
  */
-class PagSeguroCancelsService
+class PagSeguroCancelService
 {
 
     /**
@@ -37,7 +37,7 @@ class PagSeguroCancelsService
      * @param $transactionCode
      * @return string
      */
-    private static function buildCancelsURL($connectionData, $transactionCode)
+    private static function buildCancelURL($connectionData, $transactionCode)
     {
             return  $connectionData->getServiceUrl() . '?' . $connectionData->getCredentialsUrlQuery()
                     . "&transactionCode=" . $transactionCode;
@@ -61,7 +61,7 @@ class PagSeguroCancelsService
 
            $connection = new PagSeguroHttpConnection();
            $connection->post(
-                self::buildCancelsURL($connectionData, $transactionCode),
+                self::buildCancelURL($connectionData, $transactionCode),
                 array(),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
@@ -72,16 +72,16 @@ class PagSeguroCancelsService
             switch ($httpStatus->getType()) {
                 case 'OK':
 
-                    $result = PagSeguroCancelsParser::readSuccessXml($connection->getResponse());
+                    $result = PagSeguroCancelParser::readSuccessXml($connection->getResponse());
                     LogPagSeguro::info(
-                        "PagSeguroCancelsService.createRequest(".$result.") - end "
+                        "PagSeguroCancelService.createRequest(".$result.") - end "
                     );
                     break;
                 case 'BAD_REQUEST':
-                    $errors = PagSeguroCancelsParser::readErrors($connection->getResponse());
+                    $errors = PagSeguroCancelParser::readErrors($connection->getResponse());
                     $err = new PagSeguroServiceException($httpStatus, $errors);
                     LogPagSeguro::error(
-                        "PagSeguroCancelsService.createRequest() - error " .
+                        "PagSeguroCancelService.createRequest() - error " .
                         $err->getOneLineMessage()
                     );
                     throw $err;
@@ -89,7 +89,7 @@ class PagSeguroCancelsService
                 default:
                     $err = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::error(
-                        "PagSeguroCancelsService.createRequest() - error " .
+                        "PagSeguroCancelService.createRequest() - error " .
                         $err->getOneLineMessage()
                     );
                     throw $err;

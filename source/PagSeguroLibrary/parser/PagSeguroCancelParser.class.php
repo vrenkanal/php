@@ -22,9 +22,9 @@
  */
 
 /***
- * Class PagSeguroCancelsParser
+ * Class PagSeguroCancelParser
  */
-class PagSeguroCancelsParser extends PagSeguroServiceParser
+class PagSeguroCancelParser extends PagSeguroServiceParser
 {
 
     /**

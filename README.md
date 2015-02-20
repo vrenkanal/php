@@ -156,9 +156,11 @@ Contribuições
 
 Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
-* Faça um fork.
-* Adicione sua feature ou correção de bug.
+* Faça um fork do projeto.
+* Faça checkout no repositório desenvolvimento
+* Adicione sua feature ou ajuste.
 * Envie um pull request no [GitHub].
+* Obs.: Nao serão aceitos PR no repositório master.
 
 
   [requisições de pagamentos]: https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-pagamentos.html

@@ -21,13 +21,18 @@
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the service PagSeguroSessionService
+ * Class with a main method to illustrate the usage of the service PagSeguroRefundService
  */
-class CreateSession
+class CreateRefund
 {
 
     public static function main()
     {
+
+        $transactionCode = "E505C18007B9440D904604D3AE41999A";
+
+        $refundAmount = "1000.00"; //optional
+
         try {
 
             /**
@@ -44,28 +49,27 @@ class CreateSession
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $session = PagSeguroSessionService::getSession($credentials);
+            $refund = PagSeguroRefundService::createRefundRequest($credentials, $transactionCode, $refundAmount);
 
-            self::printSession($session);
+            self::printRefund($refund);
 
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
     }
 
-    public static function printSession($sessionID)
+    public static function printRefund($refund)
     {
 
-        if ($sessionID) {
-            echo "<h2>Session</h2>";
-            echo "<p><strong>ID: </strong> ".$sessionID ."</p> ";
+        if ($refund) {
+            echo "<h2>Refund Status:</h2>";
+            echo "<p>".$refund ."</p> ";
         }
 
       echo "<pre>";
     }
 }
 
-CreateSession::main();
+CreateRefund::main();

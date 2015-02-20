@@ -57,7 +57,7 @@ class PagSeguroHttpConnection
         $this->response = $response;
     }
 
-    public function post($url, array $data, $timeout = 20, $charset = 'ISO-8859-1')
+    public function post($url, array $data = array(), $timeout = 20, $charset = 'ISO-8859-1')
     {
         return $this->curlConnection('POST', $url, $timeout, $charset, $data);
     }

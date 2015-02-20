@@ -46,6 +46,11 @@ class PagSeguroDirectPaymentParser extends PagSeguroServiceParser
             $data["paymentMethod"] = $payment->getPaymentMethod()->getPaymentMethod();
         }
 
+        // senderHash
+        if ($payment->getSenderHash() != null) {
+            $data["senderHash"] = $payment->getSenderHash();
+        }
+
          // receiverEmail
         if ($payment->getReceiverEmail() != null) {
             $data["receiverEmail"] = $payment->getReceiverEmail();

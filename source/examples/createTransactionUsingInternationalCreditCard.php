@@ -28,7 +28,7 @@ class CreateTransactionUsingInternationalCreditCard
 
     public static function main()
     {
-	
+
         // Instantiate a new payment request
         $directPaymentRequest = new PagSeguroDirectPaymentRequest();
 
@@ -49,17 +49,17 @@ class CreateTransactionUsingInternationalCreditCard
         // Add an item for this payment request
        	// Add an item for this payment request
         $directPaymentRequest->addItem(
-            '0001', 
-            'Descricao do item a ser vendido', 
-            2, 
+            '0001',
+            'Descricao do item a ser vendido',
+            2,
             10.00
         );
 
         // Add an item for this payment request
         $directPaymentRequest->addItem(
-            '0002', 
-            'Descricao do item a ser vendido', 
-            2, 
+            '0002',
+            'Descricao do item a ser vendido',
+            2,
             5.00
         );
 
@@ -73,17 +73,16 @@ class CreateTransactionUsingInternationalCreditCard
             'João Comprador',
             'comprador@email.com'
         );
-        $directPaymentRequest->addParameter('senderHash', 'c42bb7b409b97e829e6c7fef878852beb7e81933439467f4debaff16661615d9');
 
         $directPaymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br');
 
-        $token = "b1d5d67c6fe34d489edae95b3bbb87b9";
+        $token = "5b97542cd1524b67a9e89b3d90c1f262";
 
         $installment = new PagSeguroInstallment(
-            array("quantity" => 1, 
+            array("quantity" => 1,
                   "value" => "30.00")
-            );      
-	
+            );
+
         $cardCheckout = new PagSeguroCreditCardCheckout(
             array(
                 'token' => $token,
@@ -93,18 +92,23 @@ class CreateTransactionUsingInternationalCreditCard
 
         //Set credit card for payment
         $directPaymentRequest->setCreditCard($cardCheckout);
-	
+
         try {
             /**
-             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
-             * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
+             * Replace the parameters below with your credentials
+             * You can also get your credentials like this:
+             * $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+             *   "E231B2C9BCC8474DA2E260B6C8CF60D3");
              */
-             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
-            
+
+            // seller authentication
+            $credentials = PagSeguroConfig::getAccountCredentials();
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
+
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $return = $directPaymentRequest->register($credentials);
 
@@ -113,20 +117,20 @@ class CreateTransactionUsingInternationalCreditCard
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printTransactionReturn($transaction)
     {
 
         if ($transaction) {
-            echo utf8_decode("<h2>Retorno da transação com Cartão de Crédito Internacional.</h2>");
+            echo "<h2>Retorno da transação com Cartão de Crédito Internacional.</h2>";
             echo "<p><strong>Date: </strong> ".$transaction->getDate() ."</p> ";
             echo "<p><strong>lastEventDate: </strong> ".$transaction->getLastEventDate()."</p> ";
             echo "<p><strong>code: </strong> ".$transaction->getCode() ."</p> ";
             echo "<p><strong>reference: </strong> ".$transaction->getReference() ."</p> ";
             echo "<p><strong>type: </strong> ".$transaction->getType()->getValue() ."</p> ";
             echo "<p><strong>status: </strong> ".$transaction->getStatus()->getValue() ."</p> ";
-            
+
             echo "<p><strong>paymentMethodType: </strong> ".$transaction->getPaymentMethod()->getType()->getValue() ."</p> ";
             echo "<p><strong>paymentModeCode: </strong> ".$transaction->getPaymentMethod()->getCode()->getValue() ."</p> ";
 
@@ -140,12 +144,12 @@ class CreateTransactionUsingInternationalCreditCard
             echo "<p><strong>itemCount: </strong> ".$transaction->getItemCount() ."</p> ";
 
             echo "<p><strong>Items: </strong></p>";
-            foreach ($transaction->getItems() as $item) 
+            foreach ($transaction->getItems() as $item)
             {
                 echo "<p><strong>id: </strong> ". $item->getId() ."</br> ";
                 echo "<strong>description: </strong> ". $item->getDescription() ."</br> ";
                 echo "<strong>quantity: </strong> ". $item->getQuantity() ."</br> ";
-                echo "<strong>amount: </strong> ". $item->getAmount() ."</p> ";  
+                echo "<strong>amount: </strong> ". $item->getAmount() ."</p> ";
             }
 
             echo "<p><strong>senderName: </strong> ".$transaction->getSender()->getName() ."</p> ";

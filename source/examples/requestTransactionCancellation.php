@@ -21,51 +21,47 @@
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the service PagSeguroSessionService
+ * Class with a main method to illustrate the usage of the service PagSeguroCancelService
  */
-class CreateSession
+class RequestCancellation
 {
 
     public static function main()
     {
+
+        $transactionCode = "33373E4564B94A58A0E764F07B49715C";
+
         try {
 
             /**
              * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials
+             * Replace the parameters below with your credentials (e-mail and token)
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-
-            // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            // application authentication
-            //$credentials = PagSeguroConfig::getApplicationCredentials();
+            $response = PagSeguroCancelService::createRequest($credentials, $transactionCode);
 
-            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
-
-            $session = PagSeguroSessionService::getSession($credentials);
-
-            self::printSession($session);
+            self::printResponse($response);
 
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
     }
 
-    public static function printSession($sessionID)
+    public static function printResponse($response)
     {
 
-        if ($sessionID) {
-            echo "<h2>Session</h2>";
-            echo "<p><strong>ID: </strong> ".$sessionID ."</p> ";
+        if ($response) {
+            echo utf8_decode("<h2>Response:</h2>");
+            echo "<p>".$response ."</p> ";
         }
 
       echo "<pre>";
     }
 }
 
-CreateSession::main();
+RequestCancellation::main();

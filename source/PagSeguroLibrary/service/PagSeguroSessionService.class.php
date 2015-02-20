@@ -44,9 +44,8 @@ class PagSeguroSessionService
      * @throws Exception|PagSeguroServiceException
      * @throws Exception
      */
-    public static function getSession(PagSeguroAccountCredentials $credentials)
+    public static function getSession($credentials)
     {
-
         $connectionData = new PagSeguroConnectionData($credentials, 'sessionService');
 
         $url = self::buildSessionURL($connectionData)  . "?" . $connectionData->getCredentialsUrlQuery();

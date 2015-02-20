@@ -29,17 +29,23 @@ class GetInstallments
     public static function main()
     {
         try {
-                
+
             /**
-             * @todo
              * #### Credentials #####
-             * Replace the parameters below with your credentials (e-mail and token)
+             * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+
+            // seller authentication
+            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
-            
+
+            // application authentication
+            //$credentials = PagSeguroConfig::getApplicationCredentials();
+
+            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
+
             $session = "97e12ffaaad04452b9e2b5e9efefd3ee";
             $cardBrand = "visa";
 
@@ -58,13 +64,13 @@ class GetInstallments
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-    } 
+    }
 
     public static function printInstallment($installments)
     {
 
         if ($installments) {
-            echo utf8_decode("<h2>Installments</h2>");
+            echo "<h2>Installments</h2>";
 
             foreach ($installments as $installment) {
                 echo "<p> <strong> brand: </strong> ". $installment->getCardBrand()."<br> ";
@@ -72,7 +78,7 @@ class GetInstallments
                 echo "<strong> installmentAmount: </strong> ". $installment->getInstallmentAmount()."<br> ";
                 echo "<strong> totalAmount: </strong> ". $installment->getTotalAmount()."<br> ";
                 echo "<strong> interestFree: </strong> ". $installment->getInterestFree()."</p> ";
-               
+
             }
         }
       echo "<pre>";

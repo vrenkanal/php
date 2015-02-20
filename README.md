@@ -145,10 +145,10 @@ Notas
  - Para que ocorra normalmente a geração de logs, certifique-se que o diretório e o arquivo de log tenham permissões de leitura e escrita.
 
 
-[Dúvidas?]
+Dúvidas?
 ----------
 
-Em caso de dúvidas mande um e-mail para desenvolvedores@pagseguro.com.br
+Em caso de dúvidas acesse nosso [fórum].
 
 
 Contribuições
@@ -157,7 +157,7 @@ Contribuições
 Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 
 * Faça um fork do projeto.
-* Faça checkout no repositório desenvolvimento
+* Faça checkout no branch desenvolvimento.
 * Adicione sua feature ou ajuste.
 * Envie um pull request no [GitHub].
 * Obs.: Nao serão aceitos PR no repositório master.

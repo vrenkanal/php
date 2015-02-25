@@ -23,12 +23,12 @@
 
 $PagSeguroConfig = array();
 
-$PagSeguroConfig['environment'] = "sandbox"; // production, sandbox
+$PagSeguroConfig['environment'] = "production"; // production, sandbox
 
 $PagSeguroConfig['credentials'] = array();
 $PagSeguroConfig['credentials']['email'] = "your_pagseguro_email";
 $PagSeguroConfig['credentials']['token']['production'] = "your_production_pagseguro_token";
-$PagSeguroConfig['credentials']['token']['sandbox'] = "D90D21CF9B4F4D2186705CE60FC4DE6F";
+$PagSeguroConfig['credentials']['token']['sandbox'] = "your_sandbox_pagseguro_token";
 $PagSeguroConfig['credentials']['appId']['production'] = "your__production_pagseguro_application_id";
 $PagSeguroConfig['credentials']['appId']['sandbox'] = "your_sandbox_pagseguro_application_id";
 $PagSeguroConfig['credentials']['appKey']['production'] = "your_production_application_key";

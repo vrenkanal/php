@@ -45,9 +45,9 @@ class PagSeguroLibrary
 
     public static function init()
     {
-        require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
-        self::verifyDependencies();
         if (self::$library == null) {
+            require_once "loader" . DIRECTORY_SEPARATOR . "PagSeguroAutoLoader.class.php";
+            self::verifyDependencies();
             self::$library = new PagSeguroLibrary();
         }
         return self::$library;

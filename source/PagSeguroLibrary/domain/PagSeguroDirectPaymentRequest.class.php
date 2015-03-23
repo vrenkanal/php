@@ -672,7 +672,7 @@ class PagSeguroDirectPaymentRequest
             'country' => 'BRA'
             );
             
-            $this->billing->setAddress($billindAdress);
+            $this->billing->setAddress(new PagSeguroAddress($billindAdress));
         }
     }
 

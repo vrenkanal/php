@@ -164,7 +164,7 @@ class PagSeguroDirectPaymentRequest
     public function getSender()
     {
         return $this->sender;
-    }
+    }   
 
     /***
      * @return PagSeguroPaymentRequest
@@ -680,7 +680,7 @@ class PagSeguroDirectPaymentRequest
             'country' => 'BRA'
             );
             
-            $this->billing->setAddress($billindAdress);
+            $this->billing->setAddress(new PagSeguroAddress($billindAdress));
         }
     }
 

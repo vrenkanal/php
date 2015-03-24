@@ -122,12 +122,13 @@ class CreatePaymentRequest
              * #### Credentials #####
              * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
-            //  */
+             * $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+             * "E231B2C9BCC8474DA2E260B6C8CF60D3");
+             */
 
             // seller authentication
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getAccountCredentials();
+            
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();

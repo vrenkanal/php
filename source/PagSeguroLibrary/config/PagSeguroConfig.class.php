@@ -32,19 +32,18 @@ class PagSeguroConfig
     private static $config;
     private static $data;
 
-    const VARNAME = 'PagSeguroConfig';
-
     private function __construct()
     {
         define('ALLOW_PAGSEGURO_CONFIG', true);
 
-        require_once PagSeguroLibrary::getPath() .
-            DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
-        $varName = self::VARNAME;
+        if(!class_exists('PagSeguroConfigWrapper'))
+            require_once PagSeguroLibrary::getPath() .
+                DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
 
-        if (isset($$varName)) {
-            self::$data = $$varName;
-            unset($$varName);
+        $wrapper = new PagSeguroConfigWrapper();
+
+        if (method_exists($wrapper, 'getConfig')) {
+            self::$data = $wrapper->getConfig();
         } else {
             throw new Exception("Config is undefined.");
         }

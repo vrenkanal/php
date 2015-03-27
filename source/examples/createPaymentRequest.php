@@ -20,6 +20,38 @@
 
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
+/***
+ * Provides for user a option to configure their credentials without changes in PagSeguroConfig.php file.
+ */ 
+class PagSeguroConfigWrapper
+{
+    public static function getConfig()
+    {
+        $PagSeguroConfig = array();
+
+        $PagSeguroConfig['environment'] = "production"; // production, sandbox
+
+        $PagSeguroConfig['credentials'] = array();
+        $PagSeguroConfig['credentials']['email'] = "your_pagseguro_email";
+        $PagSeguroConfig['credentials']['token']['production'] = "your_production_pagseguro_token";
+        $PagSeguroConfig['credentials']['token']['sandbox'] = "your_sandbox_pagseguro_token";
+        $PagSeguroConfig['credentials']['appId']['production'] = "your__production_pagseguro_application_id";
+        $PagSeguroConfig['credentials']['appId']['sandbox'] = "your_sandbox_pagseguro_application_id";
+        $PagSeguroConfig['credentials']['appKey']['production'] = "your_production_application_key";
+        $PagSeguroConfig['credentials']['appKey']['sandbox'] = "your_sandbox_application_key";
+
+        $PagSeguroConfig['application'] = array();
+        $PagSeguroConfig['application']['charset'] = "UTF-8"; // UTF-8, ISO-8859-1
+
+        $PagSeguroConfig['log'] = array();
+        $PagSeguroConfig['log']['active'] = false;
+        // Informe o path completo (relativo ao path da lib) para o arquivo, ex.: ../PagSeguroLibrary/logs.txt
+        $PagSeguroConfig['log']['fileLocation'] = "";
+
+        return $PagSeguroConfig;
+    }
+}
+
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
  */
@@ -90,12 +122,13 @@ class CreatePaymentRequest
              * #### Credentials #####
              * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getAccountCredentials();
-            //  */
+             * $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+             * "E231B2C9BCC8474DA2E260B6C8CF60D3");
+             */
 
             // seller authentication
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getAccountCredentials();
+            
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();

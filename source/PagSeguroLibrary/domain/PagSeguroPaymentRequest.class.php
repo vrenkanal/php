@@ -113,6 +113,14 @@ class PagSeguroPaymentRequest
     private $parameter;
 
     /***
+     * Class constructor to make sure the library was initialized.
+     */
+    public function __construct()
+    {
+        PagSeguroLibrary::init();
+    }
+
+    /***
      * @return PagSeguroSender the sender
      *
      * Party that will be sending the Uri to where the PagSeguro payment page should redirect the

@@ -62,10 +62,6 @@ class PagSeguroConnectionData
     /***
      * @var
      */
-    private $authorizationUrl;
-    /***
-     * @var
-     */
     private $sessionUrl;
     /***
      * @var

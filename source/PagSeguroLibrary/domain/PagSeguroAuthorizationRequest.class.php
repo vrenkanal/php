@@ -62,6 +62,14 @@ class PagSeguroAuthorizationRequest
     private $parameter;
 
     /***
+     * Class constructor to make sure the library was initialized.
+     */
+    public function __construct()
+    {
+        PagSeguroLibrary::init();
+    }
+
+    /***
      * Sets reference for PagSeguro authorization requests
      * @param string $reference
      */

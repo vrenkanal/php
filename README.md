@@ -9,6 +9,9 @@ Descrição
 A biblioteca PagSeguro em PHP é um conjunto de classes de domínio que facilitam, para o desenvolvedor PHP, a utilização das funcionalidades que o PagSeguro oferece na forma de APIs. Com a biblioteca instalada e configurada, você pode facilmente integrar funcionalidades como:
 
  - Criar [requisições de pagamentos]
+ - Criar [requisições de assinaturas]
+ - Cancelar [assinaturas]
+ - Consultar [assinaturas]
  - Consultar [transações por código]
  - Consultar [transações por intervalo de datas]
  - Consultar [transações abandonadas]
@@ -164,6 +167,8 @@ Achou e corrigiu um bug ou tem alguma feature em mente e deseja contribuir?
 * Obs.: Adicione exemplos para sua nova feature. Se seu Pull Request for relacionado a uma versão específica, o Pull Request não deve ser enviado para o branch master e sim para o branch correspondente a versão.
 
 
+  [requisições de assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
+  [assinaturas]: http://download.uol.com.br/pagseguro/docs/pagseguro-assinatura-automatica.pdf
   [requisições de pagamentos]: https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-pagamentos.html
   [notificações]: https://pagseguro.uol.com.br/v3/guia-de-integracao/api-de-notificacoes.html
   [Checkout Transparente]: https://pagseguro.uol.com.br/receba-pagamentos.jhtml#checkout-transparent

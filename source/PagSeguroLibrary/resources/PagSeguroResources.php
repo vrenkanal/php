@@ -58,6 +58,16 @@ $PagSeguroResources['directPaymentService']['servicePath'] = "/v2/transactions";
 $PagSeguroResources['directPaymentService']['checkoutUrl'] = "/v2/transactions";
 $PagSeguroResources['directPaymentService']['serviceTimeout'] = 20;
 
+// PreApproval service
+$PagSeguroResources['preApproval'] = array();
+$PagSeguroResources['preApproval']['servicePath'] = "/v2/pre-approvals/request";
+$PagSeguroResources['preApproval']['checkoutUrl'] = "/v2/pre-approvals/request.html";
+$PagSeguroResources['preApproval']['cancelUrl'] = "/v2/pre-approvals/cancel/";
+$PagSeguroResources['preApproval']['notifications'] = "/v2/pre-approvals/notifications";
+$PagSeguroResources['preApproval']['baseUrl']['production'] = $PagSeguroResources['webserviceUrl']['production'];
+$PagSeguroResources['preApproval']['baseUrl']['sandbox'] = $PagSeguroResources['webserviceUrl']['sandbox'];
+$PagSeguroResources['preApproval']['serviceTimeout'] = 20;
+
 // Notification service
 $PagSeguroResources['notificationService'] = array();
 $PagSeguroResources['notificationService']['servicePath'] = "/v3/transactions/notifications";

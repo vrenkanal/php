@@ -41,106 +41,207 @@ class PagSeguroPreApprovalRequest extends PagSeguroPaymentRequest
     private $preApprovalCharge;
 
     /***
-     * Sets the redirect URL
+     * Sets the review URL
      *
      * Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
      * Typically this is a confirmation page on your web site.
      *
-     * @param String $redirectURL
+     * @param String $reviewURL
      */
     public function setReviewURL($reviewURL)
     {
         $this->reviewURL = $this->verifyURLTest($reviewURL);
+    }
+    /***
+     * @return uri the reference of reviewURL
+     */
+    public function getReviewURL()
+    {
+        return $this->ReviewURL;
     }
 
     /***
      * Sets the preApprovalMaxTotalAmount for this pre approval
      * @param double $value
      */
-    public function setPreApprovalMaxTotalAmount($value) {
+    public function setPreApprovalMaxTotalAmount($value)
+    {
         $this->preApprovalMaxTotalAmount = $value;
+    }
+    /***
+     * @return double the reference of preApprovalMaxTotalAmount
+     */
+    public function getPreApprovalMaxTotalAmount()
+    {
+        return $this->preApprovalMaxTotalAmount;
     }
     
     /***
      * Sets the preApprovalMaxAmountPerPeriod for this pre approval
      * @param double $value
      */
-    public function setPreApprovalMaxAmountPerPeriod($value) {
+    public function setPreApprovalMaxAmountPerPeriod($value)
+    {
         $this->preApprovalMaxAmountPerPeriod = $value;
+    }
+    /***
+     * @return double the reference of preApprovalMaxAmountPerPeriod
+     */
+    public function  getPreApprovalMaxAmountPerPeriod()
+    {
+        return $this->preApprovalMaxAmountPerPeriod;
     }
     
     /***
      * Sets the preApprovalFinalDate for this pre approval
      * @param ISODate $date
      */
-    public function setPreApprovalFinalDate($date) {
+    public function setPreApprovalFinalDate($date)
+    {
         $this->preApprovalFinalDate = $date;
+    }
+    /***
+     * @return date the reference of preApprovalFinalDate
+     */
+    public function  getPreApprovalFinalDate()
+    {
+        return $this->preApprovalFinalDate;
     }
     
     /***
      * Sets the preApprovalInitialDate for this pre approval
      * @param ISODate $date
      */
-    public function setPreApprovalInitialDate($date) {
+    public function setPreApprovalInitialDate($date)
+    {
         $this->preApprovalInitialDate = $date;
+    }
+    /***
+     * @return date the reference of preApprovalInitialDate
+     */
+    public function getPreApprovalInitialDate()
+    {
+        return $this->preApprovalInitialDate;
     }
     
     /***
      * Sets the preApprovalDayOfMonth for this pre approval
      * @param Number $day
      */
-    public function setPreApprovalDayOfMonth($day) {
+    public function setPreApprovalDayOfMonth($day)
+    {
         $this->preApprovalDayOfMonth = $day;
+    }
+    /***
+     * @return int the reference of preApprovalInitialDate
+     */
+    public function getPreApprovalDayOfMonth()
+    {
+        return $this->preApprovalDayOfMonth;
     }
     
     /***
      * Sets the preApprovalDayOfWeek for this pre approval
      * @param String $day
      */
-    public function setPreApprovalDayOfWeek($day) {
+    public function setPreApprovalDayOfWeek($day)
+    {
         $this->preApprovalDayOfWeek = $day;
+    }
+    /***
+     * @return String the reference of preApprovalDayOfWeek
+     */
+    public function getPreApprovalDayOfWeek()
+    {
+        return $this->preApprovalDayOfWeek;
     }
     
     /***
      * Sets the preApprovalPeriod for this pre approval
      * @param String $period
      */
-    public function setPreApprovalPeriod($period) {
+    public function setPreApprovalPeriod($period)
+    {
         $this->preApprovalPeriod = $period;
+    }
+    /***
+     * @return String the reference of preApprovalPeriod
+     */
+    public function getPreApprovalPeriod()
+    {
+        return $this->preApprovalPeriod;
     }
     
     /***
      * Sets the preApprovalAmountPerPayment value for the recurrent payment
      * @param double $value
      */
-    public function setPreApprovalAmountPerPayment($value) {
+    public function setPreApprovalAmountPerPayment($value)
+    {
         $this->preApprovalAmountPerPayment = $value;
+    }
+    /***
+     * @return double the reference of preApprovalAmountPerPayment
+     */
+    public function getPreApprovalAmountPerPayment()
+    {
+        return $this->preApprovalAmountPerPayment;
     }
     
     /***
      * Sets the preApprovalDetails for the transaction
      * @param String $details
      */
-    public function setPreApprovalDetails($details) {
+    public function setPreApprovalDetails($details)
+    {
         $this->preApprovalDetails = $details;
+    }
+    /***
+     * @return String the reference of preApprovalDetails
+     */
+    public function getPreApprovalDetails()
+    {
+        return $this->preApprovalDetails;
     }
     
     /***
      * Sets the preApprovalName (title) for the transaction
      * @param String $name
      */
-    public function setPreApprovalName($name) {
+    public function setPreApprovalName($name)
+    {
         $this->preApprovalName = $name;
+    }
+    /***
+     * @return String the reference of preApprovalName (title)
+     */
+    public function getPreApprovalName()
+    {
+        return $this->preApprovalName;
     }
     
     /***
      * Sets the preApprovalCharge type (auto, manual)
      * @param String $type
      */
-    public function setPreApprovalCharge($type) {
+    public function setPreApprovalCharge($type)
+    {
         $this->preApprovalCharge = $type;
     }
-    
+
+    /***
+     * @return String the reference of pre approval charge
+     */
+    public function getPreApprovalCharge()
+    {
+        return $this->preApprovalCharge;
+    }
+
+    /***
+     * Register the preApproval
+     * @param PagSeguroCredentials $credentials
+     * @param bool $onlyCheckoutCode
+     */
     public function doPreApproval(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
     {
         return PagSeguroPreApprovalService::createPreApprovalRequest($credentials, $this);

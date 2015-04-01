@@ -192,6 +192,7 @@ class PagSeguroPreApprovalParser extends PagSeguroPaymentParser
         $paymentParserData = new PagSeguroParserData();
         $paymentParserData->setCode(null); // PreApproval API does not send code on cancel requests
         $paymentParserData->setRegistrationDate($data['date']);
+        $paymentParserData->setStatus($data['status']);
         return $paymentParserData;
     }
 }

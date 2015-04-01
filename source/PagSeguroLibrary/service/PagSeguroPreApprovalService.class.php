@@ -259,12 +259,16 @@ class PagSeguroPreApprovalService
             switch ($httpStatus->getType()) {
 
                 case 'OK':
-                    $paymentParserData = PagSeguroPreApprovalParser::readCancelXml($connection->getResponse());
+                    $parserData = PagSeguroPreApprovalParser::readCancelXml($connection->getResponse());
 
+                    print_r($parserData);
                     LogPagSeguro::info(
-                        "PagSeguroPreApprovalService.cancelPreApproval($parserData) - end \{$notificationCode\}"
+                        "PagSeguroPreApprovalService.cancelPreApproval(".$parserData->getStatus().")
+                        - end \{$notificationCode\}"
                     );
                     break;
+
+                    return $parserData;
 
                 case 'BAD_REQUEST':
                     $errors = PagSeguroPreApprovalParser::readErrors($connection->getResponse());

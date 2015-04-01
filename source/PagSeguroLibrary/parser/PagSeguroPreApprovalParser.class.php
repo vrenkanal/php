@@ -24,7 +24,7 @@
 /***
  * Class PagSeguroPreApprovalParser
  */
-class PagSeguroPreApprovalParser extends PagSeguroPaymentParser
+class PagSeguroPreApprovalParser
 {
 
     /***
@@ -34,7 +34,7 @@ class PagSeguroPreApprovalParser extends PagSeguroPaymentParser
     public static function getData($payment)
     {
 		
-        $data = parent::getData($payment);
+        $data = PagSeguroPaymentParser::getData($payment);
 
         if($payment->getPreApprovalCharge() != null){
             $data["preApprovalCharge"] = $payment->getPreApprovalCharge();

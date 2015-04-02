@@ -122,9 +122,19 @@ class PagSeguroPreApprovalParser
             $preApproval->setCode($data["code"]);
         }
 
+        // <transaction> <tracker>
+        if (isset($data["tracker"])) {
+            $preApproval->setTracker($data["tracker"]);
+        }
+
         // <transaction> <reference>
         if (isset($data["reference"])) {
             $preApproval->setReference($data["reference"]);
+        }
+
+        // <transaction> <charge>
+        if (isset($data["charge"])) {
+            $preApproval->setCharge($data["charge"]);
         }
 
         // <transaction> <status>

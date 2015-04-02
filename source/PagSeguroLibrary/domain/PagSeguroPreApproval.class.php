@@ -67,6 +67,11 @@ class PagSeguroPreApproval
     private $status;
 
     /***
+     * Pre Approval Charge
+     */
+    private $charge;
+
+    /***
      * Payer information, who is sending money
      * @see PagSeguroSender
      * @var PagSeguroSender
@@ -168,6 +173,24 @@ class PagSeguroPreApproval
     }
 
     /***
+     * @return string the charge
+     */
+    public function getCharge()
+    {
+        return $this->charge;
+    }
+
+    /***
+     * Sets the charge
+     *
+     * @param code
+     */
+    public function setCharge($charge)
+    {
+        $this->charge = $charge;
+    }
+
+    /***
      * @return PagSeguroPreApprovalStatus the transaction status
      * @see PagSeguroPreApprovalStatus
      */
@@ -184,6 +207,8 @@ class PagSeguroPreApproval
     {
         $this->status = $status;
     }
+
+
 
     /***
      * @return PagSeguroSender the sender information, who is sending money in this transaction
@@ -215,6 +240,8 @@ class PagSeguroPreApproval
         $preApproval['date'] = $this->date;
         $preApproval['reference'] = $this->reference;
         $preApproval['status'] = $this->status ? $this->status->getValue() : "null";
+        $preApproval['charge'] = $this->charge;
+        $preApproval['tracker'] = $this->tracker;
      
         $preApproval = "PreApproval: " . var_export($preApproval, true);
 

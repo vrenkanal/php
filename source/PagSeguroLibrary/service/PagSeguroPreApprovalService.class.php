@@ -31,7 +31,14 @@ class PagSeguroPreApprovalService
      *
      */
     const SERVICE_NAME = 'preApproval';
-    private static $logService;
+    /**
+     * @var
+     */
+    private static $service;
+    /**
+     * @var
+     */
+    private static $connectionData;
 
     /***
      * @param PagSeguroConnectionData $connectionData
@@ -84,276 +91,258 @@ class PagSeguroPreApprovalService
         $credentialsArray = $connectionData->getCredentials()->getAttributesMap();
         return $connectionData->getWebserviceUrl() .
         $connectionData->getResource('cancelUrl') .
-        "$code?email={$credentialsArray['email']}&token={$credentialsArray['token']}";
+        "$code?".$connectionData->getCredentialsUrlQuery();
     }
 
-    /***
+
+    /**
      * @param PagSeguroCredentials $credentials
      * @param PagSeguroPaymentRequest $paymentRequest
-     * @return array('code', 'cancelUrl', 'checkoutUrl')
-     * @throws Exception|PagSeguroServiceException
+     * @return null|PagSeguroParserData
      * @throws Exception
+     * @throws PagSeguroServiceException
      */
     public static function createPreApprovalRequest(
         PagSeguroCredentials $credentials,
-        PagSeguroPaymentRequest $paymentRequest
+        PagSeguroPreApprovalRequest $request
     ) {
 
-        LogPagSeguro::info("PagSeguroPreApprovalService.createPreApprovalRequest(" .
-            $paymentRequest->toString() . ") - begin");
+        LogPagSeguro::info("PagSeguroPreApprovalService.PreApprovalRequest(" .
+            $request->toString() . ") - begin");
 
-        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
-        $data = array_merge($connectionData->getCredentials()->getAttributesMap(),
-            PagSeguroPreApprovalParser::getData($paymentRequest));
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+        $data = array_merge(self::$connectionData->getCredentials()->getAttributesMap(),
+            PagSeguroPreApprovalParser::getData($request));
 
         try {
 
             $connection = new PagSeguroHttpConnection();
             $connection->post(
-                self::buildCheckoutRequestUrl($connectionData),
+                self::buildCheckoutRequestUrl(self::$connectionData),
                 $data,
-                $connectionData->getServiceTimeout(),
-                $connectionData->getCharset()
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
             );
 
-            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
+            self::$service = "PreApprovalRequest";
+            return self::getResult($connection);
 
-            switch ($httpStatus->getType()) {
+        } catch (PagSeguroServiceException $err) {
+            //Logging
+            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
+            throw $err;
 
-                case 'OK':
-                    $PaymentParserData = PagSeguroPreApprovalParser::readSuccessXml($connection->getResponse());
-
-                    $paymentReturn = array ( 'code' => $PaymentParserData->getCode(),
-                        'cancelUrl' => self::buildCancelUrl($connectionData,
-                            $PaymentParserData->getCode()),
-                        'checkoutUrl' => self::buildCheckoutUrl($connectionData,
-                            $PaymentParserData->getCode()) );
-                    LogPagSeguro::info(
-                        "PagSeguroPreApprovalService.createPreApprovalRequest(" .
-                        $paymentRequest->toString() . ") - end {1}" .
-                        $PaymentParserData->getCode()
-                    );
-                    break;
-
-                case 'BAD_REQUEST':
-                    $errors = PagSeguroPreApprovalParser::readErrors($connection->getResponse());
-                    $e = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::error(
-                        "PagSeguroPreApprovalService.createPreApprovalRequest(" .
-                        $paymentRequest->toString() . ") - error " .
-                        $e->getOneLineMessage()
-                    );
-                    throw $e;
-                    break;
-
-                default:
-                    $e = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::error(
-                        "PagSeguroPreApprovalService.createPreApprovalRequest(" .
-                        $paymentRequest->toString() . ") - error " .
-                        $e->getOneLineMessage()
-                    );
-                    throw $e;
-                    break;
-
-            }
-            return (isset($paymentReturn) ? $paymentReturn : false);
-
-        } catch (PagSeguroServiceException $e) {
-            throw $e;
-        }
-        catch (Exception $e) {
-            LogPagSeguro::error("Exception: " . $e->getMessage());
-            throw $e;
+        } catch (Exception $err) {
+            //Logging
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
+            throw $err;
         }
 
     }
 
-    /***
-     * Returns a transaction from a code
-     *
+    /**
      * @param PagSeguroCredentials $credentials
-     * @param String $notificationCode
-     * @throws PagSeguroServiceException
+     * @param $notificationCode
+     * @return null|PagSeguroParserData
      * @throws Exception
-     * @return PagSeguroTransaction
-     * @see PagSeguroTransaction
+     * @throws PagSeguroServiceException
      */
-    public static function findByCode(PagSeguroCredentials $credentials, $code)
+    public static function cancelPreApproval(PagSeguroCredentials $credentials, $notificationCode)
     {
 
-        LogPagSeguro::info("PagSeguroNotificationService.FindByCode($code) - begin");
-        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+        //Logging
+        $log['text'] = "PagSeguroNotificationService.PreApprovalCancel($notificationCode) - begin";
+        LogPagSeguro::info($log['text']);
+
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
 
             $connection = new PagSeguroHttpConnection();
             $connection->get(
-                self::buildFindByCodeUrl($connectionData, $code),
-                $connectionData->getServiceTimeout(),
-                $connectionData->getCharset()
+                self::buildCancelUrl(
+                    self::$connectionData,
+                    $notificationCode),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
             );
-            self::$logService = "FindByCode";
-            return self::searchReturn($connection, $code);
+
+            self::$service = "PreApprovalCancel";
+            return self::getResult($connection, $notificationCode);
 
         } catch (PagSeguroServiceException $err) {
+            //Logging
             LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
             throw $err;
+
         } catch (Exception $err) {
+            //Logging
             LogPagSeguro::error("Exception: " . $err->getMessage());
-            throw $err;
-        }
-    }
-
-    /***
-     * Returns a transaction from a notification code
-     *
-     * @param PagSeguroCredentials $credentials
-     * @param String $notificationCode
-     * @throws PagSeguroServiceException
-     * @throws Exception
-     * @return PagSeguroTransaction
-     * @see PagSeguroTransaction
-     */
-    public static function findByNotification(PagSeguroCredentials $credentials, $notificationCode)
-    {
-
-        LogPagSeguro::info("PagSeguroNotificationService.FindByNotification($notificationCode) - begin");
-        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
-
-        try {
-
-            $connection = new PagSeguroHttpConnection();
-            $connection->get(
-                self::buildFindByNotificationUrl($connectionData, $notificationCode),
-                $connectionData->getServiceTimeout(),
-                $connectionData->getCharset()
-            );
-            self::$logService = "FindByNotification";
-            return self::searchReturn($connection, $notificationCode);
-
-        } catch (PagSeguroServiceException $err) {
-            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
-            throw $err;
-        } catch (Exception $err) {
-            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
             throw $err;
         }
     }
 
     /**
-     * @param PagSeguroHttpConnection $connection
-     * @param string $code
-     * @return bool|mixed|string
-     * @throws PagSeguroServiceException
-     */
-    private function searchReturn($connection, $code)
-    {
-        $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
-        switch ($httpStatus->getType()) {
-
-            case 'OK':
-                $return = PagSeguroPreApprovalParser::readPreApproval($connection->getResponse());
-                LogPagSeguro::info(
-                    sprintf("PagSeguroNotificationService.%s($code) - end ", self::$logService) .
-                    $return->toString() . ")"
-                );
-
-                break;
-
-            case 'BAD_REQUEST':
-
-                $errors = PagSeguroServiceParser::readErrors($connection->getResponse());
-
-                $err = new PagSeguroServiceException($httpStatus, $errors);
-                LogPagSeguro::info(
-                    sprintf("PagSeguroNotificationService.%s($code) - error ", self::$logService) .
-                    $err->getOneLineMessage()
-                );
-                throw $err;
-                break;
-
-            default:
-                $err = new PagSeguroServiceException($httpStatus);
-                LogPagSeguro::info(
-                    sprintf("PagSeguroNotificationService.%s($code) - error ", self::$logService) .
-                    $err->getOneLineMessage()
-                );
-                throw $err;
-                break;
-        }
-        return isset($return) ? $return : null;
-    }
-
-
-    /***
-     * Request a pre approval cancelling
-     *
      * @param PagSeguroCredentials $credentials
-     * @param String $notificationCode
-     * @throws PagSeguroServiceException
+     * @param $code
+     * @return null|PagSeguroParserData
      * @throws Exception
-     * @return true if ok, error message otherwise
+     * @throws PagSeguroServiceException
      */
-    public static function cancelPreApproval(PagSeguroCredentials $credentials, $notificationCode)
+    public static function findByCode(PagSeguroCredentials $credentials, $code)
     {
 
-        LogPagSeguro::info("PagSeguroNotificationService.cancelPreApproval(
-            notificationCode=$notificationCode) - begin");
-        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+        LogPagSeguro::info("PagSeguroPreApprovalService.FindByCode($code) - begin");
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
 
             $connection = new PagSeguroHttpConnection();
             $connection->get(
-                self::buildCancelUrl($connectionData, $notificationCode),
-                $connectionData->getServiceTimeout(),
-                $connectionData->getCharset()
+                self::buildFindByCodeUrl(self::$connectionData, $code),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
             );
-
-            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
-            switch ($httpStatus->getType()) {
-
-                case 'OK':
-                    $parserData = PagSeguroPreApprovalParser::readCancelXml($connection->getResponse());
-
-                    LogPagSeguro::info(
-                        "PagSeguroPreApprovalService.cancelPreApproval(".$parserData->getStatus().")
-                        - end \{$notificationCode\}"
-                    );
-                    break;
-
-                case 'BAD_REQUEST':
-                    $errors = PagSeguroPreApprovalParser::readErrors($connection->getResponse());
-                    $e = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::error(
-                        "PagSeguroPreApprovalService.cancelPreApproval(notificationCode=$notificationCode) - error " .
-                        $e->getOneLineMessage()
-                    );
-                    throw $e;
-                    break;
-
-                default:
-                    $e = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::error(
-                        "PagSeguroPreApprovalService.cancelPreApproval(notificationCode=$notificationCode) - error " .
-                        $e->getOneLineMessage()
-                    );
-                    throw $e;
-                    break;
-
-            }
-
-            return (isset($parserData) ? $parserData : false);
+            self::$service = "FindByCode";
+            return self::getResult($connection, $code);
 
         } catch (PagSeguroServiceException $err) {
+            //Logging
             LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
             throw $err;
+
         } catch (Exception $err) {
+            //Logging
             LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
             throw $err;
         }
+    }
+
+    /**
+     * @param PagSeguroCredentials $credentials
+     * @param $notificationCode
+     * @return null|PagSeguroParserData
+     * @throws Exception
+     * @throws PagSeguroServiceException
+     */
+    public static function findByNotification(PagSeguroCredentials $credentials, $notificationCode)
+    {
+
+        LogPagSeguro::info("PagSeguroPreApprovalService.FindByNotification($notificationCode) - begin");
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        try {
+
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildFindByNotificationUrl(self::$connectionData, $notificationCode),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
+            );
+            self::$service = "FindByNotification";
+            return self::getResult($connection, $notificationCode);
+
+        } catch (PagSeguroServiceException $err) {
+            //Logging
+            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
+            throw $err;
+
+        } catch (Exception $err) {
+            //Logging
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
+            throw $err;
+        }
+    }
+
+    /**
+     * @param $connection
+     * @param null $code
+     * @return null|PagSeguroParserData
+     * @throws PagSeguroServiceException
+     */
+    private function getResult($connection, $code = null)
+    {
+
+        $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
+        $response   = $connection->getResponse();
+
+        switch ($httpStatus->getType()) {
+
+            case 'OK':
+
+                switch(self::$service) {
+                    case "PreApprovalRequest":
+
+                        $response = PagSeguroPreApprovalParser::readSuccessXml($response);
+
+                        $result = array ( 'code' => $response->getCode(),
+                            'cancelUrl' => self::buildCancelUrl(self::$connectionData,
+                                $response->getCode()),
+                            'checkoutUrl' => self::buildCheckoutUrl(self::$connectionData,
+                                $response->getCode()) );
+
+                        break;
+
+                    case "PreApprovalCancel":
+                        $result = PagSeguroPreApprovalParser::readCancelXml($response);
+                        break;
+
+                    case "FindByCode":
+                        $result = PagSeguroPreApprovalParser::readPreApproval($response);
+                        break;
+
+                    case "FindByNotification":
+                        $result = PagSeguroPreApprovalParser::readPreApproval($response);
+                        break;
+                }
+
+                //Logging
+                if (is_null($code)) {
+                    $log['text'] = sprintf("PagSeguroPreApprovalService.%s(".$response->toString().") - end ",
+                        self::$service);
+                    LogPagSeguro::info($log['text'] . ")");
+                } else {
+                    $log['text'] = sprintf("PagSeguroPreApprovalService.%s($code) - end ", self::$service);
+                    LogPagSeguro::info($log['text']);
+                }
+
+                break;
+
+            case 'BAD_REQUEST':
+
+                $errors = PagSeguroServiceParser::readErrors($response);
+                $errors = new PagSeguroServiceException($httpStatus, $errors);
+
+                //Logging
+                $log['text']  = sprintf("PagSeguroPreApprovalService.%s($code) - error ", self::$service);
+                LogPagSeguro::error($log['text'] . $errors->getOneLineMessage());
+
+                //Exception
+                throw $errors;
+
+                break;
+
+            default:
+
+                $errors = new PagSeguroServiceException($httpStatus);
+
+                //Logging
+                $log['text'] = sprintf("PagSeguroPreApprovalService.%s($code) - error ", self::$service);
+                LogPagSeguro::error($log['text'] . $errors->getOneLineMessage());
+
+                //Exception
+                throw $errors;
+
+                break;
+        }
+        return isset($result) ? $result : null;
     }
 }

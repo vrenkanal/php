@@ -30,7 +30,11 @@
  */
 class PagSeguroPreApproval
 {
-
+    /***
+     * Transaction name
+     */
+    private $name;
+    
     /***
      * Transaction date
      */
@@ -77,6 +81,24 @@ class PagSeguroPreApproval
      * @var PagSeguroSender
      */
     private $sender;
+
+    /***
+     * @return String the transaction name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /***
+     * Sets the transaction name
+     *
+     * @param string name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /***
      * Date the last notification about this transaction was sent

@@ -72,6 +72,7 @@ $PagSeguroResources['preApproval']['serviceTimeout'] = 20;
 $PagSeguroResources['notificationService'] = array();
 $PagSeguroResources['notificationService']['servicePath'] = "/v3/transactions/notifications";
 $PagSeguroResources['notificationService']['applicationPath'] = "v2/authorizations/notifications";
+$PagSeguroResources['notificationService']['preApprovalPath'] = "v2/pre-approvals/notifications";
 $PagSeguroResources['notificationService']['serviceTimeout'] = 20;
 
 // Transaction search service

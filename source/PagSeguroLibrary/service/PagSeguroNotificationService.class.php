@@ -32,28 +32,48 @@ class PagSeguroNotificationService
      */
     const SERVICE_NAME = 'notificationService';
 
-    private static $logService;
+    /**
+     * @var
+     */
+    private static $service;
 
-    /***
+
+    /**
      * @param PagSeguroConnectionData $connectionData
      * @param $notificationCode
      * @return string
      */
-    private static function buildTransactionNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode)
+    private static function buildTransactionNotificationUrl(
+        PagSeguroConnectionData $connectionData, $notificationCode)
     {
         $url = $connectionData->getServiceUrl();
         return "{$url}/{$notificationCode}/?" . $connectionData->getCredentialsUrlQuery();
     }
 
-    /***
+
+    /**
      * @param PagSeguroConnectionData $connectionData
      * @param $notificationCode
      * @return string
      */
-    private static function buildAuthorizationNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode)
+    private static function buildAuthorizationNotificationUrl(
+        PagSeguroConnectionData $connectionData, $notificationCode)
     {
         $url = $connectionData->getWebserviceUrl() . '/' . $connectionData->getResource('applicationPath');
         return "{$url}/{$notificationCode}/?" . $connectionData->getCredentialsUrlQuery();
+    }
+
+
+    /**
+     * @param PagSeguroConnectionData $connectionData
+     * @param $preApprovalCode
+     * @return string
+     */
+    private static function buildPreApprovalNotificationUrl(
+        PagSeguroConnectionData $connectionData, $preApprovalCode)
+    {
+        $url = $connectionData->getWebserviceUrl() . '/' . $connectionData->getResource('preApprovalPath');
+        return "{$url}/{$preApprovalCode}/?" . $connectionData->getCredentialsUrlQuery();
     }
 
     /***
@@ -69,7 +89,9 @@ class PagSeguroNotificationService
     public static function checkTransaction(PagSeguroCredentials $credentials, $notificationCode)
     {
 
-        LogPagSeguro::info("PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - begin");
+        LogPagSeguro::info(
+            "PagSeguroNotificationService.CheckTransaction(notificationCode=$notificationCode) - begin"
+        );
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
@@ -81,10 +103,8 @@ class PagSeguroNotificationService
                 $connectionData->getCharset()
             );
 
-            $transaction = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-
-            self::$logService = "CheckTransaction";
-            return self::searchReturn($connection, $transaction, $notificationCode);
+            self::$service = "CheckTransaction";
+            return self::getResult($connection, $notificationCode);
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
@@ -94,15 +114,13 @@ class PagSeguroNotificationService
         }
     }
 
-    /***
+    /**
      * Returns a authorization from a notification code
-     *
      * @param PagSeguroCredentials $credentials
-     * @param String $notificationCode
-     * @throws PagSeguroServiceException
+     * @param $notificationCode
+     * @return bool|mixed|string
      * @throws Exception
-     * @return PagSeguroAuthorization
-     * @see PagSeguroAuthorization
+     * @throws PagSeguroServiceException
      */
     public static function checkAuthorization(PagSeguroCredentials $credentials, $notificationCode)
     {
@@ -122,9 +140,8 @@ class PagSeguroNotificationService
                 $connectionData->getCharset()
             );
 
-            $authorization = PagSeguroAuthorizationParser::readAuthorization($connection->getResponse());
-            self::$logService = "CheckAuthorization";
-            return self::searchReturn($connection, $authorization, $notificationCode);
+            self::$service = "CheckAuthorization";
+            return self::getResult($connection, $notificationCode);
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
@@ -136,47 +153,114 @@ class PagSeguroNotificationService
     }
 
     /**
-     * @param PagSeguroHttpConnection $connection
-     * @param string $code
+     * Returns a pre approval from a notification code
+     * @param PagSeguroCredentials $credentials
+     * @param $notificationCode
      * @return bool|mixed|string
+     * @throws Exception
      * @throws PagSeguroServiceException
      */
-    private static function searchReturn($connection, $parsers, $code)
+    public static function checkPreApproval(PagSeguroCredentials $credentials, $notificationCode)
+    {
+
+        LogPagSeguro::info(
+            "PagSeguroNotificationService.CheckPreApproval(notificationCode=$notificationCode) - begin"
+        );
+
+        $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        try {
+
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildPreApprovalNotificationUrl($connectionData, $notificationCode),
+                $connectionData->getServiceTimeout(),
+                $connectionData->getCharset()
+            );
+
+            self::$service = "CheckPreApproval";
+            return self::getResult($connection, $notificationCode);
+
+        } catch (PagSeguroServiceException $err) {
+            throw $err;
+        }
+        catch (Exception $err) {
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            throw $err;
+        }
+    }
+
+
+    /**
+     * @param PagSeguroConnectionData $connection
+     * @param $code
+     * @return null|PagSeguroAuthorization|PagSeguroParserData|PagSeguroTransaction
+     * @throws PagSeguroServiceException
+     */
+    private static function getResult($connection, $code)
     {
         $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
+        $response   = $connection->getResponse();
 
         switch ($httpStatus->getType()) {
 
             case 'OK':
 
-                LogPagSeguro::info(
-                    sprintf("PagSeguroNotificationService.%s(notificationCode=$code) - end ", self::$logService) .
-                    $parsers->toString() . ")"
-                );
+                switch(self::$service) {
+                    case "CheckPreApproval":
+                        $response = PagSeguroPreApprovalParser::readPreApproval($response);
+                        break;
+
+                    case "CheckAuthorization":
+                        $response = PagSeguroAuthorizationParser::readAuthorization($response);
+                        break;
+
+                    case "CheckTransaction":
+                        $response = PagSeguroTransactionParser::readTransaction($response);
+                        break;
+                }
+
+                //Logging
+                $log['text'] = sprintf("PagSeguroNotificationService.%s(notificationCode=$code) - end ",
+                    self::$service);
+
+                $log['action'] = $response->toString();
+
+                LogPagSeguro::info($log['text'] .$log['action'] . ")");
+
                 break;
 
             case 'BAD_REQUEST':
 
                 $errors = PagSeguroServiceParser::readErrors($connection->getResponse());
+                $errors = new PagSeguroServiceException($httpStatus, $errors);
 
-                $err = new PagSeguroServiceException($httpStatus, $errors);
-                LogPagSeguro::info(
-                    sprintf("PagSeguroNotificationService.%s(notificationCode=$code) - error ", self::$logService) .
-                    $err->getOneLineMessage()
-                );
-                throw $err;
+                //Logging
+                $log['text'] = sprintf("PagSeguroNotificationService.%s(notificationCode=$code) - error ",
+                    self::$service);
+
+                LogPagSeguro::error($log['text'] . $errors->getOneLineMessage());
+
+                //Exception
+                throw $errors;
+
                 break;
 
             default:
-                $err = new PagSeguroServiceException($httpStatus);
-                LogPagSeguro::info(
-                    sprintf("PagSeguroNotificationService.%s(notificationCode=$code) - error ", self::$logService) .
-                    $err->getOneLineMessage()
-                );
-                throw $err;
+                $errors = new PagSeguroServiceException($httpStatus);
+
+                //Logging
+                $log['text'] = sprintf("PagSeguroNotificationService.%s(notificationCode=$code) - error ",
+                    self::$service);
+
+                LogPagSeguro::info($log['text'].$errors->getOneLineMessage());
+
+                //Exception
+                throw $errors;
+
                 break;
         }
-        return isset($parsers) ? $parsers : null;
+        return isset($response) ? $response : null;
     }
 
 }

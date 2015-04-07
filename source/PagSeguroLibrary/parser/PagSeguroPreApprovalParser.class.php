@@ -105,94 +105,94 @@ class PagSeguroPreApprovalParser
     {
 		$parser = new PagSeguroXmlParser($str_xml);
 		$data = $parser->getResult('preApproval');
-		$preApproval = new PagSeguroPreApproval();
+        $preApproval = new PagSeguroPreApproval();
 
-		// <transaction> <name>
-		if (isset($data["name"])) {
-			$preApproval->setName($data["name"]);
-		}
-
+        // <transaction> <name>
+        if (isset($data["name"])) {
+            $preApproval->setName($data["name"]);
+        }
+        
 		// <transaction> <lastEventDate>
-		if (isset($data["lastEventDate"])) {
-			$preApproval->setLastEventDate($data["lastEventDate"]);
-		}
+        if (isset($data["lastEventDate"])) {
+            $preApproval->setLastEventDate($data["lastEventDate"]);
+        }
 
-		// <transaction> <date>
-		if (isset($data["date"])) {
-			$preApproval->setDate($data["date"]);
-		}
+        // <transaction> <date>
+        if (isset($data["date"])) {
+            $preApproval->setDate($data["date"]);
+        }
 
-		// <transaction> <code>
-		if (isset($data["code"])) {
-			$preApproval->setCode($data["code"]);
-		}
+        // <transaction> <code>
+        if (isset($data["code"])) {
+            $preApproval->setCode($data["code"]);
+        }
 
-		// <transaction> <tracker>
-		if (isset($data["tracker"])) {
-			$preApproval->setTracker($data["tracker"]);
-		}
+        // <transaction> <tracker>
+        if (isset($data["tracker"])) {
+            $preApproval->setTracker($data["tracker"]);
+        }
 
-		// <transaction> <reference>
-		if (isset($data["reference"])) {
-			$preApproval->setReference($data["reference"]);
-		}
+        // <transaction> <reference>
+        if (isset($data["reference"])) {
+            $preApproval->setReference($data["reference"]);
+        }
 
-		// <transaction> <charge>
-		if (isset($data["charge"])) {
-			$preApproval->setCharge($data["charge"]);
-		}
+        // <transaction> <charge>
+        if (isset($data["charge"])) {
+            $preApproval->setCharge($data["charge"]);
+        }
 
-		// <transaction> <status>
-		if (isset($data["status"]))
-			$preApproval->setStatus(new PagSeguroPreApprovalStatus($data["status"]));
-
+        // <transaction> <status>
+        if (isset($data["status"]))
+            $preApproval->setStatus(new PagSeguroPreApprovalStatus($data["status"]));
+			
 		if (isset($data["sender"])) {
 
-		// <transaction> <sender>
-		$sender = new PagSeguroSender();
+            // <transaction> <sender>
+            $sender = new PagSeguroSender();
 
-		// <transaction> <sender> <name>
-		if (isset($data["sender"]["name"])) {
-			$sender->setName($data["sender"]["name"]);
-		}
+            // <transaction> <sender> <name>
+            if (isset($data["sender"]["name"])) {
+                $sender->setName($data["sender"]["name"]);
+            }
 
-		// <transaction> <sender> <email>
-		if (isset($data["sender"]["email"])) {
-			$sender->setEmail($data["sender"]["email"]);
-		}
+            // <transaction> <sender> <email>
+            if (isset($data["sender"]["email"])) {
+                $sender->setEmail($data["sender"]["email"]);
+            }
 
-		if (isset($data["sender"]["phone"])) {
+            if (isset($data["sender"]["phone"])) {
 
-			// <transaction> <sender> <phone>
-			$phone = new PagSeguroPhone();
+                // <transaction> <sender> <phone>
+                $phone = new PagSeguroPhone();
 
-			// <transaction> <sender> <phone> <areaCode>
-			if (isset($data["sender"]["phone"]["areaCode"])) {
-				$phone->setAreaCode($data["sender"]["phone"]["areaCode"]);
-			}
+                // <transaction> <sender> <phone> <areaCode>
+                if (isset($data["sender"]["phone"]["areaCode"])) {
+                    $phone->setAreaCode($data["sender"]["phone"]["areaCode"]);
+                }
 
-			// <transaction> <sender> <phone> <number>
-			if (isset($data["sender"]["phone"]["number"])) {
-				$phone->setNumber($data["sender"]["phone"]["number"]);
-			}
+                // <transaction> <sender> <phone> <number>
+                if (isset($data["sender"]["phone"]["number"])) {
+                    $phone->setNumber($data["sender"]["phone"]["number"]);
+                }
 
-			$sender->setPhone($phone);
-		}
+                $sender->setPhone($phone);
+            }
 
-		// <transaction><sender><documents>
-		if (isset($data["sender"]['documents']) && is_array($data["sender"]['documents'])) {
+            // <transaction><sender><documents>
+            if (isset($data["sender"]['documents']) && is_array($data["sender"]['documents'])) {
 
-			$documents = $data["sender"]['documents'];
-			if (count($documents) > 0) {
-				foreach ($documents as $document) {
-					$sender->addDocument($document['type'], $document['value']);
-				}
-			}
-		}
+                $documents = $data["sender"]['documents'];
+                if (count($documents) > 0) {
+                    foreach ($documents as $document) {
+                        $sender->addDocument($document['type'], $document['value']);
+                    }
+                }
+            }
 
-			$preApproval->setSender($sender);
-		}
-
+            $preApproval->setSender($sender);
+        }
+		
 		return $preApproval;
     }
 	
@@ -209,5 +209,46 @@ class PagSeguroPreApprovalParser
         $paymentParserData->setRegistrationDate($data['date']);
         $paymentParserData->setStatus($data['status']);
         return $paymentParserData;
+    }
+
+
+    public static function readSearchResult($str_xml)
+    {
+
+        $parser = new PagSeguroXmlParser($str_xml);
+        $data = $parser->getResult('preApprovalSearchResult');
+
+        $result = new PagSeguroPreApprovalSearchResult();
+
+        if (isset($data['totalPages'])) {
+            $result->setTotalPages($data['totalPages']);
+        }
+
+        if (isset($data['date'])) {
+            $result->setDate($data['date']);
+        }
+
+        if (isset($data['resultsInThisPage'])) {
+            $result->setResultsInThisPage($data['resultsInThisPage']);
+        }
+
+        if (isset($data['currentPage'])) {
+            $result->setCurrentPage($data['currentPage']);
+        }
+
+        if (isset($data['preApprovals']) && is_array($data['preApprovals'])) {
+            $preApprovals = array();
+            if (isset($data["preApprovals"]['preApproval'][0])) {
+                $i = 0;
+                foreach ($data["preApprovals"]['preApproval'] as $key => $value) {
+                    $preApprovals[$i++] = new PagSeguroPreApproval($value);
+                }
+            } else {
+                $preApprovals[0] = $data["preApprovals"]['preApproval'];
+            }
+            $result->setPreApprovals($preApprovals);
+        }
+
+        return $result;
     }
 }

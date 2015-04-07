@@ -87,4 +87,18 @@ class PagSeguroParserData
     {
         $this->status = $status;
     }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+
+        $data = array();
+        $data['code'] = $this->code;
+        $data['registrationDate'] = $this->registrationDate;
+        $data['status'] = $this->status;
+
+        return "ParserData: " . var_export($data, true);
+    }
 }

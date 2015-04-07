@@ -30,7 +30,9 @@ class PagSeguroNotificationType
 {
 
     private static $typeList = array(
-        'TRANSACTION' => 'transaction'
+        'TRANSACTION' => 'transaction',
+        'APPLICATION_AUTHORIZATION' => 'applicationAuthorization',
+        'PRE_APPROVAL' => 'preApproval'
     );
 
     private $value;

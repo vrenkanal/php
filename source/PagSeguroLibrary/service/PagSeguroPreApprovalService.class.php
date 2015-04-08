@@ -88,7 +88,7 @@ class PagSeguroPreApprovalService
      */
     private static function buildFindByDayIntervalUrl(PagSeguroConnectionData $connectionData, $interval)
     {
-        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl') . 'notification';
+        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl') . 'notifications';
         return "{$url}?" . $connectionData->getCredentialsUrlQuery() . "&interval=" . $interval;
     }
 

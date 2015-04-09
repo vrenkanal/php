@@ -27,13 +27,13 @@
 class PagSeguroPreApprovalParser
 {
 
-    /***
-     * @param $payment PagSeguroPaymentRequest
+    /**
+     * @param $payment
      * @return mixed
      */
     public static function getData($payment)
     {
-		
+        
         $data = PagSeguroPaymentParser::getData($payment);
 
         if($payment->getPreApprovalCharge() != null){
@@ -79,32 +79,62 @@ class PagSeguroPreApprovalParser
         if($payment->getReviewURL() != null){
             $data["reviewURL"] = $payment->getReviewURL();
         };
-		
+
         return $data;
     }
 
-    /***
-     * @param $str_xml
-     * @return PagSeguroParserData Success
+    /**
+     * @param $payment
+     * @return array
      */
-    public static function readSuccessXml($str_xml)
+    public static function getCharge($payment)
     {
-        $parser = new PagSeguroXmlParser($str_xml);
-        $data = $parser->getResult('preApprovalRequest');
-        $paymentParserData = new PagSeguroParserData();
-        $paymentParserData->setCode($data['code']);
-        $paymentParserData->setRegistrationDate($data['date']);
-        return $paymentParserData;
+        $data = array();
+
+        if($payment->getReference() != null){
+            $data["reference"] = $payment->getReference();
+        };
+
+        if($payment->getPreApprovalCode() != null){
+            $data["preApprovalCode"] = $payment->getPreApprovalCode();
+        };
+
+        // items
+        $items = $payment->getItems();
+        if (count($items) > 0) {
+
+            $i = 0;
+
+            foreach ($items as $key => $value) {
+                $i++;
+                if ($items[$key]->getId() != null) {
+                    $data["itemId$i"] = $items[$key]->getId();
+                }
+                if ($items[$key]->getDescription() != null) {
+                    $data["itemDescription$i"] = $items[$key]->getDescription();
+                }
+                if ($items[$key]->getQuantity() != null) {
+                    $data["itemQuantity$i"] = $items[$key]->getQuantity();
+                }
+                if ($items[$key]->getAmount() != null) {
+                    $amount = PagSeguroHelper::decimalFormat($items[$key]->getAmount());
+                    $data["itemAmount$i"] = $amount;
+                }
+            }
+        }
+
+        return $data;
+
     }
-	
-	/***
+
+    /**
      * @param $str_xml
-     * @return PagSeguroParserData Success
+     * @return PagSeguroPreApproval
      */
     public static function readPreApproval($str_xml)
     {
-		$parser = new PagSeguroXmlParser($str_xml);
-		$data = $parser->getResult('preApproval');
+        $parser = new PagSeguroXmlParser($str_xml);
+        $data = $parser->getResult('preApproval');
         $preApproval = new PagSeguroPreApproval();
 
         // <transaction> <name>
@@ -112,7 +142,7 @@ class PagSeguroPreApprovalParser
             $preApproval->setName($data["name"]);
         }
         
-		// <transaction> <lastEventDate>
+        // <transaction> <lastEventDate>
         if (isset($data["lastEventDate"])) {
             $preApproval->setLastEventDate($data["lastEventDate"]);
         }
@@ -145,8 +175,8 @@ class PagSeguroPreApprovalParser
         // <transaction> <status>
         if (isset($data["status"]))
             $preApproval->setStatus(new PagSeguroPreApprovalStatus($data["status"]));
-			
-		if (isset($data["sender"])) {
+            
+        if (isset($data["sender"])) {
 
             // <transaction> <sender>
             $sender = new PagSeguroSender();
@@ -192,26 +222,14 @@ class PagSeguroPreApprovalParser
 
             $preApproval->setSender($sender);
         }
-		
-		return $preApproval;
+        
+        return $preApproval;
     }
-	
-	/***
+
+    /**
      * @param $str_xml
-     * @return PagSeguroParserData Success
+     * @return PagSeguroPreApprovalSearchResult
      */
-    public static function readCancelXml($str_xml)
-    {
-        $parser = new PagSeguroXmlParser($str_xml);
-        $data = $parser->getResult('result');
-        $paymentParserData = new PagSeguroParserData();
-        $paymentParserData->setCode(null); // PreApproval API does not send code on cancel requests
-        $paymentParserData->setRegistrationDate($data['date']);
-        $paymentParserData->setStatus($data['status']);
-        return $paymentParserData;
-    }
-
-
     public static function readSearchResult($str_xml)
     {
 
@@ -251,4 +269,49 @@ class PagSeguroPreApprovalParser
 
         return $result;
     }
+
+    /**
+     * @param $str_xml
+     * @return PagSeguroParserData
+     */
+    public static function readTransactionXml($str_xml)
+    {
+        $parser = new PagSeguroXmlParser($str_xml);
+        $data = $parser->getResult('result');
+        $preApprovalParser = new PagSeguroParserData();
+        $preApprovalParser->setCode($data['transactionCode']);
+        $preApprovalParser->setRegistrationDate($data['date']);
+        return $preApprovalParser;
+    }
+
+
+    /**
+     * @param $str_xml
+     * @return PagSeguroParserData
+     */
+    public static function readSuccessXml($str_xml)
+    {
+        $parser = new PagSeguroXmlParser($str_xml);
+        $data = $parser->getResult('preApprovalRequest');
+        $preApprovalParser = new PagSeguroParserData();
+        $preApprovalParser->setCode($data['code']);
+        $preApprovalParser->setRegistrationDate($data['date']);
+        return $preApprovalParser;
+    }
+
+    /**
+     * @param $str_xml
+     * @return PagSeguroParserData
+     */
+    public static function readCancelXml($str_xml)
+    {
+        $parser = new PagSeguroXmlParser($str_xml);
+        $data = $parser->getResult('result');
+        $preApprovalParser = new PagSeguroParserData();
+        $preApprovalParser->setCode(null); // PreApproval API does not send code on cancel requests
+        $preApprovalParser->setRegistrationDate($data['date']);
+        $preApprovalParser->setStatus($data['status']);
+        return $preApprovalParser;
+    }
+
 }

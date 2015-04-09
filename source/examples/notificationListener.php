@@ -45,6 +45,10 @@ class NotificationListener
                     self::authorizationNotification($code);
                     break;
 
+                case 'PRE_APPROVAL':
+                    self::preApprovalNotification($code);
+                    break;
+
                 default:
                     LogPagSeguro::error("Unknown notification type [" . $notificationType->getValue() . "]");
 
@@ -83,6 +87,20 @@ class NotificationListener
             $authorization = PagSeguroNotificationService::checkAuthorization($credentials, $notificationCode);
 
             // Do something with $authorization
+        } catch (PagSeguroServiceException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    private static function preApprovalNotification($preApprovalCode)
+    {
+
+        $credentials = PagSeguroConfig::getAccountCredentials();
+
+        try {
+            $preApproval = PagSeguroNotificationService::checkPreApproval($credentials, $preApprovalCode);
+            // Do something with $preApproval
+            
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }

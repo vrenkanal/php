@@ -30,7 +30,11 @@
  */
 class PagSeguroPreApproval
 {
-
+    /***
+     * Transaction name
+     */
+    private $name;
+    
     /***
      * Transaction date
      */
@@ -67,11 +71,47 @@ class PagSeguroPreApproval
     private $status;
 
     /***
+     * Pre Approval Charge
+     */
+    private $charge;
+
+    /***
      * Payer information, who is sending money
      * @see PagSeguroSender
      * @var PagSeguroSender
      */
     private $sender;
+
+    public function __construct($data = null) {
+        if (is_array($data)){
+            $this->setName($data['name']);
+            $this->setDate($data['date']);
+            $this->setLastEventDate($data['lastEventDate']);
+            $this->setCode($data['code']);
+            $this->setReference($data['reference']);
+            $this->setTracker($data['tracker']);
+            $this->setStatus( new PagSeguroPreApprovalStatus($data['status']));
+            $this->setCharge($data['charge']);
+        }
+    }
+
+    /***
+     * @return String the transaction name
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /***
+     * Sets the transaction name
+     *
+     * @param string name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /***
      * Date the last notification about this transaction was sent
@@ -168,6 +208,24 @@ class PagSeguroPreApproval
     }
 
     /***
+     * @return string the charge
+     */
+    public function getCharge()
+    {
+        return $this->charge;
+    }
+
+    /***
+     * Sets the charge
+     *
+     * @param code
+     */
+    public function setCharge($charge)
+    {
+        $this->charge = $charge;
+    }
+
+    /***
      * @return PagSeguroPreApprovalStatus the transaction status
      * @see PagSeguroPreApprovalStatus
      */
@@ -184,6 +242,8 @@ class PagSeguroPreApproval
     {
         $this->status = $status;
     }
+
+
 
     /***
      * @return PagSeguroSender the sender information, who is sending money in this transaction
@@ -215,6 +275,8 @@ class PagSeguroPreApproval
         $preApproval['date'] = $this->date;
         $preApproval['reference'] = $this->reference;
         $preApproval['status'] = $this->status ? $this->status->getValue() : "null";
+        $preApproval['charge'] = $this->charge;
+        $preApproval['tracker'] = $this->tracker;
      
         $preApproval = "PreApproval: " . var_export($preApproval, true);
 

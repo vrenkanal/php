@@ -35,6 +35,10 @@ class PagSeguroParserData
      * @var $registrationDate
      */
     private $registrationDate;
+    /***
+     * @var $status
+     */
+    private $status;
 
     /***
      * @return mixed
@@ -66,5 +70,35 @@ class PagSeguroParserData
     public function setRegistrationDate($registrationDate)
     {
         $this->registrationDate = $registrationDate;
+    }
+
+    /***
+     * @return mixed
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /***
+     * @param $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @return string
+     */
+    public function toString()
+    {
+
+        $data = array();
+        $data['code'] = $this->code;
+        $data['registrationDate'] = $this->registrationDate;
+        $data['status'] = $this->status;
+
+        return "ParserData: " . var_export($data, true);
     }
 }

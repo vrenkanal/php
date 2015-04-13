@@ -27,8 +27,8 @@ class CreateRecurrence
 
     public static function main()
     {
-        // Instantiate a new payment request
-         $preApprovalRequest = new PagSeguroPreApprovalRequest();
+       // Instantiate a new payment request
+        $preApprovalRequest = new PagSeguroPreApprovalRequest();
 
         // Set the currency
         $preApprovalRequest->setCurrency("BRL");
@@ -61,17 +61,31 @@ class CreateRecurrence
             '156.009.442-76'
         );
 
-        //PreApproval
-        $preApprovalRequest->setPreApprovalCharge('auto');
+        /***
+         * Checkout information
+         */
+        // Set true for enable pre approval request with checkout
+        $preApprovalRequest->setPreApprovalCheckout(true);
+        // Set the currency
+        $preApprovalRequest->setCurrency("BRL");
+        // Add an item for this payment request
+        $preApprovalRequest->addItem('0001', 'Notebook prata', 2, 430.00);
+        // Add another item for this payment request
+        $preApprovalRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
+
+        /***
+         * Pre Approval information
+         */
+        $preApprovalRequest->setPreApprovalCharge('manual');
         $preApprovalRequest->setPreApprovalName("Seguro contra roubo do Notebook Prata");
         $preApprovalRequest->setPreApprovalDetails("Todo dia 30 será cobrado o valor de R100,00 referente ao seguro contra
             roubo do Notebook Prata.");
         $preApprovalRequest->setPreApprovalAmountPerPayment('100.00');
-        //$preApprovalRequest->setPreApprovalMaxAmountPerPeriod('200.00');
+        $preApprovalRequest->setPreApprovalMaxAmountPerPeriod('200.00');
         $preApprovalRequest->setPreApprovalPeriod('Monthly');
         $preApprovalRequest->setPreApprovalMaxTotalAmount('2400.00');
-        //$preApprovalRequest->setPreApprovalInitialDate('2015-03-30T00:00:00');
-        $preApprovalRequest->setPreApprovalFinalDate('2017-02-28T00:00:00');
+        $preApprovalRequest->setPreApprovalInitialDate('2015-04-10T00:00:00');
+        $preApprovalRequest->setPreApprovalFinalDate('2017-04-07T00:00:00');
 
         $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/redirect");
         $preApprovalRequest->setNotificationURL("http://www.lojateste.com.br/notification");
@@ -95,7 +109,7 @@ class CreateRecurrence
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
-            $url = $preApprovalRequest->doPreApproval($credentials);
+            $url = $preApprovalRequest->register($credentials);
 
             self::printRecurrenceUrl($url);
 

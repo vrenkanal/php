@@ -24,21 +24,61 @@
 /***
  * Represents a preApproval request
  */
-class PagSeguroPreApprovalRequest extends PagSeguroPaymentRequest
+class PagSeguroPreApprovalRequest extends PagSeguroRequest
 {
 
+    /**
+     * @var
+     */
     private $reviewURL;
+    /**
+     * @var
+     */
     private $preApprovalMaxTotalAmount;
+    /**
+     * @var
+     */
     private $preApprovalMaxAmountPerPeriod;
+    /**
+     * @var
+     */
     private $preApprovalFinalDate;
+    /**
+     * @var
+     */
     private $preApprovalInitialDate;
+    /**
+     * @var
+     */
     private $preApprovalDayOfMonth;
+    /**
+     * @var
+     */
     private $preApprovalDayOfWeek;
+    /**
+     * @var
+     */
     private $preApprovalPeriod;
+    /**
+     * @var
+     */
     private $preApprovalAmountPerPayment;
+    /**
+     * @var
+     */
     private $preApprovalDetails;
+    /**
+     * @var
+     */
     private $preApprovalName;
+    /**
+     * @var
+     */
     private $preApprovalCharge;
+    /**
+     * @var
+     */
+    private $preApprovalCheckout;
 
     /***
      * Sets the review URL
@@ -87,7 +127,7 @@ class PagSeguroPreApprovalRequest extends PagSeguroPaymentRequest
     /***
      * @return double the reference of preApprovalMaxAmountPerPeriod
      */
-    public function  getPreApprovalMaxAmountPerPeriod()
+    public function getPreApprovalMaxAmountPerPeriod()
     {
         return $this->preApprovalMaxAmountPerPeriod;
     }
@@ -103,7 +143,7 @@ class PagSeguroPreApprovalRequest extends PagSeguroPaymentRequest
     /***
      * @return date the reference of preApprovalFinalDate
      */
-    public function  getPreApprovalFinalDate()
+    public function getPreApprovalFinalDate()
     {
         return $this->preApprovalFinalDate;
     }
@@ -237,13 +277,33 @@ class PagSeguroPreApprovalRequest extends PagSeguroPaymentRequest
         return $this->preApprovalCharge;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPreApprovalCheckout()
+    {
+        return $this->preApprovalCheckout;
+    }
+
+    /**
+     * @param mixed $preApprovalCheckout
+     */
+    public function setPreApprovalCheckout($preApprovalCheckout)
+    {
+        $this->preApprovalCheckout = $preApprovalCheckout;
+    }
+
+
     /***
      * Register the preApproval
      * @param PagSeguroCredentials $credentials
      * @param bool $onlyCheckoutCode
      */
-    public function doPreApproval(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
+    public function register(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
     {
+        if ($this->preApprovalCheckout) {
+            return PagSeguroPreApprovalService::createPreApprovalCheckout($credentials, $this);
+        }
         return PagSeguroPreApprovalService::createPreApprovalRequest($credentials, $this);
     }
 }

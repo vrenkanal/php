@@ -61,10 +61,12 @@ $PagSeguroResources['directPaymentService']['serviceTimeout'] = 20;
 // PreApproval service
 $PagSeguroResources['preApproval'] = array();
 $PagSeguroResources['preApproval']['servicePath'] = "/v2/pre-approvals/request";
-$PagSeguroResources['preApproval']['checkoutUrl'] = "/v2/pre-approvals/request.html";
+$PagSeguroResources['preApproval']['checkoutUrl'] = "/v2/checkout";
 $PagSeguroResources['preApproval']['cancelUrl'] = "/v2/pre-approvals/cancel/";
 $PagSeguroResources['preApproval']['findUrl'] = "/v2/pre-approvals/";
 $PagSeguroResources['preApproval']['paymentUrl'] = "/v2/pre-approvals/payment";
+$PagSeguroResources['preApproval']['requestStream'] = "/v2/pre-approvals/request.html";
+$PagSeguroResources['preApproval']['checkoutStream'] = "/v2/checkout/payment.html";
 $PagSeguroResources['preApproval']['baseUrl']['production'] = $PagSeguroResources['webserviceUrl']['production'];
 $PagSeguroResources['preApproval']['baseUrl']['sandbox'] = $PagSeguroResources['webserviceUrl']['sandbox'];
 $PagSeguroResources['preApproval']['serviceTimeout'] = 20;

@@ -97,7 +97,7 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
      */
     public function getReviewURL()
     {
-        return $this->ReviewURL;
+        return $this->reviewURL;
     }
 
     /***

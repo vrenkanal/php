@@ -124,7 +124,9 @@ class CreateRecurrence
             echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento recorrente</h2>";
             echo "<p><strong>C&oacute;digo: </strong>".$url['code']."</p>";
             echo "<p><strong>URL do pagamento: </strong>".$url['checkoutUrl']."</p>";
-            echo "<p><strong>URL de cancelamento: </strong>".$url['cancelUrl']."</p>";
+            if (isset($url['cancelUrl'])) {
+                echo "<p><strong>URL de cancelamento: </strong>" . $url['cancelUrl'] . "</p>";
+            }
             echo "<p><a title='URL do pagamento' href='".$url['checkoutUrl']."'>Ir para URL do pagamento.</a></p>";
         }
     }

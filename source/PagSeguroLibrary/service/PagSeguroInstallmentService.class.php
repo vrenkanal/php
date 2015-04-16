@@ -34,7 +34,7 @@ class PagSeguroInstallmentService
      */
     private static function buildInstallmentURL($connectionData)
     {
-        return $connectionData->getBaseUrl() . $connectionData->getInstallmentUrl();       
+        return $connectionData->getBaseUrl() . $connectionData->getInstallmentUrl();
     }
 
     /***
@@ -48,25 +48,24 @@ class PagSeguroInstallmentService
      * @throws Exception
      */
     public static function getInstallments(
-        $credentials, 
-        $session, 
-        $amount, 
-        $cardBrand)
-    {
+        $credentials,
+        $session,
+        $amount,
+        $cardBrand
+    ) {
 
         $connectionData = new PagSeguroConnectionData($credentials, 'installmentService');
 
-        $url = self::buildInstallmentURL($connectionData) . 
+        $url = self::buildInstallmentURL($connectionData) .
                 "?sessionId=" . $session .
                 "&amount=". $amount .
                 "&creditCardBrand=" . $cardBrand;
 
         LogPagSeguro::info(
-                "PagSeguroInstallmentService.getInstallments(".$amount.",".$cardBrand.") - begin"
-            );
+            "PagSeguroInstallmentService.getInstallments(".$amount.",".$cardBrand.") - begin"
+        );
 
         try {
-
             $connection = new PagSeguroHttpConnection();
             $connection->get(
                 $url,
@@ -77,18 +76,15 @@ class PagSeguroInstallmentService
             $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 
             switch ($httpStatus->getType()) {
-
                 case 'OK':
                     $installments = PagSeguroInstallmentParser::readInstallments($connection->getResponse());
 
                     if (is_array($installments)) {
-
                         LogPagSeguro::info(
                             "PagSeguroInstallmentService.getInstallments() - end {1}"
                         );
 
                     } else {
-
                         LogPagSeguro::info(
                             "PagSeguroInstallmentService.getInstallments() - error" .
                             $installments->message
@@ -98,7 +94,6 @@ class PagSeguroInstallmentService
                     }
 
                     break;
-
                 case 'BAD_REQUEST':
                     $errors = PagSeguroInstallmentParser::readErrors($connection->getResponse());
                     $e = new PagSeguroServiceException($httpStatus, $errors);
@@ -108,7 +103,6 @@ class PagSeguroInstallmentService
                     );
                     throw $e;
                     break;
-
                 default:
                     $e = new PagSeguroServiceException($httpStatus);
                     LogPagSeguro::error(

@@ -112,7 +112,7 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
         $this->receiverEmail = $receiverEmail;
     }
 
-   /***
+    /***
      * @return String payment mode for this payment request
      */
     public function getPaymentMode()
@@ -288,6 +288,6 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
      */
     public function register(PagSeguroCredentials $credentials)
     {
-        return PagSeguroDirectPaymentService::createCheckoutRequest($credentials, $this);
+        return PagSeguroDirectPaymentService::checkoutRequest($credentials, $this);
     }
 }

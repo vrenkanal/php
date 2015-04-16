@@ -216,10 +216,11 @@ class PagSeguroAuthorizationRequest
         foreach ($address as $item) {
             $find = strpos($url, $item);
 
-            if ($find)
+            if ($find) {
                 return false;
-            else
+            } else {
                 return $url;
+            }
         }
     }
 }

@@ -54,9 +54,9 @@ class PagSeguroPreApprovalStatus
     public function __construct($value = null)
     {
         if ($value) {
-			if(!isset(self::$statusList[$value])) {
-				self::$statusList = array_merge(self::$statusList,array($value => count(self::$statusList)));
-			}
+            if (!isset(self::$statusList[$value])) {
+                self::$statusList = array_merge(self::$statusList, array($value => count(self::$statusList)));
+            }
             $this->value = self::$statusList[$value];
         }
     }

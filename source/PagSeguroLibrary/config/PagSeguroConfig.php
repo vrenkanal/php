@@ -24,25 +24,83 @@
 class PagSeguroConfigWrapper
 {
 
-    const PAGSEGURO_ENV = "production"; // production, sandbox
+    /**
+     * production or sandbox
+     */
+    const PAGSEGURO_ENV = "production";
+    /**
+     *
+     */
     const PAGSEGURO_EMAIL = "your_pagseguro_email";
+    /**
+     *
+     */
     const PAGSEGURO_TOKEN_PRODUCTION = "your_production_pagseguro_token";
+    /**
+     *
+     */
     const PAGSEGURO_TOKEN_SANDBOX = "your_sandbox_pagseguro_token";
+    /**
+     *
+     */
     const PAGSEGURO_APP_ID_PRODUCTION = "your__production_pagseguro_application_id";
+    /**
+     *
+     */
     const PAGSEGURO_APP_ID_SANDBOX = "your_sandbox_pagseguro_application_id";
+    /**
+     *
+     */
     const PAGSEGURO_APP_KEY_PRODUCTION = "your_production_application_key";
+    /**
+     *
+     */
     const PAGSEGURO_APP_KEY_SANDBOX = "your_sandbox_application_key";
-    const PAGSEGURO_CHARSET = "UTF-8"; // UTF-8, ISO-8859-1
+    /**
+     * UTF-8, ISO-8859-1
+     */
+    const PAGSEGURO_CHARSET = "UTF-8";
+    /**
+     *
+     */
     const PAGSEGURO_LOG_ACTIVE = false;
-    // Informe o path completo (relativo ao path da lib) para o arquivo, ex.: ../PagSeguroLibrary/logs.txt
+    /**
+     * Informe o path completo (relativo ao path da lib) para o arquivo, ex.: ../PagSeguroLibrary/logs.txt
+     */
     const PAGSEGURO_LOG_LOCATION = "";
 
+    /**
+     * @return array
+     */
     public static function getConfig()
     {
         $PagSeguroConfig = array();
 
+        $PagSeguroConfig = array_merge_recursive(
+            self::getEnvironment(),
+            self::getCredential(),
+            self::getApplication(),
+            self::getLog()
+        );
+
+        return $PagSeguroConfig;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getEnvironment()
+    {
         $PagSeguroConfig['environment'] = getenv('PAGSEGURO_ENV') ?: self::PAGSEGURO_ENV;
 
+        return $PagSeguroConfig;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getCredential()
+    {
         $PagSeguroConfig['credentials'] = array();
         $PagSeguroConfig['credentials']['email'] = getenv('PAGSEGURO_EMAIL')
             ?: self::PAGSEGURO_EMAIL;
@@ -59,15 +117,32 @@ class PagSeguroConfigWrapper
         $PagSeguroConfig['credentials']['appKey']['sandbox'] = getenv('PAGSEGURO_APP_KEY_SANDBOX')
             ?: self::PAGSEGURO_APP_KEY_SANDBOX;
 
+        return $PagSeguroConfig;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getApplication()
+    {
         $PagSeguroConfig['application'] = array();
         $PagSeguroConfig['application']['charset'] = ( getenv('PAGSEGURO_CHARSET')
             && ( getenv('PAGSEGURO_CHARSET') == "UTF-8" || getenv('PAGSEGURO_CHARSET') == "ISO-8859-1") )
             ?: self::PAGSEGURO_CHARSET;
 
+        return $PagSeguroConfig;
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getLog()
+    {
         $PagSeguroConfig['log'] = array();
         $PagSeguroConfig['log']['active'] = ( getenv('PAGSEGURO_LOG_ACTIVE')
             && getenv('PAGSEGURO_LOG_ACTIVE') == 'true' ) ?: self::PAGSEGURO_LOG_ACTIVE;
-        $PagSeguroConfig['log']['fileLocation'] = getenv('PAGSEGURO_LOG_LOCATION') ?: self::PAGSEGURO_LOG_LOCATION;
+        $PagSeguroConfig['log']['fileLocation'] = getenv('PAGSEGURO_LOG_LOCATION')
+            ?: self::PAGSEGURO_LOG_LOCATION;
 
         return $PagSeguroConfig;
     }

@@ -43,7 +43,7 @@ class RequestCancellation
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $response = PagSeguroCancelService::createRequest($credentials, $transactionCode);
+            $response = PagSeguroCancelService::requestCancel($credentials, $transactionCode);
 
             self::printResponse($response);
 

@@ -156,5 +156,4 @@ class PagSeguroPreApprovalCharge
 
         return "PagSeguroPaymentCharge: " . var_export($request, true);
     }
-
 }

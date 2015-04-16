@@ -53,20 +53,20 @@ class PagSeguroDirectPaymentService
      */
     private static function buildReturnUrl(PagSeguroConnectionData $connectionData, $code)
     {
-        return $connectionData->getServiceUrl() . '/' .$code . '/?' . $connectionData->getCredentialsUrlQuery()  ;
+        return $connectionData->getServiceUrl() . '/' .$code . '/?' . $connectionData->getCredentialsUrlQuery();
     }
 
-    // createCheckoutRequest is the actual implementation of the Register method
-    // This separation serves as test hook to validate the Uri
-    // against the code returned by the service
     /***
+     * checkoutRequest is the actual implementation of the Register method
+     * This separation serves as test hook to validate the Uri
+     * against the code returned by the service
      * @param PagSeguroCredentials $credentials
      * @param PagSeguroDirectrequest $request
      * @return bool|string
      * @throws Exception|PagSeguroServiceException
      * @throws Exception
      */
-    public static function createCheckoutRequest(
+    public static function checkoutRequest(
         PagSeguroCredentials $credentials,
         PagSeguroDirectPaymentRequest $request
     ) {
@@ -76,7 +76,6 @@ class PagSeguroDirectPaymentService
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
-
             $connection = new PagSeguroHttpConnection();
             $connection->post(
                 self::buildCheckoutRequestUrl($connectionData),
@@ -85,46 +84,53 @@ class PagSeguroDirectPaymentService
                 $connectionData->getCharset()
             );
 
-            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
+            return self::getResult($connection, $request);
 
-            switch ($httpStatus->getType()) {
-
-                case 'OK':
-                    $paymentReturn = PagSeguroTransactionParser::readTransaction($connection->getResponse());
-
-                    LogPagSeguro::info(
-                        "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - end {1}" .
-                        $paymentReturn->getCode()
-                    );
-                    break;
-
-                case 'BAD_REQUEST':
-                    $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
-                    $e = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::error(
-                        "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - error " .
-                        $e->getOneLineMessage()
-                    );
-                    throw $e;
-                    break;
-
-                default:
-                    $e = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::error(
-                        "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - error " .
-                        $e->getOneLineMessage()
-                    );
-                    throw $e;
-                    break;
-
-            }
-            return (isset($paymentReturn) ? $paymentReturn : false);
-
-        } catch (PagSeguroServiceException $e) {
-            throw $e;
-        } catch (Exception $e) {
-            LogPagSeguro::error("Exception: " . $e->getMessage());
-            throw $e;
+        } catch (PagSeguroServiceException $error) {
+            throw $error;
+        } catch (Exception $error) {
+            LogPagSeguro::error("Exception: " . $error->getMessage());
+            throw $error;
         }
+    }
+
+    /**
+     * @param $connection
+     * @param PagSeguroDirectPaymentRequest $request
+     * @return null|PagSeguroParserData
+     * @throws PagSeguroServiceException
+     */
+    private function getResult($connection, PagSeguroDirectPaymentRequest $request)
+    {
+        $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
+
+        switch ($httpStatus->getType()) {
+            case 'OK':
+                $paymentReturn = PagSeguroTransactionParser::readTransaction($connection->getResponse());
+
+                LogPagSeguro::info(
+                    "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - end {1}" .
+                    $paymentReturn->getCode()
+                );
+                break;
+            case 'BAD_REQUEST':
+                $errors = PagSeguroTransactionParser::readErrors($connection->getResponse());
+                $error = new PagSeguroServiceException($httpStatus, $errors);
+                LogPagSeguro::error(
+                    "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - error " .
+                    $error->getOneLineMessage()
+                );
+                throw $error;
+                break;
+            default:
+                $error = new PagSeguroServiceException($httpStatus);
+                LogPagSeguro::error(
+                    "PagSeguroDirectPaymentService.Register(" . $request->toString() . ") - error " .
+                    $error->getOneLineMessage()
+                );
+                throw $error;
+                break;
+        }
+        return (isset($paymentReturn) ? $paymentReturn : false);
     }
 }

@@ -33,27 +33,26 @@ class PagSeguroInstallmentParser extends PagSeguroServiceParser
      */
     public static function readInstallments($str_json)
     {
-    	
-    	if (self::decode(preg_replace('/[^a-z_\:\{}\ \"\.\,\-0-9]/i', '', $str_json))) {
-    		$arr = self::decode(preg_replace('/[^a-z_\:\{}\ \"\.\,\-0-9]/i', '', $str_json));
-    	} else {
-    		$arr = self::decode($str_json);
-    	}
+        
+        if (self::decode(preg_replace('/[^a-z_\:\{}\ \"\.\,\-0-9]/i', '', $str_json))) {
+            $arr = self::decode(preg_replace('/[^a-z_\:\{}\ \"\.\,\-0-9]/i', '', $str_json));
+        } else {
+            $arr = self::decode($str_json);
+        }
 
-    	if (!isset($arr->errors)) {
-	    	$brand = key($arr->installments);
+        if (!isset($arr->errors)) {
+            $brand = key($arr->installments);
 
-	    	foreach ($arr->installments->$brand as $key => $installment) {
+            foreach ($arr->installments->$brand as $key => $installment) {
+                $installment->cardBrand = $brand;
 
-	    		$installment->cardBrand = $brand;	
-
-	    		$installments[] = new PagSeguroInstallments($installment);	
-	    	}
-	    	
-	    	return $installments;
-    	} else {
-    		return self::readError($arr->errors);
-    	}
+                $installments[] = new PagSeguroInstallments($installment);
+            }
+            
+            return $installments;
+        } else {
+            return self::readError($arr->errors);
+        }
     }
 
     /***
@@ -62,11 +61,11 @@ class PagSeguroInstallmentParser extends PagSeguroServiceParser
      */
     private static function readError($error)
     {
-    	$err = new stdClass();
-    	$err->message = key($error);
-    	$err->status = true;
+        $err = new stdClass();
+        $err->message = key($error);
+        $err->status = true;
 
-    	return $err;
+        return $err;
     }
 
     /***
@@ -74,8 +73,7 @@ class PagSeguroInstallmentParser extends PagSeguroServiceParser
      * @return object installments
      */
     private static function decode($installments)
-    {	
-    	return json_decode($installments);
+    {
+        return json_decode($installments);
     }
-
 }

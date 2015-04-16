@@ -36,9 +36,10 @@ class PagSeguroConfig
     {
         define('ALLOW_PAGSEGURO_CONFIG', true);
 
-        if(!class_exists('PagSeguroConfigWrapper'))
+        if (!class_exists('PagSeguroConfigWrapper')) {
             require_once PagSeguroLibrary::getPath() .
                 DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
+        }
 
         $wrapper = new PagSeguroConfigWrapper();
 
@@ -64,7 +65,7 @@ class PagSeguroConfig
             if (isset(self::$data[$key1][$key2])) {
                 return self::$data[$key1][$key2];
             } else {
-                throw new Exception("Config keys {$key1}, {$key2} not found.");
+                throw new Exception("Keys {$key1}, {$key2} not found.");
             }
         } else {
             if (isset(self::$data[$key1])) {
@@ -80,7 +81,7 @@ class PagSeguroConfig
         if (isset(self::$data[$key1][$key2])) {
             self::$data[$key1][$key2] = $value;
         } else {
-            throw new Exception("Config keys {$key1}, {$key2} not found.");
+            throw new Exception("Keys {$key1}, {$key2} not found.");
         }
     }
 
@@ -95,7 +96,6 @@ class PagSeguroConfig
             isset(self::$data['credentials']['appId'][self::$data['environment']]) &&
             isset(self::$data['credentials']['appKey'][self::$data['environment']])
         ) {
-            
             return new PagSeguroApplicationCredentials(
                 self::$data['credentials']['appId'][self::$data['environment']],
                 self::$data['credentials']['appKey'][self::$data['environment']]
@@ -111,7 +111,6 @@ class PagSeguroConfig
             isset(self::$data['credentials']['email']) &&
             isset(self::$data['credentials']['token'][self::$data['environment']])
         ) {
-            
             return new PagSeguroAccountCredentials(
                 self::$data['credentials']['email'],
                 self::$data['credentials']['token'][self::$data['environment']]

@@ -132,5 +132,4 @@ class PagSeguroSearchResult
         return "PagSeguroSearchResult: " . var_export($result, true);
 
     }
-
 }

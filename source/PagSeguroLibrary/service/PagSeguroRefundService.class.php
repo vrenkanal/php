@@ -44,7 +44,7 @@ class PagSeguroRefundService
         PagSeguroCredentials $credentials,
         $transactionCode,
         $refundValue = null
-    ){
+    ) {
 
         LogPagSeguro::info("PagSeguroRefundService.Register(".$transactionCode.") - begin");
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
@@ -56,14 +56,13 @@ class PagSeguroRefundService
         }
 
         try {
-
-           $connection = new PagSeguroHttpConnection();
-           $connection->post(
+            $connection = new PagSeguroHttpConnection();
+            $connection->post(
                 $url,
                 array(),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
-           );
+            );
 
             $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 

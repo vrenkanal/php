@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * 2007-2014 [PagSeguro Internet Ltda.]
  *
@@ -24,7 +24,8 @@
 /***
  * Defines a list of known payment mode types.
  */
-class PagSeguroPaymentMode {
+class PagSeguroPaymentMode
+{
 
     private $modeList = array(
         'DEFAULT' => 'default',
@@ -36,18 +37,19 @@ class PagSeguroPaymentMode {
      * Example: DEFAULT
      * @var string
      */
-    private  $value;
+    private $value;
 
     /***
      * Initializes a new instance of the PagSeguroPaymentMode class
      * @param array|object $value
      */
-    public function __construct($value) {
+    public function __construct($value)
+    {
 
         if (array_key_exists($value, $this->modeList)) {
             $this->setValue($this->modeList[$value]);
         } else {
-           throw new Exception("Payment mode not found");
+            throw new Exception("Payment mode not found");
         }
     }
 
@@ -55,14 +57,16 @@ class PagSeguroPaymentMode {
      * Set the payment mode value
      * @param string value
      */
-    private function setValue($value) {
+    private function setValue($value)
+    {
         $this->value = $value;
     }
 
     /***
      * @return string $value of payment mode value
      */
-    public function getValue() {
+    public function getValue()
+    {
         return $this->value;
     }
 
@@ -71,11 +75,12 @@ class PagSeguroPaymentMode {
      * @param value
      * @return PagSeguroPaymentMode the corresponding to the informed value
      */
-    public static function fromValue($value) {
+    public static function fromValue($value)
+    {
         try {
             return array_search(strtoupper($value), $this->modeList);
         } catch (Exception $e) {
-            return NULL;
+            return null;
         }
     }
 }

@@ -27,28 +27,28 @@
 class PagSeguroInstallments
 {
 
-    /** 
-    * Credit card brand 
+    /**
+    * Credit card brand
     */
     private $cardBrand;
 
-    /** 
-     * Installment quantity 
+    /**
+     * Installment quantity
      */
     private $quantity;
 
-    /** 
-     * Installment amount  
+    /**
+     * Installment amount
      */
     private $installmentAmount;
 
-    /** 
-     * Installment total amount  
+    /**
+     * Installment total amount
      */
     private $totalAmount;
 
-    /** 
-     * Installment interest free 
+    /**
+     * Installment interest free
      */
     private $interestFree;
 
@@ -60,18 +60,19 @@ class PagSeguroInstallments
      * @param float  $totalAmount
      * @param float  $interestFree
      */
-    public function __construct($cardBrand, 
-        $quantity = null, 
-        $amount = null, 
-        $totalAmount = null, 
-        $interestFree = null)
-    {   
+    public function __construct(
+        $cardBrand,
+        $quantity = null,
+        $amount = null,
+        $totalAmount = null,
+        $interestFree = null
+    ) {
         $param = $cardBrand;
         if (isset($param) && is_array($param) || is_object($param)) {
-           $this->setInstallment($param);
+            $this->setInstallment($param);
         } else {
-           $this->setInstallment($cardBrand, $quantity, $amount, $totalAmount, $interestFree);
-        }    
+            $this->setInstallment($cardBrand, $quantity, $amount, $totalAmount, $interestFree);
+        }
     }
 
     /***
@@ -167,19 +168,20 @@ class PagSeguroInstallments
      * @param float  $totalAmount
      * @param float  $interestFree
      */
-    public function setInstallment($cardBrand, 
-        $quantity = null, 
-        $amount = null, 
-        $totalAmount = null, 
-        $interestFree = null)
-    {
+    public function setInstallment(
+        $cardBrand,
+        $quantity = null,
+        $amount = null,
+        $totalAmount = null,
+        $interestFree = null
+    ) {
         $param = $quantity;
         $param = $cardBrand;
         if (isset($param) && is_array($param) || is_object($param)) {
             if (isset($param->cardBrand)) {
                 $this->cardBrand = $param->cardBrand;
             }
-             if (isset($param->quantity)) {
+            if (isset($param->quantity)) {
                 $this->quantity = $param->quantity;
             }
             if (isset($param->installmentAmount)) {
@@ -207,6 +209,6 @@ class PagSeguroInstallments
             if (isset($interestFree)) {
                 $this->interestFree = $interestFree;
             }
-        }  
+        }
     }
 }

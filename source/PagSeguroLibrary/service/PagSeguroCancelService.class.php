@@ -49,53 +49,24 @@ class PagSeguroCancelService
      * @throws Exception
      * @throws PagSeguroServiceException
      */
-    public static function createRequest(
+    public static function requestCancel(
         PagSeguroCredentials $credentials,
         $transactionCode
-    ){
+    ) {
 
         LogPagSeguro::info("PagSeguroCancelService.Register(".$transactionCode.") - begin");
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
-
-           $connection = new PagSeguroHttpConnection();
-           $connection->post(
+            $connection = new PagSeguroHttpConnection();
+            $connection->post(
                 self::buildCancelURL($connectionData, $transactionCode),
                 array(),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
-           );
+            );
 
-            $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
-
-            switch ($httpStatus->getType()) {
-                case 'OK':
-
-                    $result = PagSeguroCancelParser::readSuccessXml($connection->getResponse());
-                    LogPagSeguro::info(
-                        "PagSeguroCancelService.createRequest(".$result.") - end "
-                    );
-                    break;
-                case 'BAD_REQUEST':
-                    $errors = PagSeguroCancelParser::readErrors($connection->getResponse());
-                    $err = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::error(
-                        "PagSeguroCancelService.createRequest() - error " .
-                        $err->getOneLineMessage()
-                    );
-                    throw $err;
-                    break;
-                default:
-                    $err = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::error(
-                        "PagSeguroCancelService.createRequest() - error " .
-                        $err->getOneLineMessage()
-                    );
-                    throw $err;
-                    break;
-            }
-            return isset($result) ? $result : false;
+            return self::getResult($connection);
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
@@ -103,5 +74,43 @@ class PagSeguroCancelService
             LogPagSeguro::error("Exception: " . $err->getMessage());
             throw $err;
         }
+    }
+
+    /**
+     * @param $connection
+     * @return null|PagSeguroParserData
+     * @throws PagSeguroServiceException
+     */
+    private function getResult($connection)
+    {
+        $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
+
+        switch ($httpStatus->getType()) {
+            case 'OK':
+
+                $cancel = PagSeguroCancelParser::readSuccessXml($connection->getResponse());
+                LogPagSeguro::info(
+                    "PagSeguroCancelService.createRequest(".$cancel.") - end "
+                );
+                break;
+            case 'BAD_REQUEST':
+                $errors = PagSeguroCancelParser::readErrors($connection->getResponse());
+                $err = new PagSeguroServiceException($httpStatus, $errors);
+                LogPagSeguro::error(
+                    "PagSeguroCancelService.createRequest() - error " .
+                    $err->getOneLineMessage()
+                );
+                throw $err;
+                break;
+            default:
+                $err = new PagSeguroServiceException($httpStatus);
+                LogPagSeguro::error(
+                    "PagSeguroCancelService.createRequest() - error " .
+                    $err->getOneLineMessage()
+                );
+                throw $err;
+                break;
+        }
+        return isset($cancel) ? $cancel : false;
     }
 }

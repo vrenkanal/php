@@ -34,7 +34,7 @@ class PagSeguroSessionService
      */
     private static function buildSessionURL($connectionData)
     {
-        return  $connectionData->getWebserviceUrl() . $connectionData->getSessionUrl();  
+        return  $connectionData->getWebserviceUrl() . $connectionData->getSessionUrl();
     }
 
     /***
@@ -51,19 +51,17 @@ class PagSeguroSessionService
         $url = self::buildSessionURL($connectionData)  . "?" . $connectionData->getCredentialsUrlQuery();
 
         try {
-            
             $connection = new PagSeguroHttpConnection();
             $connection->post(
                 $url,
                 array(),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
-             );
+            );
 
             $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 
             switch ($httpStatus->getType()) {
-
                 case 'OK':
 
                     $session = PagSeguroSessionParser::readResult($connection->getResponse());
@@ -74,24 +72,22 @@ class PagSeguroSessionService
                         "PagSeguroSessionService.getSession()(" . $session->toString() . ") - end {1}"
                     );
                     break;
-
                 case 'BAD_REQUEST':
-                    $errors = PagSeguroSessionParser::readErrors($connection->getStatus());
-                    $e = new PagSeguroServiceException($httpStatus, $errors);
-                    LogPagSeguro::error(
-                        "PagSeguroSessionService.getSession() - error " . 
-                        $e->getOneLineMessage()
-                    );
+                        $errors = PagSeguroSessionParser::readErrors($connection->getStatus());
+                        $e = new PagSeguroServiceException($httpStatus, $errors);
+                        LogPagSeguro::error(
+                            "PagSeguroSessionService.getSession() - error " .
+                            $e->getOneLineMessage()
+                        );
                     throw $e;
                     break;
-
                 default:
 
-                    $e = new PagSeguroServiceException($httpStatus);
-                    LogPagSeguro::error(
-                        "PagSeguroSessionService.getSession() - error " . 
-                        $e->getOneLineMessage() 
-                    );
+                        $e = new PagSeguroServiceException($httpStatus);
+                        LogPagSeguro::error(
+                            "PagSeguroSessionService.getSession() - error " .
+                            $e->getOneLineMessage()
+                        );
                     throw $e;
                     break;
             }
@@ -102,5 +98,4 @@ class PagSeguroSessionService
             throw $e;
         }
     }
-
 }

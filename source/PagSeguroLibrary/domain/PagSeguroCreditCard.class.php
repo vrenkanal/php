@@ -67,7 +67,7 @@ class PagSeguroCreditCard
             if (isset($data['expirationYear'])) {
                 $this->expirationYear = $data['expirationYear'];
             }
-        }    
+        }
     }
 
     /***

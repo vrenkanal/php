@@ -37,5 +37,4 @@ class PagSeguroRefundParser extends PagSeguroServiceParser
         return $parser->getResult('result');
 
     }
-
 }

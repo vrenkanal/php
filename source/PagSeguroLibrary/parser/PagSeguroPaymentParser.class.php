@@ -43,7 +43,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
         // sender
         if ($payment->getSender() != null) {
-
             if ($payment->getSender()->getName() != null) {
                 $data['senderName'] = $payment->getSender()->getName();
             }
@@ -74,7 +73,7 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
                 }
             }
 
-             if ($payment->getSender()->getIP() != null) {
+            if ($payment->getSender()->getIP() != null) {
                 $data['ip'] = $payment->getSender()->getIP();
             }
         }
@@ -87,7 +86,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
         // items
         $items = $payment->getItems();
         if (count($items) > 0) {
-
             $i = 0;
 
             foreach ($items as $key => $value) {
@@ -121,7 +119,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
         // shipping
         if ($payment->getShipping() != null) {
-
             if ($payment->getShipping()->getType() != null && $payment->getShipping()->getType()->getValue() != null) {
                 $data['shippingType'] = $payment->getShipping()->getType()->getValue();
             }
@@ -221,19 +218,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
     {
         $parser = new PagSeguroXmlParser($str_xml);
         $data = $parser->getResult('checkout');
-        $PaymentParserData = new PagSeguroParserData();
-        $PaymentParserData->setCode($data['code']);
-        $PaymentParserData->setRegistrationDate($data['date']);
-        return $PaymentParserData;
-    }
-
-    /***
-     * @param $str_xml
-     * @return parsed credit card brand
-     */
-     public static function readCCBRandXml($str_xml)
-    {
-        $parser = new PagSeguroXmlParser($str_xml);
         $PaymentParserData = new PagSeguroParserData();
         $PaymentParserData->setCode($data['code']);
         $PaymentParserData->setRegistrationDate($data['date']);

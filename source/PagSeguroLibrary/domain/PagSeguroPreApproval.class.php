@@ -82,15 +82,16 @@ class PagSeguroPreApproval
      */
     private $sender;
 
-    public function __construct($data = null) {
-        if (is_array($data)){
+    public function __construct($data = null)
+    {
+        if (is_array($data)) {
             $this->setName($data['name']);
             $this->setDate($data['date']);
             $this->setLastEventDate($data['lastEventDate']);
             $this->setCode($data['code']);
             $this->setReference($data['reference']);
             $this->setTracker($data['tracker']);
-            $this->setStatus( new PagSeguroPreApprovalStatus($data['status']));
+            $this->setStatus(new PagSeguroPreApprovalStatus($data['status']));
             $this->setCharge($data['charge']);
         }
     }

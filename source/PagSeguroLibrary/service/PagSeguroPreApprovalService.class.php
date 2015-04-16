@@ -228,8 +228,7 @@ class PagSeguroPreApprovalService
     public static function createPreApprovalCheckout(
         PagSeguroCredentials $credentials,
         PagSeguroPreApprovalRequest $request
-    )
-    {
+    ) {
 
         LogPagSeguro::info(
             "PagSeguroPreApprovalService.PreApprovalCheckout(" .

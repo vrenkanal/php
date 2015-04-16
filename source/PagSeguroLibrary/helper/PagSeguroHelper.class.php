@@ -108,7 +108,6 @@ class PagSeguroHelper
     {
 
         if (!is_array($string) && !is_object($string)) {
-
             $stringLength = strlen($string);
             $endcharsLength = strlen($endchars);
 

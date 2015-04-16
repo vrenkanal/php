@@ -57,11 +57,11 @@ class PagSeguroApplicationCredentials extends PagSeguroCredentials
         if ($appId !== null && $appKey !== null) {
             $this->appId = $appId;
             $this->appKey = $appKey;
-        }  else {
+        } else {
             throw new Exception("Authorization credentials not set.");
         }
 
-        if ($authorizationCode !== null ) {
+        if ($authorizationCode !== null) {
             $this->authorizationCode = $authorizationCode;
         }
     }

@@ -47,7 +47,7 @@ class PagSeguroInstallment
             if (isset($data['value'])) {
                 $this->value = $data['value'];
             }
-        }    
+        }
     }
 
     /***

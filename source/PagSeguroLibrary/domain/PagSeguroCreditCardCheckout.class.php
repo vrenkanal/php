@@ -26,7 +26,7 @@
  */
 class PagSeguroCreditCardCheckout
 {
-	
+    
     /***
      * Credit Card Brand
      */

@@ -43,7 +43,7 @@ class PagSeguroPaymentRequest extends PagSeguroRequest
      */
     public function register(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
     {
-        return PagSeguroPaymentService::createCheckoutRequest($credentials, $this, $onlyCheckoutCode);
+        return PagSeguroPaymentService::checkoutRequest($credentials, $this, $onlyCheckoutCode);
     }
 
 

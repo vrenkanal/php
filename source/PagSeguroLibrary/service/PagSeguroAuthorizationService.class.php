@@ -62,14 +62,13 @@ class PagSeguroAuthorizationService
         PagSeguroCredentials $credentials,
         PagSeguroAuthorizationRequest $authorizationRequest,
         $onlyAuthorizationCode
-    ){
+    ) {
 
         LogPagSeguro::info("PagSeguroAuthorizationService.Register(" . $authorizationRequest->toString() . ") - begin");
 
         $connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
-
             $connection = new PagSeguroHttpConnection();
             $connection->post(
                 self::buildAuthorizationUrl($connectionData),
@@ -79,7 +78,11 @@ class PagSeguroAuthorizationService
             );
 
             return self::authorizationReturn(
-                $connection, $authorizationRequest, $connectionData, $onlyAuthorizationCode);
+                $connection,
+                $authorizationRequest,
+                $connectionData,
+                $onlyAuthorizationCode
+            );
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
@@ -103,27 +106,26 @@ class PagSeguroAuthorizationService
         PagSeguroAuthorizationRequest $authorizationRequest,
         PagSeguroConnectionData $connectionData,
         $onlyAuthorizationCode = null
-    )
-    {
+    ) {
         $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 
         switch ($httpStatus->getType()) {
-
             case 'OK':
                 $authorization = PagSeguroAuthorizationParser::readSuccessXml($connection->getResponse());
 
                 if ($onlyAuthorizationCode) {
                     $authorizationReturn = $authorization->getCode();
                 } else {
-                    $authorizationReturn = self::buildAuthorizationApprovalUrl($connectionData,
-                        $authorization->getCode());
+                    $authorizationReturn = self::buildAuthorizationApprovalUrl(
+                        $connectionData,
+                        $authorization->getCode()
+                    );
                 }
                 LogPagSeguro::info(
                     "PagSeguroAuthorizationService.Register(" . $authorizationRequest->toString() . ") - end {1}" .
                     $authorization->getCode()
                 );
                 break;
-
             case 'BAD_REQUEST':
                 $errors = PagSeguroPaymentParser::readErrors($connection->getResponse());
                 $err = new PagSeguroServiceException($httpStatus, $errors);
@@ -133,7 +135,6 @@ class PagSeguroAuthorizationService
                 );
                 throw $err;
                 break;
-
             default:
                 $err = new PagSeguroServiceException($httpStatus);
                 LogPagSeguro::error(
@@ -142,7 +143,6 @@ class PagSeguroAuthorizationService
                 );
                 throw $err;
                 break;
-
         }
         return (isset($authorizationReturn) ? $authorizationReturn : false);
     }

@@ -21,7 +21,7 @@
 require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /***
- * Provides for user a option to configure their credentials without changes in PagSeguroConfig.php file.
+ * Provides for user a option to configure their credentials without changes in PagSeguroConfigWrapper.php file.
  */ 
 class PagSeguroConfigWrapper
 {

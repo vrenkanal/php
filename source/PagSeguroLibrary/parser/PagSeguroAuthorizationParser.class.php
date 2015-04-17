@@ -38,12 +38,16 @@ class PagSeguroAuthorizationParser extends PagSeguroServiceParser
         $data = null;
 
         // AppID
-        if ($credentials->getAppId() != null) {
-            $data['appId'] = $credentials->getAppId();
+        if (method_exists($credentials, 'getAppId')) {
+            if ($credentials->getAppId() != null) {
+                $data['appId'] = $credentials->getAppId();
+            }
         }
         // AppKey
-        if ($credentials->getAppKey() != null) {
-            $data['appKey'] = $credentials->getAppKey();
+        if (method_exists($credentials, 'getAppKey')) {
+            if ($credentials->getAppKey() != null) {
+                $data['appKey'] = $credentials->getAppKey();
+            }
         }
         // Reference
         if ($authorization->getReference() != null) {

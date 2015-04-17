@@ -23,7 +23,7 @@
 
 /***
  * Provides a means to retrieve configuration preferences.
- * These preferences can come from the default config file (PagSeguroLibrary/config/PagSeguroConfig.php).
+ * These preferences can come from the default config file (PagSeguroLibrary/config/PagSeguroConfigWrapper.php).
  */
 
 class PagSeguroConfig
@@ -38,7 +38,7 @@ class PagSeguroConfig
 
         if (!class_exists('PagSeguroConfigWrapper')) {
             require_once PagSeguroLibrary::getPath() .
-                DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfig.php";
+                DIRECTORY_SEPARATOR . "config" . DIRECTORY_SEPARATOR . "PagSeguroConfigWrapper.php";
         }
 
         $wrapper = new PagSeguroConfigWrapper();

@@ -32,23 +32,11 @@ class PagSeguroAuthorizationParser extends PagSeguroServiceParser
      * @param $credentials PagSeguroAuthorizationCredentials
      * @return mixed
      */
-    public static function getData($authorization, $credentials)
+    public static function getData($authorization)
     {
 
         $data = null;
 
-        // AppID
-        if (method_exists($credentials, 'getAppId')) {
-            if ($credentials->getAppId() != null) {
-                $data['appId'] = $credentials->getAppId();
-            }
-        }
-        // AppKey
-        if (method_exists($credentials, 'getAppKey')) {
-            if ($credentials->getAppKey() != null) {
-                $data['appKey'] = $credentials->getAppKey();
-            }
-        }
         // Reference
         if ($authorization->getReference() != null) {
             $data['reference'] = $authorization->getReference();

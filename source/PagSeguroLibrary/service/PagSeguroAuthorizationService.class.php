@@ -38,7 +38,8 @@ class PagSeguroAuthorizationService
      */
     private static function buildAuthorizationUrl(PagSeguroConnectionData $connectionData)
     {
-        return $connectionData->getServiceUrl() . $connectionData->getResource('requestUrl') . '?';
+        return $connectionData->getServiceUrl() . $connectionData->getResource('requestUrl') . '?' .
+            $connectionData->getCredentialsUrlQuery();
     }
 
     /***
@@ -72,7 +73,7 @@ class PagSeguroAuthorizationService
             $connection = new PagSeguroHttpConnection();
             $connection->post(
                 self::buildAuthorizationUrl($connectionData),
-                PagSeguroAuthorizationParser::getData($authorizationRequest, $credentials),
+                PagSeguroAuthorizationParser::getData($authorizationRequest),
                 $connectionData->getServiceTimeout(),
                 $connectionData->getCharset()
             );
@@ -116,6 +117,7 @@ class PagSeguroAuthorizationService
                 if ($onlyAuthorizationCode) {
                     $authorizationReturn = $authorization->getCode();
                 } else {
+
                     $authorizationReturn = self::buildAuthorizationApprovalUrl(
                         $connectionData,
                         $authorization->getCode()

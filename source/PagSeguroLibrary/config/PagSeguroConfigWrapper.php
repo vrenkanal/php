@@ -78,9 +78,9 @@ class PagSeguroConfigWrapper
 
         $PagSeguroConfig = array_merge_recursive(
             self::getEnvironment(),
-            self::getCredential(),
-            self::getApplication(),
-            self::getLog()
+            self::getCredentials(),
+            self::getApplicationEncoding(),
+            self::getLogConfig()
         );
 
         return $PagSeguroConfig;
@@ -99,7 +99,7 @@ class PagSeguroConfigWrapper
     /**
      * @return mixed
      */
-    private function getCredential()
+    private function getCredentials()
     {
         $PagSeguroConfig['credentials'] = array();
         $PagSeguroConfig['credentials']['email'] = getenv('PAGSEGURO_EMAIL')
@@ -123,7 +123,7 @@ class PagSeguroConfigWrapper
     /**
      * @return mixed
      */
-    private function getApplication()
+    private function getApplicationEncoding()
     {
         $PagSeguroConfig['application'] = array();
         $PagSeguroConfig['application']['charset'] = ( getenv('PAGSEGURO_CHARSET')
@@ -136,7 +136,7 @@ class PagSeguroConfigWrapper
     /**
      * @return mixed
      */
-    private function getLog()
+    private function getLogConfig()
     {
         $PagSeguroConfig['log'] = array();
         $PagSeguroConfig['log']['active'] = ( getenv('PAGSEGURO_LOG_ACTIVE')

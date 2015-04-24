@@ -36,6 +36,11 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
         $data = null;
 
+        // pre-approval
+        if ($payment->getPreApproval() != null) {
+            $data = PagSeguroPreApprovalParser::getData($payment->getPreApproval());
+        }
+
         // reference
         if ($payment->getReference() != null) {
             $data["reference"] = $payment->getReference();

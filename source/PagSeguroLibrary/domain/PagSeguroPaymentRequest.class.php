@@ -26,12 +26,34 @@
  */
 class PagSeguroPaymentRequest extends PagSeguroRequest
 {
+
+    /**
+     * @var
+     */
+    private $preApproval;
+
     /***
      * Class constructor to make sure the library was initialized.
      */
     public function __construct()
     {
         PagSeguroLibrary::init();
+    }
+
+    /**
+     * Sets recurrence for this payment request
+     * @param mixed $preApproval
+     */
+    public function setPreApproval($preApproval)
+    {
+        $this->preApproval = $preApproval;
+    }
+    /**
+     * @return mixed
+     */
+    public function getPreApproval()
+    {
+        return $this->preApproval;
     }
 
     /***
@@ -45,7 +67,6 @@ class PagSeguroPaymentRequest extends PagSeguroRequest
     {
         return PagSeguroPaymentService::checkoutRequest($credentials, $this, $onlyCheckoutCode);
     }
-
 
     /***
      * Verify if the adress of NotificationURL or RedirectURL is for tests and return empty

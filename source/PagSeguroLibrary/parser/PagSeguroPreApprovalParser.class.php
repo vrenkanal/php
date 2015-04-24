@@ -31,59 +31,73 @@ class PagSeguroPreApprovalParser
      * @param $payment
      * @return mixed
      */
-    public static function getData($payment)
+    public static function getData($preApproval)
     {
 
-        if (method_exists($payment, 'getPreApprovalCheckout')) {
-            if ($payment->getPreApprovalCheckout()) {
-                $data = PagSeguroPaymentParser::getData($payment);
-            }
-        } else {
-            $data = array();
+        $data = array();
+
+        if ($preApproval->getReviewURL() != null) {
+            $data["reviewURL"] = $preApproval->getReviewURL();
+        };
+
+        if ($preApproval->getReceiverEmail() != null) {
+            $data["reviewURL"] = $preApproval->getReceiverEmail();
+        };
+
+        if ($preApproval->getPreApprovalMaxTotalAmount() != null) {
+            $data["preApprovalMaxTotalAmount"] = $preApproval->getPreApprovalMaxTotalAmount();
+        };
+
+        if ($preApproval->getPreApprovalMaxAmountPerPeriod() != null) {
+            $data["preApprovalMaxAmountPerPeriod"] = $preApproval->getPreApprovalMaxAmountPerPeriod();
+        };
+
+        if ($preApproval->getPreApprovalInitialDate() != null) {
+            $data["preApprovalInitialDate"] = $preApproval->getPreApprovalInitialDate();
+        };
+
+        if ($preApproval->getPreApprovalFinalDate() != null) {
+            $data["preApprovalFinalDate"] = $preApproval->getPreApprovalFinalDate();
+        };
+
+        if ($preApproval->getPreApprovalDayOfMonth() != null) {
+            $data["preApprovalDayOfMonth"] = $preApproval->getPreApprovalDayOfMonth();
+        };
+
+        if ($preApproval->getPreApprovalDayOfWeek() != null) {
+            $data["preApprovalDayOfWeek"] = $preApproval->getPreApprovalDayOfWeek();
+        };
+
+        if ($preApproval->getPreApprovalDayOfYear() != null) {
+            $data["preApprovalDayOfYear"] = $preApproval->getPreApprovalDayOfYear();
+        };
+
+        if ($preApproval->getPreApprovalPeriod() != null) {
+            $data["preApprovalPeriod"] = $preApproval->getPreApprovalPeriod();
         }
 
-        if ($payment->getPreApprovalCharge() != null) {
-            $data["preApprovalCharge"] = $payment->getPreApprovalCharge();
+        if ($preApproval->getPreApprovalAmountPerPayment() != null) {
+            $data["preApprovalAmountPerPayment"] = $preApproval->getPreApprovalAmountPerPayment();
         };
 
-        if ($payment->getPreApprovalName() != null) {
-            $data["preApprovalName"] = $payment->getPreApprovalName();
+        if ($preApproval->getPreApprovalMaxAmountPerPayment() != null) {
+            $data["preApprovalMaxAmountPerPayment"] = $preApproval->getPreApprovalMaxAmountPerPayment();
         };
 
-        if ($payment->getPreApprovalDetails() != null) {
-            $data["preApprovalDetails"] = $payment->getPreApprovalDetails();
+        if ($preApproval->getPreApprovalMaxPaymentsPerPeriod() != null) {
+            $data["preApprovalMaxPaymentsPerPeriod"] = $preApproval->getPreApprovalMaxPaymentsPerPeriod();
         };
 
-        if ($payment->getPreApprovalAmountPerPayment() != null) {
-            $data["preApprovalAmountPerPayment"] = $payment->getPreApprovalAmountPerPayment();
+        if ($preApproval->getPreApprovalDetails() != null) {
+            $data["preApprovalDetails"] = $preApproval->getPreApprovalDetails();
         };
 
-        if ($payment->getPreApprovalPeriod() != null) {
-            $data["preApprovalPeriod"] = $payment->getPreApprovalPeriod();
+        if ($preApproval->getPreApprovalName() != null) {
+            $data["preApprovalName"] = $preApproval->getPreApprovalName();
         };
 
-        if ($payment->getPreApprovalDayOfWeek() != null) {
-            $data["preApprovalDayOfWeek"] = $payment->getPreApprovalDayOfWeek();
-        };
-
-        if ($payment->getPreApprovalInitialDate() != null) {
-            $data["preApprovalInitialDate"] = $payment->getPreApprovalInitialDate();
-        };
-
-        if ($payment->getPreApprovalFinalDate() != null) {
-            $data["preApprovalFinalDate"] = $payment->getPreApprovalFinalDate();
-        };
-
-        if ($payment->getPreApprovalMaxAmountPerPeriod() != null) {
-            $data["preApprovalMaxAmountPerPeriod"] = $payment->getPreApprovalMaxAmountPerPeriod();
-        };
-
-        if ($payment->getPreApprovalMaxTotalAmount() != null) {
-            $data["preApprovalMaxTotalAmount"] = $payment->getPreApprovalMaxTotalAmount();
-        };
-
-        if ($payment->getReviewURL() != null) {
-            $data["reviewURL"] = $payment->getReviewURL();
+        if ($preApproval->getPreApprovalCharge() != null) {
+            $data["preApprovalCharge"] = $preApproval->getPreApprovalCharge();
         };
 
         return $data;
@@ -93,20 +107,20 @@ class PagSeguroPreApprovalParser
      * @param $payment
      * @return array
      */
-    public static function getCharge($payment)
+    public static function getCharge($preApproval)
     {
         $data = array();
 
-        if ($payment->getReference() != null) {
-            $data["reference"] = $payment->getReference();
+        if ($preApproval->getReference() != null) {
+            $data["reference"] = $preApproval->getReference();
         };
 
-        if ($payment->getPreApprovalCode() != null) {
-            $data["preApprovalCode"] = $payment->getPreApprovalCode();
+        if ($preApproval->getPreApprovalCode() != null) {
+            $data["preApprovalCode"] = $preApproval->getPreApprovalCode();
         };
 
         // items
-        $items = $payment->getItems();
+        $items = $preApproval->getItems();
         if (count($items) > 0) {
             $i = 0;
 
@@ -129,7 +143,6 @@ class PagSeguroPreApprovalParser
         }
 
         return $data;
-
     }
 
     /**
@@ -142,70 +155,70 @@ class PagSeguroPreApprovalParser
         $data = $parser->getResult('preApproval');
         $preApproval = new PagSeguroPreApproval();
 
-        // <transaction> <name>
+        // <preApproval> <name>
         if (isset($data["name"])) {
             $preApproval->setName($data["name"]);
         }
 
-        // <transaction> <lastEventDate>
+        // <preApproval> <lastEventDate>
         if (isset($data["lastEventDate"])) {
             $preApproval->setLastEventDate($data["lastEventDate"]);
         }
 
-        // <transaction> <date>
+        // <preApproval> <date>
         if (isset($data["date"])) {
             $preApproval->setDate($data["date"]);
         }
 
-        // <transaction> <code>
+        // <preApproval> <code>
         if (isset($data["code"])) {
             $preApproval->setCode($data["code"]);
         }
 
-        // <transaction> <tracker>
+        // <preApproval> <tracker>
         if (isset($data["tracker"])) {
             $preApproval->setTracker($data["tracker"]);
         }
 
-        // <transaction> <reference>
+        // <preApproval> <reference>
         if (isset($data["reference"])) {
             $preApproval->setReference($data["reference"]);
         }
 
-        // <transaction> <charge>
+        // <preApproval> <charge>
         if (isset($data["charge"])) {
             $preApproval->setCharge($data["charge"]);
         }
 
-        // <transaction> <status>
+        // <preApproval> <status>
         if (isset($data["status"])) {
             $preApproval->setStatus(new PagSeguroPreApprovalStatus($data["status"]));
         }
 
         if (isset($data["sender"])) {
-            // <transaction> <sender>
+            // <preApproval> <sender>
             $sender = new PagSeguroSender();
 
-            // <transaction> <sender> <name>
+            // <preApproval> <sender> <name>
             if (isset($data["sender"]["name"])) {
                 $sender->setName($data["sender"]["name"]);
             }
 
-            // <transaction> <sender> <email>
+            // <preApproval> <sender> <email>
             if (isset($data["sender"]["email"])) {
                 $sender->setEmail($data["sender"]["email"]);
             }
 
             if (isset($data["sender"]["phone"])) {
-                // <transaction> <sender> <phone>
+                // <preApproval> <sender> <phone>
                 $phone = new PagSeguroPhone();
 
-                // <transaction> <sender> <phone> <areaCode>
+                // <preApproval> <sender> <phone> <areaCode>
                 if (isset($data["sender"]["phone"]["areaCode"])) {
                     $phone->setAreaCode($data["sender"]["phone"]["areaCode"]);
                 }
 
-                // <transaction> <sender> <phone> <number>
+                // <preApproval> <sender> <phone> <number>
                 if (isset($data["sender"]["phone"]["number"])) {
                     $phone->setNumber($data["sender"]["phone"]["number"]);
                 }
@@ -213,7 +226,7 @@ class PagSeguroPreApprovalParser
                 $sender->setPhone($phone);
             }
 
-            // <transaction><sender><documents>
+            // <preApproval><sender><documents>
             if (isset($data["sender"]['documents']) && is_array($data["sender"]['documents'])) {
                 $documents = $data["sender"]['documents'];
                 if (count($documents) > 0) {
@@ -296,20 +309,6 @@ class PagSeguroPreApprovalParser
     {
         $parser = new PagSeguroXmlParser($str_xml);
         $data = $parser->getResult('preApprovalRequest');
-        $preApprovalParser = new PagSeguroParserData();
-        $preApprovalParser->setCode($data['code']);
-        $preApprovalParser->setRegistrationDate($data['date']);
-        return $preApprovalParser;
-    }
-
-    /**
-     * @param $str_xml
-     * @return PagSeguroParserData
-     */
-    public static function readCheckout($str_xml)
-    {
-        $parser = new PagSeguroXmlParser($str_xml);
-        $data = $parser->getResult('checkout');
         $preApprovalParser = new PagSeguroParserData();
         $preApprovalParser->setCode($data['code']);
         $preApprovalParser->setRegistrationDate($data['date']);

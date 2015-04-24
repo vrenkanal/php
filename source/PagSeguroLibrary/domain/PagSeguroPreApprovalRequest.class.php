@@ -34,6 +34,10 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
     /**
      * @var
      */
+    private $receiverEmail;
+    /**
+     * @var
+     */
     private $preApprovalMaxTotalAmount;
     /**
      * @var
@@ -58,11 +62,23 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
     /**
      * @var
      */
+    private $preApprovalDayOfYear;
+    /**
+     * @var
+     */
     private $preApprovalPeriod;
     /**
      * @var
      */
     private $preApprovalAmountPerPayment;
+    /**
+     * @var
+     */
+    private $preApprovalMaxAmountPerPayment;
+    /**
+     * @var
+     */
+    private $preApprovalMaxPaymentsPerPeriod;
     /**
      * @var
      */
@@ -75,16 +91,11 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
      * @var
      */
     private $preApprovalCharge;
-    /**
-     * @var
-     */
-    private $preApprovalCheckout;
 
     /***
      * Sets the review URL
      *
-     * Uri to where the PagSeguro payment page should redirect the user after the payment information is processed.
-     * Typically this is a confirmation page on your web site.
+     * Uri to where the PagSeguro payment page should redirect the user if they want to change the Pre Approval rules
      *
      * @param String $reviewURL
      */
@@ -92,12 +103,28 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
     {
         $this->reviewURL = $this->verifyURLTest($reviewURL);
     }
-    /***
-     * @return uri the reference of reviewURL
+    /**
+     * @return mixed the Review Url
      */
     public function getReviewURL()
     {
         return $this->reviewURL;
+    }
+
+    /**
+     * Sets the preApprovalReceiverEmail for this pre approval
+     * @param string $receiverEmail
+     */
+    public function setReceiverEmail($receiverEmail)
+    {
+        $this->receiverEmail = $receiverEmail;
+    }
+    /**
+     * @return string
+     */
+    public function getReceiverEmail()
+    {
+        return $this->receiverEmail;
     }
 
     /***
@@ -179,7 +206,7 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
     {
         return $this->preApprovalDayOfMonth;
     }
-    
+
     /***
      * Sets the preApprovalDayOfWeek for this pre approval
      * @param String $day
@@ -194,6 +221,22 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
     public function getPreApprovalDayOfWeek()
     {
         return $this->preApprovalDayOfWeek;
+    }
+
+    /**
+     * Sets the preApprovalDayOfYear for this pre approval
+     * @param mixed $preApprovalDayOfYear
+     */
+    public function setPreApprovalDayOfYear($preApprovalDayOfYear)
+    {
+        $this->preApprovalDayOfYear = $preApprovalDayOfYear;
+    }
+    /**
+     * @return mixed
+     */
+    public function getPreApprovalDayOfYear()
+    {
+        return $this->preApprovalDayOfYear;
     }
     
     /***
@@ -227,7 +270,39 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
     {
         return $this->preApprovalAmountPerPayment;
     }
-    
+
+    /**
+     * Sets the preApprovalMaxAmountPerPayment value for the recurrent payment
+     * @param double $preApprovalMaxAmountPerPayment
+     */
+    public function setPreApprovalMaxAmountPerPayment($preApprovalMaxAmountPerPayment)
+    {
+        $this->preApprovalMaxAmountPerPayment = $preApprovalMaxAmountPerPayment;
+    }
+    /**
+     * @return double
+     */
+    public function getPreApprovalMaxAmountPerPayment()
+    {
+        return $this->preApprovalMaxAmountPerPayment;
+    }
+
+    /**
+     * Sets the preApprovalMaxPaymentsPerPeriod value for the recurrent period
+     * @param double $preApprovalMaxPaymentsPerPeriod
+     */
+    public function setPreApprovalMaxPaymentsPerPeriod($preApprovalMaxPaymentsPerPeriod)
+    {
+        $this->preApprovalMaxPaymentsPerPeriod = $preApprovalMaxPaymentsPerPeriod;
+    }
+    /**
+     * @return double
+     */
+    public function getPreApprovalMaxPaymentsPerPeriod()
+    {
+        return $this->preApprovalMaxPaymentsPerPeriod;
+    }
+
     /***
      * Sets the preApprovalDetails for the transaction
      * @param String $details
@@ -277,23 +352,6 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
         return $this->preApprovalCharge;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPreApprovalCheckout()
-    {
-        return $this->preApprovalCheckout;
-    }
-
-    /**
-     * @param mixed $preApprovalCheckout
-     */
-    public function setPreApprovalCheckout($preApprovalCheckout)
-    {
-        $this->preApprovalCheckout = $preApprovalCheckout;
-    }
-
-
     /***
      * Register the preApproval
      * @param PagSeguroCredentials $credentials
@@ -301,9 +359,6 @@ class PagSeguroPreApprovalRequest extends PagSeguroRequest
      */
     public function register(PagSeguroCredentials $credentials, $onlyCheckoutCode = false)
     {
-        if ($this->preApprovalCheckout) {
-            return PagSeguroPreApprovalService::createPreApprovalCheckout($credentials, $this);
-        }
         return PagSeguroPreApprovalService::createPreApprovalRequest($credentials, $this);
     }
 }

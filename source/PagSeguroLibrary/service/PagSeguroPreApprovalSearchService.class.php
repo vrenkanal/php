@@ -96,13 +96,37 @@ class PagSeguroPreApprovalSearchService
     }
 
     /**
+     * @param PagSeguroConnectionData $connectionData
+     * @param array $params
+     * @return string
+     */
+    private static function buildFindByReferenceUrl(PagSeguroConnectionData $connectionData, array $params)
+    {
+        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl');
+        $initialDate = $params['initialDate'] != null ? $params['initialDate'] : "";
+        $finalDate = $params['finalDate'] != null ? ("&finalDate=" . $params['finalDate']) : "";
+
+        $reference = $params['reference'] != null ? ("&reference=" . $params['reference']) : "";
+
+        if ($params['pageNumber'] != null) {
+            $page = "&page=" . $params['pageNumber'];
+        }
+        if ($params['maxPageResults'] != null) {
+            $maxPageResults = "&maxPageResults=" . $params['maxPageResults'];
+        }
+
+        return "{$url}?" . $connectionData->getCredentialsUrlQuery()
+            . "&initialDate={$initialDate}{$finalDate}{$page}{$maxPageResults}{$reference}";
+    }
+
+    /**
      * @param $pageNumber
      * @param $maxPageResults
      * @param $initialDate
      * @param null $finalDate
      * @return array
      */
-    private function buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate = null)
+    private function buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate = null, $reference = null)
     {
         $params = array(
             'initialDate' => PagSeguroHelper::formatDate($initialDate),
@@ -111,6 +135,8 @@ class PagSeguroPreApprovalSearchService
         );
 
         $params['finalDate'] = $finalDate ? PagSeguroHelper::formatDate($finalDate) : null;
+
+        $params['reference'] = $reference ? PagSeguroHelper::formatDate($reference) : null;
 
         return $params;
     }
@@ -242,6 +268,59 @@ class PagSeguroPreApprovalSearchService
 
     /**
      * @param PagSeguroCredentials $credentials
+     * @param $pageNumber
+     * @param $maxPageResults
+     * @param $initialDate
+     * @param null $finalDate
+     * @return null|PagSeguroParserData
+     * @throws Exception
+     * @throws PagSeguroServiceException
+     */
+    public static function findByReference(
+        PagSeguroCredentials $credentials,
+        $pageNumber,
+        $maxPageResults,
+        $initialDate,
+        $finalDate = null,
+        $reference
+    ) {
+        //Logging
+        $log['text'] = "PagSeguroPreApprovalService.FindByReference(initialDate="
+            . PagSeguroHelper::formatDate($initialDate) . ", finalDate=" . PagSeguroHelper::formatDate($finalDate)
+            . ", reference=" . $reference . "begin";
+        LogPagSeguro::info($log['text']);
+
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        $params = self::buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate, $reference);
+
+        try {
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildFindByReferenceUrl(self::$connectionData, $params),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
+            );
+
+            self::$service = "FindByReference";
+            return self::getResult($connection);
+
+        } catch (PagSeguroServiceException $err) {
+            //Logging
+            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
+            throw $err;
+
+        } catch (Exception $err) {
+            //Logging
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
+            throw $err;
+        }
+    }
+
+    /**
+     * @param PagSeguroCredentials $credentials
      * @param $notificationCode
      * @return null|PagSeguroParserData
      * @throws Exception
@@ -302,6 +381,9 @@ class PagSeguroPreApprovalSearchService
                         $result = PagSeguroPreApprovalParser::readSearchResult($response);
                         break;
                     case "FindByDateInterval":
+                        $result = PagSeguroPreApprovalParser::readSearchResult($response);
+                        break;
+                    case "FindByReference":
                         $result = PagSeguroPreApprovalParser::readSearchResult($response);
                         break;
                 }

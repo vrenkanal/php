@@ -40,8 +40,7 @@ class FindPreApproval
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getAccountCredentials();
 
             $result = PagSeguroPreApprovalSearchService::findByCode($credentials, $preApprovalCode);
 
@@ -67,8 +66,7 @@ class FindPreApproval
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getAccountCredentials();
 
             $result = PagSeguroPreApprovalSearchService::findByDayInterval($credentials, $days);
 
@@ -97,11 +95,42 @@ class FindPreApproval
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
-            $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getAccountCredentials();
 
             $result = PagSeguroPreApprovalSearchService::findByDateInterval(
                 $credentials, $page, $maxPageResults, $initialDate, $finalDate);
+
+            self::printResult($result);
+
+        } catch (PagSeguroServiceException $e) {
+            die($e->getMessage());
+        }
+    }
+
+    public static function findByReference()
+    {
+
+        //reference
+        $reference      = 'REF123';
+        // Substitute the information below
+        $page           = 1;
+        $maxPageResults = 1000;
+        $initialDate    = "2015-03-10T00:00:00";
+        $finalDate      = "2015-04-06T00:00:00";
+
+        try {
+
+            /**
+             * @todo
+             * #### Credentials #####
+             * Replace the parameters below with your credentials (e-mail and token)
+             * You can also get your credentials from a config file. See an example:
+             * $credentials = PagSeguroConfig::getAccountCredentials();
+             */
+            $credentials = PagSeguroConfig::getAccountCredentials();
+
+            $result = PagSeguroPreApprovalSearchService::findByReference(
+                $credentials, $page, $maxPageResults, $initialDate, $finalDate, $reference);
 
             self::printResult($result);
 
@@ -166,3 +195,4 @@ class FindPreApproval
 FindPreApproval::findByCode();
 FindPreApproval::findByDayInterval();
 FindPreApproval::findByDateInterval();
+FindPreApproval::findByReference();

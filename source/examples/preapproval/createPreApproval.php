@@ -1,8 +1,7 @@
-<?php //
-
+<?php
 /*
  * ***********************************************************************
- Copyright [2011] [PagSeguro Internet Ltda.]
+ Copyright [2015] [PagSeguro Internet Ltda.]
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -18,37 +17,30 @@
  * ***********************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
-
+require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
  */
-class CreatePaymentRequestWithRecurrence
+class CreatePreApproval
 {
 
     public static function main()
     {
-        // Instantiate a new payment request
-        $paymentRequest = new PagSeguroPaymentRequest();
+       // Instantiate a new pre-approval request
+        $preApprovalRequest = new PagSeguroPreApprovalRequest();
 
         // Set the currency
-        $paymentRequest->setCurrency("BRL");
-
-        // Add an item for this payment request
-        $paymentRequest->addItem('0001', 'Notebook prata', 2, 430.00);
-
-        // Add another item for this payment request
-        $paymentRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
+        $preApprovalRequest->setCurrency("BRL");
 
         // Set a reference code for this payment request. It is useful to identify this payment
         // in future notifications.
-        $paymentRequest->setReference("REF123");
+        $preApprovalRequest->setReference("REF123");
 
         // Set shipping information for this payment request
         $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
-        $paymentRequest->setShippingType($sedexCode);
-        $paymentRequest->setShippingAddress(
+        $preApprovalRequest->setShippingType($sedexCode);
+        $preApprovalRequest->setShippingAddress(
             '01452002',
             'Av. Brig. Faria Lima',
             '1384',
@@ -60,7 +52,7 @@ class CreatePaymentRequestWithRecurrence
         );
 
         // Set your customer information.
-        $paymentRequest->setSender(
+        $preApprovalRequest->setSender(
             'João Comprador',
             'email@comprador.com.br',
             '11',
@@ -69,27 +61,9 @@ class CreatePaymentRequestWithRecurrence
             '156.009.442-76'
         );
 
-        // Set the url used by PagSeguro to redirect user after checkout process ends
-        $paymentRequest->setRedirectUrl("http://www.lojamodelo.com.br");
-
-        // Add checkout metadata information
-        $paymentRequest->addMetadata('PASSENGER_CPF', '15600944276', 1);
-        $paymentRequest->addMetadata('GAME_NAME', 'DOTA');
-        $paymentRequest->addMetadata('PASSENGER_PASSPORT', '23456', 1);
-
-        // Another way to set checkout parameters
-        $paymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br/nas');
-        $paymentRequest->addParameter('senderBornDate', '07/05/1981');
-        $paymentRequest->addIndexedParameter('itemId', '0003', 3);
-        $paymentRequest->addIndexedParameter('itemDescription', 'Notebook Preto', 3);
-        $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
-        $paymentRequest->addIndexedParameter('itemAmount', '200.00', 3);
-
         /***
          * Pre Approval information
          */
-        $preApprovalRequest = new PagSeguroPreApprovalRequest();
-
         $preApprovalRequest->setPreApprovalCharge('manual');
         $preApprovalRequest->setPreApprovalName("Seguro contra roubo do Notebook Prata");
         $preApprovalRequest->setPreApprovalDetails("Todo dia 30 será cobrado o valor de R100,00 referente ao seguro contra
@@ -98,11 +72,11 @@ class CreatePaymentRequestWithRecurrence
         $preApprovalRequest->setPreApprovalMaxAmountPerPeriod('200.00');
         $preApprovalRequest->setPreApprovalPeriod('Monthly');
         $preApprovalRequest->setPreApprovalMaxTotalAmount('2400.00');
-        $preApprovalRequest->setPreApprovalInitialDate('2015-04-24T00:00:00');
-        $preApprovalRequest->setPreApprovalFinalDate('2017-04-24T00:00:00');
-        $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/redirect");
+        $preApprovalRequest->setPreApprovalInitialDate('2015-04-10T00:00:00');
+        $preApprovalRequest->setPreApprovalFinalDate('2017-04-07T00:00:00');
 
-        $paymentRequest->setPreApproval($preApprovalRequest);
+        $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/redirect");
+        $preApprovalRequest->setNotificationURL("http://www.lojateste.com.br/notification");
 
         try {
 
@@ -112,6 +86,7 @@ class CreatePaymentRequestWithRecurrence
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
+
             // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
@@ -122,23 +97,27 @@ class CreatePaymentRequestWithRecurrence
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
-            $url = $paymentRequest->register($credentials);
+            $url = $preApprovalRequest->register($credentials);
 
-            self::printPaymentUrl($url);
+            self::printRecurrenceUrl($url);
 
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
     }
 
-    public static function printPaymentUrl($url)
+    public static function printRecurrenceUrl($url)
     {
         if ($url) {
-            echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento</h2>";
-            echo "<p>URL do pagamento: <strong>$url</strong></p>";
-            echo "<p><a title=\"URL do pagamento\" href=\"$url\">Ir para URL do pagamento.</a></p>";
+            echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento recorrente</h2>";
+            echo "<p><strong>C&oacute;digo: </strong>".$url['code']."</p>";
+            echo "<p><strong>URL do pagamento: </strong>".$url['checkoutUrl']."</p>";
+            if (isset($url['cancelUrl'])) {
+                echo "<p><strong>URL de cancelamento: </strong>" . $url['cancelUrl'] . "</p>";
+            }
+            echo "<p><a title='URL do pagamento' href='".$url['checkoutUrl']."'>Ir para URL do pagamento.</a></p>";
         }
     }
 }
 
-CreatePaymentRequestWithRecurrence::main();
+CreatePreApproval::main();

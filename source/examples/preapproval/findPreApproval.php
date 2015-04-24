@@ -22,13 +22,13 @@ require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 /**
  * Class with a main method to illustrate the usage of the service PagSeguroPreApprovalService
  */
-class FindRecurrence
+class FindPreApproval
 {
 
     public static function findByCode()
     {
 
-        // Substitute the code below with a valid recurrence code for your account
+        // Substitute the code below with a valid pre-approval code for your account
         $preApprovalCode = "0FEBE545C6C657A77402DF878C539E56";
 
         try {
@@ -163,6 +163,6 @@ class FindRecurrence
     }
 }
 
-FindRecurrence::findByCode();
-FindRecurrence::findByDayInterval();
-FindRecurrence::findByDateInterval();
+FindPreApproval::findByCode();
+FindPreApproval::findByDayInterval();
+FindPreApproval::findByDateInterval();

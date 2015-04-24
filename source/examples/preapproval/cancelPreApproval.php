@@ -22,13 +22,13 @@ require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 /**
  * Class with a main method to illustrate the usage of the service PagSeguroPreApprovalService
  */
-class CancelRecurrence
+class CancelPreApproval
 {
 
     public static function main()
     {
 
-        // Substitute the code below with a valid recurrence code for your account
+        // Substitute the code below with a valid pre-approval code for your account
         $preApprovalCode = "E48DD6BD353560C554BFCFB5D536A98C";
 
         try {
@@ -65,4 +65,4 @@ class CancelRecurrence
     }
 }
 
-CancelRecurrence::main();
+CancelPreApproval::main();

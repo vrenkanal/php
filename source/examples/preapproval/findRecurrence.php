@@ -43,7 +43,7 @@ class FindRecurrence
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $result = PagSeguroPreApprovalService::findByCode($credentials, $preApprovalCode);
+            $result = PagSeguroPreApprovalSearchService::findByCode($credentials, $preApprovalCode);
 
             self::printResult($result);
 
@@ -70,7 +70,7 @@ class FindRecurrence
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $result = PagSeguroPreApprovalService::findByDayInterval($credentials, $days);
+            $result = PagSeguroPreApprovalSearchService::findByDayInterval($credentials, $days);
 
             self::printResult($result);
 
@@ -100,7 +100,7 @@ class FindRecurrence
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $result = PagSeguroPreApprovalService::findByDateInterval(
+            $result = PagSeguroPreApprovalSearchService::findByDateInterval(
                 $credentials, $page, $maxPageResults, $initialDate, $finalDate);
 
             self::printResult($result);

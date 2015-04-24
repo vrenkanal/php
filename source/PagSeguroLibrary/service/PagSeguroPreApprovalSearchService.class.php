@@ -24,7 +24,7 @@
 /***
  * Encapsulates web service calls regarding PagSeguro payment requests
  */
-class PagSeguroPreApprovalService
+class PagSeguroPreApprovalSearchService
 {
 
     /***
@@ -42,11 +42,13 @@ class PagSeguroPreApprovalService
 
     /***
      * @param PagSeguroConnectionData $connectionData
+     * @param $notificationCode
      * @return string
      */
-    private static function buildPreApprovalUrl(PagSeguroConnectionData $connectionData)
+    private static function buildFindByNotificationUrl(PagSeguroConnectionData $connectionData, $notificationCode)
     {
-        return $connectionData->getServiceUrl();
+        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl') . 'notification';
+        return "{$url}/{$notificationCode}/?" . $connectionData->getCredentialsUrlQuery();
     }
 
     /***
@@ -54,9 +56,10 @@ class PagSeguroPreApprovalService
      * @param $code
      * @return string
      */
-    private static function buildPreApprovalRequestUrl(PagSeguroConnectionData $connectionData, $code)
+    private static function buildFindByCodeUrl(PagSeguroConnectionData $connectionData, $code)
     {
-        return $connectionData->getPaymentUrl() . $connectionData->getResource('requestUrl') . "?code=$code";
+        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl');
+        return "{$url}{$code}/?" . $connectionData->getCredentialsUrlQuery();
     }
 
     /***
@@ -64,121 +67,52 @@ class PagSeguroPreApprovalService
      * @param $code
      * @return string
      */
-    private static function buildPreApprovalPaymentUrl(PagSeguroConnectionData $connectionData)
+    private static function buildFindByDayIntervalUrl(PagSeguroConnectionData $connectionData, $interval)
     {
-        return $connectionData->getWebserviceUrl() . $connectionData->getResource('paymentUrl');
-    }
-
-    /***
-     * @param PagSeguroConnectionData $connectionData
-     * @param $code
-     * @return string
-     */
-    private static function buildPreApprovalCancelUrl(PagSeguroConnectionData $connectionData, $code)
-    {
-        $credentialsArray = $connectionData->getCredentials()->getAttributesMap();
-        return $connectionData->getWebserviceUrl() .
-        $connectionData->getResource('cancelUrl') .
-        "$code?".$connectionData->getCredentialsUrlQuery();
+        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl') . 'notifications';
+        return "{$url}?" . $connectionData->getCredentialsUrlQuery() . "&interval=" . $interval;
     }
 
     /**
-     * @param PagSeguroCredentials $credentials
-     * @param PagSeguroPaymentRequest $paymentRequest
-     * @return null|PagSeguroParserData
-     * @throws Exception
-     * @throws PagSeguroServiceException
+     * @param PagSeguroConnectionData $connectionData
+     * @param array $params
+     * @return string
      */
-    public static function createPreApprovalRequest(
-        PagSeguroCredentials $credentials,
-        PagSeguroPreApprovalRequest $request
-    ) {
+    private static function buildFindByDateIntervalUrl(PagSeguroConnectionData $connectionData, array $params)
+    {
+        $url = $connectionData->getWebserviceUrl() . $connectionData->getResource('findUrl');
+        $initialDate = $params['initialDate'] != null ? $params['initialDate'] : "";
+        $finalDate = $params['finalDate'] != null ? ("&finalDate=" . $params['finalDate']) : "";
 
-        LogPagSeguro::info(
-            "PagSeguroPreApprovalService.PreApprovalRequest(" .
-            $request->toString() . ") - begin"
-        );
-
-        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
-        $data = array_merge(
-            self::$connectionData->getCredentials()->getAttributesMap(),
-            PagSeguroPreApprovalParser::getData($request)
-        );
-
-        try {
-            $connection = new PagSeguroHttpConnection();
-            $connection->post(
-                self::buildPreApprovalUrl(self::$connectionData),
-                $data,
-                self::$connectionData->getServiceTimeout(),
-                self::$connectionData->getCharset()
-            );
-
-            self::$service = "PreApprovalRequest";
-            return self::getResult($connection);
-
-        } catch (PagSeguroServiceException $err) {
-            //Logging
-            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
-            //Exception
-            throw $err;
-
-        } catch (Exception $err) {
-            //Logging
-            LogPagSeguro::error("Exception: " . $err->getMessage());
-            //Exception
-            throw $err;
+        if ($params['pageNumber'] != null) {
+            $page = "&page=" . $params['pageNumber'];
+        }
+        if ($params['maxPageResults'] != null) {
+            $maxPageResults = "&maxPageResults=" . $params['maxPageResults'];
         }
 
+        return "{$url}?" . $connectionData->getCredentialsUrlQuery() . "&initialDate={$initialDate}{$finalDate}
+            {$page}{$maxPageResults}";
     }
 
     /**
-     * @param PagSeguroCredentials $credentials
-     * @param PagSeguroPaymentRequest $paymentRequest
-     * @return null|PagSeguroParserData
-     * @throws Exception
-     * @throws PagSeguroServiceException
+     * @param $pageNumber
+     * @param $maxPageResults
+     * @param $initialDate
+     * @param null $finalDate
+     * @return array
      */
-    public static function paymentCharge(
-        PagSeguroCredentials $credentials,
-        PagSeguroPreApprovalCharge $charge
-    ) {
-
-        LogPagSeguro::info(
-            "PagSeguroPreApprovalService.PreApprovalPaymentCharge(" .
-            $charge->toString() . ") - begin"
+    private function buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate = null)
+    {
+        $params = array(
+            'initialDate' => PagSeguroHelper::formatDate($initialDate),
+            'pageNumber' => $pageNumber,
+            'maxPageResults' => $maxPageResults
         );
 
-        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
-        $data = array_merge(
-            self::$connectionData->getCredentials()->getAttributesMap(),
-            PagSeguroPreApprovalParser::getCharge($charge)
-        );
+        $params['finalDate'] = $finalDate ? PagSeguroHelper::formatDate($finalDate) : null;
 
-        try {
-            $connection = new PagSeguroHttpConnection();
-            $connection->post(
-                self::buildPreApprovalPaymentUrl(self::$connectionData),
-                $data,
-                self::$connectionData->getServiceTimeout(),
-                self::$connectionData->getCharset()
-            );
-
-            self::$service = "PreApprovalPaymentCharge";
-            return self::getResult($connection);
-
-        } catch (PagSeguroServiceException $err) {
-            //Logging
-            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
-            //Exception
-            throw $err;
-
-        } catch (Exception $err) {
-            //Logging
-            LogPagSeguro::error("Exception: " . $err->getMessage());
-            //Exception
-            throw $err;
-        }
+        return $params;
     }
 
     /**
@@ -188,28 +122,146 @@ class PagSeguroPreApprovalService
      * @throws Exception
      * @throws PagSeguroServiceException
      */
-    public static function cancelPreApproval(PagSeguroCredentials $credentials, $code)
+    public static function findByCode(PagSeguroCredentials $credentials, $code)
     {
 
-        //Logging
-        $log['text'] = "PagSeguroNotificationService.PreApprovalCancel($code) - begin";
-        LogPagSeguro::info($log['text']);
-
+        LogPagSeguro::info("PagSeguroPreApprovalService.FindByCode($code) - begin");
         self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
 
         try {
             $connection = new PagSeguroHttpConnection();
             $connection->get(
-                self::buildPreApprovalCancelUrl(
-                    self::$connectionData,
-                    $code
-                ),
+                self::buildFindByCodeUrl(self::$connectionData, $code),
                 self::$connectionData->getServiceTimeout(),
                 self::$connectionData->getCharset()
             );
-
-            self::$service = "PreApprovalCancel";
+            self::$service = "FindByCode";
             return self::getResult($connection, $code);
+
+        } catch (PagSeguroServiceException $err) {
+            //Logging
+            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
+            throw $err;
+
+        } catch (Exception $err) {
+            //Logging
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
+            throw $err;
+        }
+    }
+
+    /**
+     * @param PagSeguroCredentials $credentials
+     * @param $interval
+     * @return null|PagSeguroParserData
+     * @throws Exception
+     * @throws PagSeguroServiceException
+     */
+    public static function findByDayInterval(PagSeguroCredentials $credentials, $interval)
+    {
+
+        LogPagSeguro::info("PagSeguroPreApprovalService.FindByDayInterval($interval) - begin");
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        try {
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildFindByDayIntervalUrl(self::$connectionData, $interval),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
+            );
+            self::$service = "FindByDayInterval";
+            return self::getResult($connection);
+
+        } catch (PagSeguroServiceException $err) {
+            //Logging
+            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
+            throw $err;
+
+        } catch (Exception $err) {
+            //Logging
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
+            throw $err;
+        }
+    }
+
+    /**
+     * @param PagSeguroCredentials $credentials
+     * @param $pageNumber
+     * @param $maxPageResults
+     * @param $initialDate
+     * @param null $finalDate
+     * @return null|PagSeguroParserData
+     * @throws Exception
+     * @throws PagSeguroServiceException
+     */
+    public static function findByDateInterval(
+        PagSeguroCredentials $credentials,
+        $pageNumber,
+        $maxPageResults,
+        $initialDate,
+        $finalDate = null
+    ) {
+        //Logging
+        $log['text'] = "PagSeguroPreApprovalService.FindByDateInterval(initialDate="
+            . PagSeguroHelper::formatDate($initialDate) . ", finalDate=" . PagSeguroHelper::formatDate($finalDate) .
+            "begin";
+        LogPagSeguro::info($log['text']);
+
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        $params = self::buildParams($pageNumber, $maxPageResults, $initialDate, $finalDate);
+
+        try {
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildFindByDateIntervalUrl(self::$connectionData, $params),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
+            );
+            self::$service = "FindByDateInterval";
+            return self::getResult($connection);
+
+        } catch (PagSeguroServiceException $err) {
+            //Logging
+            LogPagSeguro::error("PagSeguroServiceException: " . $err->getMessage());
+            //Exception
+            throw $err;
+
+        } catch (Exception $err) {
+            //Logging
+            LogPagSeguro::error("Exception: " . $err->getMessage());
+            //Exception
+            throw $err;
+        }
+    }
+
+    /**
+     * @param PagSeguroCredentials $credentials
+     * @param $notificationCode
+     * @return null|PagSeguroParserData
+     * @throws Exception
+     * @throws PagSeguroServiceException
+     */
+    public static function findByNotification(PagSeguroCredentials $credentials, $notificationCode)
+    {
+
+        LogPagSeguro::info("PagSeguroPreApprovalService.FindByNotification($notificationCode) - begin");
+        self::$connectionData = new PagSeguroConnectionData($credentials, self::SERVICE_NAME);
+
+        try {
+            $connection = new PagSeguroHttpConnection();
+            $connection->get(
+                self::buildFindByNotificationUrl(self::$connectionData, $notificationCode),
+                self::$connectionData->getServiceTimeout(),
+                self::$connectionData->getCharset()
+            );
+            self::$service = "FindByNotification";
+            return self::getResult($connection, $notificationCode);
 
         } catch (PagSeguroServiceException $err) {
             //Logging
@@ -240,26 +292,17 @@ class PagSeguroPreApprovalService
         switch ($httpStatus->getType()) {
             case 'OK':
                 switch(self::$service) {
-                    case "PreApprovalRequest":
-
-                        $response = PagSeguroPreApprovalParser::readSuccessXml($response);
-
-                        $result = array ( 'code' => $response->getCode(),
-                            'cancelUrl' => self::buildPreApprovalCancelUrl(
-                                self::$connectionData,
-                                $response->getCode()
-                            ),
-                            'checkoutUrl' => self::buildPreApprovalRequestUrl(
-                                self::$connectionData,
-                                $response->getCode()
-                            ) );
-
+                    case "FindByCode":
+                        $result = PagSeguroPreApprovalParser::readPreApproval($response);
                         break;
-                    case "PreApprovalCancel":
-                        $result = PagSeguroPreApprovalParser::readCancelXml($response);
+                    case "FindByNotification":
+                        $result = PagSeguroPreApprovalParser::readPreApproval($response);
                         break;
-                    case "PreApprovalPaymentCharge":
-                        $result = PagSeguroPreApprovalParser::readTransactionXml($response);
+                    case "FindByDayInterval":
+                        $result = PagSeguroPreApprovalParser::readSearchResult($response);
+                        break;
+                    case "FindByDateInterval":
+                        $result = PagSeguroPreApprovalParser::readSearchResult($response);
                         break;
                 }
 

@@ -40,6 +40,10 @@ class PagSeguroPreApprovalParser
             $data["reviewURL"] = $preApproval->getReviewURL();
         };
 
+        if ($preApproval->getRedirectURL() != null) {
+            $data["redirectURL"] = $preApproval->getRedirectURL();
+        };
+
         if ($preApproval->getReceiverEmail() != null) {
             $data["reviewURL"] = $preApproval->getReceiverEmail();
         };
@@ -299,7 +303,6 @@ class PagSeguroPreApprovalParser
         $preApprovalParser->setRegistrationDate($data['date']);
         return $preApprovalParser;
     }
-
 
     /**
      * @param $str_xml

@@ -84,6 +84,9 @@ class CreatePaymentRequest
         $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
         $paymentRequest->addIndexedParameter('itemAmount', '200.00', 3);
 
+        // Add checkout deconto infomation
+        $paymentRequest->addPaymentMethodConfig('CREDIT_CARD', PagSeguroHelper::decimalFormat(1.9), 'DISCOUNT_PERCENT');
+
         try {
 
             /*

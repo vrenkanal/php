@@ -226,7 +226,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
                 }
             }
         }
-      ;
         return $data;
     }
 

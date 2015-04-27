@@ -610,7 +610,7 @@ class PagSeguroPaymentRequest
      */
     public function addPaymentMethodConfig($itemGroup, $itemValue, $itemKey)
     {
-        $this->getPaymentMethodConfig()->addItem(
+        $this->getPaymentMethodConfig()->addConfig(
             new PagSeguroPaymentMethodConfigItem($itemGroup,$itemValue,$itemKey)
         );
     }

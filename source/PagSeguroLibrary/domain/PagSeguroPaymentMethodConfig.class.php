@@ -30,42 +30,42 @@ class PagSeguroPaymentMethodConfig
     /***
      * @var array
      */
-    private $items;
+    private $config;
 
     /***
-     * @param array $items
+     * @param array $config
      */
-    public function __construct(array $items = null)
+    public function __construct(array $config = null)
     {
-        if (!is_null($items) && count($items) > 0) {
-            $this->setItems($items);
+        if (!is_null($config) && count($config) > 0) {
+            $this->setConfig($config);
         }
     }
 
     /***
-     * @param PagSeguroPaymentMethodConfigItem $item
+     * @param PagSeguroPaymentMethodConfigItem $configItem
      */
-    public function addItem(PagSeguroPaymentMethodConfigItem $item)
+    public function addConfig(PagSeguroPaymentMethodConfigItem $configItem)
     {
-        $this->items[] = $item;
+        $this->config[] = $configItem;
     }
 
     /***
-     * @param array $items
+     * @param array $config
      */
-    public function setItems(array $items)
+    public function setConfig(array $config)
     {
-        $this->items = $items;
+        $this->config = $config;
     }
 
     /***
      * @return array
      */
-    public function getItems()
+    public function getConfig()
     {
-        if ($this->items == null) {
-            $this->items = array();
+        if ($this->config == null) {
+            $this->config = array();
         }
-        return $this->items;
+        return $this->config;
     }
 }

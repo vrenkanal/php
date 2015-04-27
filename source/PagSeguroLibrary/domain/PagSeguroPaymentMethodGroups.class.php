@@ -60,7 +60,7 @@ class PagSeguroPaymentMethodGroups
      * @param string $groupKey
      * @return string
      */
-    public static function getItemDescriptionByKey($groupKey)
+    public static function geDescriptionByKey($groupKey)
     {
         $groupKey = strtoupper($groupKey);
         if (isset(self::$availableGroupList[$groupKey])) {

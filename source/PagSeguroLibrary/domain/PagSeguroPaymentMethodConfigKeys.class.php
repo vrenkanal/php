@@ -27,7 +27,7 @@
 class PagSeguroPaymentMethodConfigKeys
 {
 
-    private static $availableKeysList = array(
+    private static $availableKeyList = array(
         'DISCOUNT_PERCENT' => 'Percentual de Desconto'
     );
 
@@ -37,7 +37,7 @@ class PagSeguroPaymentMethodConfigKeys
      */
     public static function getAvailableKeysList()
     {
-        return self::$availableKeysList;
+        return self::$availableKeyList;
     }
 
     /***
@@ -48,7 +48,7 @@ class PagSeguroPaymentMethodConfigKeys
     public static function isKeyAvailable($configKey)
     {
         $configKey = strtoupper($configKey);
-        return (isset(self::$availablemKeysList[$configKey]));
+        return (isset(self::$availableKeyList[$configKey]));
     }
 
     /***
@@ -56,11 +56,11 @@ class PagSeguroPaymentMethodConfigKeys
      * @param string $configKey
      * @return string
      */
-    public static function getItemDescriptionByKey($configKey)
+    public static function getDescriptionByKey($configKey)
     {
         $configKey = strtoupper($configKey);
-        if (isset(self::$availableKeysList[$configKey])) {
-            return self::$availableKeysList[$configKey];
+        if (isset(self::$availableKeyList[$configKey])) {
+            return self::$availableKeyList[$configKey];
         } else {
             return false;
         }
@@ -73,6 +73,6 @@ class PagSeguroPaymentMethodConfigKeys
      */
     public static function getKeyByDescription($configDescription)
     {
-        return array_search(strtolower($configDescription), array_map('strtolower', self::$availableKeysList));
+        return array_search(strtolower($configDescription), array_map('strtolower', self::$availableKeyList));
     }
 }

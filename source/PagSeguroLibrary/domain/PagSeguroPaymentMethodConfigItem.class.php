@@ -42,7 +42,7 @@ class PagSeguroPaymentMethodConfigItem
     private $value;
 
     /***
-     * Used for grouping values of metadata items
+     * Used for grouping values of payment method configuration
      * @var mixed
      */
     private $group;
@@ -52,8 +52,6 @@ class PagSeguroPaymentMethodConfigItem
 
         if (isset($key) && !PagSeguroHelper::isEmpty($key)) {
             $this->setKey($key);
-        } else {
-            $this->setKey("DISCOUNT_PERCENT");
         }
         if (isset($value) && !PagSeguroHelper::isEmpty($value)) {
             $this->setValue($value);

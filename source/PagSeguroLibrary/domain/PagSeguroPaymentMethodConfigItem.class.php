@@ -96,7 +96,7 @@ class PagSeguroPaymentMethodConfigItem
      */
     public function setValue($value)
     {
-        $this->value = $value;
+        $this->value = PagSeguroHelper::decimalFormat($value);
     }
 
     /***

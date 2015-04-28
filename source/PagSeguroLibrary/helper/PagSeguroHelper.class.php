@@ -45,7 +45,7 @@ class PagSeguroHelper
     }
 
     /***
-     * @param $numeric
+     * @param $value
      * @return string
      */
     public static function decimalFormat($value)

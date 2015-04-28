@@ -57,6 +57,9 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+2.5.0
+ - Possibilidade de definir descontos por meio de pagamento durante a requisição do código de checkout - Ver exemplo createPaymentRequest.php
+
 2.4.0
  - Integração com serviço de consulta de transações/autorizações por código de referência.
  - Integração com serviço de modelo de aplicações.

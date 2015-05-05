@@ -102,6 +102,14 @@ class PagSeguroRequest
     /***
      * Extra parameters that user can add to a PagSeguro checkout request
      *
+     * Optional.
+     * @var $paymentMethodConfig
+     */
+    private $paymentMethodConfig;
+
+    /***
+     * Extra parameters that user can add to a PagSeguro checkout request
+     *
      * Optional
      * @var PagSeguroParameter
      */
@@ -343,6 +351,41 @@ class PagSeguroRequest
     public function addMetaData($itemKey, $itemValue, $itemGroup = null)
     {
         $this->getMetaData()->addItem(new PagSeguroMetaDataItem($itemKey, $itemValue, $itemGroup));
+    }
+
+    /***
+     * Sets payment method config for PagSeguro checkout requests
+     * @param PagSeguroPaymentMethodConfig $paymentMethodConfig
+     */
+    public function setPaymentMethodConfig($paymentMethodConfig)
+    {
+        $this->paymentMethodConfig = $paymentMethodConfig;
+    }
+
+    /***
+     * Gets payment method config for PagSeguro checkout requests
+     * @return PagSeguroPaymentMethodConfig $paymentMethodConfig
+     */
+    public function getPaymentMethodConfig()
+    {
+
+        if ($this->paymentMethodConfig == null) {
+            $this->paymentMethodConfig = new PagSeguroPaymentMethodConfig();
+        }
+        return $this->paymentMethodConfig;
+    }
+
+    /***
+     * add a parameter for PagSeguro payment method config checkout request
+     * @param PagSeguroPaymentMethodConfig $itemKey key
+     * @param PagSeguroPaymentMethodConfig $itemValue value
+     * @param PagSeguroPaymentMethodGroups $itemGroup group
+     */
+    public function addPaymentMethodConfig($itemGroup, $itemValue, $itemKey)
+    {
+        $this->getPaymentMethodConfig()->addConfig(
+            new PagSeguroPaymentMethodConfigItem($itemGroup,$itemValue,$itemKey)
+        );
     }
 
     /***

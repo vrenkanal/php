@@ -116,6 +116,13 @@ class CreatePaymentRequest
         $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
         $paymentRequest->addIndexedParameter('itemAmount', '200.00', 3);
 
+        // Add discount per payment method
+        $paymentRequest->addPaymentMethodConfig('CREDIT_CARD', 1.00, 'DISCOUNT_PERCENT');
+        $paymentRequest->addPaymentMethodConfig('EFT', 2.90, 'DISCOUNT_PERCENT');
+        $paymentRequest->addPaymentMethodConfig('BOLETO', 10.00, 'DISCOUNT_PERCENT');
+        $paymentRequest->addPaymentMethodConfig('DEPOSIT', 3.45, 'DISCOUNT_PERCENT');
+        $paymentRequest->addPaymentMethodConfig('BALANCE', 0.01, 'DISCOUNT_PERCENT');
+
         try {
 
             /*

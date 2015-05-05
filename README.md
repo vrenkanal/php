@@ -44,7 +44,12 @@ Para fazer uso real da biblioteca, é preciso fazer algumas configurações no a
 
  - **environment**: aceita os valores *production* e *sandbox*. Para utilizar o *sandbox*, é preciso criar uma conta em https://sandbox.pagseguro.uol.com.br.
  - **email**: e-mail cadastrado no PagSeguro.
- - **token**: token gerado no PagSeguro.
+ - **token production**: token gerado no PagSeguro.
+ - **token sandbox**: token gerado no Sandbox.
+ - **appId production**: aplicacao gerada no PagSeguro.
+ - **appId sandbox**: aplicacao gerada no Sandbox.
+ - **appKey production**: token da aplicacao no PagSeguro.
+ - **appKey sandbox**: token da aplicacao no Sandbox.
  - **charset**: codificação do seu sistema (ISO-8859-1 ou UTF-8).
  - **log**: ativa/desativa a geração de logs.
  - **fileLocation**: local onde se deseja criar o arquivo de log. Ex.: /logs/ps.log.

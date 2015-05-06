@@ -33,14 +33,14 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
      */
     public static function getData($payment)
     {
-
+        
         $data = null;
-
+        
         // pre-approval
-        if ($payment->getPreApproval() != null) {
+        if (method_exists($paymnet, 'getPreApproval')) {
             $data = PagSeguroPreApprovalParser::getData($payment->getPreApproval());
         }
-
+       
         // reference
         if ($payment->getReference() != null) {
             $data["reference"] = $payment->getReference();

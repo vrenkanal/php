@@ -35,7 +35,7 @@ class PagSeguroDirectPaymentParser extends PagSeguroPaymentParser
     {
 
         $data = null;
-
+        
         $data = parent::getData($payment);
 
         // paymentMode
@@ -135,7 +135,7 @@ class PagSeguroDirectPaymentParser extends PagSeguroPaymentParser
             }
 
         }
-
+        
         return $data;
     }
 }

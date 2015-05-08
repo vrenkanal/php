@@ -150,7 +150,7 @@ class CreateTransactionUsingCreditCard
 
             // seller authentication
             //$credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-                "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            //    "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // application authentication
             $credentials = PagSeguroConfig::getApplicationCredentials();

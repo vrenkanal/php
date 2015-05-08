@@ -65,6 +65,12 @@ Caso tenha dúvidas ou precise de suporte, acesse nosso [fórum].
 
 Changelog
 ---------
+2.6.0
+ - Env Variables para integração com Laravel 5 #0a2c2ba
+ - Wrapper para o arquivo de configuração #c1b0985
+ - Implementação da API de assinaturas #7cd8147
+ - Ajustes em geral
+
 2.5.0
  - Possibilidade de definir descontos por meio de pagamento durante a requisição do código de checkout - Ver exemplo createPaymentRequest.php
 

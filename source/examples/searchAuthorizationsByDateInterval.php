@@ -55,7 +55,7 @@ class SearchAuthorizations
     public static function printAuthorization($authorization)
     {
         
-        echo "<h2>Authorization search by Reference</h2>";
+        echo "<h2>Authorization search by Date</h2>";
         echo "<p><strong>" . $authorization->getDate() . "</strong></p>";
         
         if ($authorization->getAuthorizations()) {

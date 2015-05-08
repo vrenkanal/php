@@ -148,7 +148,7 @@ class PagSeguroPreApprovalSearchService
      * @throws Exception
      * @throws PagSeguroServiceException
      */
-    public static function findByCode(PagSeguroCredentials $credentials, $code)
+    public static function searchByCode(PagSeguroCredentials $credentials, $code)
     {
 
         LogPagSeguro::info("PagSeguroPreApprovalService.FindByCode($code) - begin");
@@ -185,7 +185,7 @@ class PagSeguroPreApprovalSearchService
      * @throws Exception
      * @throws PagSeguroServiceException
      */
-    public static function findByDayInterval(PagSeguroCredentials $credentials, $interval)
+    public static function searchByInterval(PagSeguroCredentials $credentials, $interval)
     {
 
         LogPagSeguro::info("PagSeguroPreApprovalService.FindByDayInterval($interval) - begin");
@@ -225,7 +225,7 @@ class PagSeguroPreApprovalSearchService
      * @throws Exception
      * @throws PagSeguroServiceException
      */
-    public static function findByDateInterval(
+    public static function searchByDate(
         PagSeguroCredentials $credentials,
         $pageNumber,
         $maxPageResults,
@@ -276,7 +276,7 @@ class PagSeguroPreApprovalSearchService
      * @throws Exception
      * @throws PagSeguroServiceException
      */
-    public static function findByReference(
+    public static function searchByReference(
         PagSeguroCredentials $credentials,
         $pageNumber,
         $maxPageResults,

@@ -20,7 +20,7 @@
  *  @copyright 2007-2014 PagSeguro Internet Ltda.
  *  @license   http://www.apache.org/licenses/LICENSE-2.0
  */
- 
+
 class PagSeguroConfigWrapper
 {
 
@@ -35,19 +35,19 @@ class PagSeguroConfigWrapper
     /**
      *
      */
-    const PAGSEGURO_TOKEN_PRODUCTION = "your_production_pagseguro_token";
+    const PAGSEGURO_TOKEN_PRODUCTION = "your_production_token";
     /**
      *
      */
-    const PAGSEGURO_TOKEN_SANDBOX = "your_sandbox_pagseguro_token";
+    const PAGSEGURO_TOKEN_SANDBOX = "your_sandbox_token";
     /**
      *
      */
-    const PAGSEGURO_APP_ID_PRODUCTION = "your__production_pagseguro_application_id";
+    const PAGSEGURO_APP_ID_PRODUCTION = "your_production_application_id";
     /**
      *
      */
-    const PAGSEGURO_APP_ID_SANDBOX = "your_sandbox_pagseguro_application_id";
+    const PAGSEGURO_APP_ID_SANDBOX = "your_sandbox_application_id";
     /**
      *
      */

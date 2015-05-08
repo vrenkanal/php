@@ -74,9 +74,8 @@ class CreatePreApproval
         $preApprovalRequest->setPreApprovalMaxTotalAmount('2400.00');
         $preApprovalRequest->setPreApprovalInitialDate('2015-04-10T00:00:00');
         $preApprovalRequest->setPreApprovalFinalDate('2017-04-07T00:00:00');
-
-        $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/redirect");
-        $preApprovalRequest->setNotificationURL("http://www.lojateste.com.br/notification");
+        $preApprovalRequest->setRedirectURL("http://www.lojateste.com.br/redirect");
+        $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/review");
 
         try {
 
@@ -99,22 +98,19 @@ class CreatePreApproval
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $url = $preApprovalRequest->register($credentials);
 
-            self::printRecurrenceUrl($url);
+            self::printPreApprovalUrl($url);
 
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
     }
 
-    public static function printRecurrenceUrl($url)
+    public static function printPreApprovalUrl($url)
     {
         if ($url) {
             echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento recorrente</h2>";
             echo "<p><strong>C&oacute;digo: </strong>".$url['code']."</p>";
             echo "<p><strong>URL do pagamento: </strong>".$url['checkoutUrl']."</p>";
-            if (isset($url['cancelUrl'])) {
-                echo "<p><strong>URL de cancelamento: </strong>" . $url['cancelUrl'] . "</p>";
-            }
             echo "<p><a title='URL do pagamento' href='".$url['checkoutUrl']."'>Ir para URL do pagamento.</a></p>";
         }
     }

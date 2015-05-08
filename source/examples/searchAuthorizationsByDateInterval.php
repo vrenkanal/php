@@ -66,8 +66,8 @@ class SearchAuthorizations
                     echo "<p><strong>Code: </strong>" . $authorization->getCode() . "</p>";
                     echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
                     echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
-                    echo "<p><strong>PrivateKey: </strong>" .
-                        $authorization->getAccount()->getPrivateKey() . "</p>";
+                    echo "<p><strong>PublicKey: </strong>" .
+                        $authorization->getAccount()->getPublicKey() . "</p>";
 
                     echo "<h3>Permissions:</h3>";
                     foreach ($authorization->getPermissions()->getPermissions() as $permission) {
@@ -81,8 +81,8 @@ class SearchAuthorizations
                 echo "<p><strong>Code: </strong>" . $authorization->getCode() . "</p>";
                 echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
                 echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
-                echo "<p><strong>PrivateKey: </strong>" .
-                    $authorization->getAccount()->getPrivateKey() . "</p>";
+                echo "<p><strong>PublicKey: </strong>" .
+                        $authorization->getAccount()->getPublicKey() . "</p>";
 
                 echo "<h3>Permissions:</h3>";
                 foreach ($authorization->getPermissions()->getPermissions() as $permission) {

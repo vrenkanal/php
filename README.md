@@ -69,7 +69,9 @@ Changelog
  - Env Variables para integração com Laravel 5 #0a2c2ba
  - Wrapper para o arquivo de configuração #c1b0985
  - Implementação da API de assinaturas #7cd8147
- - Ajustes em geral
+ - Integração com serviço de solicitação de cancelamento.
+ - Ajustes em geral.
+ - Obs.: Algumas das funcionalidades descritas ainda não estão disponíveis comercialmente para todos os vendedores. Em caso de dúvidas acesse nosso [fórum].
 
 2.5.0
  - Possibilidade de definir descontos por meio de pagamento durante a requisição do código de checkout - Ver exemplo createPaymentRequest.php

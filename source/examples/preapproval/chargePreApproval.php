@@ -28,10 +28,10 @@ class ChargePreApproval
     public static function main()
     {
 
-        $paymentCharge = new PagSeguroPreApprovalCharge();
-        $paymentCharge->setReference("REF123-1");
-        $paymentCharge->setPreApprovalCode('230B933B11116E66645FFF8DEAB6CF11');
-        $paymentCharge->addItem('0001', 'Parcela 1 do Seguro para Notebook', 1, 100.00);
+        $preApprovalCharge = new PagSeguroPreApprovalCharge();
+        $preApprovalCharge->setReference("REF123-1");
+        $preApprovalCharge->setPreApprovalCode('230B933B11116E66645FFF8DEAB6CF11');
+        $preApprovalCharge->addItem('0001', 'Parcela 1 do Seguro para Notebook', 1, 100.00);
 
 
         try {
@@ -53,7 +53,7 @@ class ChargePreApproval
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
-            $response = $paymentCharge->register($credentials);
+            $response = $preApprovalCharge->register($credentials);
 
             self::printResponse($response);
 

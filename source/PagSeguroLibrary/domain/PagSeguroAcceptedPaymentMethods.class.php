@@ -22,18 +22,19 @@
  */
 
 /***
- * Represent a payment method config
+ * Represent a list with accepted payment methods
  */
-class PagSeguroPaymentMethodConfig
+class PagSeguroAcceptedPaymentMethods
 {
 
-    /***
-     * @var array
+    /**
+     * @var
      */
-    private $config;
+    private $acceptedPaymentsList;
 
-    /***
-     * @param array $config
+    /**
+     * @param null $include
+     * @param null $exclude
      */
     public function __construct(array $config = null)
     {
@@ -42,30 +43,30 @@ class PagSeguroPaymentMethodConfig
         }
     }
 
-    /***
-     * @param PagSeguroPaymentMethodConfigItem $itemConfig
+    /**
+     * @param PagSeguroAcceptedPayments $acceptedPayments
      */
-    public function addConfig(PagSeguroPaymentMethodConfigItem $itemConfig)
+    public function addConfig(PagSeguroAcceptedPayments $acceptedPayments)
     {
-        $this->config[] = $itemConfig;
+        $this->acceptedPaymentsList[] = $acceptedPayments;
     }
 
-    /***
+    /**
      * @param array $config
      */
     public function setConfig(array $config)
     {
-        $this->config = $config;
+        $this->acceptedPaymentsList = $config;
     }
 
-    /***
+    /**
      * @return array
      */
     public function getConfig()
     {
-        if ($this->config == null) {
-            $this->config = array();
+        if ($this->acceptedPaymentsList == null) {
+            $this->acceptedPaymentsList = array();
         }
-        return $this->config;
+        return $this->acceptedPaymentsList;
     }
 }

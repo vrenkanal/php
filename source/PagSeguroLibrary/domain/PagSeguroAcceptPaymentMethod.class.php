@@ -21,51 +21,62 @@
  *  @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 
-/***
- * Represent a payment method config
- */
-class PagSeguroPaymentMethodConfig
+class PagSeguroAcceptPaymentMethod extends PagSeguroAcceptedPayments
 {
-
-    /***
-     * @var array
+    /**
+     * @var
      */
-    private $config;
+    private $name;
 
-    /***
-     * @param array $config
+    /**
+     * @var
      */
-    public function __construct(array $config = null)
+    private $group;
+
+    /**
+     * @param null $group
+     * @param null $name
+     */
+    public function __construct($group = null, $name = null)
     {
-        if (!is_null($config) && count($config) > 0) {
-            $this->setConfig($config);
+
+        if (isset($name) && !PagSeguroHelper::isEmpty($name)) {
+            $this->setName($name);
+        }
+        if (isset($group) && !PagSeguroHelper::isEmpty($group)) {
+            $this->setGroup($group);
         }
     }
 
-    /***
-     * @param PagSeguroPaymentMethodConfigItem $itemConfig
+    /**
+     * @return mixed
      */
-    public function addConfig(PagSeguroPaymentMethodConfigItem $itemConfig)
+    public function getName()
     {
-        $this->config[] = $itemConfig;
+        return $this->name;
     }
 
-    /***
-     * @param array $config
+    /**
+     * @param $name
      */
-    public function setConfig(array $config)
+    public function setName($name)
     {
-        $this->config = $config;
+        $this->name = $name;
     }
 
-    /***
-     * @return array
+    /**
+     * @return mixed
      */
-    public function getConfig()
+    public function getGroup()
     {
-        if ($this->config == null) {
-            $this->config = array();
-        }
-        return $this->config;
+        return $this->group;
+    }
+
+    /**
+     * @param $group
+     */
+    public function setGroup($group)
+    {
+        $this->group = $group;
     }
 }

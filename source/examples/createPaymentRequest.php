@@ -123,6 +123,16 @@ class CreatePaymentRequest
         $paymentRequest->addPaymentMethodConfig('DEPOSIT', 3.45, 'DISCOUNT_PERCENT');
         $paymentRequest->addPaymentMethodConfig('BALANCE', 0.01, 'DISCOUNT_PERCENT');
 
+        // Add installment without addition per payment method
+        $paymentRequest->addPaymentMethodConfig('CREDIT_CARD', 6, 'MAX_INSTALLMENTS_NO_INTEREST');
+
+        // Add installment limit per payment method
+        $paymentRequest->addPaymentMethodConfig('CREDIT_CARD', 8, 'MAX_INSTALLMENTS_LIMIT');
+
+        // Add and remove a group and payment methods
+        $paymentRequest->acceptPaymentMethodGroup('CREDIT_CARD', 'DEBITO_ITAU,DEBITO_BRADESCO');
+        $paymentRequest->excludePaymentMethodGroup('BOLETO', 'BOLETO');
+
         try {
 
             /*

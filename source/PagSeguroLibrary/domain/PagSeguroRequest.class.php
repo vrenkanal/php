@@ -108,6 +108,12 @@ class PagSeguroRequest
     private $paymentMethodConfig;
 
     /***
+     * Optional.
+     * @var $acceptedPaymentMethods
+     */
+    private $acceptedPaymentMethods;
+
+    /***
      * Extra parameters that user can add to a PagSeguro checkout request
      *
      * Optional
@@ -385,6 +391,48 @@ class PagSeguroRequest
     {
         $this->getPaymentMethodConfig()->addConfig(
             new PagSeguroPaymentMethodConfigItem($itemGroup,$itemValue,$itemKey)
+        );
+    }
+
+    /***
+     * Sets acceptable groups and payment methods.
+     * @param PagSeguroPaymentMethodConfig $paymentMethodConfig
+     */
+    public function setAcceptedPaymentMethod($acceptedPaymentMethod)
+    {
+        $this->acceptedPaymentMethods = $acceptedPaymentMethod;
+    }
+
+    /***
+     * Gets acceptable groups and payment methods
+     * @return PagSeguroAcceptedPaymentMethods $this->acceptedPaymentMethods
+     */
+    public function getAcceptedPaymentMethod()
+    {
+
+        if ($this->acceptedPaymentMethods == null) {
+            $this->acceptedPaymentMethods = new PagSeguroAcceptedPaymentMethods();
+        }
+        return $this->acceptedPaymentMethods;
+    }
+
+    /***
+     * Include groups and payment methods.
+     */
+    public function acceptPaymentMethodGroup($group, $name)
+    {
+        $this->getAcceptedPaymentMethod()->addConfig(
+            new PagSeguroAcceptPaymentMethod($group,$name)
+        );
+    }
+    
+    /***
+     * Exclude groups and payment methods.
+     */
+    public function excludePaymentMethodGroup($group, $name)
+    {
+        $this->getAcceptedPaymentMethod()->addConfig(
+            new PagSeguroExcludePaymentMethod($group,$name)
         );
     }
 

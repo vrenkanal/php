@@ -28,7 +28,9 @@ class PagSeguroPaymentMethodConfigKeys
 {
 
     private static $availableKeyList = array(
-        'DISCOUNT_PERCENT' => 'Percentual de Desconto'
+        'DISCOUNT_PERCENT' => 'Percentual de Desconto',
+        'MAX_INSTALLMENTS_NO_INTEREST' => 'Parcelamento sem Acréscimo',
+        'MAX_INSTALLMENTS_LIMIT' => 'Limite de Parcelamento'
     );
 
     /***

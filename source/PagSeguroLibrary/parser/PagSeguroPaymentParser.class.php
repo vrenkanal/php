@@ -216,6 +216,21 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
             }
         }
 
+        // AcceptedPaymentMethod
+        if (count($payment->getAcceptedPaymentMethod()->getConfig()) > 0) {
+            $i = 0;
+            foreach ($payment->getAcceptedPaymentMethod()->getConfig() as $acceptedPayment) {
+                if ($acceptedPayment instanceof PagSeguroAcceptPaymentMethod) {
+                    $data['acceptPaymentMethodGroup'] = $acceptedPayment->getGroup();
+                    $data['acceptPaymentMethodName'] = $acceptedPayment->getName();
+                }
+                if ($acceptedPayment instanceof PagSeguroExcludePaymentMethod ) {
+                    $data['excludePaymentMethodGroup'] = $acceptedPayment->getGroup();
+                    $data['excludePaymentMethodName'] = $acceptedPayment->getName();
+                }
+            }
+        }
+
         // parameter
         if (count($payment->getParameter()->getItems()) > 0) {
             foreach ($payment->getParameter()->getItems() as $item) {

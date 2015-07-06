@@ -170,7 +170,7 @@ class CreateTransactionUsingCreditCard
     {
 
         if ($transaction) {
-            echo "<h2>Retorno da transação com Cartão de Crédito.</h2>";
+            echo "<h2>Retorno da transa&ccedil;&atilde;o com Cart&atilde;o de Cr&eacute;dito.</h2>";
             echo "<p><strong>Date: </strong> ".$transaction->getDate() ."</p> ";
             echo "<p><strong>lastEventDate: </strong> ".$transaction->getLastEventDate()."</p> ";
             echo "<p><strong>code: </strong> ".$transaction->getCode() ."</p> ";

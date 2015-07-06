@@ -66,26 +66,33 @@ class SearchPreApproval
 
         echo "<h2>Assinaturas: </h2> ";
 
-        $i = 1;
+        $preApprovals = $result->getPreApprovals();
+        
+        if (is_array($preApprovals)) {
+            $i = 1;
 
-        foreach ($result->getPreApprovals() as $preApproval ){
+            foreach ($preApprovals as $preApproval ){
+                if (is_array($preApproval)) {
+                    $preApproval = new PagSeguroPreApproval($preApproval);
+                }
 
-            if (is_array($preApproval)) {
-                $preApproval = new PagSeguroPreApproval($preApproval);
+                echo "<p><strong>Assinatura </strong>". $i++ . "</p>";
+                echo "<p><strong> Name: </strong>".$preApproval->getName() ."</p> ";
+                echo "<p><strong> Date: </strong>".$preApproval->getDate() ."</p> ";
+                echo "<p><strong> LastEventDate: </strong>".$preApproval->getLastEventDate() ."</p> ";
+                echo "<p><strong> Code: </strong>".$preApproval->getCode() ."</p> ";
+                echo "<p><strong> Tracker: </strong>".$preApproval->getTracker() ."</p> ";
+                echo "<p><strong> Reference: </strong>".$preApproval->getReference() ."</p> ";
+                echo "<p><strong> Status: </strong>".$preApproval->getStatus()->getTypeFromValue() ."</p> ";
+                echo "<p><strong> Charge: </strong>".$preApproval->getCharge() ."</p> ";
+                echo "<br>";
             }
-
-            echo "<p><strong>Assinatura </strong>". $i++ . "</p>";
-            echo "<p><strong> Name: </strong>".$preApproval->getName() ."</p> ";
-            echo "<p><strong> Date: </strong>".$preApproval->getDate() ."</p> ";
-            echo "<p><strong> LastEventDate: </strong>".$preApproval->getLastEventDate() ."</p> ";
-            echo "<p><strong> Code: </strong>".$preApproval->getCode() ."</p> ";
-            echo "<p><strong> Tracker: </strong>".$preApproval->getTracker() ."</p> ";
-            echo "<p><strong> Reference: </strong>".$preApproval->getReference() ."</p> ";
-            echo "<p><strong> Status: </strong>".$preApproval->getStatus()->getTypeFromValue() ."</p> ";
-            echo "<p><strong> Charge: </strong>".$preApproval->getCharge() ."</p> ";
-            echo "<br>";
+            echo "<pre>";    
+        
+        } else {
+            
+            echo "Sem resultados para a refer&ecirc;cia solicitada no per&iacute;odo.";
         }
-        echo "<pre>";
     }
 }
 

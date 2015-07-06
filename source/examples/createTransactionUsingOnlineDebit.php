@@ -130,7 +130,7 @@ class CreateTransactionUsingOnlineDebit
     {
 
         if ($transaction) {
-            echo "<h2>Retorno da transação de Debito Online</h2>";
+            echo "<h2>Retorno da transa&ccedil;&atilde;o de D&eacute;bito Online</h2>";
             echo "<p><strong>Date: </strong> ".$transaction->getDate() ."</p> ";
             echo "<p><strong>lastEventDate: </strong> ".$transaction->getLastEventDate()."</p> ";
             echo "<p><strong>code: </strong> ".$transaction->getCode() ."</p> ";

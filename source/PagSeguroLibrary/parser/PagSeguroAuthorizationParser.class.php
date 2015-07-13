@@ -149,7 +149,7 @@ class PagSeguroAuthorizationParser extends PagSeguroServiceParser
      * @param PagSeguroAuthorization $authorization
      * @param $data
      */
-    private function buildAuthorization(PagSeguroAuthorization $authorization, $data)
+    private static function buildAuthorization(PagSeguroAuthorization $authorization, $data)
     {
         // <authorization><code>
         if (isset($data["code"])) {

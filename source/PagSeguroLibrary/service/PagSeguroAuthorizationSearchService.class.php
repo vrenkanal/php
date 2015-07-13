@@ -217,7 +217,7 @@ class PagSeguroAuthorizationSearchService
      * @return bool|mixed|string
      * @throws PagSeguroServiceException
      */
-    private function searchReturn($connection, $code)
+    private static function searchReturn($connection, $code)
     {
         $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
         switch ($httpStatus->getType()) {

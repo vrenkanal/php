@@ -100,7 +100,7 @@ class PagSeguroDirectPaymentService
      * @return null|PagSeguroParserData
      * @throws PagSeguroServiceException
      */
-    private function getResult($connection, PagSeguroDirectPaymentRequest $request)
+    private static function getResult($connection, PagSeguroDirectPaymentRequest $request)
     {
         $httpStatus = new PagSeguroHttpStatus($connection->getStatus());
 

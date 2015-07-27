@@ -281,8 +281,8 @@ class PagSeguroPreApprovalSearchService
         $pageNumber,
         $maxPageResults,
         $initialDate,
-        $reference,
-        $finalDate = null
+        $finalDate = null,
+        $reference
     ) {
         //Logging
         $log['text'] = "PagSeguroPreApprovalService.FindByReference(initialDate="

@@ -194,8 +194,8 @@ class PagSeguroConfig
 
         $version = str_replace('.', '', phpversion());
 
-        if ($version < 533) {
-            $requirements['version'] = 'PagSeguroLibrary: PHP version 5.3.3 or greater is required.';
+        if ($version < 5427) {
+            $requirements['version'] = 'PagSeguroLibrary: PHP version 5.4.27 or greater is required.';
         }
 
         if (!function_exists('spl_autoload_register')) {

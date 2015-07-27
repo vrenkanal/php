@@ -87,8 +87,7 @@ class PagSeguroAuthorizationService
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
-        }
-        catch (Exception $err) {
+        } catch (Exception $err) {
             LogPagSeguro::error("Exception: " . $err->getMessage());
             throw $err;
         }
@@ -117,7 +116,6 @@ class PagSeguroAuthorizationService
                 if ($onlyAuthorizationCode) {
                     $authorizationReturn = $authorization->getCode();
                 } else {
-
                     $authorizationReturn = self::buildAuthorizationApprovalUrl(
                         $connectionData,
                         $authorization->getCode()

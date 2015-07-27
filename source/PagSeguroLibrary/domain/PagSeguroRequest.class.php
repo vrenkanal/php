@@ -390,7 +390,7 @@ class PagSeguroRequest
     public function addPaymentMethodConfig($itemGroup, $itemValue, $itemKey)
     {
         $this->getPaymentMethodConfig()->addConfig(
-            new PagSeguroPaymentMethodConfigItem($itemGroup,$itemValue,$itemKey)
+            new PagSeguroPaymentMethodConfigItem($itemGroup, $itemValue, $itemKey)
         );
     }
 
@@ -422,7 +422,7 @@ class PagSeguroRequest
     public function acceptPaymentMethodGroup($group, $name)
     {
         $this->getAcceptedPaymentMethod()->addConfig(
-            new PagSeguroAcceptPaymentMethod($group,$name)
+            new PagSeguroAcceptPaymentMethod($group, $name)
         );
     }
     
@@ -432,7 +432,7 @@ class PagSeguroRequest
     public function excludePaymentMethodGroup($group, $name)
     {
         $this->getAcceptedPaymentMethod()->addConfig(
-            new PagSeguroExcludePaymentMethod($group,$name)
+            new PagSeguroExcludePaymentMethod($group, $name)
         );
     }
 

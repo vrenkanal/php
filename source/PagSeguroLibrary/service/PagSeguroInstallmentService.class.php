@@ -117,8 +117,7 @@ class PagSeguroInstallmentService
 
         } catch (PagSeguroServiceException $e) {
             throw $e;
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             LogPagSeguro::error("Exception: " . $e->getMessage());
             throw $e;
         }

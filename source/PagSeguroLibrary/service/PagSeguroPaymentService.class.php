@@ -119,8 +119,7 @@ class PagSeguroPaymentService
 
         } catch (PagSeguroServiceException $error) {
             throw $error;
-        }
-        catch (Exception $error) {
+        } catch (Exception $error) {
             LogPagSeguro::error("Exception: " . $error->getMessage());
             throw $error;
         }

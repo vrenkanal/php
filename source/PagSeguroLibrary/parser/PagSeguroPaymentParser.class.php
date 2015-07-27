@@ -50,7 +50,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
         // sender
         if ($payment->getSender() != null) {
-
             if ($payment->getSender()->getName() != null) {
                 $data['senderName'] = $payment->getSender()->getName();
             }
@@ -94,7 +93,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
         // items
         $items = $payment->getItems();
         if (count($items) > 0) {
-
             $i = 0;
 
             foreach ($items as $key => $value) {
@@ -128,7 +126,6 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
 
         // shipping
         if ($payment->getShipping() != null) {
-
             if ($payment->getShipping()->getType() != null && $payment->getShipping()->getType()->getValue() != null) {
                 $data['shippingType'] = $payment->getShipping()->getType()->getValue();
             }
@@ -207,7 +204,9 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
             $i = 0;
             foreach ($payment->getPaymentMethodConfig()->getConfig() as $config) {
                 if ($config instanceof PagSeguroPaymentMethodConfigItem) {
-                    if (!PagSeguroHelper::isEmpty($config->getKey()) && !PagSeguroHelper::isEmpty($config->getValue())) {
+                    if (!PagSeguroHelper::isEmpty($config->getKey())
+                        && !PagSeguroHelper::isEmpty($config->getValue()))
+                    {
                         $i++;
                         if (!PagSeguroHelper::isEmpty($config->getGroup())) {
                             $data['paymentMethodGroup' . $i] = $config->getGroup();
@@ -227,7 +226,7 @@ class PagSeguroPaymentParser extends PagSeguroServiceParser
                     $data['acceptPaymentMethodGroup'] = $acceptedPayment->getGroup();
                     $data['acceptPaymentMethodName'] = $acceptedPayment->getName();
                 }
-                if ($acceptedPayment instanceof PagSeguroExcludePaymentMethod ) {
+                if ($acceptedPayment instanceof PagSeguroExcludePaymentMethod) {
                     $data['excludePaymentMethodGroup'] = $acceptedPayment->getGroup();
                     $data['excludePaymentMethodName'] = $acceptedPayment->getName();
                 }

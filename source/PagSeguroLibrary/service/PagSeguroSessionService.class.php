@@ -72,7 +72,7 @@ class PagSeguroSessionService
                         "PagSeguroSessionService.getSession()(" . $session->toString() . ") - end {1}"
                     );
                     break;
-                case 'BAD_REQUEST':
+                    case 'BAD_REQUEST':
                         $errors = PagSeguroSessionParser::readErrors($connection->getStatus());
                         $e = new PagSeguroServiceException($httpStatus, $errors);
                         LogPagSeguro::error(
@@ -81,7 +81,7 @@ class PagSeguroSessionService
                         );
                     throw $e;
                     break;
-                default:
+                    default:
 
                         $e = new PagSeguroServiceException($httpStatus);
                         LogPagSeguro::error(

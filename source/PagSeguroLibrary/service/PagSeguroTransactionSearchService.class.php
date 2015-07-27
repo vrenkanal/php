@@ -144,8 +144,7 @@ class PagSeguroTransactionSearchService
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
-        }
-        catch (Exception $err) {
+        } catch (Exception $err) {
             LogPagSeguro::error("Exception: " . $err->getMessage());
             throw $err;
         }
@@ -246,8 +245,7 @@ class PagSeguroTransactionSearchService
 
         } catch (PagSeguroServiceException $err) {
             throw $err;
-        }
-        catch (Exception $err) {
+        } catch (Exception $err) {
             LogPagSeguro::error("Exception: " . $err->getMessage());
             throw $err;
         }

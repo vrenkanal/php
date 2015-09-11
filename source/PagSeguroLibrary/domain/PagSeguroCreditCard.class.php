@@ -56,16 +56,16 @@ class PagSeguroCreditCard
 
         if ($data) {
             if (isset($data['number'])) {
-                $this->number = $data['number'];
+                $this->setNumber($data['number']);
             }
             if (isset($data['cvv'])) {
-                $this->cvv = $data['cvv'];
+                $this->setCvv($data['cvv']);
             }
             if (isset($data['expirationMonth'])) {
-                $this->expirationMonth = $data['expirationMonth'];
+                $this->setExpirationMonth($data['expirationMonth']);
             }
             if (isset($data['expirationYear'])) {
-                $this->expirationYear = $data['expirationYear'];
+                $this->setExpirationYear($data['expirationYear']);
             }
         }
     }

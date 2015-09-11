@@ -18,7 +18,7 @@
  * ***********************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /***
  * Provides for user a option to configure their credentials without changes in PagSeguroConfigWrapper.php file.
@@ -130,7 +130,7 @@ class CreatePaymentRequest
         $paymentRequest->addPaymentMethodConfig('CREDIT_CARD', 8, 'MAX_INSTALLMENTS_LIMIT');
 
         // Add and remove a group and payment methods
-        $paymentRequest->acceptPaymentMethodGroup('CREDIT_CARD', 'DEBITO_ITAU,DEBITO_BRADESCO');
+        $paymentRequest->acceptPaymentMethodGroup('CREDIT_CARD', 'DEBITO_ITAU');      
         $paymentRequest->excludePaymentMethodGroup('BOLETO', 'BOLETO');
 
         try {
@@ -145,7 +145,6 @@ class CreatePaymentRequest
 
             // seller authentication
             $credentials = PagSeguroConfig::getAccountCredentials();
-            
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();

@@ -55,15 +55,16 @@ class PagSeguroApplicationCredentials extends PagSeguroCredentials
     public function __construct($appId, $appKey, $authorizationCode = null)
     {
         if ($appId !== null && $appKey !== null) {
-            $this->appId = $appId;
-            $this->appKey = $appKey;
+            $this->setAppId($appId);
+            $this->setAppKey($appKey);
         } else {
             throw new Exception("Authorization credentials not set.");
         }
 
         if ($authorizationCode !== null) {
-            $this->authorizationCode = $authorizationCode;
+            $this->setAuthorizationCode($authorizationCode);
         }
+
     }
 
     /***

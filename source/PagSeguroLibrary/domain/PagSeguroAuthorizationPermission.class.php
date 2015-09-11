@@ -52,7 +52,7 @@ class PagSeguroAuthorizationPermission
         if (isset($code) and isset($status) and isset($lastUpdate)) {
             $this->setCode($code);
             $this->setStatus($status);
-            $this->settLastUpdate($lastUpdate);
+            $this->setLastUpdate($lastUpdate);
         } else {
             throw new Exception("Wasn't possible construct the permission");
         }
@@ -108,7 +108,7 @@ class PagSeguroAuthorizationPermission
      * Sets the authorization permission last update
      * @param date $lastUpdate
      */
-    public function settLastUpdate($lastUpdate)
+    public function setLastUpdate($lastUpdate)
     {
         if (isset($lastUpdate)) {
             $this->lastUpdate = $lastUpdate;

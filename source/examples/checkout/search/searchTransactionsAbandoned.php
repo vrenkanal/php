@@ -17,18 +17,17 @@
  ************************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class SearchTransactionsByReference
+class SearchTransactionsAbandoned
 {
 
     public static function main()
     {
 
-        $reference = "REF123";
+        $initialDate = '2014-11-01T14:55';
+        $finalDate = '2014-11-30T09:55';
 
-        $initialDate = '2014-12-03T00:00';
-        $finalDate = '2014-12-08T00:00';
         $pageNumber = 1;
         $maxPageResults = 20;
 
@@ -49,13 +48,12 @@ class SearchTransactionsByReference
 
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $result = PagSeguroTransactionSearchService::searchByReference(
+            $result = PagSeguroTransactionSearchService::searchAbandoned(
                 $credentials,
-                $reference,
-                $initialDate,
-                $finalDate,
                 $pageNumber,
-                $maxPageResults
+                $maxPageResults,
+                $initialDate,
+                $finalDate
             );
 
             self::printResult($result, $initialDate, $finalDate);
@@ -69,18 +67,18 @@ class SearchTransactionsByReference
     public static function printResult(PagSeguroTransactionSearchResult $result, $initialDate, $finalDate)
     {
         $finalDate = $finalDate ? $finalDate : 'now';
-        echo "<h2>Search transactions by Reference</h2>";
+        echo "<h2>Search transactions abandoned</h2>";
         echo "<h3>$initialDate to $finalDate</h3>";
         $transactions = $result->getTransactions();
         if (is_array($transactions) && count($transactions) > 0) {
             foreach ($transactions as $key => $transactionSummary) {
                 echo "Code: " . $transactionSummary->getCode() . "<br>";
                 echo "Reference: " . $transactionSummary->getReference() . "<br>";
-                echo "amount: " . $transactionSummary->getGrossAmount() . "<br>";
+                echo "Amount: " . $transactionSummary->getGrossAmount() . "<br>";
                 echo "<hr>";
             }
         }
     }
 }
 
-SearchTransactionsByReference::main();
+SearchTransactionsAbandoned::main();

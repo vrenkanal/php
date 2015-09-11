@@ -61,22 +61,23 @@ class PagSeguroCreditCardCheckout
      */
     public function __construct(array $data = null)
     {
-
         if ($data) {
+            if (isset($data['brand'])) {
+                $this->setBrand($data['brand']);
+            }
             if (isset($data['token'])) {
-                $this->token = $data['token'];
+                $this->setToken($data['token']);
             }
             if (isset($data['holder'])) {
-                $this->holder = $data['holder'];
+                $this->setHolder($data['holder']);
             }
             if (isset($data['installment'])) {
-                $this->installment = $data['installment'];
+                $this->setInstallment($data['installment']);
             }
             if (isset($data['billing'])) {
-                $this->billing = $data['billing'];
+                $this->setBilling($data['billing']);
             }
         }
-        
     }
 
     /***

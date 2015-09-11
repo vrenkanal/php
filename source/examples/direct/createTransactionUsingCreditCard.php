@@ -18,12 +18,12 @@
  * ***********************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the domain class PagSegurodirectPaymentRequest
+ * Class with a main method to illustrate the usage of the domain class PagSeguroDirectPaymentRequest
  */
-class CreateTransactionUsingInternationalCreditCard
+class CreateTransactionUsingCreditCard
 {
 
     public static function main()
@@ -71,10 +71,44 @@ class CreateTransactionUsingInternationalCreditCard
         // If you using SANDBOX you must use an email @sandbox.pagseguro.com.br
         $directPaymentRequest->setSender(
             'João Comprador',
-            'comprador@email.com'
+            'email@comprador.com.br',
+            '11',
+            '56273440',
+            'CPF',
+            '156.009.442-76',
+            true
         );
 
-        $directPaymentRequest->addParameter('notificationURL', 'http://www.lojamodelo.com.br');
+        $directPaymentRequest->setSenderHash("d94d002b6998ca9cd69092746518e50aded5a54aef64c4877ccea02573694986");
+
+        // Set shipping information for this payment request
+        $sedexCode = PagSeguroShippingType::getCodeByType('SEDEX');
+        $directPaymentRequest->setShippingType($sedexCode);
+        $directPaymentRequest->setShippingAddress(
+            '01452002',
+            'Av. Brig. Faria Lima',
+            '1384',
+            'apto. 114',
+            'Jardim Paulistano',
+            'São Paulo',
+            'SP',
+            'BRA'
+        );
+
+        //Set billing information for credit card
+        $billing = new PagSeguroBilling
+        (
+            array(
+                'postalCode' => '01452002',
+                'street' => 'Av. Brig. Faria Lima',
+                'number' => '1384',
+                'complement' => 'apto. 114',
+                'district' => 'Jardim Paulistano',
+                'city' => 'São Paulo',
+                'state' => 'SP',
+                'country' => 'BRA'
+            )
+        );
 
         $token = "5b97542cd1524b67a9e89b3d90c1f262";
 
@@ -86,7 +120,20 @@ class CreateTransactionUsingInternationalCreditCard
         $cardCheckout = new PagSeguroCreditCardCheckout(
             array(
                 'token' => $token,
-                'installment' => $installment
+                'installment' => $installment,
+                'holder' => new PagSeguroCreditCardHolder(
+                    array(
+                        'name' => 'João Comprador', //Equals in Credit Card
+                        'documents' => array(
+                            'type' => 'CPF',
+                            'value' => '156.009.442-76'
+                        ),
+                        'birthDate' => date('01/10/1979'),
+                        'areaCode' => 11,
+                        'number' => 56273440
+                    )
+                ),
+                'billing' => $billing
             )
         );
 
@@ -97,17 +144,17 @@ class CreateTransactionUsingInternationalCreditCard
             /**
              * #### Credentials #####
              * Replace the parameters below with your credentials
-             * You can also get your credentials like this:
-             * $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
-             *   "E231B2C9BCC8474DA2E260B6C8CF60D3");
+             * You can also get your credentials from a config file. See an example:
+             * $credentials = PagSeguroConfig::getAccountCredentials();
              */
 
             // seller authentication
-            $credentials = PagSeguroConfig::getAccountCredentials();
+            //$credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
+            //    "E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // application authentication
-            //$credentials = PagSeguroConfig::getApplicationCredentials();
-            //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
+            $credentials = PagSeguroConfig::getApplicationCredentials();
+            $credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $return = $directPaymentRequest->register($credentials);
@@ -123,7 +170,7 @@ class CreateTransactionUsingInternationalCreditCard
     {
 
         if ($transaction) {
-            echo "<h2>Retorno da transa&ccedil;&atilde;o com Cart&atilde;o de Cr&eacute;dito Internacional.</h2>";
+            echo "<h2>Retorno da transa&ccedil;&atilde;o com Cart&atilde;o de Cr&eacute;dito.</h2>";
             echo "<p><strong>Date: </strong> ".$transaction->getDate() ."</p> ";
             echo "<p><strong>lastEventDate: </strong> ".$transaction->getLastEventDate()."</p> ";
             echo "<p><strong>code: </strong> ".$transaction->getCode() ."</p> ";
@@ -154,10 +201,21 @@ class CreateTransactionUsingInternationalCreditCard
 
             echo "<p><strong>senderName: </strong> ".$transaction->getSender()->getName() ."</p> ";
             echo "<p><strong>senderEmail: </strong> ".$transaction->getSender()->getEmail() ."</p> ";
+            echo "<p><strong>senderPhone: </strong> ".$transaction->getSender()->getPhone()->getAreaCode() . " - " .
+                 $transaction->getSender()->getPhone()->getNumber() . "</p> ";
+            echo "<p><strong>Shipping: </strong></p>";
+            echo "<p><strong>street: </strong> ".$transaction->getShipping()->getAddress()->getStreet() ."</p> ";
+            echo "<p><strong>number: </strong> ".$transaction->getShipping()->getAddress()->getNumber()  ."</p> ";
+            echo "<p><strong>complement: </strong> ".$transaction->getShipping()->getAddress()->getComplement()  ."</p> ";
+            echo "<p><strong>district: </strong> ".$transaction->getShipping()->getAddress()->getDistrict()  ."</p> ";
+            echo "<p><strong>postalCode: </strong> ".$transaction->getShipping()->getAddress()->getPostalCode()  ."</p> ";
+            echo "<p><strong>city: </strong> ".$transaction->getShipping()->getAddress()->getCity()  ."</p> ";
+            echo "<p><strong>state: </strong> ".$transaction->getShipping()->getAddress()->getState()  ."</p> ";
+            echo "<p><strong>country: </strong> ".$transaction->getShipping()->getAddress()->getCountry()  ."</p> ";
         }
 
       echo "<pre>";
     }
 }
 
-CreateTransactionUsingInternationalCreditCard::main();
+CreateTransactionUsingCreditCard::main();

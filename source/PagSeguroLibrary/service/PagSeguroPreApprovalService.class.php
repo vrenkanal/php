@@ -77,14 +77,13 @@ class PagSeguroPreApprovalService
     private static function buildPreApprovalCancelUrl(PagSeguroConnectionData $connectionData, $code)
     {
         $credentialsArray = $connectionData->getCredentials()->getAttributesMap();
-        return $connectionData->getWebserviceUrl() .
-        $connectionData->getResource('cancelUrl') .
-        "$code?".$connectionData->getCredentialsUrlQuery();
+        return $connectionData->getWebserviceUrl() . $connectionData->getResource('cancelUrl') .
+            "$code?".$connectionData->getCredentialsUrlQuery();
     }
 
     /**
      * @param PagSeguroCredentials $credentials
-     * @param PagSeguroPaymentRequest $paymentRequest
+     * @param PagSeguroPaymentRequest $request
      * @return null|PagSeguroParserData
      * @throws Exception
      * @throws PagSeguroServiceException
@@ -134,7 +133,7 @@ class PagSeguroPreApprovalService
 
     /**
      * @param PagSeguroCredentials $credentials
-     * @param PagSeguroPaymentRequest $paymentRequest
+     * @param PagSeguroPreApprovalCharge $charge
      * @return null|PagSeguroParserData
      * @throws Exception
      * @throws PagSeguroServiceException
@@ -287,7 +286,6 @@ class PagSeguroPreApprovalService
 
                 //Exception
                 throw $errors;
-
                 break;
             default:
 
@@ -299,7 +297,6 @@ class PagSeguroPreApprovalService
 
                 //Exception
                 throw $errors;
-
                 break;
         }
         return isset($result) ? $result : null;

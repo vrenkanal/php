@@ -28,11 +28,11 @@ class PagSeguroPaymentMethodGroups
 {
 
     private static $availableGroupList = array(
-        'CREDIT_CARD' => 'Pagamento com Cartão de Crédito',
-        'BOLETO' => 'Pagamento com Boleto',
-        'EFT' => 'Pagamento com Depósito Online',
-        'BALANCE' => 'Pagamento com Saldo PagSeguro',
-        'DEPOSIT' => 'Pagamento com Depósito'
+        'CREDIT_CARD' => 'Payment with Credit Card',
+        'BOLETO' => 'Payment with Boleto',
+        'EFT' => 'Payment with Online Debit',
+        'BALANCE' => 'Payment with PagSeguro Balance',
+        'DEPOSIT' => 'Payment with Deposit'
     );
 
     /***
@@ -46,25 +46,25 @@ class PagSeguroPaymentMethodGroups
 
     /***
      * Check if payment method groups is available for PagSeguro
-     * @param string $itemKey
+     * @param string $key
      * @return boolean
      */
-    public static function isKeyAvailable($groupKey)
+    public static function isKeyAvailable($key)
     {
-        $groupKey = strtoupper($groupKey);
-        return (isset(self::$availableGroupList[$groupKey]));
+        $key = strtoupper($key);
+        return (isset(self::$availableGroupList[$key]));
     }
 
     /***
      * Gets group description by key
-     * @param string $groupKey
+     * @param string $key
      * @return string
      */
-    public static function geDescriptionByKey($groupKey)
+    public static function getDescriptionByKey($key)
     {
-        $groupKey = strtoupper($groupKey);
-        if (isset(self::$availableGroupList[$groupKey])) {
-            return self::$availableGroupList[$groupKey];
+        $key = strtoupper($key);
+        if (isset(self::$availableGroupList[$key])) {
+            return self::$availableGroupList[$key];
         } else {
             return false;
         }
@@ -72,11 +72,11 @@ class PagSeguroPaymentMethodGroups
 
     /***
      * Gets group type by description
-     * @param string $groupDescription
+     * @param string $description
      * @return string
      */
-    public static function getGroupByDescription($groupDescription)
+    public static function getGroupByDescription($description)
     {
-        return array_search(strtolower($groupDescription), array_map('strtolower', self::$availableGroupList));
+        return array_search(strtolower($description), array_map('strtolower', self::$availableGroupList));
     }
 }

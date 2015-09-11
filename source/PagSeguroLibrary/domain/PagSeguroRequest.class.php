@@ -356,7 +356,9 @@ class PagSeguroRequest
      */
     public function addMetaData($itemKey, $itemValue, $itemGroup = null)
     {
-        $this->getMetaData()->addItem(new PagSeguroMetaDataItem($itemKey, $itemValue, $itemGroup));
+        $this->getMetaData()->addItem(
+            new PagSeguroMetaDataItem($itemKey, $itemValue, $itemGroup)
+        );
     }
 
     /***
@@ -396,7 +398,7 @@ class PagSeguroRequest
 
     /***
      * Sets acceptable groups and payment methods.
-     * @param PagSeguroPaymentMethodConfig $paymentMethodConfig
+     * @param PagSeguroAcceptedPaymentMethods $acceptedPaymentMethod
      */
     public function setAcceptedPaymentMethod($acceptedPaymentMethod)
     {
@@ -423,17 +425,17 @@ class PagSeguroRequest
     {
         $this->getAcceptedPaymentMethod()->addConfig(
             new PagSeguroAcceptPaymentMethod($group, $name)
-        );
+        );  
     }
     
     /***
      * Exclude groups and payment methods.
      */
-    public function excludePaymentMethodGroup($group, $name)
+    public function excludePaymentMethodGroup($group, $name = null)
     {
         $this->getAcceptedPaymentMethod()->addConfig(
             new PagSeguroExcludePaymentMethod($group, $name)
-        );
+        ); 
     }
 
     /***

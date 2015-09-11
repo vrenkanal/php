@@ -54,7 +54,7 @@ class PagSeguroInstallments
 
     /***
      * Initializes a new instance of the PagSeguroInstallments class
-     * @param array|string $cardBrand...
+     * @param array|string $cardBrand
      * @param int    $quantity
      * @param float  $amount
      * @param float  $totalAmount
@@ -71,7 +71,13 @@ class PagSeguroInstallments
         if (isset($param) && is_array($param) || is_object($param)) {
             $this->setInstallment($param);
         } else {
-            $this->setInstallment($cardBrand, $quantity, $amount, $totalAmount, $interestFree);
+            $this->setInstallment(
+                $cardBrand, 
+                $quantity, 
+                $amount, 
+                $totalAmount, 
+                $interestFree
+            );
         }
     }
 
@@ -162,7 +168,7 @@ class PagSeguroInstallments
 
     /***
      * Set the installments
-     * @param array|string $cardBrand...
+     * @param array|string $cardBrand
      * @param int    $quantity
      * @param float  $amount
      * @param float  $totalAmount
@@ -175,39 +181,38 @@ class PagSeguroInstallments
         $totalAmount = null,
         $interestFree = null
     ) {
-        $param = $quantity;
         $param = $cardBrand;
         if (isset($param) && is_array($param) || is_object($param)) {
             if (isset($param->cardBrand)) {
-                $this->cardBrand = $param->cardBrand;
+                $this->setCardBrand($param->cardBrand);
             }
             if (isset($param->quantity)) {
-                $this->quantity = $param->quantity;
+                $this->setQuantity($param->quantity);
             }
             if (isset($param->installmentAmount)) {
-                $this->installmentAmount = $param->installmentAmount;
+                $this->setInstallmentAmount($param->installmentAmount);
             }
             if (isset($param->totalAmount)) {
-                $this->totalAmount = $param->totalAmount;
+                $this->setTotalAmount($param->totalAmount);
             }
             if (isset($param->interestFree)) {
-                $this->interestFree = $param->interestFree;
+                $this->setInterestFree($param->interestFree);
             }
         } else {
             if (isset($cardBrand)) {
-                $this->cardBrand = $cardBrand;
+                $this->setCardBrand($cardBrand);
             }
             if (isset($quantity)) {
-                $this->quantity = $quantity;
+                $this->setQuantity($quantity);
             }
-            if (isset($installmentAmount)) {
-                $this->installmentAmount = $installmentAmount;
+            if (isset($amount)) {
+                $this->setInstallmentAmount($amount);
             }
             if (isset($totalAmount)) {
-                $this->totalAmount = $totalAmount;
+                $this->setTotalAmount($totalAmount);
             }
             if (isset($interestFree)) {
-                $this->interestFree = $interestFree;
+                $this->setInterestFree($interestFree);
             }
         }
     }

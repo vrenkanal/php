@@ -83,7 +83,7 @@ class PagSeguroTransactionSearchService
             $maxPageResults = "&maxPageResults=" . $searchParams['maxPageResults'];
         }
         return "{$url}/abandoned/?" . $connectionData->getCredentialsUrlQuery() .
-            "&initialDate={$initialDate}&finalDate={$finalDate}{$page}{$maxPageResults}";
+            "&initialDate={$initialDate}{$finalDate}{$page}{$maxPageResults}";
     }
 
     /**

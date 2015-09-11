@@ -17,42 +17,44 @@
  ************************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class SearchAuthorizationByReference
+class SearchAuthorizations
 {
 
     public static function main()
     {
 
-        $reference = "REF123";
+        $options = array(
+            'page' => 1, //optional
+            'maxPageResults' => 1, //optional
+            'initialDate' => '2014-11-23T00:00', //optional
+            'finalDate' => '2014-12-02T10:00' //optional
+        );
 
         try {
 
-            /**
+            /*
              * #### Credentials #####
              * Replace the parameters below with your credentials
              * You can also get your credentials from a config file. See an example:
-             * $credentials = PagSeguroConfig::getApplicationCredentials();
+             * $credentials = PagSeguroConfig::getApplicationCredentials()
              */
-
             $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
-
-            $authorization = PagSeguroAuthorizationSearchService::searchByReference($credentials, $reference);
+            
+            $authorization = PagSeguroAuthorizationSearchService::searchAuthorizations($credentials, $options);
 
             self::printAuthorization($authorization);
 
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
-
     }
 
     public static function printAuthorization($authorization)
     {
-        
-        echo "<h2>Authorization search by Reference</h2>";
+        echo "<h2>Authorization search by Date</h2>";
         echo "<p><strong>" . $authorization->getDate() . "</strong></p>";
         
         if ($authorization->getAuthorizations()) {
@@ -79,7 +81,7 @@ class SearchAuthorizationByReference
                 echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
                 echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
                 echo "<p><strong>PublicKey: </strong>" .
-                    $authorization->getAccount()->getPublicKey() . "</p>";
+                        $authorization->getAccount()->getPublicKey() . "</p>";
 
                 echo "<h3>Permissions:</h3>";
                 foreach ($authorization->getPermissions()->getPermissions() as $permission) {
@@ -93,4 +95,4 @@ class SearchAuthorizationByReference
     }
 }
 
-SearchAuthorizationByReference::main();
+SearchAuthorizations::main();

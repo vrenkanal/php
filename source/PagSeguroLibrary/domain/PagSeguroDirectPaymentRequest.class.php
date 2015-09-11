@@ -67,7 +67,7 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
      */
     public function __construct()
     {
-        PagSeguroLibrary::init();
+        parent::__construct();
     }
 
     /***
@@ -88,7 +88,7 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
 
     /***
      * Sets the sender hash
-     * @param string $receiverHash
+     * @param string $senderHash
      */
     public function setSenderHash($senderHash)
     {
@@ -193,14 +193,14 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
             $this->billing->setAddress($param);
         } else {
             $billindAdress = array(
-            'postalCode' => '01452002',
-            'street' => 'Av. Brig. Faria Lima',
-            'number' => '1384',
-            'complement' => 'apto. 114',
-            'district' => 'Jardim Paulistano',
-            'city' => 'São Paulo',
-            'state' => 'SP',
-            'country' => 'BRA'
+                'postalCode' => $postalCode,
+                'street' => $street,
+                'number' => $number,
+                'complement' => $complement,
+                'district' => $district,
+                'city' => $city,
+                'state' => $state,
+                'country' => $country
             );
             
             $this->billing->setAddress(new PagSeguroAddress($billindAdress));
@@ -218,7 +218,7 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
 
      /***
      * Sets the info for credit card for this payment request
-     * @param array|object $params...
+     * @param array|object $params
      */
     public function setCreditCard($params = null)
     {
@@ -282,9 +282,8 @@ class PagSeguroDirectPaymentRequest extends PagSeguroRequest
     /***
      * Calls the PagSeguro web service and register this request for payment
      *
-     * @param PagSeguroCredentials $credentials, lighbox
-     * @return String The URL to where the user needs to be redirected to in order to complete the payment process or
-     * the CODE when use lightbox
+     * @param PagSeguroCredentials $credentials
+     * @return String The URL to where the user needs to be redirected to in order to complete the payment process
      */
     public function register(PagSeguroCredentials $credentials)
     {

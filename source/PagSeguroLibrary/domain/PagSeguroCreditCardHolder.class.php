@@ -68,10 +68,8 @@ class PagSeguroCreditCardHolder
             }
             if (isset($data['phone']) && $data['phone'] instanceof PagSeguroPhone) {
                 $this->setPhone($data['phone']);
-            } else {
-                if (isset($data['areaCode']) && isset($data['number'])) {
+            } else if (isset($data['areaCode']) && isset($data['number'])) {
                     $this->setPhone($data['areaCode'], $data['number']);
-                }
             }
         }
     }

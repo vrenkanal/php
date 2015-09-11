@@ -53,7 +53,7 @@ class PagSeguroAuthorizationPermissions
     public function __construct($permissions = null)
     {
         if (isset($permissions)) {
-            $this->permissions = $permissions;
+            $this->setPermissions($permissions);
         }
     }
 

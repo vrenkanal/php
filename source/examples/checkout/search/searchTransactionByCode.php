@@ -17,7 +17,7 @@
  ************************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 class SearchTransactionByCode
 {
@@ -38,6 +38,8 @@ class SearchTransactionByCode
             // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
+            
+            $credentials = PagSeguroConfig::getAccountCredentials();
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();

@@ -72,8 +72,8 @@ class CreatePreApproval
         $preApprovalRequest->setPreApprovalMaxAmountPerPeriod('200.00');
         $preApprovalRequest->setPreApprovalPeriod('Monthly');
         $preApprovalRequest->setPreApprovalMaxTotalAmount('2400.00');
-        $preApprovalRequest->setPreApprovalInitialDate('2015-04-10T00:00:00');
-        $preApprovalRequest->setPreApprovalFinalDate('2017-04-07T00:00:00');
+        $preApprovalRequest->setPreApprovalInitialDate('2015-09-10T00:00:00');
+        $preApprovalRequest->setPreApprovalFinalDate('2017-09-07T00:00:00');
         $preApprovalRequest->setRedirectURL("http://www.lojateste.com.br/redirect");
         $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/review");
 

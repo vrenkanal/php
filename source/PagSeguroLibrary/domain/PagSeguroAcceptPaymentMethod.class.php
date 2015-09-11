@@ -39,7 +39,6 @@ class PagSeguroAcceptPaymentMethod extends PagSeguroAcceptedPayments
      */
     public function __construct($group = null, $name = null)
     {
-
         if (isset($name) && !PagSeguroHelper::isEmpty($name)) {
             $this->setName($name);
         }

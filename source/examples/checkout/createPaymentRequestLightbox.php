@@ -1,4 +1,13 @@
-<?php //
+<!DOCTYPE html>
+<html>
+	<head>
+	<!--Para integração em ambiente de testes no Sandbox use este link-->
+		<!--<script type="text/javascript" src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+	<!--Para integração em ambiente de produção use este link-->
+		<!--<script type="text/javascript" src="https://stc.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.lightbox.js"></script>-->
+	</head>
+</html>
+<?php
 
 /*
  * ***********************************************************************
@@ -18,14 +27,12 @@
  * ***********************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
-
+require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
- * Class with a main method to illustrate the usage of the 
- * domain class PagSeguroPaymentRequest and PagSeguroPreApproval
+ * Class with a main method to illustrate the usage of the domain class PagSeguroPaymentRequest
  */
-class CreatePaymentRequestWithPreApproval
+class CreatePaymentRequestLightbox
 {
 
     public static function main()
@@ -42,7 +49,7 @@ class CreatePaymentRequestWithPreApproval
         // Add another item for this payment request
         $paymentRequest->addItem('0002', 'Notebook rosa', 2, 560.00);
 
-        // Set a reference code for this payment request. It is useful to identify this payment
+        // Set a reference code for this payment request, it is useful to identify this payment
         // in future notifications.
         $paymentRequest->setReference("REF123");
 
@@ -86,25 +93,6 @@ class CreatePaymentRequestWithPreApproval
         $paymentRequest->addIndexedParameter('itemQuantity', '1', 3);
         $paymentRequest->addIndexedParameter('itemAmount', '200.00', 3);
 
-        /***
-         * Pre Approval information
-         */
-        $preApprovalRequest = new PagSeguroPreApprovalRequest();
-
-        $preApprovalRequest->setPreApprovalCharge('manual');
-        $preApprovalRequest->setPreApprovalName("Seguro contra roubo do Notebook Prata");
-        $preApprovalRequest->setPreApprovalDetails("Todo dia 30 será cobrado o valor de R100,00 referente ao seguro contra
-            roubo do Notebook Prata.");
-        $preApprovalRequest->setPreApprovalAmountPerPayment('100.00');
-        $preApprovalRequest->setPreApprovalMaxAmountPerPeriod('200.00');
-        $preApprovalRequest->setPreApprovalPeriod('Monthly');
-        $preApprovalRequest->setPreApprovalMaxTotalAmount('2400.00');
-        $preApprovalRequest->setPreApprovalInitialDate('2015-04-24T00:00:00');
-        $preApprovalRequest->setPreApprovalFinalDate('2017-04-24T00:00:00');
-        $preApprovalRequest->setReviewURL("http://www.lojateste.com.br/redirect");
-
-        $paymentRequest->setPreApproval($preApprovalRequest);
-
         try {
 
             /*
@@ -113,6 +101,7 @@ class CreatePaymentRequestWithPreApproval
              * You can also get your credentials from a config file. See an example:
              * $credentials = PagSeguroConfig::getAccountCredentials();
              */
+
             // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
@@ -122,24 +111,27 @@ class CreatePaymentRequestWithPreApproval
 
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
-            $url = $paymentRequest->register($credentials);
+            // Register this payment request in PagSeguro to obtain the checkout code
+            $onlyCheckoutCode = true;
+            $code = $paymentRequest->register($credentials, $onlyCheckoutCode);
 
-            self::printPaymentUrl($url);
-
+            self::printPaymentUrl($code);
         } catch (PagSeguroServiceException $e) {
             die($e->getMessage());
         }
     }
 
-    public static function printPaymentUrl($url)
+    public static function printPaymentUrl($code)
     {
-        if ($url) {
+        if ($code) {
             echo "<h2>Criando requisi&ccedil;&atilde;o de pagamento</h2>";
-            echo "<p>URL do pagamento: <strong>$url</strong></p>";
-            echo "<p><a title=\"URL do pagamento\" href=\"$url\">Ir para URL do pagamento.</a></p>";
+            echo "<p>Code: <strong>$code</strong></p>";
+            echo "<script>
+			PagSeguroLightbox('".$code."');
+                  </script>";
+
         }
     }
 }
 
-CreatePaymentRequestWithPreApproval::main();
+CreatePaymentRequestLightbox::main();

@@ -28,33 +28,33 @@ class PagSeguroPaymentMethodName
 {
 
     private static $availableNameList = array(
-        'DEBITO_BRADESCO' => 'Débito BradescoPercentual de Desconto',
-        'DEBITO_ITAU' => 'Débito Itaú',
-        'DEBITO_UNIBANCO' => 'Débito Unibanco',
-        'DEBITO_BANCO_BRASIL' => 'Débito Banco do Brasil',
-        'DEBITO_BANRISUL' => 'Débito Banrisul',
-        'DEBITO_HSBC' => 'Débito Banco HSBC',
+        'DEBITO_BRADESCO' => 'Bradesco debit',
+        'DEBITO_ITAU' => 'Itaú debit',
+        'DEBITO_UNIBANCO' => 'Unibanco debit',
+        'DEBITO_BANCO_BRASIL' => 'Banco do Brasil debit',
+        'DEBITO_BANRISUL' => 'Banrisul debit',
+        'DEBITO_HSBC' => 'HSBC bank debit',
         'BOLETO' => 'Boleto',
-        'VISA' => 'Bandeira Visa',
-        'MASTERCARD' => 'Bandeira MasterCard',
-        'AMEX' => 'Bandeira Amex',
-        'DINERS' => 'Bandeira Diners',
-        'HIPERCARD' => 'Bandeira Hipercard',
-        'AURA' => 'Bandeira Aura',
-        'ELO' => 'Bandeira ELO',
-        'PLENOCARD' => 'Bandeira PlenoCard',
-        'PERSONALCARD' => 'Bandeira PersonalCard',
-        'JCB' => 'Bandeira JCB',
-        'DISCOVER' => 'Bandeira Discover',
-        'BRASILCARD' => 'Bandeira BrasilCard',
-        'FORTBRASIL' => 'Bandeira FortBrasil',
-        'CARDBAN' => 'Bandeira CardBAN',
-        'VALECARD' => 'Bandeira ValeCard',
-        'CABAL' => 'Bandeira Cabal',
-        'MAIS' => 'Bandeira MAIS',
-        'AVISTA' => 'Bandeira AVISTA',
-        'GRANDCARD' => 'Bandeira GrandCard',
-        'SOROCRED' => 'Bandeira Sorocred'
+        'VISA' => 'Visa brand',
+        'MASTERCARD' => 'MasterCard brand',
+        'AMEX' => 'Amex brand',
+        'DINERS' => 'Diners brand',
+        'HIPERCARD' => 'Hipercard brand',
+        'AURA' => 'Aura brand',
+        'ELO' => 'ELO brand',
+        'PLENOCARD' => 'PlenoCard brand',
+        'PERSONALCARD' => 'PersonalCard brand',
+        'JCB' => 'JCB brand',
+        'DISCOVER' => 'Discover brand',
+        'BRASILCARD' => 'BrasilCard brand',
+        'FORTBRASIL' => 'FortBrasil brand',
+        'CARDBAN' => 'CardBAN brand',
+        'VALECARD' => 'ValeCard brand',
+        'CABAL' => 'Cabal brand',
+        'MAIS' => 'MAIS brand',
+        'AVISTA' => 'AVISTA brand',
+        'GRANDCARD' => 'GrandCard brand',
+        'SOROCRED' => 'Sorocred brand'
     );
 
 
@@ -74,20 +74,20 @@ class PagSeguroPaymentMethodName
      */
     public static function isNameAvailable($name)
     {
-        $name = strtoupper($name);
-        return (isset(self::$availableNameList[$name]));
+        $key = strtoupper($name);
+        return (isset(self::$availableNameList[$key]));
     }
 
     /***
      * Gets description by name
-     * @param string $keyName
+     * @param string $name
      * @return string
      */
-    public static function getDescriptionByName($keyName)
+    public static function getDescriptionByName($name)
     {
-        $keyName = strtoupper($keyName);
-        if (isset(self::$availableNameList[$keyName])) {
-            return self::$availableNameList[$keyName];
+        $key = strtoupper($name);
+        if (isset(self::$availableNameList[$key])) {
+            return self::$availableNameList[$key];
         } else {
             return false;
         }
@@ -95,11 +95,11 @@ class PagSeguroPaymentMethodName
 
     /***
      * Gets name key by description
-     * @param string $descriptionName
+     * @param string $description
      * @return string
      */
-    public static function getKeyByDescription($descriptionName)
+    public static function getKeyByDescription($description)
     {
-        return array_search(strtolower($descriptionName), array_map('strtolower', self::$availableNameList));
+        return array_search(strtolower($description), array_map('strtolower', self::$availableNameList));
     }
 }

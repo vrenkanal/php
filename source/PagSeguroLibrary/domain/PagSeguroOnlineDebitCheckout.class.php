@@ -49,11 +49,11 @@ class PagSeguroOnlineDebitCheckout
 
     /***
      * Sets the bank name
-     * @param String $bankName
+     * @param String $name
      */
-    public function setBankName($bankName)
+    public function setBankName($name)
     {
-        $this->bankName = $bankName;
+        $this->bankName = $name;
     }
 
     /***

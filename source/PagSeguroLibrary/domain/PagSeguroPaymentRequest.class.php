@@ -37,7 +37,7 @@ class PagSeguroPaymentRequest extends PagSeguroRequest
      */
     public function __construct()
     {
-        PagSeguroLibrary::init();
+        parent::__construct();
     }
 
     /**

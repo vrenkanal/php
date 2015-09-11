@@ -38,39 +38,39 @@ class PagSeguroPreApprovalParser
 
         if ($preApproval->getReviewURL() != null) {
             $data["reviewURL"] = $preApproval->getReviewURL();
-        };
+        }
 
         if ($preApproval->getRedirectURL() != null) {
             $data["redirectURL"] = $preApproval->getRedirectURL();
-        };
+        }
 
-        if ($preApproval->getReceiverEmail() != null) {
-            $data["reviewURL"] = $preApproval->getReceiverEmail();
-        };
+        if ($preApproval->getReference() != null) {
+            $data["reference"] = $preApproval->getReference();
+        }
 
         if ($preApproval->getPreApprovalMaxTotalAmount() != null) {
             $data["preApprovalMaxTotalAmount"] = $preApproval->getPreApprovalMaxTotalAmount();
-        };
+        }
 
         if ($preApproval->getPreApprovalMaxAmountPerPeriod() != null) {
             $data["preApprovalMaxAmountPerPeriod"] = $preApproval->getPreApprovalMaxAmountPerPeriod();
-        };
+        }
 
         if ($preApproval->getPreApprovalInitialDate() != null) {
             $data["preApprovalInitialDate"] = $preApproval->getPreApprovalInitialDate();
-        };
+        }
 
         if ($preApproval->getPreApprovalFinalDate() != null) {
             $data["preApprovalFinalDate"] = $preApproval->getPreApprovalFinalDate();
-        };
+        }
 
         if ($preApproval->getPreApprovalDayOfMonth() != null) {
             $data["preApprovalDayOfMonth"] = $preApproval->getPreApprovalDayOfMonth();
-        };
+        }
 
         if ($preApproval->getPreApprovalDayOfWeek() != null) {
             $data["preApprovalDayOfWeek"] = $preApproval->getPreApprovalDayOfWeek();
-        };
+        }
 
         if ($preApproval->getPreApprovalDayOfYear() != null) {
             $data["preApprovalDayOfYear"] = $preApproval->getPreApprovalDayOfYear();
@@ -82,33 +82,33 @@ class PagSeguroPreApprovalParser
 
         if ($preApproval->getPreApprovalAmountPerPayment() != null) {
             $data["preApprovalAmountPerPayment"] = $preApproval->getPreApprovalAmountPerPayment();
-        };
+        }
 
         if ($preApproval->getPreApprovalMaxAmountPerPayment() != null) {
             $data["preApprovalMaxAmountPerPayment"] = $preApproval->getPreApprovalMaxAmountPerPayment();
-        };
+        }
 
         if ($preApproval->getPreApprovalMaxPaymentsPerPeriod() != null) {
             $data["preApprovalMaxPaymentsPerPeriod"] = $preApproval->getPreApprovalMaxPaymentsPerPeriod();
-        };
+        }
 
         if ($preApproval->getPreApprovalDetails() != null) {
             $data["preApprovalDetails"] = $preApproval->getPreApprovalDetails();
-        };
+        }
 
         if ($preApproval->getPreApprovalName() != null) {
             $data["preApprovalName"] = $preApproval->getPreApprovalName();
-        };
+        }
 
         if ($preApproval->getPreApprovalCharge() != null) {
             $data["preApprovalCharge"] = $preApproval->getPreApprovalCharge();
-        };
+        }
 
         return $data;
     }
 
     /**
-     * @param $payment
+     * @param $preApproval
      * @return array
      */
     public static function getCharge($preApproval)

@@ -18,7 +18,7 @@
  * ***********************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroAuthorizationRequest
@@ -50,7 +50,6 @@ class CreateAuthorization
          * @enum "DIRECT_PAYMENT",
          * @enum "REFUND_TRANSACTIONS",
          * @enum "CANCEL_TRANSACTIONS"
-
          */
         $authorizationRequest->setPermissions(
             array(
@@ -73,6 +72,8 @@ class CreateAuthorization
              */
             $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
+            
+            $credentials = PagSeguroConfig::getApplicationCredentials();
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
             $return = $authorizationRequest->register($credentials);

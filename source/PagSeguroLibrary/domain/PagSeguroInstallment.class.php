@@ -42,10 +42,10 @@ class PagSeguroInstallment
     {
         if ($data) {
             if (isset($data['quantity'])) {
-                $this->quantity = $data['quantity'];
+                $this->setQuantity($data['quantity']);
             }
             if (isset($data['value'])) {
-                $this->value = $data['value'];
+                $this->setValue($data['value']);
             }
         }
     }

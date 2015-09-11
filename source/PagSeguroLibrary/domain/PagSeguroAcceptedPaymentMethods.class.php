@@ -33,8 +33,7 @@ class PagSeguroAcceptedPaymentMethods
     private $acceptedPaymentsList;
 
     /**
-     * @param null $include
-     * @param null $exclude
+     * @param array|null $config
      */
     public function __construct(array $config = null)
     {

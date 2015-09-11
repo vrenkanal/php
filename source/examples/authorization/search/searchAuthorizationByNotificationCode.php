@@ -17,15 +17,15 @@
  ************************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class SearchAuthorizationByCode
+class SearchAuthorizationByNotificationCode
 {
 
     public static function main()
     {
 
-        $authorizationCode = "C7A067F4AEDC4B538242EBBE3B7FB755";
+        $notificationCode = "B9BD516853A853A812422463EFBD10FCC88A";
 
         try {
 
@@ -38,7 +38,7 @@ class SearchAuthorizationByCode
             $credentials = new PagSeguroApplicationCredentials("appId",
                 "appKey");
 
-            $authorization = PagSeguroAuthorizationSearchService::searchByCode($credentials, $authorizationCode);
+            $authorization = PagSeguroAuthorizationSearchService::searchByNotificationCode($credentials, $notificationCode);
 
             self::printAuthorization($authorization);
 
@@ -51,7 +51,7 @@ class SearchAuthorizationByCode
     public static function printAuthorization(PagSeguroAuthorization $authorization)
     {
 
-        echo "<h2>Authorization search by Code</h2>";
+        echo "<h2>Authorization search by Notification Code</h2>";
         echo "<p><strong>Code: </strong>" . $authorization->getCode() . "</p>";
         echo "<p><strong>Creation Date: </strong>" . $authorization->getCreationDate() . "</p>";
         echo "<p><strong>Reference: </strong>" . $authorization->getReference() . "</p>";
@@ -65,8 +65,8 @@ class SearchAuthorizationByCode
             echo "<strong>Last Update: </strong>" . $permission->getLastUpdate() . "</p>";
         }
 
-		echo "<pre>";
+        echo "<pre>";
     }
 }
 
-SearchAuthorizationByCode::main();
+SearchAuthorizationByNotificationCode::main();

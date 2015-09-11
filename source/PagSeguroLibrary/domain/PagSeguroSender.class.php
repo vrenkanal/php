@@ -51,18 +51,16 @@ class PagSeguroSender
     {
         if ($data) {
             if (isset($data['name'])) {
-                $this->name = $data['name'];
+                $this->setName($data['name']);
             }
             if (isset($data['email'])) {
-                $this->email = $data['email'];
+                $this->setEmail($data['email']);
             }
             if (isset($data['phone']) && $data['phone'] instanceof PagSeguroPhone) {
-                $this->phone = $data['phone'];
-            } else {
-                if (isset($data['areaCode']) && isset($data['number'])) {
-                    $phone = new PagSeguroPhone($data['areaCode'], $data['number']);
-                    $this->phone = $phone;
-                }
+                $this->setPhone($data['phone']);
+            } else if (isset($data['areaCode']) && isset($data['number'])) {
+                $phone = new PagSeguroPhone($data['areaCode'], $data['number']);
+                $this->setPhone($phone);
             }
             if (isset($data['documents']) && is_array($data['documents'])) {
                 $this->setDocuments($data['documents']);
@@ -155,10 +153,8 @@ class PagSeguroSender
             foreach ($documents as $document) {
                 if ($document instanceof PagSeguroSenderDocument) {
                     $this->documents[] = $document;
-                } else {
-                    if (is_array($document)) {
+                } else if (is_array($document)) {
                         $this->addDocument($document['type'], $document['value']);
-                    }
                 }
             }
         }

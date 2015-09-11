@@ -40,7 +40,7 @@ class PagSeguroNotificationType
     public function __construct($value = null)
     {
         if ($value) {
-            $this->value = $value;
+            $this->setValue($value);
         }
     }
 

@@ -17,9 +17,9 @@
  ************************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../../PagSeguroLibrary/PagSeguroLibrary.php";
 
-class SearchTransactionsAbandoned
+class SearchTransactionsByDateInterval
 {
 
     public static function main()
@@ -42,13 +42,12 @@ class SearchTransactionsAbandoned
             // seller authentication
             $credentials = new PagSeguroAccountCredentials("vendedor@lojamodelo.com.br",
                 "E231B2C9BCC8474DA2E260B6C8CF60D3");
-
+            
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
-            $result = PagSeguroTransactionSearchService::searchAbandoned(
+            $result = PagSeguroTransactionSearchService::searchByDate(
                 $credentials,
                 $pageNumber,
                 $maxPageResults,
@@ -67,18 +66,18 @@ class SearchTransactionsAbandoned
     public static function printResult(PagSeguroTransactionSearchResult $result, $initialDate, $finalDate)
     {
         $finalDate = $finalDate ? $finalDate : 'now';
-        echo "<h2>Search transactions abandoned</h2>";
+        echo "<h2>Search transactions by date</h2>";
         echo "<h3>$initialDate to $finalDate</h3>";
         $transactions = $result->getTransactions();
         if (is_array($transactions) && count($transactions) > 0) {
             foreach ($transactions as $key => $transactionSummary) {
                 echo "Code: " . $transactionSummary->getCode() . "<br>";
                 echo "Reference: " . $transactionSummary->getReference() . "<br>";
-                echo "Amount: " . $transactionSummary->getGrossAmount() . "<br>";
+                echo "amount: " . $transactionSummary->getGrossAmount() . "<br>";
                 echo "<hr>";
             }
         }
     }
 }
 
-SearchTransactionsAbandoned::main();
+SearchTransactionsByDateInterval::main();

@@ -18,12 +18,12 @@
  * ***********************************************************************
  */
 
-require_once "../PagSeguroLibrary/PagSeguroLibrary.php";
+require_once "../../PagSeguroLibrary/PagSeguroLibrary.php";
 
 /**
  * Class with a main method to illustrate the usage of the domain class PagSeguroDirectPaymentRequest
  */
-class CreateTransactionUsingBoleto
+class CreateTransactionUsingOnlineDebit
 {
 
     public static function main()
@@ -35,7 +35,7 @@ class CreateTransactionUsingBoleto
         $directPaymentRequest->setPaymentMode('DEFAULT');
 
         // Set the Payment Method for this payment request
-        $directPaymentRequest->setPaymentMethod('BOLETO');
+        $directPaymentRequest->setPaymentMethod('EFT');
 
         /**
         * @todo Change the receiver Email
@@ -93,6 +93,13 @@ class CreateTransactionUsingBoleto
             'BRA'
         );
 
+        // Set bank for this payment request
+        $directPaymentRequest->setOnlineDebit(
+            array(
+                "bankName" => 'ITAU'
+            )
+        );
+
         try {
             /**
              * #### Credentials #####
@@ -107,7 +114,6 @@ class CreateTransactionUsingBoleto
 
             // application authentication
             //$credentials = PagSeguroConfig::getApplicationCredentials();
-
             //$credentials->setAuthorizationCode("E231B2C9BCC8474DA2E260B6C8CF60D3");
 
             // Register this payment request in PagSeguro to obtain the payment URL to redirect your customer.
@@ -124,17 +130,17 @@ class CreateTransactionUsingBoleto
     {
 
         if ($transaction) {
-            echo "<h2>Retorno da transa&ccedil;&atilde;o com Boleto</h2>";
+            echo "<h2>Retorno da transa&ccedil;&atilde;o de D&eacute;bito Online</h2>";
             echo "<p><strong>Date: </strong> ".$transaction->getDate() ."</p> ";
             echo "<p><strong>lastEventDate: </strong> ".$transaction->getLastEventDate()."</p> ";
             echo "<p><strong>code: </strong> ".$transaction->getCode() ."</p> ";
             echo "<p><strong>reference: </strong> ".$transaction->getReference() ."</p> ";
+            echo "<p><strong>recovery code: </strong> ".$transaction->getRecoveryCode() ."</p> ";
             echo "<p><strong>type: </strong> ".$transaction->getType()->getValue() ."</p> ";
             echo "<p><strong>status: </strong> ".$transaction->getStatus()->getValue() ."</p> ";
 
             echo "<p><strong>paymentMethodType: </strong> ".$transaction->getPaymentMethod()->getType()->getValue() ."</p> ";
             echo "<p><strong>paymentModeCode: </strong> ".$transaction->getPaymentMethod()->getCode()->getValue() ."</p> ";
-            echo "<p><strong>paymentLink: </strong> ".$transaction->getPaymentLink() ."</p> ";
 
             echo "<p><strong>grossAmount: </strong> ".$transaction->getGrossAmount() ."</p> ";
             echo "<p><strong>discountAmount: </strong> ".$transaction->getDiscountAmount() ."</p> ";
@@ -173,4 +179,4 @@ class CreateTransactionUsingBoleto
     }
 }
 
-CreateTransactionUsingBoleto::main();
+CreateTransactionUsingOnlineDebit::main();

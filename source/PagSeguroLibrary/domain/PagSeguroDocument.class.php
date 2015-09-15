@@ -28,7 +28,8 @@ class PagSeguroDocument
 {
 
     private static $availableDocumentList = array(
-        1 => 'CPF'
+        1 => 'CPF',
+        2 => 'CNPJ'
     );
 
     /***

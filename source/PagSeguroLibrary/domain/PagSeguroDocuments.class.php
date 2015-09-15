@@ -32,7 +32,8 @@ class PagSeguroDocuments
      * @var array
      */
     private static $availableDocumentList = array(
-        'CPF' => 'Cadastro de Pessoa Física'
+        'CPF' => 'Cadastro de Pessoa Física',
+        'CNPJ' => 'Cadastro de Pessoa Jurídica'
     );
 
     /***

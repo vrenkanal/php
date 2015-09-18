@@ -50,7 +50,9 @@ class PagSeguroHelper
      */
     public static function decimalFormat($value)
     {
-        if (is_float($value)) {
+        if (is_int($value)) {
+            return $value;
+        }else if (is_float($value)) {
             if (strcspn(strrev($value), '.') >= 3) {
                 $value = floor($value * 100) / 100;
             }
